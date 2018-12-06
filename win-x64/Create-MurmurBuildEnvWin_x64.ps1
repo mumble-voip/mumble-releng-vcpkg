@@ -53,9 +53,9 @@ if(Check-LocalGitRepositoryExists -name "ice" -version $iceReleaseVersion) {
         -branch $iceReleaseVersion
 	cd "$BuildPath/ice/cpp"
 	Write-Host "Building Ice from source + NuGet dependencies..."
-	$msbuildResult = (Start-Process  -FilePath "$msbuildPath/msbuild.exe" `
-		-ArgumentList "/m msbuild\ice.proj /t:NuGetPack /p:Platform=x64" `
-		-Wait -NoNewWindow -PassThru).ExitCode
+	#$msbuildResult = (Start-Process  -FilePath "$msbuildPath/msbuild.exe" `
+	#	-ArgumentList "/m msbuild\ice.proj /t:NuGetPack /p:Platform=x64" `
+	#	-Wait -NoNewWindow -PassThru).ExitCode
 	if ($msbuildResult -ne 0) {
 		Write-Host "There was an error in the build process of Ice."
 			"Aborting..."
