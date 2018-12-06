@@ -32,6 +32,10 @@ $iceReleaseVersion = "v3.7.1"
 # microsoft vcpkg - does not have "releases", has a self contained "update"
 $vcpkgRepository = "https://github.com/Microsoft/vcpkg.git"
 
+# set up Visual Studio 2017 path variables, even if they have been set previously
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+
+# Visual Studio 2017 msbuild path
 $msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\`
     MSBuild\15.0\Bin\msbuild.exe"
 
