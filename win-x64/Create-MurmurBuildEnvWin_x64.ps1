@@ -16,7 +16,7 @@ param(
         }
         return $true
     })]
-    [Parameter(Mandatory=$true)][System.IO.FileInfo] $Path
+    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath
 )
 
 . "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
@@ -47,11 +47,11 @@ if(Check-LocalGitRepositoryExists -name "ice" -version $iceReleaseVersion) {
     Write-Host $repositoryWarning
     exit    
 } else {
-    cd $Path
+    cd $BuildPath
 	Write-Host "Cloning Ice Repository..."
     Manage-LocalGitRepository -task "clone" -name "ice" -url $iceRepository `
         -branch $iceReleaseVersion
-	cd "$Path/ice/cpp"
+	cd "$BuildPath/ice/cpp"
 	Write-Host "Building Ice from source + NuGet dependencies..."
 	$msbuildResult = (Start-Process  -FilePath "$msbuildPath/msbuild.exe" `
 		-ArgumentList "/m msbuild\ice.proj /t:NuGetPack /p:Platform=x64" `
@@ -67,10 +67,10 @@ if(Check-LocalGitRepositoryExists -name "vcpkg") {
 	Write-Host $repositoryWarning
 	exit
 } else {
-	cd $Path
+	cd $BuildPath
 	Write-Host "Cloning Vcpkg Repository..."
 	Manage-LocalGitRepository -task "clone" -name "vcpkg" -url $vcpkgRepository
-	cd "$Path/vcpkg"
+	cd "$BuildPath/vcpkg"
 	Write-Host "Running Vcpkg Bootstrap script..."
 	.\bootstrap-vcpkg.bat
 }
