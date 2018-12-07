@@ -52,9 +52,12 @@ if(Check-LocalGitRepositoryExists -name "ice" -version $iceReleaseVersion) {
         -branch $iceReleaseVersion
 	cd "$BuildPath/ice/cpp"
 	Write-Host "Building Ice from source + NuGet dependencies..."
+	
+	# for testing - https://stackoverflow.com/a/32721672/8132446
+	# to eliminate the excessive wait after msbuild completes and limit leftover processes
 	$msbuildResult = (Start-Process -FilePath $msbuild `
-		-ArgumentList "/m msbuild\ice.proj /t:NuGetPack /p:Platform=x64" `
-		-Wait -NoNewWindow -PassThru).ExitCode
+		-ArgumentList "/maxcpucount:1 msbuild\ice.proj /t:NuGetPack /p:Platform=x64 /nodeReuse:false" `
+		-Wait -NoNewWindow -PassThru -Wait).ExitCode
 	if ($msbuildResult -ne 0) {
 		Write-Host "There was an error in the build process of Ice."
 			"Aborting..."
