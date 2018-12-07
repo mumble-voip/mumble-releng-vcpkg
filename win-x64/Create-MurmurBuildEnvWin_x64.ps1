@@ -36,8 +36,7 @@ $vcpkgRepository = "https://github.com/Microsoft/vcpkg.git"
 "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 # Visual Studio 2017 msbuild path
-$msbuildPath = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\`
-    MSBuild\15.0\Bin\msbuild.exe"
+$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
 
 $repositoryWarning = "Repository Exists!\n `
 	It is recommended that you resolve repository contents manually using Git.\n`
@@ -53,9 +52,9 @@ if(Check-LocalGitRepositoryExists -name "ice" -version $iceReleaseVersion) {
         -branch $iceReleaseVersion
 	cd "$BuildPath/ice/cpp"
 	Write-Host "Building Ice from source + NuGet dependencies..."
-	#$msbuildResult = (Start-Process  -FilePath "$msbuildPath/msbuild.exe" `
-	#	-ArgumentList "/m msbuild\ice.proj /t:NuGetPack /p:Platform=x64" `
-	#	-Wait -NoNewWindow -PassThru).ExitCode
+	$msbuildResult = (Start-Process -FilePath $msbuild `
+		-ArgumentList "/m msbuild\ice.proj /t:NuGetPack /p:Platform=x64" `
+		-Wait -NoNewWindow -PassThru).ExitCode
 	if ($msbuildResult -ne 0) {
 		Write-Host "There was an error in the build process of Ice."
 			"Aborting..."
