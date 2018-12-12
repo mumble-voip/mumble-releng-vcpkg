@@ -76,3 +76,4 @@ if(Check-LocalGitRepositoryExists -name "vcpkg") {
 	Write-Host "Running Vcpkg Bootstrap script..."
 	.\bootstrap-vcpkg.bat
 }
+
