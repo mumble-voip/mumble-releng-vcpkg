@@ -11,8 +11,17 @@ if [ $? -eq 0 ]
 then
 	cd vcpkg
 	./bootstrap-vcpkg.bat
+	
+	case "$OSTYPE" in
+		*msys* ) triplet = "x64-windows-static"
+		*linux-gnu* ) triplet = "x64-linux"
+		*darwin* ) triplet = "x64-osx"
+		* ) echo "The OSTYPE is either not defined or unsupported. Aborting..."
+	esac
+	
+	[ -z "$triplet" ] && \
 	./vcpkg install qt5-base gRPC boost-atomic boost-function boost-optional \
-		--triplet x64-windows-static
+		--triplet $triplet || echo "Triplet type is not defined! Aborting..."
 else
 	echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
 fi
