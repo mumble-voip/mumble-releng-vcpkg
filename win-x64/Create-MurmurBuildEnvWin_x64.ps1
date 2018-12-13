@@ -16,15 +16,7 @@ param(
         }
         return $true
     })]
-    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath,
-
-	[ValidateScript( {
-        if( -Not ($_ | Test-Path) ) {
-            throw "Folder does not exist"
-        }
-        return $true
-    })]
-    [Parameter(Mandatory=$true)][System.IO.FileInfo] $RepoPath
+    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath
 )
 
 . "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
@@ -44,6 +36,8 @@ param(
 "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 $gitbashPath = "C:\Program Files\Git\git-bash.exe"
+$currentDir = Get-Location
+$repoPath = Split-Path -Path $currentDir -Parent
 
 ## Visual Studio 2017 msbuild path
 #$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
@@ -67,7 +61,7 @@ $repositoryWarning = "Repository Exists!\n `
 #	# to eliminate the excessive wait after msbuild completes and limit leftover processes
 #	$msbuildResult = (Start-Process -FilePath $msbuild `
 #		-ArgumentList "/maxcpucount:1 msbuild\ice.proj /t:NuGetPack /p:Platform=x64 /nodeReuse:false" `
-#		-Wait -NoNewWindow -PassThru -Wait).ExitCode
+#		-NoNewWindow -PassThru -Wait).ExitCode
 #	if ($msbuildResult -ne 0) {
 #		Write-Host "There was an error in the build process of Ice."
 #			"Aborting..."
@@ -82,14 +76,14 @@ if(Check-LocalGitRepositoryExists -name "vcpkg") {
 	cd $BuildPath
 	Write-Host "Cloning Vcpkg Repository..."
 	#Manage-LocalGitRepository -task "clone" -name "vcpkg" -url $vcpkgRepository
-	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$RepoPath/get_murmur-deps.sh" `
+	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$repoPath/get_murmur-deps.sh" `
 		-NoNewWindow -PassThru -Wait).ErrorCode
 	#cd "$BuildPath/vcpkg"
 	#Write-Host "Running Vcpkg Bootstrap script..."
 	#.\bootstrap-vcpkg.bat
-	if($vcpkgResult -eq 0) {
-		Write-Host "vcpkg repository and dependencies created successfully!"
-	} else {
-		Write-Host "vcpkg repository and dependencies failed!"
-	}
+	#if($vcpkgResult -eq 0) {
+	#	Write-Host "vcpkg repository and dependencies created successfully!"
+	#} else {
+	#	Write-Host "vcpkg repository and dependencies failed!"
+	#}
 }
