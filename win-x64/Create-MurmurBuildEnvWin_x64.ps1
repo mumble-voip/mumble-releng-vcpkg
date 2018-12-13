@@ -16,10 +16,18 @@ param(
         }
         return $true
     })]
-    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath
+    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath,
+
+	[ValidateScript( {
+        if( -Not ($_ | Test-Path) ) {
+            throw "Folder does not exist"
+        }
+        return $true
+    })]
+    [Parameter(Mandatory=$true)][System.IO.FileInfo] $RepoPath
 )
 
-#. "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
+. "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
 #. "$PSScriptRoot/Helpers/Manage-LocalGitRepository.ps1"
 
 ## change repositories and versions here. use current release/stable tags,
@@ -32,15 +40,17 @@ param(
 ## microsoft vcpkg - does not have "releases", has a self contained "update"
 #$vcpkgRepository = "https://github.com/Microsoft/vcpkg.git"
 
-## set up Visual Studio 2017 path variables, even if they have been set previously
-#"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+# set up Visual Studio 2017 path variables, even if they have been set previously
+"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+
+$gitbashPath = "C:\Program Files\Git\git-bash.exe"
 
 ## Visual Studio 2017 msbuild path
 #$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
 
-#$repositoryWarning = "Repository Exists!\n `
-#	It is recommended that you resolve repository contents manually using Git.\n`
-#    Aborting..."
+$repositoryWarning = "Repository Exists!\n `
+	It is recommended that you resolve repository contents manually using Git.\n`
+    Aborting..."
         
 #if(Check-LocalGitRepositoryExists -name "ice" -version $iceReleaseVersion) {
 #    Write-Host $repositoryWarning
@@ -65,14 +75,21 @@ param(
 #	}
 #}
 
-#if(Check-LocalGitRepositoryExists -name "vcpkg") {
-#	Write-Host $repositoryWarning
-#	exit
-#} else {
-#	cd $BuildPath
-#	Write-Host "Cloning Vcpkg Repository..."
-#	Manage-LocalGitRepository -task "clone" -name "vcpkg" -url $vcpkgRepository
-#	cd "$BuildPath/vcpkg"
-#	Write-Host "Running Vcpkg Bootstrap script..."
-#	.\bootstrap-vcpkg.bat
+if(Check-LocalGitRepositoryExists -name "vcpkg") {
+	Write-Host $repositoryWarning
+	exit
+} else {
+	cd $BuildPath
+	Write-Host "Cloning Vcpkg Repository..."
+	#Manage-LocalGitRepository -task "clone" -name "vcpkg" -url $vcpkgRepository
+	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$RepoPath/get_murmur-deps.sh" `
+		-NoNewWindow -PassThru -Wait).ErrorCode
+	#cd "$BuildPath/vcpkg"
+	#Write-Host "Running Vcpkg Bootstrap script..."
+	#.\bootstrap-vcpkg.bat
+	if($vcpkgResult -eq 0) {
+		Write-Host "vcpkg repository and dependencies created successfully!"
+	} else {
+		Write-Host "vcpkg repository and dependencies failed!"
+	}
 }
