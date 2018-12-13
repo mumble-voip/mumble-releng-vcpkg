@@ -87,3 +87,5 @@ if(Check-LocalGitRepositoryExists -name "vcpkg") {
 	#	Write-Host "vcpkg repository and dependencies failed!"
 	#}
 }
+
+cd $repoPath
