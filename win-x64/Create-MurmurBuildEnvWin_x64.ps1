@@ -47,7 +47,7 @@ if("C:\Program Files\Git\git-bash.exe" | Test-Path) {
 		-NoNewWindow -PassThru -Wait).ErrorCode
 
 } else {
-	Write-Host "Git-bash not found! Please install Git for Windows x64"
+	Write-Host "Git-bash not found! Please install Git for Windows x64. Aborting..."
 	exit
 }
 
