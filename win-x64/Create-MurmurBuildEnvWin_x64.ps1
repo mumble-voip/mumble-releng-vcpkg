@@ -35,9 +35,25 @@
 # set up Visual Studio 2017 path variables, even if they have been set previously
 #"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
-$gitbashPath = "C:\Program Files\Git\git-bash.exe"
-$currentDir = Get-Location
-$reposPath = Split-Path -Path $currentDir -Parent
+if("C:\Program Files\Git\git-bash.exe" | Test-Path) {
+	$gitbashPath = "C:\Program Files\Git\git-bash.exe"
+	$currentDir = Get-Location
+
+	# provide a path where git repos are normally stored
+	$reposPath = Split-Path -Path $currentDir -Parent
+	cd $reposPath
+	Write-Host "Cloning Vcpkg Repository..."
+	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "get_murmur-deps.sh" `
+		-NoNewWindow -PassThru -Wait).ErrorCode
+
+} else {
+	Write-Host "Git-bash not found! Please install Git for Windows x64"
+	exit
+}
+
+
+
+
 
 ## Visual Studio 2017 msbuild path
 #$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
@@ -73,10 +89,6 @@ if(Check-LocalGitRepositoryExists -RepoPath $reposPath -Name "vcpkg") {
 	Write-Host $repositoryWarning
 	exit
 } else {
-	cd $reposPath
-	Write-Host "Cloning Vcpkg Repository..."
-	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "get_murmur-deps.sh" `
-		-NoNewWindow -PassThru -Wait).ErrorCode
+	
 }
 
-cd $reposPath
