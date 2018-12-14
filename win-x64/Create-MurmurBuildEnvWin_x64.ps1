@@ -19,7 +19,7 @@
 #    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath
 #)
 
-. "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
+#. "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
 #. "$PSScriptRoot/Helpers/Manage-LocalGitRepository.ps1"
 
 ## change repositories and versions here. use current release/stable tags,
@@ -58,9 +58,9 @@ if("C:\Program Files\Git\git-bash.exe" | Test-Path) {
 ## Visual Studio 2017 msbuild path
 #$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
 
-$repositoryWarning = "Repository Exists!\n `
-	It is recommended that you resolve repository contents manually using Git.\n`
-    Aborting..."
+#$repositoryWarning = "Repository Exists!\n `
+#	It is recommended that you resolve repository contents manually using Git.\n`
+#    Aborting..."
         
 #if(Check-LocalGitRepositoryExists -name "ice" -version $iceReleaseVersion) {
 #    Write-Host $repositoryWarning
@@ -85,10 +85,10 @@ $repositoryWarning = "Repository Exists!\n `
 #	}
 #}
 
-if(Check-LocalGitRepositoryExists -RepoPath $reposPath -Name "vcpkg") {
-	Write-Host $repositoryWarning
-	exit
-} else {
+#if(Check-LocalGitRepositoryExists -RepoPath $reposPath -Name "vcpkg") {
+#	Write-Host $repositoryWarning
+#	exit
+#} else {
 	
-}
+#}
 
