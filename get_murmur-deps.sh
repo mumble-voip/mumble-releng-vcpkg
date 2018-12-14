@@ -11,15 +11,21 @@ case "$OSTYPE" in
 		darwin* ) triplet='x64-osx';;
 		* ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
-git clone https://github.com/Microsoft/vcpkg.git
 
-if [ $? -eq 0 ]
+if [ -d 'vcpkg' ]
 then
-	cd vcpkg
-	./bootstrap-vcpkg.bat
-	[ -z "$triplet" ] && echo "Triplet type is not defined! Aborting..." || \
-	./vcpkg install qt5-base gRPC boost-atomic boost-function boost-optional \
-		--triplet $triplet
+	git clone https://github.com/Microsoft/vcpkg.git
+
+	if [ $? -eq 0 ]
+	then
+		cd vcpkg
+		./bootstrap-vcpkg.bat
+		[ -z "$triplet" ] && echo "Triplet type is not defined! Aborting..." || \
+		./vcpkg install qt5-base gRPC boost-atomic boost-function boost-optional \
+			--triplet $triplet
+	else
+		echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
+	fi
 else
-	echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
+	echo "vcpkg directory exists. Use vcpkg binary to resolve issues with libraries"
 fi
