@@ -12,12 +12,9 @@ case "$OSTYPE" in
 		* ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
 
-if [ -d './vcpkg' ]
-then
+if [ ! -d './vcpkg' ]; then
 	git clone https://github.com/Microsoft/vcpkg.git
-
-	if [ $? -eq 0 ]
-	then
+	if [ $? -eq 0 ]; then
 		cd vcpkg
 		./bootstrap-vcpkg.bat
 		[ -z "$triplet" ] && echo "Triplet type is not defined! Aborting..." || \
@@ -26,4 +23,6 @@ then
 	else
 		echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
 	fi
+else
+	echo "vcpkg repository exists! Use vcpkg binary to manage the repository. Aborting..."
 fi
