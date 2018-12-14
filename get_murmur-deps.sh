@@ -12,7 +12,7 @@ case "$OSTYPE" in
 		* ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
 
-if [ -d 'vcpkg' ]
+if [ -d './vcpkg' ]
 then
 	git clone https://github.com/Microsoft/vcpkg.git
 
