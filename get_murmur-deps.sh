@@ -26,6 +26,4 @@ then
 	else
 		echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
 	fi
-else
-	echo "vcpkg directory exists. Use vcpkg binary to resolve issues with libraries"
 fi
