@@ -75,17 +75,8 @@ if(Check-LocalGitRepositoryExists -RepoPath $reposPath -Name "vcpkg") {
 } else {
 	cd $reposPath
 	Write-Host "Cloning Vcpkg Repository..."
-	#Manage-LocalGitRepository -task "clone" -name "vcpkg" -url $vcpkgRepository
 	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$reposPath/get_murmur-deps.sh" `
 		-NoNewWindow -PassThru -Wait).ErrorCode
-	#cd "$BuildPath/vcpkg"
-	#Write-Host "Running Vcpkg Bootstrap script..."
-	#.\bootstrap-vcpkg.bat
-	#if($vcpkgResult -eq 0) {
-	#	Write-Host "vcpkg repository and dependencies created successfully!"
-	#} else {
-	#	Write-Host "vcpkg repository and dependencies failed!"
-	#}
 }
 
 cd $reposPath
