@@ -9,13 +9,14 @@
 # Please also refer to the following regarding function declaration:
 # <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions>
 
-function Check-LocalGitRepositoryExists([Parameter(Mandatory=$true)][string] $name, 
-        [string] $version) {
+function Check-LocalGitRepositoryExists([Parameter(Mandatory=$true)][string] $Name,
+										[Parameter(Mandatory=$true)][string] $RepoPath,
+										[string] $Version) {
 
     if($version -eq $null) {
-        $repositoryFolder = "$Path/$name"
+        $repositoryFolder = "$RepoPath/$Name"
     } else {
-        $repositoryFolder = "$Path/$name-$version"
+        $repositoryFolder = "$RepoPath/$Name-$Version"
     }
 
     $repositoryExists = $false

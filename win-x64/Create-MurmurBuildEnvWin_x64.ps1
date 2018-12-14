@@ -9,15 +9,15 @@
 # Please also refer to the following regarding function declaration:
 # <https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions>
 
-param( 
-    [ValidateScript( {
-        if( -Not ($_ | Test-Path) ) {
-            throw "Folder does not exist"
-        }
-        return $true
-    })]
-    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath
-)
+#param( 
+#    [ValidateScript( {
+#        if( -Not ($_ | Test-Path) ) {
+#            throw "Folder does not exist"
+#        }
+#        return $true
+#    })]
+#    [Parameter(Mandatory=$true)][System.IO.FileInfo] $BuildPath
+#)
 
 . "$PSScriptRoot/Helpers/Check-LocalGitRepositoryExists.ps1"
 #. "$PSScriptRoot/Helpers/Manage-LocalGitRepository.ps1"
@@ -33,11 +33,11 @@ param(
 #$vcpkgRepository = "https://github.com/Microsoft/vcpkg.git"
 
 # set up Visual Studio 2017 path variables, even if they have been set previously
-"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
+#"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars64.bat"
 
 $gitbashPath = "C:\Program Files\Git\git-bash.exe"
 $currentDir = Get-Location
-$repoPath = Split-Path -Path $currentDir -Parent
+$reposPath = Split-Path -Path $currentDir -Parent
 
 ## Visual Studio 2017 msbuild path
 #$msbuild = "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\msbuild.exe"
@@ -69,14 +69,14 @@ $repositoryWarning = "Repository Exists!\n `
 #	}
 #}
 
-if(Check-LocalGitRepositoryExists -name "vcpkg") {
+if(Check-LocalGitRepositoryExists -RepoPath $reposPath -Name "vcpkg") {
 	Write-Host $repositoryWarning
 	exit
 } else {
-	cd $BuildPath
+	cd $reposPath
 	Write-Host "Cloning Vcpkg Repository..."
 	#Manage-LocalGitRepository -task "clone" -name "vcpkg" -url $vcpkgRepository
-	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$repoPath/get_murmur-deps.sh" `
+	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$reposPath/get_murmur-deps.sh" `
 		-NoNewWindow -PassThru -Wait).ErrorCode
 	#cd "$BuildPath/vcpkg"
 	#Write-Host "Running Vcpkg Bootstrap script..."
@@ -88,4 +88,4 @@ if(Check-LocalGitRepositoryExists -name "vcpkg") {
 	#}
 }
 
-cd $repoPath
+cd $reposPath
