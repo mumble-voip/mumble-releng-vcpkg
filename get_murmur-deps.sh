@@ -13,7 +13,7 @@ case "$OSTYPE" in
 esac
 
 if [ ! -d './vcpkg' ]; then
-	git clone https://github.com/Microsoft/vcpkg.git
+	git clone https://github.com/Microsoft/vcpkg.git ..
 	if [ $? -eq 0 ]; then
 		cd vcpkg
 		./bootstrap-vcpkg.bat
