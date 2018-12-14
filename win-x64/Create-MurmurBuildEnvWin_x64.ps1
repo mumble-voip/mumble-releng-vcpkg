@@ -75,7 +75,7 @@ if(Check-LocalGitRepositoryExists -RepoPath $reposPath -Name "vcpkg") {
 } else {
 	cd $reposPath
 	Write-Host "Cloning Vcpkg Repository..."
-	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$reposPath/get_murmur-deps.sh" `
+	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "get_murmur-deps.sh" `
 		-NoNewWindow -PassThru -Wait).ErrorCode
 }
 
