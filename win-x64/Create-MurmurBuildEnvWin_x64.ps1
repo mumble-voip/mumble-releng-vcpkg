@@ -37,13 +37,13 @@
 
 if("C:\Program Files\Git\git-bash.exe" | Test-Path) {
 	$gitbashPath = "C:\Program Files\Git\git-bash.exe"
-	$buildDir = Get-Location
+	$scriptDir = Get-Location
 
 	# provide a path where git repos are normally stored
-	$reposPath = Split-Path -Path $buildDir -Parent
-	cd $reposPath
+	$repoPath = Split-Path -Path $scriptDir -Parent
+	cd $repoPath
 	Write-Host "Cloning Vcpkg Repository..."
-	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "$buildDir\get_murmur-deps.sh" `
+	$vcpkgResult = (Start-Process -FilePath $gitbashPath -ArgumentList "get_murmur-deps.sh" `
 		-NoNewWindow -PassThru -Wait).ErrorCode
 
 } else {
