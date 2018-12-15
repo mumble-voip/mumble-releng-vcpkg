@@ -13,10 +13,13 @@ case "$OSTYPE" in
 esac
 
 if [ ! -d './vcpkg' ]; then
-	git clone https://github.com/Microsoft/vcpkg.git ..
+	git clone https://github.com/Microsoft/vcpkg.git ../vcpkg
 	if [ $? -eq 0 ]; then
-		cd vcpkg
-		./bootstrap-vcpkg.bat
+		cd ../vcpkg
+		case "$OSTYPE" in
+			msys* ) ./bootstrap-vcpkg.bat;;
+			* ) bash bootstrap-vcpkg.sh;;
+		esac
 		[ -z "$triplet" ] && echo "Triplet type is not defined! Aborting..." || \
 		./vcpkg install qt5-base gRPC boost-atomic boost-function boost-optional \
 			--triplet $triplet
