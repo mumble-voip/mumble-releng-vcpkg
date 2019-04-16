@@ -20,6 +20,7 @@ if [ ! -d './vcpkg' ]; then
 			msys* ) ./bootstrap-vcpkg.bat;;
 			* ) bash bootstrap-vcpkg.sh;;
 		esac
+		./vcpkg integrate install
 		[ -z "$triplet" ] && echo "Triplet type is not defined! Aborting..." || \
 		./vcpkg install qt5-base gRPC boost-atomic boost-function boost-optional \
 			--triplet $triplet
