@@ -14,6 +14,8 @@ esac
 
 if [ ! -d './vcpkg' ]; then
 	git clone https://github.com/Microsoft/vcpkg.git ../vcpkg
+	# vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
+	cp -R helpers/vcpkg/ports/* ../vcpkg/ports/
 	if [ $? -eq 0 ]; then
 		cd ../vcpkg
 		case "$OSTYPE" in
