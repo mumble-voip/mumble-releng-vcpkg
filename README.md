@@ -2,7 +2,7 @@
 
 WARNING: This is Experimental and is not complete for use. Testing is on-going.
 
-get_mumur-deps.sh is currently a "proof of concept" designed to deliver vcpkg as a dependency framework for murmur (Mumble Server) and is likely to change. The long term goal is to automate dependency gathering for the client and server. As written, it should be capable of working on 64 bit Windows, GNU/Linux, and MacOSX. 
+get_mumur-deps.sh is currently a "proof of concept" designed to deliver vcpkg as a dependency framework for murmur (Mumble Server) and is likely to change. The long term goal is to automate dependency gathering for the client and server. As written, it should be capable of working on 64 bit Windows, GNU/Linux, and MacOSX. vcpkg source and requirements are found [here](https://github.com/Microsoft/vcpkg)
 
 ## Windows
 
