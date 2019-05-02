@@ -25,7 +25,7 @@ elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
 elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Linux")
    message(STATUS "Building ${TARGET_TRIPLET}...")
    vcpkg_execute_required_process(
-      COMMAND "make CONFIGS=cpp11-shared -j8 srcs"
+      COMMAND "make CONFIGS=cpp11-static -j8"
 	  WORKING_DIRECTORY ${SOURCE_PATH}
    )
    message(STATUS "Building ${TARGET_TRIPLET} done")
