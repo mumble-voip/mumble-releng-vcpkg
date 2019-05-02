@@ -16,8 +16,7 @@ if(NOT VCPKG_CMAKE_SYSTEM_NAME OR VCPKG_CMAKE_SYSTEM_NAME STREQUAL "WindowsStore
       SOURCE_PATH ${SOURCE_PATH}
 	  PROJECT_SUBPATH msbuild/mcpp.sln
    )
-      
-   vcpkg_clean_msbuild()
+
 elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Darwin" OR VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Linux")
    #set(BUILD_SCRIPT ${CMAKE_CURRENT_LIST_DIR}\\build.sh)
    message(STATUS "Building ${TARGET_TRIPLET}...")
