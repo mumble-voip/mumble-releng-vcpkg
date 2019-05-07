@@ -12,16 +12,16 @@ Requires [Git for Windows](https://git-scm.com/download/win). During install, ma
 
 Click Start, search for Git Bash and run it. cd to the git repository directory and run the following command:
 
-`./get_murmur-deps.sh`
+`./get-mumble_voip_deps.sh`
 
 ### Method 2
 
 From cmd or PowerShell, cd to the git repository and run the following command:
 
-`git-bash get_murmur-deps.sh`
+`git-bash get-mumble_voip_deps.sh`
 
 ## GNU/Linux and MacOSX
 
 From a terminal cd to the git repository, set execute permission, and run the following command:
 
-`./get_murmur-deps.sh`
+`./get-mumble_voip_deps.sh`
