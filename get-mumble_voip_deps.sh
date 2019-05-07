@@ -17,9 +17,7 @@ if [ ! -d "../vcpkg" ]
       git clone https://github.com/Microsoft/vcpkg.git ../vcpkg
       if [ "$(ls -A ../vcpkg)" ] 
 	     then
-		    # vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
-            cp -R helpers/vcpkg/ports/* ../vcpkg/ports/
-            cd ../vcpkg
+		    cd ../vcpkg
             case "$OSTYPE" in
                msys* ) ./bootstrap-vcpkg.bat;;
                * ) bash bootstrap-vcpkg.sh;;
