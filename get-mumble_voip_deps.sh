@@ -19,10 +19,10 @@ if [ ! -d "../vcpkg" ]
 	     then
 		    cd ../vcpkg
             case "$OSTYPE" in
-               msys* ) ./bootstrap-vcpkg.bat;;
+               msys* ) ./bootstrap-vcpkg.bat
+			           ./vcpkg integrate install;;
                * ) bash bootstrap-vcpkg.sh;;
             esac
-            ./vcpkg integrate install
             if [ -z "$triplet" ]
 			   then
 			      echo "Triplet type is not defined! Aborting..."
