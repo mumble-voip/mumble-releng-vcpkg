@@ -12,23 +12,12 @@ file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
 vcpkg_check_linkage(ONLY_STATIC_LIBRARY)
 
-if(NOT VCPKG_CMAKE_SYSTEM_NAME OR VCPKG_CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
-   set(VCPKG_CRT_LINKAGE dynamic)
-   vcpkg_install_msbuild(
-      SOURCE_PATH ${SOURCE_PATH}
-	  PROJECT_SUBPATH msbuild/mcpp.sln
-   )
+vcpkg_configure_cmake(
+   SOURCE_PATH ${SOURCE_PATH}
+   PREFER_NINJA
+)
 
-elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Darwin" OR VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Linux")
-   #set(BUILD_SCRIPT ${CMAKE_CURRENT_LIST_DIR}\\build.sh)
-   message(STATUS "Building ${TARGET_TRIPLET}...")
-   vcpkg_execute_required_process(
-      COMMAND "make"
-	  WORKING_DIRECTORY ${SOURCE_PATH}
-   )
-   message(STATUS "Building ${TARGET_TRIPLET} done")
-endif()
-
+vcpkg_install_cmake()
 
 file(
    INSTALL 
