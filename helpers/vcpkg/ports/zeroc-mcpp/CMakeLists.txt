@@ -9,7 +9,7 @@ set(mcpp_VERSION_TWEAK 13)
 
 # referenced from https://forums.zeroc.com/discussion/comment/47118#Comment_47118
 if(WIN32)
-   add_compile_definitions(_WIN32_WINNT=0x600 WIN32_LEAN_AND_MEAN _CONSOLE)
+   add_compile_definitions(_WIN32_WINNT=0x600 WIN32_LEAN_AND_MEAN)
 endif()
 
 add_library(mcpp STATIC)
