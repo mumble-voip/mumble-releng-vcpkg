@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.1.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.1.0)
 
 project(zeroc-mcpp)
 set(mcpp_VERSION_MAJOR 2)
 set(mcpp_VERSION_MINOR 7)
 set(mcpp_VERSION_PATCH 2)
-set(mcpp_VERSION_TWEAK 12)
+set(mcpp_VERSION_TWEAK 13)
 
 
 # referenced from https://forums.zeroc.com/discussion/comment/47118#Comment_47118
