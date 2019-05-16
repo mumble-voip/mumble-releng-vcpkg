@@ -44,4 +44,4 @@ elseif(UNIX)
    endif()
 endif()
 
-install(TARGETS mcpp LIBRARY DESTINATION lib)
+install(TARGETS mcpp DESTINATION lib)
