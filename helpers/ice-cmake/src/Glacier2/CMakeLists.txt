@@ -37,7 +37,6 @@ target_sources(glacier2
 target_include_directories(glacier2
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/include/generated"
 	  "${CMAKE_SOURCE_DIR}/src"
 )
 

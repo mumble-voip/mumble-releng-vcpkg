@@ -13,7 +13,6 @@ target_sources(iceboxlib
 target_include_directories(iceboxlib
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/include/generated"
 	  "${CMAKE_SOURCE_DIR}/src"
 )
 
@@ -40,7 +39,6 @@ target_link_libraries(icebox PRIVATE iceboxlib)
 target_include_directories(icebox
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/include/generated"
 	  "${CMAKE_SOURCE_DIR}/src"
 )
 
