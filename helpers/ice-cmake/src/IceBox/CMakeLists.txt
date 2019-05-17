@@ -17,6 +17,8 @@ target_sources(icebox
 
 add_dependencies(icebox iceboxlib)
 
+target_link_libraries(icebox PRIVATE iceboxlib)
+
 target_include_directories(icebox
    PRIVATE 
       #"${CMAKE_SOURCE_DIR}/include"
