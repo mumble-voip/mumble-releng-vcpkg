@@ -223,4 +223,3 @@ if(WIN32)
 		 "Shlwapi.lib"
    )
 endif()
-
