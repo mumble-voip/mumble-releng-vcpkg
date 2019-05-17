@@ -44,3 +44,5 @@ target_include_directories(glacier2
 target_compile_definitions(ice PRIVATE "GLACIER2_API_EXPORTS")
 
 add_dependencies(glacier2 ice)
+
+target_link_libraries(glacier2 PRIVATE ice)
