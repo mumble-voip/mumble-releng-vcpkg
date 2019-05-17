@@ -1,4 +1,3 @@
-cmake_minimum_required(VERSION 3.1.0)
 
 project(Ice)
 
@@ -201,6 +200,7 @@ target_sources(ice
 target_include_directories(ice 
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/include"
+	  "${CMAKE_SOURCE_DIR}/include/generated"
 	  "${CMAKE_SOURCE_DIR}/src"
 )
 
