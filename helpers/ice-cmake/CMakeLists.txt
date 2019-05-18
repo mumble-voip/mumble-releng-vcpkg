@@ -10,10 +10,10 @@ set(zeroc-ice_VERSION_PATCH 2)
 set(SLICES_DIR "${CMAKE_SOURCE_DIR}/slice" CACHE INTERNAL "SLICES_DIR")
 
 # handle slice building so the projects that need it can call it
-function(CompileSlices slice_bin project_dir output_dir)
+function(CompileSlices slice_bin ice_file_path output_dir)
    add_custom_command(
    OUTPUT ${output_dir}
-   COMMAND ${slice_bin} "${project_dir}/*.ice"
+   COMMAND ${slice_bin} ${ice_file_path}
    COMMENT "Generating Ice Files..."
 )
 endfunction()
