@@ -203,8 +203,8 @@ target_sources(ice
 
 target_include_directories(ice 
    PRIVATE 
-      "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/src"
+      "${CMAKE_SOURCE_DIR}/cpp/include"
+	  "${CMAKE_SOURCE_DIR}/cpp/src"
 	  ${SLICE_GENERATED_SOURCE_DIR}
 )
 
