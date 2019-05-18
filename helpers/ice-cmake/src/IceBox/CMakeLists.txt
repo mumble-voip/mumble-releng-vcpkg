@@ -32,7 +32,7 @@ target_sources(icebox
 	  ServiceManagerI.h
 )
 
-add_dependencies(icebox PRIVATE iceboxlib)
+add_dependencies(icebox iceboxlib)
 
 target_link_libraries(icebox PRIVATE iceboxlib)
 
