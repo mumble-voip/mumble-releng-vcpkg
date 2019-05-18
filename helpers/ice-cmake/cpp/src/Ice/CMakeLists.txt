@@ -5,6 +5,12 @@ set(ICE_SLICES "${SLICES_DIR}/Ice")
 set(SLICE_GENERATED_SOURCE_DIR "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
 find_program(SLICE2CPP slice2cpp)
 
+add_custom_target(generated ALL 
+   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BUILD_DIR}/include"
+)
+
+CompileSlices(${SLICE2CPP} ${ICE_SLICES} "${SLICE_GENERATED_SOURCE_DIR}/Ice")
+
 add_library(ice)
 target_sources(ice
    PRIVATE
@@ -205,7 +211,7 @@ target_include_directories(ice
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/cpp/include"
 	  "${CMAKE_SOURCE_DIR}/cpp/src"
-	  ${SLICE_GENERATED_SOURCE_DIR}
+	  "${SLICE_GENERATED_SOURCE_DIR}/Ice"
 )
 
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
@@ -227,9 +233,3 @@ if(WIN32)
 		 "Shlwapi.lib"
    )
 endif()
-
-add_custom_target(generated ALL 
-   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BUILD_DIR}/include"
-)
-
-CompileSlices(${SLICE2CPP} ${ICE_SLICES} ${SLICE_GENERATED_SOURCE_DIR})
