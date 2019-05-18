@@ -2,7 +2,6 @@
 
 project(Slice2CPP)
 
-
 add_executable(slice2cpp Main.cpp)
 
 target_sources(slice2cpp 
@@ -18,7 +17,10 @@ target_include_directories(slice2cpp
 	  "${CMAKE_SOURCE_DIR}/src"
 )
 
-add_dependencies(slice2cpp iceutil slice)
+add_dependencies(slice2cpp 
+   iceutil 
+   slice
+)
 
 target_link_libraries(slice2cpp 
    mcpp
