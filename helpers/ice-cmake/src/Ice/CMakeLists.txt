@@ -2,15 +2,14 @@
 project(Ice)
 
 set(ICE_SLICES "${SLICES_DIR}/Ice")
+set(SLICE_GENERATED_SOURCE_DIR "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
+find_program(SLICE2CPP slice2cpp)
 
-add_custom_command(
-   OUTPUT "${CMAKE_SOURCE_DIR}/include/generated"
-   COMMAND "${CMAKE_BINARY_DIR}/slice2cpp"
-   ARGS "--checksum" ${SLICE_INCLUDE_ARGS} ${ICE_SLICES}
-   MAIN_DEPENDENCY ${ICE_SLICES}
-   COMMENT "Generating Ice Files..."
-   VERBATIM
+add_custom_target(generated ALL 
+   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BUILD_DIR}/include"
 )
+
+CompileSlices(SLICE2CPP ICE_SLICES SLICE_GENERATED_SOURCE_DIR)
 
 add_library(ice)
 target_sources(ice
