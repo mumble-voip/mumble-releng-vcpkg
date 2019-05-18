@@ -1,6 +1,17 @@
 
 project(Ice)
 
+set(ICE_SLICES "${SLICES_DIR}/Ice")
+
+add_custom_command(
+   OUTPUT "${CMAKE_SOURCE_DIR}/include/generated"
+   COMMAND "${CMAKE_BINARY_DIR}/slice2cpp"
+   ARGS "--checksum" ${SLICE_INCLUDE_ARGS} ${ICE_SLICES}
+   MAIN_DEPENDENCY ${ICE_SLICES}
+   COMMENT "Generating Ice Files..."
+   VERBATIM
+)
+
 add_library(ice)
 target_sources(ice
    PRIVATE
@@ -201,6 +212,7 @@ target_include_directories(ice
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/include"
 	  "${CMAKE_SOURCE_DIR}/src"
+	  ${SLICES_DIR}
 )
 
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
