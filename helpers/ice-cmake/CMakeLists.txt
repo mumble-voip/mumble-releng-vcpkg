@@ -28,7 +28,17 @@ set_source_files_properties(
       PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+# ZeroC sets the slices external to the cpp dir
 set(SLICES_DIR "../slice" CACHE INTERNAL "SLICES_DIR")
+
+# handle slice building so the projects that need it can call it
+function(CompileSlices slice_bin project_dir output_dir)
+   add_custom_command(
+   OUTPUT ${output_dir}
+   COMMAND ${CompileSlices} ${project_dir}
+   COMMENT "Generating Ice Files..."
+)
+endfunction()
 
 # Find the Microsoft mc.exe message compiler
 # Retrieved from: https://github.com/pocoproject/poco/blob/208d7be64b23f7dc90af32e68aadbb3abb50a9ff/cmake/PocoMacros.cmake#L9-L51
