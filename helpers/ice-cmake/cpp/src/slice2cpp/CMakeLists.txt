@@ -10,13 +10,12 @@ target_sources(slice2cpp
    PRIVATE
       Gen.cpp
 	  Gen.h
-	  Slice2Cpp.rc
 )
 
 target_include_directories(slice2cpp
    PRIVATE
-	  "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/src"
+	  "${CMAKE_SOURCE_DIR}/cpp/include"
+	  "${CMAKE_SOURCE_DIR}/cpp/src"
 )
 
 add_dependencies(slice2cpp 

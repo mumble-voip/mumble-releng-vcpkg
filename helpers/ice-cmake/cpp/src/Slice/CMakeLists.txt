@@ -43,8 +43,8 @@ target_sources(slice
 
 target_include_directories(slice 
    PRIVATE 
-      "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/src"
+      "${CMAKE_SOURCE_DIR}/cpp/include"
+	  "${CMAKE_SOURCE_DIR}/cpp/src"
 )
 
 add_dependencies(slice iceutil)

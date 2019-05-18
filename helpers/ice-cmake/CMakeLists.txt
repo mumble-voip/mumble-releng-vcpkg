@@ -95,4 +95,4 @@ endif()
 
 add_subdirectory(../mcpp src/mcpp)
 
-add_subdirectory(src)
+add_subdirectory(cpp)
