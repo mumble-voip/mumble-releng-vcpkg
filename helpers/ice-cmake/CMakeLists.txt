@@ -35,7 +35,7 @@ set(SLICES_DIR "../slice" CACHE INTERNAL "SLICES_DIR")
 function(CompileSlices slice_bin project_dir output_dir)
    add_custom_command(
    OUTPUT ${output_dir}
-   COMMAND ${CompileSlices} ${project_dir}
+   COMMAND ${slice_bin} "${project_dir}/*.ice"
    COMMENT "Generating Ice Files..."
 )
 endfunction()
