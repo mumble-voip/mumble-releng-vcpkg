@@ -22,4 +22,14 @@ set_source_files_properties(
       PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+#find_package(bzip2 1.0 REQUIRED)
+#find_package(expat 2.1 REQUIRED)
+#find_package(mcpp 2.7.2 REQUIRED)
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
+   #find_package(openssl 1.0.0 REQUIRED)
+endif()
+
+add_subdirectory(../mcpp src/mcpp)
+
 add_subdirectory(src)
