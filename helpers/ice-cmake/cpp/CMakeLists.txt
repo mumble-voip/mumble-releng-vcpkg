@@ -30,6 +30,6 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
    #find_package(openssl 1.0.0 REQUIRED)
 endif()
 
-add_subdirectory(../mcpp src/mcpp)
+add_subdirectory(../../mcpp cpp/mcpp)
 
 add_subdirectory(src)
