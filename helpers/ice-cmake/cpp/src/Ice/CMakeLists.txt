@@ -4,9 +4,9 @@ project(Ice)
 set(ICE_SLICES "${SLICES_DIR}/Ice")
 find_program(SLICE2CPP slice2cpp)
 
-file(MAKE_DIRECTORY "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")
 
-set(SLICE_GENERATED_SOURCE_DIR "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
+set(SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated")
 
 CompileSlices(${SLICE2CPP} ${ICE_SLICES} "${SLICE_GENERATED_SOURCE_DIR}/Ice")
 
@@ -59,7 +59,6 @@ target_sources(ice
 	   EventHandler.cpp
 	   EventHandler.h
 	   EventHandlerF.h
-	   EventLoggerMsg.mc
 	   Exception.cpp
 	   FactoryTable.cpp
 	   FactoryTableInit.cpp
@@ -216,6 +215,11 @@ target_include_directories(ice
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
 
 add_dependencies(ice slice2cpp)
+add_custom_command(
+   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}
+   COMMAND ${CMAKE_MC_COMPILER}
+   ARGS "-r EventLoggerMsg.mc"
+)
 
 if(WIN32)
    if(MSVC)
