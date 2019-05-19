@@ -41,6 +41,8 @@ if(WIN32)
 		 "DbgHelp.lib"
 		 "Shlwapi.lib"
    )
+   
+   set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "/link wsetargv.obj")
 endif()
 
 install(TARGETS slice2cpp DESTINATION bin)
