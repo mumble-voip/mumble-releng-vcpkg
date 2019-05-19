@@ -6,9 +6,6 @@ set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 2)
 
-# ZeroC sets the slices external to the cpp dir
-set(SLICES_DIR "${CMAKE_SOURCE_DIR}/slice" CACHE INTERNAL "SLICES_DIR")
-
 # handle slice building so the projects that need it can call it
 function(CompileSlices slice_bin ice_file_path output_dir)
    add_custom_command(
@@ -62,5 +59,10 @@ if (WIN32)
     mark_as_advanced(CMAKE_MC_COMPILER)
   endif(CMAKE_MC_COMPILER)
 endif(WIN32)
+
+file(COPY slice DESTINATION .)
+
+# ZeroC sets the slices external to the cpp dir
+set(SLICES_DIR "${CMAKE_SOURCE_DIR}/slice")
 
 add_subdirectory(cpp)
