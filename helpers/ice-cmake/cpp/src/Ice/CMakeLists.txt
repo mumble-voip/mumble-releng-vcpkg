@@ -232,4 +232,6 @@ if(WIN32)
 		 "DbgHelp.lib"
 		 "Shlwapi.lib"
    )
+   
+   set_target_properties(ice PROPERTIES LINK_FLAGS "/link setargv.obj")
 endif()
