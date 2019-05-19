@@ -4,9 +4,7 @@ project(Ice)
 set(ICE_SLICES "${SLICES_DIR}/Ice")
 find_program(SLICE2CPP slice2cpp)
 
-add_custom_target(generated ALL 
-   COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BUILD_DIR}/include"
-)
+file(MAKE_DIRECTORY "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
 
 set(SLICE_GENERATED_SOURCE_DIR "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
 
