@@ -42,7 +42,7 @@ if(WIN32)
 		 "Shlwapi.lib"
    )
    
-   set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "/link wsetargv.obj")
+   set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
 endif()
 
 install(TARGETS slice2cpp DESTINATION bin)
