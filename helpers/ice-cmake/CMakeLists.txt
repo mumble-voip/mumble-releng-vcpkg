@@ -10,7 +10,8 @@ set(zeroc-ice_VERSION_PATCH 2)
 function(CompileSlices slice_bin ice_file_path output_dir)
    add_custom_command(
    OUTPUT ${output_dir}
-   COMMAND ${slice_bin} ${ice_file_path}
+   COMMAND ${slice_bin} 
+   ARGS "-I${ice_file_path} ${ice_file_path}/*.ice"
    COMMENT "Generating Ice Files..."
 )
 endfunction()
