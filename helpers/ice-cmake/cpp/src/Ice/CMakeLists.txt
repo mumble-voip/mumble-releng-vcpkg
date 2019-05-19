@@ -2,12 +2,13 @@
 project(Ice)
 
 set(ICE_SLICES "${SLICES_DIR}/Ice")
-set(SLICE_GENERATED_SOURCE_DIR "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
 find_program(SLICE2CPP slice2cpp)
 
 add_custom_target(generated ALL 
    COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_CURRENT_BUILD_DIR}/include"
 )
+
+set(SLICE_GENERATED_SOURCE_DIR "${CMAKE_CURRENT_BUILD_DIR}/include/generated")
 
 CompileSlices(${SLICE2CPP} ${ICE_SLICES} "${SLICE_GENERATED_SOURCE_DIR}/Ice")
 
@@ -232,6 +233,4 @@ if(WIN32)
 		 "DbgHelp.lib"
 		 "Shlwapi.lib"
    )
-   
-   set_target_properties(ice PROPERTIES LINK_FLAGS "/link setargv.obj")
 endif()
