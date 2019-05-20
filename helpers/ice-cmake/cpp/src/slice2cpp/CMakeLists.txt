@@ -19,6 +19,7 @@ target_include_directories(slice2cpp
 )
 
 add_dependencies(slice2cpp 
+   mcpp
    iceutil 
    slice
 )
