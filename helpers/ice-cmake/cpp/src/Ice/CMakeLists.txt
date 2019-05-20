@@ -1,6 +1,4 @@
 
-project(Ice)
-
 set(ICE_SLICES "${SLICES_DIR}/Ice")
 
 file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")

@@ -1,6 +1,3 @@
-#cmake_minimum_required(VERSION 3.1.0)
-
-project(Slice)
 
 add_library(slice STATIC)
 

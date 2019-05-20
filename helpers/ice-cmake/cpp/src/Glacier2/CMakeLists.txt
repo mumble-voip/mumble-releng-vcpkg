@@ -1,6 +1,4 @@
 
-project(Glacier2)
-
 add_library(glacier2)
 
 target_sources(glacier2

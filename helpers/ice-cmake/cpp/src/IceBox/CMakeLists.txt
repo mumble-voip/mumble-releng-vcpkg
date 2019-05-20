@@ -1,6 +1,4 @@
 
-project(IceBox)
-
 add_library(iceboxlib)
 
 target_sources(iceboxlib

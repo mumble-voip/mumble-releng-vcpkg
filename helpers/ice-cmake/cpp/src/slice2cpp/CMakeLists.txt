@@ -1,6 +1,3 @@
-#cmake_minimum_required(VERSION 3.1.0)
-
-project(Slice2CPP)
 
 set(rc_flags " /l 0x0409")
 set(CMAKE_RC_FLAGS ${rc_flags})
