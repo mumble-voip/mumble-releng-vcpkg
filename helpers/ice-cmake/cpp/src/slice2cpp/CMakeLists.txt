@@ -1,6 +1,4 @@
 
-set(rc_flags " /l 0x0409")
-set(CMAKE_RC_FLAGS ${rc_flags})
 add_executable(slice2cpp Main.cpp Slice2Cpp.rc)
 
 target_sources(slice2cpp 
@@ -39,6 +37,9 @@ if(WIN32)
 		 "DbgHelp.lib"
 		 "Shlwapi.lib"
    )
+   
+   set(rc_flags " /l 0x0409")
+   set(CMAKE_RC_FLAGS ${rc_flags})
    set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
 endif()
 
