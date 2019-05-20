@@ -8,7 +8,6 @@ set(zeroc-ice_VERSION_PATCH 2)
 
 # handle slice building so the projects that need it can call it
 set(SLICE_BIN $<TARGET_FILE:slice2cpp>)
-
 function(CompileSlices ice_file_path output_dir)
    foreach(item ${ice_file_path})
       get_filename_component(item_FILE_NAME ${item} NAME_WE)
