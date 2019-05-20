@@ -217,6 +217,7 @@ add_custom_command(
    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}
    COMMAND ${CMAKE_MC_COMPILER}
    ARGS "-r EventLoggerMsg.mc"
+   WORKING_DIRECTORY ${Ice_BINARY_DIR}
 )
 
 if(WIN32)
