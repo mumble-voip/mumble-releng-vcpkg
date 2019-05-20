@@ -1,10 +1,20 @@
-
+include("${CMAKE_SOURCE_DIR}/CompileSlices.cmake")
 set(ICE_SLICES "${SLICES_DIR}/Ice")
 
-file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")
-file(GLOB SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated")
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/Ice")
+file(GLOB SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated/Ice")
+set(SLICE_BIN $<TARGET_FILE:slice2cpp>)
 
-CompileSlices(${ICE_SLICES} ${SLICE_GENERATED_SOURCE_DIR})
+foreach(item in ICE_SLICES)
+   get_filename_component(item_FILE_NAME ${ICE_SLICES} NAME_WE)
+      list(APPEND ICE_GENERATED_FILES 
+	     "${ICE_SLICES_FILE_NAME}.cpp" 
+		 "${ICE_SLICES_FILE_NAME}.h"
+	  )
+   #function(CompileSlices slice_bin slice_path ice_file_path output_dir gen_file_type)
+   CompileSlices(${SLICE_BIN} ${SLICES_DIR} ${ICE_SLICES} 
+      ${SLICE_GENERATED_SOURCE_DIR} ${ICE_GENERATED_FILES})
+endforeach()
 
 add_library(ice)
 target_sources(ice
@@ -199,13 +209,14 @@ target_sources(ice
 	   WSEndpoint.h
 	   WSTransceiver.cpp
 	   WSTransceiver.h
+	   ${SLICE_GENERATED_SOURCE_DIR}
 )
 
 target_include_directories(ice 
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/cpp/include"
 	  "${CMAKE_SOURCE_DIR}/cpp/src"
-	  "${SLICE_GENERATED_SOURCE_DIR}"
+	  "${PROJECT_BINARY_DIR}/include/generated"
 )
 
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")

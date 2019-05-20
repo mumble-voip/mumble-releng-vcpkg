@@ -6,23 +6,6 @@ set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 2)
 
-# handle slice building so the projects that need it can call it
-set(SLICE_BIN $<TARGET_FILE:slice2cpp>)
-function(CompileSlices ice_file_path output_dir)
-   foreach(item ${ice_file_path})
-      get_filename_component(item_FILE_NAME ${item} NAME_WE)
-      list(APPEND ICE_GENERATED_FILES "${item_FILE_NAME}.cpp")
-      list(APPEND ICE_GENERATED_FILES "${item_FILE_NAME}.h")
-	  add_custom_command(
-	     OUTPUT ${ICE_GENERATED_FILES}
-	     COMMAND ${SLICE_BIN} 
-	     ARGS "-I${ice_file_path} ${item}"
-		 WORKING_DIRECTORY ${output_dir}
-	     COMMENT "Generating Ice Sources from ${item_FILE_NAME}..."
-      )
-   endforeach()
-endfunction()
-
 # Find the Microsoft mc.exe message compiler
 # Retrieved from: https://github.com/pocoproject/poco/blob/208d7be64b23f7dc90af32e68aadbb3abb50a9ff/cmake/PocoMacros.cmake#L9-L51
 #  CMAKE_MC_COMPILER - where to find mc.exe
