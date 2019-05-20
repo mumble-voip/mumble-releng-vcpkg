@@ -2,13 +2,11 @@
 project(Ice)
 
 set(ICE_SLICES "${SLICES_DIR}/Ice")
-find_program(SLICE2CPP slice2cpp)
 
 file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")
+file(GLOB SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated")
 
-set(SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated")
-
-CompileSlices(${SLICE2CPP} ${ICE_SLICES} "${SLICE_GENERATED_SOURCE_DIR}/Ice")
+CompileSlices(${ICE_SLICES} ${SLICE_GENERATED_SOURCE_DIR})
 
 add_library(ice)
 target_sources(ice
@@ -209,7 +207,7 @@ target_include_directories(ice
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/cpp/include"
 	  "${CMAKE_SOURCE_DIR}/cpp/src"
-	  "${SLICE_GENERATED_SOURCE_DIR}/Ice"
+	  "${SLICE_GENERATED_SOURCE_DIR}"
 )
 
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
