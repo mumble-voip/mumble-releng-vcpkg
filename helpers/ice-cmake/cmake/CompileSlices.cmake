@@ -6,4 +6,5 @@ function(CompileSlices slice_bin slice_path ice_file_path output_dir gen_file_ty
       WORKING_DIRECTORY ${output_dir}
 	  COMMENT "Generating Ice Sources from ${ice_file_path_FILE_NAME}..."
    )
+   file(GENERATE OUTPUT "${output_dir}/${ice_file_path_FILE_NAME}" CONTENT ${slice_bin})
 endfunction()
