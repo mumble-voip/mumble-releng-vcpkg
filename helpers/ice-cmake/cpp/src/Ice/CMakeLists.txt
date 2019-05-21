@@ -1,18 +1,18 @@
-include("${CMAKE_SOURCE_DIR}/CompileSlices.cmake")
-set(ICE_SLICES "${SLICES_DIR}/Ice")
+include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
+file(GLOB ICE_SLICES "${SLICES_DIR}/Ice" *.ice)
 
 file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/Ice")
-file(GLOB SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated/Ice")
+set(SLICE_GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/include/generated/Ice")
 set(SLICE_BIN $<TARGET_FILE:slice2cpp>)
 
-foreach(item in ICE_SLICES)
-   get_filename_component(item_FILE_NAME ${ICE_SLICES} NAME_WE)
+foreach(item ${ICE_SLICES})
+   get_filename_component(item_FILE_NAME ${item} NAME_WE)
       list(APPEND ICE_GENERATED_FILES 
-	     "${ICE_SLICES_FILE_NAME}.cpp" 
-		 "${ICE_SLICES_FILE_NAME}.h"
+	     "${item_FILE_NAME}.cpp" 
+		 "${item_FILE_NAME}.h"
 	  )
    #function(CompileSlices slice_bin slice_path ice_file_path output_dir gen_file_type)
-   CompileSlices(${SLICE_BIN} ${SLICES_DIR} ${ICE_SLICES} 
+   CompileSlices(${SLICE_BIN} ${SLICES_DIR} ${item} 
       ${SLICE_GENERATED_SOURCE_DIR} ${ICE_GENERATED_FILES})
 endforeach()
 
