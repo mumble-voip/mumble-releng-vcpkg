@@ -27,6 +27,10 @@ set_source_files_properties(
    ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
       PROPERTIES HEADER_FILE_ONLY TRUE
 )
+
+# ZeroC sets the slices dir
+set(SLICES_DIR "${CMAKE_SOURCE_DIR}/slice")
+file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")
 # Add dependencies for C++ related project generation
 if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    # Find the Microsoft mc.exe message compiler
@@ -74,13 +78,9 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
      endif(CMAKE_MC_COMPILER)
    endif(WIN32)
 
-   # ZeroC sets the slices dir
-   set(SLICES_DIR "${CMAKE_SOURCE_DIR}/slice")
-   file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")
-
    #find_package(bzip2 1.0 REQUIRED)
    #find_package(expat 2.1 REQUIRED)
-   #find_package(mcpp 2.7.2 REQUIRED)
+   #find_package(zeroc-mcpp 2.7.2 REQUIRED)
 
    if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
       #find_package(openssl 1.0.0 REQUIRED)
@@ -99,5 +99,3 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    add_subdirectory(cpp/src/IceBox)
    
 endif(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
-
-include("cmake/CompileSlices.cmake")
