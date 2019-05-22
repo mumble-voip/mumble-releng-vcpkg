@@ -192,7 +192,6 @@ target_sources(ice
 	   WSEndpoint.h
 	   WSTransceiver.cpp
 	   WSTransceiver.h
-	   "${PROJECT_BINARY_DIR}/include/generated/Ice"
 )
 
 target_include_directories(ice 
@@ -205,14 +204,14 @@ target_include_directories(ice
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
 
 add_dependencies(ice slice2cpp)
-add_custom_command(
-   OUTPUT ${CMAKE_CURRENT_BINARY_DIR}
-   COMMAND ${CMAKE_MC_COMPILER}
-   ARGS "-r EventLoggerMsg.mc"
-   WORKING_DIRECTORY ${Ice_BINARY_DIR}
-)
 
 if(WIN32)
+   add_custom_command(
+      OUTPUT ${CMAKE_CURRENT_BINARY_DIR}
+      COMMAND ${CMAKE_MC_COMPILER}
+      ARGS "-r EventLoggerMsg.mc"
+      WORKING_DIRECTORY ${Ice_BINARY_DIR}
+   )
    if(MSVC)
       target_compile_options(ice PRIVATE "/wd4996")
    endif()
