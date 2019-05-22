@@ -1,10 +1,10 @@
 # handle slice building so the projects that need it can call it
 # Types:
 # slice2_bin $<TARGET_FILE>:name_of_slice2_bin - compiled bin
+# slice_path string - root/slice
 # slice_folder_name string - name of folder (i.e. "Ice")
 # gen_file_type - list of extenstions the ice files compile into
-function(CompileSlices slice2_bin slice_folder_name gen_file_type)
-   set(slice_path "{CMAKE_SOURCE_DIR}/slice")
+function(CompileSlices slice2_bin slice_path slice_folder_name gen_file_type)
    if(NOT "{PROJECT_BINARY_DIR}/include/generated/${slice_folder_name}")
       file(MAKE_DIRECTORY "{PROJECT_BINARY_DIR}/include/generated/${slice_folder_name}")
    endif()
