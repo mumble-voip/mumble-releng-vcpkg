@@ -44,3 +44,9 @@ if(WIN32)
 endif()
 
 install(TARGETS slice2cpp DESTINATION bin)
+
+include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
+file(GLOB slices RELATIVE ${SLICES_DIR} ${SLICES_DIR}/*)
+foreach(ice in slices)
+   CompileSlices($<TARGET_FILE:slice2cpp> ${SLICES_DIR} ${ice} ${COMPILED_SLICE_TYPES_CXX})
+endforeach()
