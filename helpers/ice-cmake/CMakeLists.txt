@@ -7,20 +7,20 @@ set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 2)
 
 set(zeroc-ice_CONFIG_FILES
-      "config/glacer2router.cfg"
-      "config/ice_ca.cnf"
-      "config/icegridnode.cfg"
-      "config/icegridregistry.cfg"
-      "config/Make.rules"
-      "config/Make.xcodesdk.rules"
-      "config/templates.xml"
+   config/glacer2router.cfg
+   config/ice_ca.cnf
+   config/icegridnode.cfg
+   config/icegridregistry.cfg
+   config/Make.rules
+   config/Make.xcodesdk.rules
+   config/templates.xml
 )
 
 set(zeroc-ice_DOXYGEN_FILES
-   "doxygen/config-cpp11"
-   "doxygen/config-cpp98"
-   "doxygen/mainpage-cpp11.md"
-   "doxygen/mainpage-cpp98.md"
+   doxygen/config-cpp11
+   doxygen/config-cpp98
+   doxygen/mainpage-cpp11.md
+   doxygen/mainpage-cpp98.md
 )
 
 set_source_files_properties(
@@ -28,11 +28,28 @@ set_source_files_properties(
       PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
-# ZeroC sets the slices dir
-set(SLICES_DIR "${CMAKE_SOURCE_DIR}/slice")
-file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/include/generated")
+# set the slice directory
+set(SLICE_DIR "${CMAKE_SOURCE_DIR}/slice")
+
 # Add dependencies for C++ related project generation
 if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
+
+   set(GENERATED_SOURCE_DIR "${PROJECT_BINARY_DIR}/cpp/include/generated")
+   if(NOT ${GENERATED_SOURCE_DIR})
+      file(MAKE_DIRECTORY "${PROJECT_BINARY_DIR}/cpp/include/generated")
+   endif()
+   function(CreateSlicesOutputDir slice)
+      if(NOT ${GENERATED_SOURCE_DIR}/${slice})
+         file(MAKE_DIRECTORY "${GENERATED_SOURCE_DIR}/${slice}")
+      endif()
+   endfunction()
+
+   file(GLOB SLICES RELATIVE ${SLICE_DIR} ${SLICE_DIR}/*)
+
+   foreach(slice ${SLICES})
+         CreateSlicesOutputDir(${slice})
+   endforeach()
+
    # Find the Microsoft mc.exe message compiler
    # Retrieved from: https://github.com/pocoproject/poco/blob/208d7be64b23f7dc90af32e68aadbb3abb50a9ff/cmake/PocoMacros.cmake#L9-L51
    #  CMAKE_MC_COMPILER - where to find mc.exe
@@ -43,7 +60,7 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
        # be set up anyway
        get_filename_component(sdk_dir "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Microsoft SDKs\\Windows;CurrentInstallFolder]" REALPATH)
        # comment, most likely win7 related (reaching EoL by 2020/01)
-      #get_filename_component(kit_dir "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots;KitsRoot]" REALPATH)
+       #get_filename_component(kit_dir "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots;KitsRoot]" REALPATH)
        get_filename_component(kit81_dir "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots;KitsRoot81]" REALPATH)
        get_filename_component(kit10_dir "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows Kits\\Installed Roots;KitsRoot10]" REALPATH)
        file(GLOB kit10_list ${kit10_dir}/bin/10.*)
@@ -88,9 +105,6 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
 
 
    add_subdirectory(../mcpp mcpp)
-
-   list(APPEND COMPILED_SLICE_TYPES_CXX ".h" ".cpp")
-
    add_subdirectory(cpp/src/IceUtil)
    add_subdirectory(cpp/src/Slice)
    add_subdirectory(cpp/src/slice2cpp)
@@ -99,3 +113,8 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    add_subdirectory(cpp/src/IceBox)
    
 endif(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
+
+install(TARGETS iceutil DESTINATION lib)
+install(TARGETS slice DESTINATION lib)
+install(TARGETS slice2cpp DESTINATION bin)
+install(TARGETS ice DESTINATION lib)
