@@ -208,6 +208,7 @@ target_include_directories(ice
       "${CMAKE_SOURCE_DIR}/cpp/include"
 	   "${CMAKE_SOURCE_DIR}/cpp/src"
       ${GENERATED_SOURCE_DIR}
+      ${GENERATED_SOURCE_DIR}/Ice
 )
 
 if(MSVC)
