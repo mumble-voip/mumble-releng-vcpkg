@@ -34,6 +34,3 @@ target_include_directories(iceutil PRIVATE "${CMAKE_SOURCE_DIR}/cpp/include")
 if(WIN32)
    target_compile_definitions(iceutil PRIVATE "ICE_BUILDING_SLICE_COMPILERS" "ICE_STATIC_LIBS")
 endif()
-install(TARGETS iceutil DESTINATION lib)
-
-
