@@ -1,7 +1,16 @@
 
+file(GLOB GENERATED_ICE_SOURCE_NAMES ${GENERATED_SOURCE_DIR}/Ice/*)
+foreach(name ${GENERATED_ICE_SOURCE_NAMES})
+   list(APPEND GENERATED_ICE_SOURCES ${name})
+endforeach()
+
+set_source_files_properties(${GENERATED_ICE_SOURCES} PROPERTIES GENERATED TRUE)
+
 add_library(ice)
+
 target_sources(ice
    PRIVATE
+      ${GENERATED_ICE_SOURCES}
 	   Acceptor.cpp
 	   Acceptor.h
 	   AcceptorF.h
@@ -197,32 +206,42 @@ target_sources(ice
 target_include_directories(ice 
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/cpp/include"
-	  "${CMAKE_SOURCE_DIR}/cpp/src"
-	  "${PROJECT_BINARY_DIR}/include/generated"
+	   "${CMAKE_SOURCE_DIR}/cpp/src"
+      ${GENERATED_SOURCE_DIR}
 )
 
-target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
+if(MSVC)
+   target_compile_options(ice PRIVATE "/wd4996")
+   
+   add_custom_command(TARGET ice
+      COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
+      WORKING_DIRECTORY ${GENERATED_SOURCE_DIR}/Ice
+      DEPENDS EventLoggerMsg.mc
+      PRE_BUILD
+   )
+endif()
 
 add_dependencies(ice slice2cpp)
 
-if(WIN32)
-   add_custom_command(
-      OUTPUT ${CMAKE_CURRENT_BINARY_DIR}
-      COMMAND ${CMAKE_MC_COMPILER}
-      ARGS "-r EventLoggerMsg.mc"
-      WORKING_DIRECTORY ${Ice_BINARY_DIR}
-   )
-   if(MSVC)
-      target_compile_options(ice PRIVATE "/wd4996")
-   endif()
-   
-   target_link_libraries(ice
-      PRIVATE
-	     "advapi32.lib"
-		 "ws2_32.lib"
-		 "Iphlpapi.lib"
-		 "rpcrt4.lib"
-		 "DbgHelp.lib"
-		 "Shlwapi.lib"
-   )
-endif()
+include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
+
+#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
+CompileSlices($<TARGET_FILE:slice2cpp>
+   ${SLICE_DIR}
+   Ice
+   ice
+   ${GENERATED_SOURCE_DIR}/Ice
+)
+
+
+target_link_libraries(ice
+   PRIVATE
+      "advapi32.lib"
+      "ws2_32.lib"
+      "Iphlpapi.lib"
+      "rpcrt4.lib"
+      "DbgHelp.lib"
+      "Shlwapi.lib"
+)
+
+target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
