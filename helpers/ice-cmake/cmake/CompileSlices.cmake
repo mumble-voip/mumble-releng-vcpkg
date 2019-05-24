@@ -1,29 +1,20 @@
 # handle slice building so the projects that need it can call it
 # Types:
-# slice2_bin $<TARGET_FILE>:name_of_slice2_bin - compiled bin
+# slice2_bin name_of_slice2_bin - compiled bin
 # slice_path string - root/slice
 # slice_folder_name string - name of folder (i.e. "Ice")
-# gen_file_type - list of extenstions the ice files compile into
-function(CompileSlices slice2_bin slice_path slice_folder_name gen_file_type)
-   if(NOT "{PROJECT_BINARY_DIR}/include/generated/${slice_folder_name}")
-      file(MAKE_DIRECTORY "{PROJECT_BINARY_DIR}/include/generated/${slice_folder_name}")
-   endif()
-   set(output_dir "{PROJECT_BINARY_DIR}/include/generated/${slice_folder_name}")
-   
-   file(GLOB ice_files ${slice_path}/${slice_folder_name})
+# slice_target - lib or exe this compile depends on
+# output_dir string - where compiled files will be output to
+function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
+   file(GLOB ice_files ${slice_path}/${slice_folder_name}/*.ice)
    foreach(ice ${ice_files})
-      foreach(file_type IN gen_file_types)
-	     get_filename_component(ice_FILE_NAME ${ice} NAME_WE)
-		 list(APPEND ice_generated_files
-	        "${item_FILE_NAME}.${file_type}" 
-	     )
-	  endforeach()
-      add_custom_command(
-	     OUTPUT ${ice_generated_files}
-	     COMMAND ${slice_bin} 
-	     ARGS "-I${slice_path} ${ice_file}"
+      get_filename_component(ice_FILE_NAME ${ice} NAME_WE)
+      add_custom_command(TARGET ${slice_target}
+         COMMAND ${slice2_bin} -I${slice_path} ${ice}
          WORKING_DIRECTORY ${output_dir}
-	     COMMENT "Generating Ice Sources from ${ice_file_FILE_NAME}..."
+         COMMENT "Generating ${ice_FILE_NAME}..."
+         DEPENDS "${ice_FILE_NAME}.ice"
+         PRE_BUILD
       )
    endforeach()
 endfunction()
