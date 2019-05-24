@@ -211,8 +211,21 @@ target_include_directories(ice
       ${GENERATED_SOURCE_DIR}/Ice
 )
 
-if(MSVC)
-   target_compile_options(ice PRIVATE "/wd4996")
+if(WIN32)
+
+   if(MSVC)
+      target_compile_options(ice PRIVATE "/wd4996")
+   endif()
+   
+   target_link_libraries(ice
+   PRIVATE
+      "advapi32.lib"
+      "ws2_32.lib"
+      "Iphlpapi.lib"
+      "rpcrt4.lib"
+      "DbgHelp.lib"
+      "Shlwapi.lib"
+   )
    
    add_custom_command(TARGET ice
       COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
@@ -232,17 +245,6 @@ CompileSlices($<TARGET_FILE:slice2cpp>
    Ice
    ice
    ${GENERATED_SOURCE_DIR}/Ice
-)
-
-
-target_link_libraries(ice
-   PRIVATE
-      "advapi32.lib"
-      "ws2_32.lib"
-      "Iphlpapi.lib"
-      "rpcrt4.lib"
-      "DbgHelp.lib"
-      "Shlwapi.lib"
 )
 
 target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
