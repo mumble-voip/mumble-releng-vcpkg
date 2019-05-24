@@ -41,7 +41,7 @@ target_sources(slice
 target_include_directories(slice 
    PRIVATE 
       "${CMAKE_SOURCE_DIR}/cpp/include"
-	  "${CMAKE_SOURCE_DIR}/cpp/src"
+	   "${CMAKE_SOURCE_DIR}/cpp/src"
 )
 
 add_dependencies(slice iceutil)
@@ -49,4 +49,3 @@ add_dependencies(slice iceutil)
 if(WIN32)
    target_compile_definitions(slice PRIVATE "ICE_BUILDING_SLICE_COMPILERS" "ICE_STATIC_LIBS")
 endif()
-install(TARGETS slice DESTINATION lib)
