@@ -9,8 +9,8 @@ target_sources(slice2cpp
 
 target_include_directories(slice2cpp
    PRIVATE
-	  "${CMAKE_SOURCE_DIR}/cpp/include"
-	  "${CMAKE_SOURCE_DIR}/cpp/src"
+	  ${CMAKE_SOURCE_DIR}/cpp/include
+	  ${CMAKE_SOURCE_DIR}/cpp/src
 )
 
 target_link_libraries(slice2cpp 
@@ -26,10 +26,10 @@ if(WIN32)
    )
    
    target_link_libraries(slice2cpp 
-	   "rpcrt4.lib"
-		"advapi32.lib"
-		"DbgHelp.lib"
-		"Shlwapi.lib"
+	   rpcrt4.lib
+		advapi32.lib
+		DbgHelp.lib
+		Shlwapi.lib
    )
    
    set(rc_flags " /l 0x0409")
