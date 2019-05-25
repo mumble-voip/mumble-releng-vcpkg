@@ -1,5 +1,8 @@
 
-file(GLOB GENERATED_ICE_SOURCE_NAMES ${GENERATED_SOURCE_DIR}/Ice/*)
+file(GLOB GENERATED_ICE_SOURCE_NAMES 
+   ${GENERATED_SOURCE_DIR}/Ice/*.h 
+   ${GENERATED_SOURCE_DIR}/Ice/*.cpp
+)
 foreach(name ${GENERATED_ICE_SOURCE_NAMES})
    list(APPEND GENERATED_ICE_SOURCES ${name})
 endforeach()
@@ -205,8 +208,8 @@ target_sources(ice
 
 target_include_directories(ice 
    PRIVATE 
-      "${CMAKE_SOURCE_DIR}/cpp/include"
-	   "${CMAKE_SOURCE_DIR}/cpp/src"
+      ${CMAKE_SOURCE_DIR}/cpp/include
+	   ${CMAKE_SOURCE_DIR}/cpp/src
       ${GENERATED_SOURCE_DIR}
       ${GENERATED_SOURCE_DIR}/Ice
 )
@@ -217,15 +220,17 @@ if(WIN32)
       target_compile_options(ice PRIVATE "/wd4996")
    endif()
    
-   target_link_libraries(ice
-   PRIVATE
-      "advapi32.lib"
-      "ws2_32.lib"
-      "Iphlpapi.lib"
-      "rpcrt4.lib"
-      "DbgHelp.lib"
-      "Shlwapi.lib"
-   )
+   if(BUILD_SHARED_LIBS)
+      target_link_libraries(ice
+         PRIVATE
+            advapi32
+            ws2_32
+            Iphlpapi
+            rpcrt4
+            DbgHelp
+            Shlwapi
+      )
+   endif()
    
    add_custom_command(TARGET ice
       COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
@@ -240,7 +245,7 @@ add_dependencies(ice slice2cpp)
 include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
 
 #function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
-CompileSlices($<TARGET_FILE:slice2cpp>
+CompileSlices(slice2cpp
    ${SLICE_DIR}
    Ice
    ice
