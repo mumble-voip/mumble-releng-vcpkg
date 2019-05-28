@@ -1,5 +1,10 @@
+ExternalProject_Get_Property(zeroc-mcpp SOURCE_DIR)
+ExternalProject_Get_Property(zeroc-mcpp BINARY_DIR)
 
+#include_directories(${INSTALL_DIR}/include)
 add_executable(slice2cpp Main.cpp Slice2Cpp.rc)
+
+add_dependencies(slice2cpp zeroc-mcpp)
 
 target_sources(slice2cpp 
    PRIVATE
@@ -11,10 +16,11 @@ target_include_directories(slice2cpp
    PRIVATE
 	  ${CMAKE_SOURCE_DIR}/cpp/include
 	  ${CMAKE_SOURCE_DIR}/cpp/src
+     ${SOURCE_DIR}/include
 )
 
 target_link_libraries(slice2cpp 
-   mcpp
+   ${BINARY_DIR}/lib/mcpp.lib
    iceutil 
    slice
 )
