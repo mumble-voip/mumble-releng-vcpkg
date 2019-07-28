@@ -24,8 +24,3 @@ endforeach()
 find_package(bzip2 1.0 REQUIRED)
 find_package(expat 2.1 REQUIRED)
 find_package(openssl 1.0.0 REQUIRED)
-
-install(TARGETS iceutil DESTINATION lib)
-install(TARGETS slice DESTINATION lib)
-install(TARGETS slice2cpp DESTINATION bin)
-install(TARGETS ice DESTINATION lib)

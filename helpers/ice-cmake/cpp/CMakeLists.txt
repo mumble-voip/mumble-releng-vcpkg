@@ -54,5 +54,9 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    add_subdirectory(src/Glacier2Lib)
    add_subdirectory(src/IceBox)
 
-
 endif(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
+
+install(TARGETS iceutil DESTINATION lib)
+install(TARGETS slice DESTINATION lib)
+install(TARGETS slice2cpp DESTINATION bin)
+install(TARGETS ice DESTINATION lib)
