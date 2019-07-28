@@ -44,5 +44,5 @@ if(WIN32)
       set(rc_flags " /l 0x0409 /D ${ICE_RC_FLAGS}")
       set(CMAKE_RC_FLAGS ${rc_flags})
       set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
-   endif
+   endif()
 endif()
