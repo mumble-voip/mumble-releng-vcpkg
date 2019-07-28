@@ -1,7 +1,3 @@
-find_package(bzip2 1.0 REQUIRED)
-find_package(expat 2.1 REQUIRED)
-find_package(openssl 1.0.0 REQUIRED)
-
 # Add dependencies for C++ related project generation
 
 # todo: set up for Apple, might be needed here or obj-c
@@ -32,10 +28,21 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
    PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+# set the slice ice directory
+set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
+
+file(GLOB SLICES RELATIVE ${SLICE_DIR} ${SLICE_DIR}/*)
+
 set(GENERATED_SOURCE_DIR ${PROJECT_BINARY_DIR}/cpp/include/generated)
 if(NOT ${GENERATED_SOURCE_DIR})
    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/cpp/include/generated)
 endif()
+
+include(${CMAKE_SOURCE_DIR}/cmake/CreateSlicesOutputDir.cmake)
+
+foreach(slice ${SLICES})
+      CreateSlicesOutputDir(${slice} ${GENERATED_SOURCE_DIR})
+endforeach()
 
 include(cmake/ice_cpp_props.cmake)
 
@@ -55,6 +62,10 @@ ExternalProject_Add_Step(zeroc-mcpp copy-cmakelists
       ${PROJECT_BINARY_DIR}/zeroc-mcpp-prefix/src/zeroc-mcpp
    DEPENDEES download
 )
+
+find_package(bzip2 1.0 REQUIRED)
+find_package(expat 2.1 REQUIRED)
+find_package(openssl 1.0.0 REQUIRED)
 
 add_library(mcpp STATIC IMPORTED)
 
