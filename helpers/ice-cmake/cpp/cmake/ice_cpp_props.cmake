@@ -3,7 +3,6 @@
 set(CMAKE_CXX_STANDARD 11) 
 if(WIN32)
    set(ICE_COMPILE_DEFS 
-      "_CONSOLE"
       "WIN32_LEAN_AND_MEAN"
       "ICE_CPP11_MAPPING"
    )
