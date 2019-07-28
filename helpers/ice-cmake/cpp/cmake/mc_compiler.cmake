@@ -24,7 +24,7 @@ if ("${CMAKE_GENERATOR}" MATCHES "Visual Studio" OR "${CMAKE_GENERATOR}" MATCHES
         list(APPEND kit10_bindir "${tmp_elem}/x64")
         endif()
       endforeach()
-   else (X64)
+   else (X86)
       set(sdk_bindir "${sdk_dir}/bin")
       set(kit_bindir "${kit_dir}/bin/x86")
       set(kit81_bindir "${kit81_dir}/bin/x86")
@@ -33,7 +33,7 @@ if ("${CMAKE_GENERATOR}" MATCHES "Visual Studio" OR "${CMAKE_GENERATOR}" MATCHES
         list(APPEND kit10_bindir "${tmp_elem}/x86")
         endif()
       endforeach()
-   endif (X64)
+   endif ()
 endif ()
 find_program(CMAKE_MC_COMPILER NAMES mc.exe windmc.exe HINTS "${sdk_bindir}" 
    "${kit_bindir}" "${kit81_bindir}" ${kit10_bindir}
