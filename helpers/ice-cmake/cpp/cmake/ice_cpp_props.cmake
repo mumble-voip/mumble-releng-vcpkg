@@ -1,8 +1,6 @@
 # define c++ compiler options and preprocessor definitions for all OS types
 
-# property flags 
-set(ICE_BIN_DIST "")
-set(ICE_BUILDING_SRC 1) 
+set(CMAKE_CXX_STANDARD 11) 
 if(WIN32)
    set(ICE_COMPILE_DEFS 
       "_CONSOLE"
