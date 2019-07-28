@@ -6,16 +6,6 @@ set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 2)
 
-set(zeroc-ice_CONFIG_FILES
-   config/glacer2router.cfg
-   config/ice_ca.cnf
-   config/icegridnode.cfg
-   config/icegridregistry.cfg
-   config/Make.rules
-   config/Make.xcodesdk.rules
-   config/templates.xml
-)
-
 function(CreateSlicesOutputDir slice)
    if(NOT ${GENERATED_SOURCE_DIR}/${slice})
       file(MAKE_DIRECTORY ${GENERATED_SOURCE_DIR}/${slice})

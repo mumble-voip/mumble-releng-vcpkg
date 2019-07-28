@@ -7,10 +7,21 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
       doxygen/mainpage-cpp98.md
    )
 
+   set(zeroc-ice_CONFIG_FILES
+      config/glacer2router.cfg
+      config/ice_ca.cnf
+      config/icegridnode.cfg
+      config/icegridregistry.cfg
+      config/Make.rules
+      config/Make.xcodesdk.rules
+      config/templates.xml
+   )
+
    set_source_files_properties(
    ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
       PROPERTIES HEADER_FILE_ONLY TRUE
    )
+
    set(GENERATED_SOURCE_DIR ${PROJECT_BINARY_DIR}/cpp/include/generated)
    if(NOT ${GENERATED_SOURCE_DIR})
       file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/cpp/include/generated)
