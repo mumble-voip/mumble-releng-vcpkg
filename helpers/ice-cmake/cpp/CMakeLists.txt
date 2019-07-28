@@ -59,7 +59,7 @@ ExternalProject_Add(zeroc-mcpp
 ExternalProject_Add_Step(zeroc-mcpp copy-cmakelists
    COMMAND ${CMAKE_COMMAND} -E copy 
       ${CMAKE_SOURCE_DIR}/external/zeroc-mcpp/CMakeLists.txt
-      ${PROJECT_BINARY_DIR}/zeroc-mcpp-prefix/src/zeroc-mcpp
+      ${PROJECT_BINARY_DIR}/cpp/zeroc-mcpp-prefix/src/zeroc-mcpp
    DEPENDEES download
 )
 
