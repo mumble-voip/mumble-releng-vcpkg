@@ -32,8 +32,8 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    endif()
 
    if(WIN32)
-      include(cpp/cmake/ice_cpp_props.cmake)
-      include(cpp/cmake/mc_compiler.cmake)
+      include(cmake/ice_cpp_props.cmake)
+      include(cmake/mc_compiler.cmake)
    endif(WIN32)
 
    include(ExternalProject)
