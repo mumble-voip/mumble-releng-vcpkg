@@ -23,6 +23,12 @@ endforeach()
 
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
+# check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
    add_subdirectory(cpp)
+elseif ("${languages}" MATCHES "CSharp")
+   add_subdirectory(csharp)
+elseif("${languages" MATCHES "Java")
+   add_subdirectory(java)
+
 endif()
