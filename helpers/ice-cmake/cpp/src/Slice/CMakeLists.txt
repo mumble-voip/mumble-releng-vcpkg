@@ -54,6 +54,6 @@ if(WIN32)
          #"ICE_STATIC_LIBS"
          ${ICE_COMPILE_DEFS}
       )
-      target_compile_options("/MT")
+      target_compile_options(slice PRIVATE ${ICE_COMPILE_OPTIONS})
    endif()
 endif()

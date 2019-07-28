@@ -32,7 +32,7 @@ if(WIN32)
          "ICE_STATIC_LIBS"
       )
 
-      target_compile_options("/MT")
+      target_compile_options(slice2cpp PRIVATE ${ICE_COMPILE_OPTIONS})
       
       target_link_libraries(slice2cpp 
          rpcrt4.lib
