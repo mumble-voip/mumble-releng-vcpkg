@@ -47,9 +47,13 @@ target_include_directories(slice
 add_dependencies(slice iceutil)
 
 if(WIN32)
-   target_compile_definitions(slice 
-      PRIVATE 
-      "ICE_BUILDING_SLICE_COMPILERS" 
-      "ICE_STATIC_LIBS"
-   )
+   if(MSVC)
+      target_compile_definitions(slice 
+         PRIVATE 
+         "ICE_BUILDING_SLICE_COMPILERS" 
+         #"ICE_STATIC_LIBS"
+         ${ICE_COMPILE_DEFS}
+      )
+      target_compile_options(${ICE_COMPILE_OPTIONS})
+   endif()
 endif()

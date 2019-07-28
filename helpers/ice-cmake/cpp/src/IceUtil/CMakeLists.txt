@@ -1,4 +1,3 @@
-
 add_library(iceutil STATIC)
 target_sources(iceutil 
    PRIVATE
@@ -32,9 +31,13 @@ if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
 endif()
 target_include_directories(iceutil PRIVATE ${CMAKE_SOURCE_DIR}/cpp/include)
 if(WIN32)
-   target_compile_definitions(iceutil 
-      PRIVATE 
-      "ICE_BUILDING_SLICE_COMPILERS" 
-      "ICE_STATIC_LIBS"
-   )
+   if(MSVC)
+      target_compile_definitions(iceutil 
+         PRIVATE 
+         "ICE_BUILDING_SLICE_COMPILERS" 
+         #"ICE_STATIC_LIBS"
+         ${ICE_COMPILE_DEFS}
+      )
+      target_compile_options(${ICE_COMPILE_OPTIONS})
+   endif()
 endif()

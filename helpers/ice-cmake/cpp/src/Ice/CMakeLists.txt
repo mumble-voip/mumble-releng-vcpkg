@@ -217,7 +217,8 @@ target_include_directories(ice
 if(WIN32)
 
    if(MSVC)
-      target_compile_options(ice PRIVATE "/wd4996" "/showIncludes")
+		target_compile_options(ice PRIVATE "/wd4996" "/showIncludes" ${ICE_COMPILE_OPTIONS})
+		target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS" ${ICE_COMPILE_DEFS})
    endif()
 
    target_link_libraries(ice
@@ -249,5 +250,3 @@ CompileSlices(slice2cpp
    ice
    ${GENERATED_SOURCE_DIR}/Ice
 )
-
-target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS" "ICE_CP11_MAPPING")
