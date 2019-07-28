@@ -37,8 +37,9 @@ if(NOT ${GENERATED_SOURCE_DIR})
    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/cpp/include/generated)
 endif()
 
+include(cmake/ice_cpp_props.cmake)
+
 if(WIN32)
-   include(cmake/ice_cpp_props.cmake)
    include(cmake/mc_compiler.cmake)
 endif(WIN32)
 
