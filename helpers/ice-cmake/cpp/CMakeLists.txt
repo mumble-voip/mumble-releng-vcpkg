@@ -3,7 +3,14 @@ find_package(expat 2.1 REQUIRED)
 find_package(openssl 1.0.0 REQUIRED)
 
 # Add dependencies for C++ related project generation
-if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
+
+# todo: set up for Apple, might be needed here or obj-c
+# if(MACOSX)
+# set(zeroc-ice_CONFIG_FILES
+#   config/Make.xcodesdk.rules
+#)
+
+if(MSVC OR CMAKE_COMPILER_IS_GNUCXX)
    set(zeroc-ice_DOXYGEN_FILES
       doxygen/config-cpp11
       doxygen/config-cpp98
@@ -17,7 +24,6 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
       config/icegridnode.cfg
       config/icegridregistry.cfg
       config/Make.rules
-      config/Make.xcodesdk.rules
       config/templates.xml
    )
 
@@ -58,7 +64,7 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    add_subdirectory(src/Glacier2Lib)
    add_subdirectory(src/IceBox)
 
-endif(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
+endif()
 
 install(TARGETS iceutil DESTINATION lib)
 install(TARGETS slice DESTINATION lib)
