@@ -41,28 +41,6 @@ find_package(bzip2 1.0 REQUIRED)
 find_package(expat 2.1 REQUIRED)
 find_package(openssl 1.0.0 REQUIRED)
 
-include(ExternalProject)
-ExternalProject_Add(zeroc-mcpp
-   GIT_REPOSITORY https://github.com/zeroc-ice/mcpp.git
-   GIT_TAG e9ec201de0f395ab4bf4af714d91093138a0c43d
-)
-
-ExternalProject_Add_Step(zeroc-mcpp copy-cmakelists
-   COMMAND ${CMAKE_COMMAND} -E copy 
-      ${CMAKE_SOURCE_DIR}/external/zeroc-mcpp/CMakeLists.txt
-      ${PROJECT_BINARY_DIR}/zeroc-mcpp-prefix/src/zeroc-mcpp
-   DEPENDEES download
-)
-
-add_library(mcpp STATIC IMPORTED)
-
-add_subdirectory(cpp/src/IceUtil)
-add_subdirectory(cpp/src/Slice)
-add_subdirectory(cpp/src/slice2cpp)
-add_subdirectory(cpp/src/Ice)
-add_subdirectory(cpp/src/Glacier2Lib)
-add_subdirectory(cpp/src/IceBox)
-
 install(TARGETS iceutil DESTINATION lib)
 install(TARGETS slice DESTINATION lib)
 install(TARGETS slice2cpp DESTINATION bin)
