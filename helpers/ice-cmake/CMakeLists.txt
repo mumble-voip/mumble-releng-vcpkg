@@ -21,6 +21,8 @@ foreach(slice ${SLICES})
       CreateSlicesOutputDir(${slice})
 endforeach()
 
-get_property(languages GLOBAL PROPERTY DETCETED_LANGUAGES)
+get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
-message(STATUS "languages: ${languages}")
+if("${languages}" MATCHES "CXX")
+   add_subdirectory(cpp)
+endif()
