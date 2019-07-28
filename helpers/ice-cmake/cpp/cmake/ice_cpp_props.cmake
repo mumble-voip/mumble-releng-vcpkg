@@ -24,7 +24,7 @@ if(WIN32)
       "/MT"
    )
 
-   set(CMAKE_RC_FLAGS "ICE_CPP11_MAPPING")
+   set(ICE_RC_FLAGS "ICE_CPP11_MAPPING")
 
 elseif(DARWIN)
 
