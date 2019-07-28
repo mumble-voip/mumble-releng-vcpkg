@@ -10,6 +10,7 @@ find_package(openssl 1.0.0 REQUIRED)
 #   config/Make.xcodesdk.rules
 #)
 
+# todo: add GNU Make logic to handle config/Make.rules if needed
 
 set(zeroc-ice_DOXYGEN_FILES
    doxygen/config-cpp11
@@ -23,7 +24,6 @@ set(zeroc-ice_CONFIG_FILES
    config/ice_ca.cnf
    config/icegridnode.cfg
    config/icegridregistry.cfg
-   config/Make.rules
    config/templates.xml
 )
 
