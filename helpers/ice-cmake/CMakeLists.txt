@@ -28,6 +28,12 @@ set_source_files_properties(
       PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+function(CreateSlicesOutputDir slice)
+   if(NOT ${GENERATED_SOURCE_DIR}/${slice})
+      file(MAKE_DIRECTORY ${GENERATED_SOURCE_DIR}/${slice})
+   endif()
+endfunction()
+
 # set the slice directory
 set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
 
