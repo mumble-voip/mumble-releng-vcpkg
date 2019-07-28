@@ -26,19 +26,23 @@ target_link_libraries(slice2cpp
 )
 
 if(WIN32)
-   target_compile_definitions(slice2cpp PRIVATE 
-      "ICE_BUILDING_SLICE_COMPILERS" 
-	   "ICE_STATIC_LIBS"
-   )
-   
-   target_link_libraries(slice2cpp 
-	   rpcrt4.lib
-		advapi32.lib
-		DbgHelp.lib
-		Shlwapi.lib
-   )
-   
-   set(rc_flags " /l 0x0409 /D ${${ICE_RC_FLAGS}}")
-   set(CMAKE_RC_FLAGS ${rc_flags})
-   set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
+   if(MSVC)
+      target_compile_definitions(slice2cpp PRIVATE 
+         "ICE_BUILDING_SLICE_COMPILERS" 
+         "ICE_STATIC_LIBS"
+      )
+
+      target_compile_options(${ICE_COMPILE_OPTIONS})
+      
+      target_link_libraries(slice2cpp 
+         rpcrt4.lib
+         advapi32.lib
+         DbgHelp.lib
+         Shlwapi.lib
+      )
+      
+      set(rc_flags " /l 0x0409 /D ${ICE_RC_FLAGS}")
+      set(CMAKE_RC_FLAGS ${rc_flags})
+      set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
+   endif
 endif()
