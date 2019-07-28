@@ -26,12 +26,12 @@ if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
 
    add_library(mcpp STATIC IMPORTED)
 
-   add_subdirectory(cpp/src/IceUtil)
-   add_subdirectory(cpp/src/Slice)
-   add_subdirectory(cpp/src/slice2cpp)
-   add_subdirectory(cpp/src/Ice)
-   add_subdirectory(cpp/src/Glacier2Lib)
-   add_subdirectory(cpp/src/IceBox)
+   add_subdirectory(src/IceUtil)
+   add_subdirectory(src/Slice)
+   add_subdirectory(src/slice2cpp)
+   add_subdirectory(src/Ice)
+   add_subdirectory(src/Glacier2Lib)
+   add_subdirectory(src/IceBox)
 
 
 endif(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
