@@ -21,6 +21,6 @@ foreach(slice ${SLICES})
       CreateSlicesOutputDir(${slice})
 endforeach()
 
-find_package(bzip2 1.0 REQUIRED)
-find_package(expat 2.1 REQUIRED)
-find_package(openssl 1.0.0 REQUIRED)
+get_property(languages GLOBAL PROPERTY DETCETED_LANGUAGES)
+
+message(STATUS "languages: ${languages}")

@@ -1,3 +1,7 @@
+find_package(bzip2 1.0 REQUIRED)
+find_package(expat 2.1 REQUIRED)
+find_package(openssl 1.0.0 REQUIRED)
+
 # Add dependencies for C++ related project generation
 if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
    set(zeroc-ice_DOXYGEN_FILES
