@@ -1,6 +1,16 @@
 # Add dependencies for C++ related project generation
 if(MSVC OR BORLAND OR CMAKE_COMPILER_IS_GNUCXX)
+   set(zeroc-ice_DOXYGEN_FILES
+      doxygen/config-cpp11
+      doxygen/config-cpp98
+      doxygen/mainpage-cpp11.md
+      doxygen/mainpage-cpp98.md
+   )
 
+   set_source_files_properties(
+   ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
+      PROPERTIES HEADER_FILE_ONLY TRUE
+   )
    set(GENERATED_SOURCE_DIR ${PROJECT_BINARY_DIR}/cpp/include/generated)
    if(NOT ${GENERATED_SOURCE_DIR})
       file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/cpp/include/generated)

@@ -16,18 +16,6 @@ set(zeroc-ice_CONFIG_FILES
    config/templates.xml
 )
 
-set(zeroc-ice_DOXYGEN_FILES
-   doxygen/config-cpp11
-   doxygen/config-cpp98
-   doxygen/mainpage-cpp11.md
-   doxygen/mainpage-cpp98.md
-)
-
-set_source_files_properties(
-   ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
-      PROPERTIES HEADER_FILE_ONLY TRUE
-)
-
 function(CreateSlicesOutputDir slice)
    if(NOT ${GENERATED_SOURCE_DIR}/${slice})
       file(MAKE_DIRECTORY ${GENERATED_SOURCE_DIR}/${slice})
