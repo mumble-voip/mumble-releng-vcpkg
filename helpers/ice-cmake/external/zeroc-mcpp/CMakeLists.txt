@@ -32,7 +32,6 @@ target_compile_definitions(mcpp PRIVATE "HAVE_CONFIG_H" "MCPP_LIB=1")
 
 if(WIN32)
 	target_compile_definitions(mcpp PRIVATE 
-		"_CONSOLE"
 		"WIN32_LEAN_AND_MEAN"
 		"_CRT_SECURE_NO_WARNINGS")
 	target_compile_options(mcpp PRIVATE "/W3" "/wd4146" "/wd4244" "/wd4267")
