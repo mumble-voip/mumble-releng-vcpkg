@@ -38,6 +38,8 @@ if(WIN32)
          "ICE_STATIC_LIBS"
       )
       target_compile_options(iceutil PRIVATE "/wd4250")
+      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
    endif()
 endif()
 install(TARGETS iceutil DESTINATION lib)

@@ -1,7 +1,7 @@
 
 add_executable(slice2cpp Main.cpp Slice2Cpp.rc)
 
-#add_dependencies(slice2cpp mcpp slice iceutil)
+add_dependencies(slice2cpp zeroc-mcpp)
 
 target_sources(slice2cpp 
    PRIVATE
@@ -13,14 +13,14 @@ target_include_directories(slice2cpp
    PRIVATE
 	  ${CMAKE_SOURCE_DIR}/cpp/include
 	  ${CMAKE_SOURCE_DIR}/cpp/src
-     ${SOURCE_DIR}/include
+     #${SOURCE_DIR}/include
 )
 
 if(WIN32)
    if(MSVC)
       target_compile_definitions(slice2cpp PRIVATE 
          "ICE_BUILDING_SLICE_COMPILERS" 
-         "ICE_STATIC_LIBS"
+         #"ICE_STATIC_LIBS"
       )
 
       target_compile_options(slice2cpp PRIVATE "/wd4250")
@@ -28,11 +28,13 @@ if(WIN32)
       set(rc_flags " /l 0x0409")
       set(CMAKE_RC_FLAGS ${rc_flags})
       set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
+      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
    endif()
 endif()
 
 target_link_libraries(slice2cpp 
-   mcpp
+   ${zeroc-mcpp_LIBRARY}
    slice
    iceutil
    rpcrt4.lib
