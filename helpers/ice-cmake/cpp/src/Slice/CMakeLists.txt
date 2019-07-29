@@ -44,7 +44,7 @@ target_include_directories(slice
 	   ${CMAKE_SOURCE_DIR}/cpp/src
 )
 
-add_dependencies(slice iceutil)
+#add_dependencies(slice iceutil)
 
 if(WIN32)
    if(MSVC)
@@ -52,8 +52,8 @@ if(WIN32)
          PRIVATE 
          "ICE_BUILDING_SLICE_COMPILERS" 
          "ICE_STATIC_LIBS"
-         ${ICE_COMPILE_DEFS}
       )
-      target_compile_options(slice PRIVATE ${ICE_COMPILE_OPTIONS})
+      target_compile_options(slice PRIVATE "/wd4250")
    endif()
 endif()
+install(TARGETS slice DESTINATION lib)

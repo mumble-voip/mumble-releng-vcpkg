@@ -36,8 +36,8 @@ if(WIN32)
          PRIVATE 
          "ICE_BUILDING_SLICE_COMPILERS" 
          "ICE_STATIC_LIBS"
-         ${ICE_COMPILE_DEFS}
       )
-      target_compile_options(iceutil PRIVATE ${ICE_COMPILE_OPTIONS})
+      target_compile_options(iceutil PRIVATE "/wd4250")
    endif()
 endif()
+install(TARGETS iceutil DESTINATION lib)
