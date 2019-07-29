@@ -11,6 +11,7 @@ set(mcpp_VERSION_PATCH 2)
 set(mcpp_VERSION_TWEAK 13)
 
 add_library(mcpp STATIC)
+
 target_sources(mcpp 
    PRIVATE
       config.h
@@ -31,12 +32,17 @@ target_sources(mcpp
 target_compile_definitions(mcpp PRIVATE "HAVE_CONFIG_H" "MCPP_LIB=1")
 
 if(WIN32)
-	target_compile_definitions(mcpp PRIVATE 
-		"WIN32_LEAN_AND_MEAN"
-		"_CRT_SECURE_NO_WARNINGS"
-	)
-	target_compile_options(mcpp PRIVATE "/W3" "/wd4146" "/wd4244" "/wd4267")
+	if(MSVC)
+		target_compile_definitions(mcpp PRIVATE 
+			"_CONSOLE"
+			"WIN32_LEAN_AND_MEAN"
+			"_CRT_SECURE_NO_WARNINGS"
+		)
+		target_compile_options(mcpp PRIVATE "/W3" "/wd4146" "/wd4244" "/wd4267")
 
+		set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /MT")
+		set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} /MTd")
+	endif()
 elseif(UNIX)
    target_compile_options(mcpp PRIVATE "-O2" "-Wall" "-Wno-implicit-function-declaration")
    if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
