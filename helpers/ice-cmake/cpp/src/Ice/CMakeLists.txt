@@ -250,3 +250,5 @@ CompileSlices(slice2cpp
    ice
    ${GENERATED_SOURCE_DIR}/Ice
 )
+
+install(TARGETS ice DESTINATION lib)
