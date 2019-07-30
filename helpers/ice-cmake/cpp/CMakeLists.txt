@@ -50,22 +50,16 @@ if(WIN32)
    include(cmake/mc_compiler.cmake)
 endif(WIN32)
 
-include(ExternalProject)
-ExternalProject_Add(zeroc-mcpp
-   GIT_REPOSITORY https://github.com/zeroc-ice/mcpp.git
-   GIT_TAG e9ec201de0f395ab4bf4af714d91093138a0c43d
-)
+configure_file(CMakeLists.txt.in zeroc-mcpp-download/CMakeLists.txt)
 
-ExternalProject_Add_Step(zeroc-mcpp copy-cmakelists
-   COMMAND ${CMAKE_COMMAND} -E copy 
-      ${CMAKE_SOURCE_DIR}/external/zeroc-mcpp/CMakeLists.txt
-      ${PROJECT_BINARY_DIR}/cpp/zeroc-mcpp-prefix/src/zeroc-mcpp
-   DEPENDEES download
-)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" . 
+   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
 
-ExternalProject_Get_property(zeroc-mcpp INSTALL_DIR)
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
 
-add_library(mcpp STATIC IMPORTED)
+add_subdirectory("${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp/src"
+   "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp/build")
 
 find_package(bzip2 1.0 REQUIRED)
 find_package(expat 2.1 REQUIRED)
@@ -77,5 +71,3 @@ add_subdirectory(src/slice2cpp)
 add_subdirectory(src/Ice)
 add_subdirectory(src/Glacier2Lib)
 add_subdirectory(src/IceBox)
-
-install(TARGETS ice DESTINATION lib)
