@@ -25,19 +25,20 @@ if(WIN32)
       set(rc_flags " /l 0x0409")
       set(CMAKE_RC_FLAGS ${rc_flags})
       set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
-      set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-		set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+
+      target_link_libraries(slice2cpp PRIVATE
+         rpcrt4.lib
+         advapi32.lib
+         DbgHelp.lib
+         Shlwapi.lib
+      )
    endif()
 endif()
 
 target_link_libraries(slice2cpp PRIVATE
    mcpp
    slice
-   iceutil
-   rpcrt4.lib
-   advapi32.lib
-   DbgHelp.lib
-   Shlwapi.lib
+   iceutil   
 )
 
 install(TARGETS slice2cpp DESTINATION bin)
