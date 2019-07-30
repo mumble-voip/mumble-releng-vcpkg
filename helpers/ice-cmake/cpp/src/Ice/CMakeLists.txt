@@ -209,7 +209,7 @@ target_include_directories(ice
    PRIVATE 
       ${CMAKE_SOURCE_DIR}/cpp/include
 	   ${CMAKE_SOURCE_DIR}/cpp/src
-      #${GENERATED_SOURCE_DIR}
+      ${GENERATED_SOURCE_DIR}
       ${GENERATED_SOURCE_DIR}/Ice
 )
 
@@ -218,10 +218,12 @@ if(WIN32)
 	if(MSVC)
 		target_compile_options(ice PRIVATE 
 			"/wd4996" 
-			"/showIncludes" 
+			"/showIncludes"
+			${ICE_COMPILE_OPTIONS} 
 		)
 		target_compile_definitions(ice PRIVATE 
-			"ICE_API_EXPORTS" 
+			"ICE_API_EXPORTS"
+			${ICE_COMPILE_DEFS}
 		)
 
 		target_link_libraries(ice
