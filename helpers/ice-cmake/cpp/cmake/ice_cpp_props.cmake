@@ -2,13 +2,19 @@
 
 set(CMAKE_CXX_STANDARD 11) 
 if(WIN32)
+   include("${PROJECT_SOURCE_DIR}/cpp/cmake/mc_compiler.cmake")
    if(MSVC)
       set(ICE_COMPILE_DEFS 
          "WIN32_LEAN_AND_MEAN"
-         "ICE_CPP11_MAPPING"
+         "ICE_BUILDING_SOURCE"
       )
 
-      set(ICE_DIST_COMPILE_OPTIONS
+      if(CMAKE_CXX_STANDARD EQUAL 11)
+         set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_CPP11_MAPPING")
+         set(ICE_RC_FLAGS "ICE_CPP11_MAPPING")
+      endif()
+
+      set(ICE_COMPILE_OPTIONS
          "/W4"
          "/wd4121"
          "/wd4250"
@@ -19,10 +25,12 @@ if(WIN32)
          "/wd4505"
          "/wd4512"
          "/bigobj"
-         "ICE_BUILDING_SOURCE"
       )
+      if(NOT BUILD_SHARED_LIBS)
+         set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+      endif()
 
-      set(ICE_RC_FLAGS "ICE_CPP11_MAPPING")
    endif()
 
 elseif(DARWIN)
