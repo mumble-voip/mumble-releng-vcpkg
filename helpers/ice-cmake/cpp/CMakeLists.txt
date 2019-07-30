@@ -7,7 +7,7 @@
 #)
 
 # todo: add GNU Make logic to handle config/Make.rules if needed
-
+include("${PROJECT_SOURCE_DIR}/cpp/cmake/ice_cpp_props.cmake")
 set(zeroc-ice_DOXYGEN_FILES
    doxygen/config-cpp11
    doxygen/config-cpp98
@@ -28,17 +28,10 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
    PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
-# set the slice ice directory
-set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
-
-file(GLOB SLICES RELATIVE ${SLICE_DIR} ${SLICE_DIR}/*)
-
 set(GENERATED_SOURCE_DIR ${PROJECT_BINARY_DIR}/cpp/include/generated)
 if(NOT ${GENERATED_SOURCE_DIR})
    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/cpp/include/generated)
 endif()
-
-include(${CMAKE_SOURCE_DIR}/cmake/CreateSlicesOutputDir.cmake)
 
 foreach(slice ${SLICES})
       CreateSlicesOutputDir(${slice} ${GENERATED_SOURCE_DIR})
