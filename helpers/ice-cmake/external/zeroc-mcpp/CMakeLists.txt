@@ -50,4 +50,4 @@ elseif(UNIX)
    endif()
 endif()
 
-install(TARGETS mcpp DESTINATION ${PROJECT_BINARY_DIR}lib)
+install(TARGETS mcpp DESTINATION lib)
