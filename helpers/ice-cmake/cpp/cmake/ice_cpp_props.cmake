@@ -4,9 +4,11 @@ set(CMAKE_CXX_STANDARD 11)
 if(WIN32)
    include("${PROJECT_SOURCE_DIR}/cpp/cmake/mc_compiler.cmake")
    if(MSVC)
-      set(ICE_COMPILE_DEFS 
+      set(ICE_COMPILE_DEFS
+         "_CONSOLE" 
          "WIN32_LEAN_AND_MEAN"
-         "ICE_BUILDING_SOURCE"
+         "ICE_BUILDING_SRC"
+         "_WIN32_WINNT"
       )
 
       if(CMAKE_CXX_STANDARD EQUAL 11)
@@ -25,10 +27,12 @@ if(WIN32)
          "/wd4505"
          "/wd4512"
          "/bigobj"
+         "/MP"
       )
       if(NOT BUILD_SHARED_LIBS)
          set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
          set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+         set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
       endif()
 
    endif()
