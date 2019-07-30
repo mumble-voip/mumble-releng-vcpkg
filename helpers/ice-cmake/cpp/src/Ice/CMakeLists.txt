@@ -1,4 +1,3 @@
-
 file(GLOB GENERATED_ICE_SOURCE_NAMES 
    ${GENERATED_SOURCE_DIR}/Ice/*.h 
    ${GENERATED_SOURCE_DIR}/Ice/*.cpp
@@ -210,33 +209,38 @@ target_include_directories(ice
    PRIVATE 
       ${CMAKE_SOURCE_DIR}/cpp/include
 	   ${CMAKE_SOURCE_DIR}/cpp/src
-      ${GENERATED_SOURCE_DIR}
+      #${GENERATED_SOURCE_DIR}
       ${GENERATED_SOURCE_DIR}/Ice
 )
 
 if(WIN32)
 
-   if(MSVC)
-		target_compile_options(ice PRIVATE "/wd4996" "/showIncludes" ${ICE_COMPILE_OPTIONS})
-		target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS" ${ICE_COMPILE_DEFS})
-   endif()
+	if(MSVC)
+		target_compile_options(ice PRIVATE 
+			"/wd4996" 
+			"/showIncludes" 
+		)
+		target_compile_definitions(ice PRIVATE 
+			"ICE_API_EXPORTS" 
+		)
 
-   target_link_libraries(ice
-      PRIVATE
-         advapi32
-         ws2_32
-         Iphlpapi
-         rpcrt4
-         DbgHelp
-         Shlwapi
-   )
-   
-   add_custom_command(TARGET ice
-      COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
-      WORKING_DIRECTORY ${GENERATED_SOURCE_DIR}/Ice
-      DEPENDS EventLoggerMsg.mc
-      PRE_BUILD
-   )
+		target_link_libraries(ice
+			PRIVATE
+				advapi32
+				ws2_32
+				Iphlpapi
+				rpcrt4
+				DbgHelp
+				Shlwapi
+		)
+		
+		add_custom_command(TARGET ice
+			COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
+			WORKING_DIRECTORY ${GENERATED_SOURCE_DIR}/Ice
+			DEPENDS EventLoggerMsg.mc
+			PRE_BUILD
+		)
+	endif()
 endif()
 
 add_dependencies(ice slice2cpp)
