@@ -224,11 +224,11 @@ if(WIN32)
 	if(MSVC)
 		target_compile_options(ice PRIVATE 
 			"/wd4996" 
-			#"/showIncludes"
 			${ICE_COMPILE_OPTIONS} 
 		)
 		target_compile_definitions(ice PRIVATE 
 			"ICE_API_EXPORTS"
+			#"_WIN32_WINNT"
 			${ICELIB_COMPILE_DEFS}
 		)
 
@@ -253,9 +253,7 @@ endif()
 
 add_dependencies(ice slice2cpp)
 
-include("${PROJECT_SOURCE_DIR}/cmake/CompileSlices.cmake")
-
-#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
+#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir cxx_std)
 CompileSlices(slice2cpp
    ${SLICE_DIR}
    Ice
