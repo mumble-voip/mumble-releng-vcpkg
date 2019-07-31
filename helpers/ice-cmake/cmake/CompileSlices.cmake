@@ -5,13 +5,13 @@
 # slice_folder_name string - name of folder (i.e. "Ice")
 # slice_target - lib or exe this compile depends on
 # output_dir string - where compiled files will be output to
-function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
+function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir cxx_std)
    file(GLOB ice_files ${slice_path}/${slice_folder_name}/*.ice)
    foreach(ice ${ice_files})
       if(NOT ice)
          get_filename_component(ice_FILE_NAME ${ice} NAME_WE)
          add_custom_command(TARGET ${slice_target}
-            COMMAND ${slice2_bin} -I${slice_path} ${ice} --impl-c++11
+            COMMAND ${slice2_bin} -I${slice_path} ${ice} --impl-c++${cxx_std}
             WORKING_DIRECTORY ${output_dir}
             DEPENDS ${ice_FILE_NAME}.ice
             PRE_BUILD
