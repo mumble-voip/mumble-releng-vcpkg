@@ -8,7 +8,6 @@
 function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir cxx_std)
    file(GLOB ice_files ${slice_path}/${slice_folder_name}/*.ice)
    foreach(ice ${ice_files})
-      if(NOT ice)
          get_filename_component(ice_FILE_NAME ${ice} NAME_WE)
          add_custom_command(TARGET ${slice_target}
             COMMAND ${slice2_bin} -I${slice_path} ${ice} --impl-c++${cxx_std}
@@ -16,6 +15,5 @@ function(CompileSlices slice2_bin slice_path slice_folder_name slice_target outp
             DEPENDS ${ice_FILE_NAME}.ice
             PRE_BUILD
          )
-      endif()
    endforeach()
 endfunction()
