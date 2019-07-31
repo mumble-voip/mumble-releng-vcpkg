@@ -51,9 +51,12 @@ if(WIN32)
       target_compile_definitions(slice 
          PRIVATE 
          "ICE_BUILDING_SLICE_COMPILERS" 
-         "ICE_STATIC_LIBS"
+         ${ICE_CPP98_COMPILE_DEFS}
       )
-      target_compile_options(slice PRIVATE "/wd4250")
+      target_compile_options(slice PRIVATE 
+         "/wd4250"
+         ${ICE_COMPILE_OPTIONS}
+      )
 
    endif()
 endif()

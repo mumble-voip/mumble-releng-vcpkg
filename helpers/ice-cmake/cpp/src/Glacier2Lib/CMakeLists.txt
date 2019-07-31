@@ -28,9 +28,22 @@ target_include_directories(glacier2
       ${GENERATED_SOURCE_DIR}/Glacier2
 )
 
-target_compile_definitions(ice PRIVATE "GLACIER2_API_EXPORTS")
+if(CMAKE_CXX_STANDARD EQUAL 11)
+	set(GLACIER2LIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
+else()
+	set(GLACIER2LIB_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
+endif()
 
-add_dependencies(glacier2 ice)
+target_compile_definitions(glacier2 PRIVATE 
+   "GLACIER2_API_EXPORTS"
+   ${GLACIER2LIB_COMPILE_DEFS}
+)
+
+target_compile_options(glacier2 PRIVATE
+   ${ICE_COMPILE_OPTIONS}   
+)
+
+target_link_libraries(glacier2 PRIVATE ice)
 
 include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
 
@@ -40,4 +53,5 @@ CompileSlices(slice2cpp
    Glacier2
    glacier2
    ${GENERATED_SOURCE_DIR}/Glacier2
+   ${CMAKE_CXX_STANDARD}
 )

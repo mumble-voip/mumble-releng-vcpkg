@@ -213,17 +213,23 @@ target_include_directories(ice
       ${GENERATED_SOURCE_DIR}/Ice
 )
 
+if(CMAKE_CXX_STANDARD EQUAL 11)
+	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
+else()
+	set(ICELIB_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
+endif()
+
 if(WIN32)
 
 	if(MSVC)
 		target_compile_options(ice PRIVATE 
 			"/wd4996" 
-			"/showIncludes"
+			#"/showIncludes"
 			${ICE_COMPILE_OPTIONS} 
 		)
 		target_compile_definitions(ice PRIVATE 
 			"ICE_API_EXPORTS"
-			${ICE_COMPILE_DEFS}
+			${ICELIB_COMPILE_DEFS}
 		)
 
 		target_link_libraries(ice
@@ -247,14 +253,15 @@ endif()
 
 add_dependencies(ice slice2cpp)
 
-include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
+include("${PROJECT_SOURCE_DIR}/cmake/CompileSlices.cmake")
 
 #function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
 CompileSlices(slice2cpp
    ${SLICE_DIR}
    Ice
    ice
-   ${GENERATED_SOURCE_DIR}/Ice
+	${GENERATED_SOURCE_DIR}/Ice
+	${CMAKE_CXX_STANDARD}
 )
 
 install(TARGETS ice DESTINATION lib)
