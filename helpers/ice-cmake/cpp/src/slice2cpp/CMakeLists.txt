@@ -17,7 +17,7 @@ if(WIN32)
    if(MSVC)
       target_compile_definitions(slice2cpp PRIVATE 
          "ICE_BUILDING_SLICE_COMPILERS" 
-         "ICE_STATIC_LIBS"
+         ${ICE_CPP98_COMPILE_DEFS}
       )
 
       target_compile_options(slice2cpp PRIVATE "/wd4250")
