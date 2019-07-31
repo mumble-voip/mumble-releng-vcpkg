@@ -44,8 +44,6 @@ target_include_directories(slice
 	   ${CMAKE_SOURCE_DIR}/cpp/src
 )
 
-#add_dependencies(slice iceutil)
-
 if(WIN32)
    if(MSVC)
       target_compile_definitions(slice 
