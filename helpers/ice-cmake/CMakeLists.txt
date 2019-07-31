@@ -9,7 +9,9 @@ set(zeroc-ice_VERSION_PATCH 2)
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # set the slice ice directory
-include("${PROJECT_SOURCE_DIR}/cmake/CreateSlicesOutputDir.cmake")
+include(cmake/CreateSlicesOutputDir.cmake)
+include(cmake/CompileSlices.cmake)
+
 set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
 
 file(GLOB SLICES RELATIVE ${SLICE_DIR} ${SLICE_DIR}/*)
