@@ -1,7 +1,6 @@
 # define c++ compiler options and preprocessor definitions for all OS types
 
 if(WIN32)
-   include("${PROJECT_SOURCE_DIR}/cpp/cmake/mc_compiler.cmake")
    if(MSVC)
       set(ICE_CPP98_COMPILE_DEFS
          "_CONSOLE" 
