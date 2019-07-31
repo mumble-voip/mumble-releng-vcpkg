@@ -10,8 +10,8 @@ target_sources(iceboxlib
 
 target_include_directories(iceboxlib
    PRIVATE 
-      "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/src"
+   	"${CMAKE_SOURCE_DIR}/include"
+		"${CMAKE_SOURCE_DIR}/src"
 )
 
 add_dependencies(iceboxlib ice)
@@ -36,8 +36,8 @@ target_link_libraries(icebox PRIVATE iceboxlib)
 
 target_include_directories(icebox
    PRIVATE 
-      "${CMAKE_SOURCE_DIR}/include"
-	  "${CMAKE_SOURCE_DIR}/src"
+   	"${CMAKE_SOURCE_DIR}/include"
+		"${CMAKE_SOURCE_DIR}/src"
 )
 
 target_compile_definitions(icebox PRIVATE "ICE_BUILDING_SRC")
