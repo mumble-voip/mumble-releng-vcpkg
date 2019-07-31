@@ -45,9 +45,7 @@ target_compile_options(glacier2 PRIVATE
 
 target_link_libraries(glacier2 PRIVATE ice)
 
-include("${CMAKE_SOURCE_DIR}/cmake/CompileSlices.cmake")
-
-#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir)
+#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir cxx_std)
 CompileSlices(slice2cpp
    ${SLICE_DIR}
    Glacier2

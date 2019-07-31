@@ -7,7 +7,13 @@
 #)
 
 # todo: add GNU Make logic to handle config/Make.rules if needed
-include("${PROJECT_SOURCE_DIR}/cpp/cmake/ice_cpp_props.cmake")
+include(cmake/ice_cpp_props.cmake)
+if(WIN32)
+   if(MSVC)
+      include(cmake/mc_compiler.cmake)
+   endif()
+endif(WIN32)
+
 set(zeroc-ice_DOXYGEN_FILES
    doxygen/config-cpp11
    doxygen/config-cpp98
@@ -36,12 +42,6 @@ endif()
 foreach(slice ${SLICES})
       CreateSlicesOutputDir(${slice} ${GENERATED_SOURCE_DIR})
 endforeach()
-
-include(cmake/ice_cpp_props.cmake)
-
-if(WIN32)
-   include(cmake/mc_compiler.cmake)
-endif(WIN32)
 
 configure_file(CMakeLists.txt.in zeroc-mcpp-download/CMakeLists.txt)
 
