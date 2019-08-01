@@ -44,6 +44,8 @@ target_include_directories(slice
 	   ${CMAKE_SOURCE_DIR}/cpp/src
 )
 
+target_link_libraries(slice PRIVATE iceutil)
+
 if(WIN32)
    if(MSVC)
       target_compile_definitions(slice 
