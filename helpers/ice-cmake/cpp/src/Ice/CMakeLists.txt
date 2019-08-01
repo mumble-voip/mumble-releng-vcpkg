@@ -234,15 +234,17 @@ if(WIN32)
 			set(ICELIB_COMPILE_DEFS "${ICELIB_COMPILE_DEFS}" "ICE_API_EXPORTS")
 		endif()
 
-		target_link_libraries(ice
-			PRIVATE
-				advapi32
-				ws2_32
-				Iphlpapi
-				rpcrt4
-				DbgHelp
-				Shlwapi
-		)
+		if(BUILD_SHARED_LIBS)
+			target_link_libraries(ice
+				PRIVATE
+					advapi32.lib
+					ws2_32.lib
+					Iphlpapi.lib
+					rpcrt4.lib
+					DbgHelp.lib
+					Shlwapi.lib
+			)
+		endif()
 		
 		add_custom_command(TARGET ice
 			COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
