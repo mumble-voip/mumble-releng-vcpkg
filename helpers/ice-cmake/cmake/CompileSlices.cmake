@@ -12,7 +12,6 @@ function(CompileSlices slice2_bin slice_path slice_folder_name slice_target outp
          add_custom_command(TARGET ${slice_target}
             COMMAND ${slice2_bin} -I${slice_path} ${ice} ${lang_std}
             WORKING_DIRECTORY ${output_dir}
-            DEPENDS ${ice_FILE_NAME}.ice
             PRE_BUILD
          )
    endforeach()
