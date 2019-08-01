@@ -220,16 +220,18 @@ else()
 endif()
 
 if(WIN32)
-
 	if(MSVC)
 		target_compile_options(ice PRIVATE 
 			"/wd4996" 
 			${ICE_COMPILE_OPTIONS} 
 		)
 		target_compile_definitions(ice PRIVATE 
-			"ICE_API_EXPORTS"
 			${ICELIB_COMPILE_DEFS}
 		)
+
+		if(BUILD_SHARED_LIBS)
+			set(ICELIB_COMPILE_DEFS "${ICELIB_COMPILE_DEFS}" "ICE_API_EXPORTS")
+		endif()
 
 		target_link_libraries(ice
 			PRIVATE
