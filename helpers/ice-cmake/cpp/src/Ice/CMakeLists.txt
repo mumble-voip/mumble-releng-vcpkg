@@ -215,6 +215,7 @@ target_include_directories(ice
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
+	set(CMAKE_RC_FLAGS ${ICE_RC_FLAGS})
 else()
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
 endif()
@@ -254,13 +255,13 @@ endif()
 
 add_dependencies(ice slice2cpp)
 
-#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir cxx_std)
+#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir lang_std)
 CompileSlices(slice2cpp
    ${SLICE_DIR}
    Ice
    ice
 	${GENERATED_SOURCE_DIR}/Ice
-	${CMAKE_CXX_STANDARD}
+	--impl-c++${CMAKE_CXX_STANDARD}
 )
 
 install(TARGETS ice DESTINATION lib)
