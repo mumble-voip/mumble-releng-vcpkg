@@ -35,7 +35,7 @@ else()
 endif()
 
 target_compile_definitions(glacier2 PRIVATE 
-   "GLACIER2_API_EXPORTS"
+   #"GLACIER2_API_EXPORTS"
    ${GLACIER2LIB_COMPILE_DEFS}
 )
 
