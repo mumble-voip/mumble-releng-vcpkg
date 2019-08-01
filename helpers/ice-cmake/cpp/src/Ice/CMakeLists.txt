@@ -228,7 +228,6 @@ if(WIN32)
 		)
 		target_compile_definitions(ice PRIVATE 
 			"ICE_API_EXPORTS"
-			#"_WIN32_WINNT"
 			${ICELIB_COMPILE_DEFS}
 		)
 
