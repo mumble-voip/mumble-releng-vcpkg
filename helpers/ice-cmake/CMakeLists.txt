@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.1.0)
 
+if(WIN32)
+   string(REPLACE "/D_WINDOWS" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+   string(REPLACE "/DWIN32" "/D_WIN32_WINNT=0xA00" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+endif()
+
 project(zeroc-ice)
 
 set(zeroc-ice_VERSION_MAJOR 3)
