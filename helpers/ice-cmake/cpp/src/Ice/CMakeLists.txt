@@ -257,7 +257,7 @@ endif()
 
 add_dependencies(ice slice2cpp)
 
-#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir lang_std)
+#function(CompileSlices slice2_bin slice_path slice_dir slice_target output_dir lang_std)
 CompileSlices(slice2cpp
    ${SLICE_DIR}
    Ice

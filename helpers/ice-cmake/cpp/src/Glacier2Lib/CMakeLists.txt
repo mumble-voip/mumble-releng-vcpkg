@@ -45,7 +45,7 @@ target_compile_options(glacier2 PRIVATE
 
 target_link_libraries(glacier2 PRIVATE ice)
 
-#function(CompileSlices slice2_bin slice_path slice_folder_name slice_target output_dir cxx_std)
+#function(CompileSlices slice2_bin slice_path slice_dir slice_target output_dir cxx_std)
 CompileSlices(slice2cpp
    ${SLICE_DIR}
    Glacier2
