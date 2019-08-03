@@ -15,6 +15,7 @@ target_include_directories(slice2cpp
 
 if(WIN32)
    if(MSVC)
+      source_group("Resource Files" FILES ${CMAKE_CURRENT_SOURCE_DIR}/Slice2Cpp.rc)
       target_compile_definitions(slice2cpp PRIVATE 
          "ICE_BUILDING_SLICE_COMPILERS" 
          ${ICE_CPP98_COMPILE_DEFS}
