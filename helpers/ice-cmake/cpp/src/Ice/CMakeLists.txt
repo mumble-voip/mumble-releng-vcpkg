@@ -1,10 +1,81 @@
-file(GLOB GENERATED_ICE_SOURCE_NAMES 
-   ${GENERATED_SOURCE_DIR}/Ice/*.h 
-   ${GENERATED_SOURCE_DIR}/Ice/*.cpp
+set(GENERATED_ICE_SOURCES
+	BuiltinSequences.h
+	BuiltinSequences.cpp
+	Communicator.h
+	Communicator.cpp
+	Connection.h
+	Connection.cpp
+	ConnectionF.h
+	Connection.cpp
+	Current.h
+	Current.cpp
+	Endpoint.h
+	Endpoint.cpp
+	EndpointF.h
+	EndpointF.cpp
+	EndpointTypes.h
+	EndpointTypes.cpp
+	FacetMap.h
+	FacetMap.cpp
+	Identity.h
+	Identity.cpp
+	ImplicitContext.h
+	ImplicitContext.cpp
+	ImplicitContextF.h
+	ImplicitContextF.cpp
+	Instrumentation.h
+	Instrumentation.cpp
+	InstrumentationF.h
+	InstrumentationF.cpp
+	LocalException.h
+	LocalException.cpp
+	Locator.h
+	Locator.cpp
+	LocatorF.h
+	LocatorF.cpp
+	Logger.h
+	Logger.cpp
+	LoggerF.h
+	LoggerF.cpp
+	Metrics.h
+	Metrics.cpp
+	ObjectAdapter.h
+	ObjectAdapter.cpp
+	ObjectAdapterF.h
+	ObjectAdapterF.cpp
+	ObjectFactory.h
+	ObjectFactory.cpp
+	Plugin.h
+	Plugin.cpp
+	PluginF.h
+	PluginF.cpp
+	Process.h
+	Process.cpp
+	ProcessF.h
+	ProcessF.cpp
+	Properties.h
+	Properties.cpp
+	PropertiesAdmin.h
+	PropertiesAdmin.cpp
+	PropertiesF.h
+	PropertiesF.cpp
+	RemoteLogger.h
+	RemoteLogger.cpp
+	Router.h
+	Router.cpp
+	RouterF.h
+	RouterF.cpp
+	ServantLocator.h
+	ServantLocator.cpp
+	ServantLocatorF.h
+	ServantLocatorF.cpp
+	SliceChecksumDict.h
+	SliceChecksumDict.cpp
+	ValueFactory.h
+	ValueFactory.cpp
+	Version.h
+	Version.cpp
 )
-foreach(name ${GENERATED_ICE_SOURCE_NAMES})
-   list(APPEND GENERATED_ICE_SOURCES ${name})
-endforeach()
 
 set_source_files_properties(${GENERATED_ICE_SOURCES} PROPERTIES GENERATED TRUE)
 
