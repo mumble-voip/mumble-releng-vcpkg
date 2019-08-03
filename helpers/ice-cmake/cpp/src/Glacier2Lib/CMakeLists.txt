@@ -1,15 +1,11 @@
 
-file(GLOB GENERATED_GLACIER2_SOURCE_NAMES 
-   ${GENERATED_SOURCE_DIR}/Glacier2/*.h 
-   ${GENERATED_SOURCE_DIR}/Glacier2/*.cpp
+add_library(glacier2)
+
+set(GENERATED_GLACIER2_SOURCES
+
 )
-foreach(name ${GENERATED_GLACIER2_SOURCE_NAMES})
-   list(APPEND GENERATED_GLACIER2_SOURCES ${name})
-endforeach()
 
 set_source_files_properties(${GENERATED_GLACIER2_SOURCES} PROPERTIES GENERATED TRUE)
-
-add_library(glacier2)
 
 target_sources(glacier2
    PRIVATE
