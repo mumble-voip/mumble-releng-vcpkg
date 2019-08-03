@@ -1,13 +1,3 @@
-# file(GLOB GENERATED_ICE_SOURCE_NAMES 
-#    ${GENERATED_SOURCE_DIR}/Ice/*.h 
-#    ${GENERATED_SOURCE_DIR}/Ice/*.cpp
-# )
-# foreach(name ${GENERATED_ICE_SOURCE_NAMES})
-#    list(APPEND GENERATED_ICE_SOURCES ${name})
-# endforeach()
-
-# set_source_files_properties(${GENERATED_ICE_SOURCES} PROPERTIES GENERATED TRUE)
-
 add_library(ice)
 
 set(GENERATED_ICE_SOURCES
@@ -162,7 +152,6 @@ set(GENERATED_ICE_SOURCES
 	${GENERATED_SOURCE_DIR}/Ice/SliceChecksumDict.h
 	${GENERATED_SOURCE_DIR}/Ice/SliceChecksumDictI.cpp
 	${GENERATED_SOURCE_DIR}/Ice/SliceChecksumDictI.h
-	${GENERATED_SOURCE_DIR}/Ice/sources.txt
 	${GENERATED_SOURCE_DIR}/Ice/ValueFactory.cpp
 	${GENERATED_SOURCE_DIR}/Ice/ValueFactory.h
 	${GENERATED_SOURCE_DIR}/Ice/ValueFactoryI.cpp
@@ -177,7 +166,6 @@ set_source_files_properties(${GENERATED_ICE_SOURCES} PROPERTIES GENERATED TRUE)
 
 target_sources(ice
    PRIVATE
-      ${GENERATED_ICE_SOURCES}
 	   Acceptor.cpp
 	   Acceptor.h
 	   AcceptorF.h
@@ -220,7 +208,8 @@ target_sources(ice
 	   DynamicLibrary.cpp
 	   EndpointFactory.cpp
 	   EndpointFactory.h
-	   EndpointFactoryF.h
+		EndpointFactoryF.h
+		EventLoggerMsg.mc
 	   EventHandler.cpp
 	   EventHandler.h
 	   EventHandlerF.h
@@ -367,7 +356,8 @@ target_sources(ice
 	   WSEndpoint.cpp
 	   WSEndpoint.h
 	   WSTransceiver.cpp
-	   WSTransceiver.h
+		WSTransceiver.h
+		${GENERATED_ICE_SOURCES}
 )
 
 target_include_directories(ice 
@@ -387,6 +377,14 @@ endif()
 
 if(WIN32)
 	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files" 
+			FILES
+				${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
+				${CMAKE_CURRENT_SOURCE_DIR}/Ice.rc
+		)
+		
 		target_compile_options(ice PRIVATE 
 			"/wd4996" 
 			${ICE_COMPILE_OPTIONS} 
@@ -411,11 +409,11 @@ if(WIN32)
 			)
 		endif()
 		
-		add_custom_command(TARGET ice
+		add_custom_command(
+			OUTPUT EventLoggerMsg.rc
 			COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 			WORKING_DIRECTORY ${GENERATED_SOURCE_DIR}/Ice
-			DEPENDS EventLoggerMsg.mc
-			PRE_BUILD
+			DEPENDS ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 		)
 	endif()
 endif()
