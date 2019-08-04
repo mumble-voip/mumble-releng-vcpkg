@@ -34,3 +34,5 @@ elseif("${languages" MATCHES "Java")
    add_subdirectory(java)
 
 endif()
+
+add_subdirectory(slice)
