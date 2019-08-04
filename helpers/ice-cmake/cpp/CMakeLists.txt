@@ -36,11 +36,11 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
 )
 
 set(GENERATED_SOURCE_DIR 
-   ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}
+   ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}
 )
 if(NOT ${GENERATED_SOURCE_DIR})
    file(MAKE_DIRECTORY 
-      ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}
+      ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}
    )
 endif()
 
