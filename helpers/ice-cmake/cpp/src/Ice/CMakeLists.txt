@@ -351,13 +351,10 @@ if(WIN32)
 			"/wd4996" 
 			${ICE_COMPILE_OPTIONS} 
 		)
-
-		if(BUILD_SHARED_LIBS)
-			set(ICELIB_COMPILE_DEFS "${ICELIB_COMPILE_DEFS}" "ICE_API_EXPORTS")
-		endif()
 		
 		target_compile_definitions(ice PRIVATE 
 			${ICELIB_COMPILE_DEFS}
+			${ICE_API_EXPORTS}
 		)
 
 		if(BUILD_SHARED_LIBS)
