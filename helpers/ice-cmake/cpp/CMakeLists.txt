@@ -4,7 +4,8 @@
 if(DARWIN)
    set(zeroc-ice_CONFIG_FILES
       config/Make.xcodesdk.rules
-)
+   )
+endif()
 
 # todo: add GNU Make logic to handle config/Make.rules if needed
 include(cmake/ice_cpp_props.cmake)
