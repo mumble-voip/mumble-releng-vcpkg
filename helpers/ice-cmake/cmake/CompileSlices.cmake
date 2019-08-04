@@ -10,5 +10,6 @@ function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir la
       COMMAND ${slice2_bin} -I${slice_path} ${ice_file} ${lang_std}
       WORKING_DIRECTORY ${output_dir}
       PRE_BUILD
+      DEPENDS ${slice2_bin}
    )
 endfunction()
