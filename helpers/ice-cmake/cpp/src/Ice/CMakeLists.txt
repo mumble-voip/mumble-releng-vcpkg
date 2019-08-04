@@ -321,7 +321,7 @@ target_include_directories(ice
    PRIVATE 
       ${CMAKE_SOURCE_DIR}/cpp/include
 	   ${CMAKE_SOURCE_DIR}/cpp/src
-      ${GENERATED_SOURCE_DIR}
+		${GENERATED_SOURCE_DIR}
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
@@ -352,12 +352,9 @@ if(WIN32)
 			${ICE_COMPILE_OPTIONS} 
 		)
 
-		if(BUILD_SHARED_LIBS)
-			set(ICELIB_COMPILE_DEFS "${ICELIB_COMPILE_DEFS}" "ICE_API_EXPORTS")
-		endif()
-		
 		target_compile_definitions(ice PRIVATE 
 			${ICELIB_COMPILE_DEFS}
+			"ICE_API_EXPORTS"
 		)
 
 		if(BUILD_SHARED_LIBS)
