@@ -1,6 +1,6 @@
 # handle slice building so the projects that need it can call it
 # Types:
-# slice2_bin name_of_slice2_bin - compiled bin
+# slice2_bin - name_of_slice2_bin (compiled bin)
 # slice_path - root/slice
 # slice_dir - name of folder (i.e. "Ice")
 # slice_target - lib or exe this compile depends on
