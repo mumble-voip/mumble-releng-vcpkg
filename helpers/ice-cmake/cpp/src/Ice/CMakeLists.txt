@@ -321,7 +321,6 @@ target_include_directories(ice
    PRIVATE 
       ${CMAKE_SOURCE_DIR}/cpp/include
 	   ${CMAKE_SOURCE_DIR}/cpp/src
-      ${GENERATED_SOURCE_DIR}
       ${GENERATED_SOURCE_DIR}/Ice
 )
 
