@@ -39,7 +39,7 @@ set(GENERATED_SOURCE_DIR
 )
 if(NOT ${GENERATED_SOURCE_DIR})
    file(MAKE_DIRECTORY 
-      ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}
+      ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}
    )
 endif()
 
