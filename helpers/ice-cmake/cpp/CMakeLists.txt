@@ -1,10 +1,10 @@
 # Add dependencies for C++ related project generation
 
-# todo: set up for Apple, might be needed here or obj-c
-# if(MACOSX)
-# set(zeroc-ice_CONFIG_FILES
-#   config/Make.xcodesdk.rules
-#)
+
+if(DARWIN)
+   set(zeroc-ice_CONFIG_FILES
+      config/Make.xcodesdk.rules
+)
 
 # todo: add GNU Make logic to handle config/Make.rules if needed
 include(cmake/ice_cpp_props.cmake)
@@ -35,7 +35,7 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
 )
 
 set(GENERATED_SOURCE_DIR 
-   ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}
+   ${PROJECT_BINARY_DIR}/cpp/include/generated/cpp${CMAKE_CXX_STANDARD}/${CMAKE_SYSTEM_NAME}/${CMAKE_SYSTEM_PROCESSOR}
 )
 if(NOT ${GENERATED_SOURCE_DIR})
    file(MAKE_DIRECTORY 
