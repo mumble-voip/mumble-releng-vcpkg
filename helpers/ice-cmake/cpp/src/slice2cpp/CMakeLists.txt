@@ -1,5 +1,5 @@
 
-add_executable(slice2cpp Main.cpp Slice2Cpp.rc ALIAS slice2lang_bin)
+add_executable(slice2cpp Main.cpp Slice2Cpp.rc)
 
 target_sources(slice2cpp 
    PRIVATE
