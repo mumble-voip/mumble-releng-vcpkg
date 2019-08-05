@@ -41,11 +41,11 @@ target_compile_options(glacier2 PRIVATE
 
 target_link_libraries(glacier2 PRIVATE ice)
 
-#function(CompileSlices slice2_bin slice_path slice_dir slice_target output_dir lang_std)
-CompileSlices(slice2cpp
-   ${SLICE_DIR}
-   Glacier2
-   glacier2
-   ${GENERATED_SOURCE_DIR}/Glacier2
-   --impl-c++${CMAKE_CXX_STANDARD}
-)
+# #function(CompileSlices slice2_bin slice_path slice_dir slice_target output_dir lang_std)
+# CompileSlices(slice2cpp
+#    ${SLICE_DIR}
+#    Glacier2
+#    glacier2
+#    ${GENERATED_SOURCE_DIR}/Glacier2
+#    --impl-c++${CMAKE_CXX_STANDARD}
+# )
