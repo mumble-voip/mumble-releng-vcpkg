@@ -42,12 +42,11 @@ set(SLICES
    ${CMAKE_CURRENT_SOURCE_DIR}/Version.ice
 )
 
-if(NOT ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
-   file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
+if(NOT ${CMAKE_CURRENT_BINARY_DIR}/include/generated/Ice)
+   file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/include/generated/Ice)
 endif()
 
-set(GENERATED_SOURCES_ROOT ${CMAKE_CURRENT_BINARY_DIR}/generated)
-set(GENERATED_SOURCES_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
+set(GENERATED_SOURCES_DIR ${CMAKE_CURRENT_BINARY_DIR}/include/generated/Ice)
 
 set(GENERATED_SOURCES
    ${GENERATED_SOURCES_DIR}/BuiltinSequences.cpp
@@ -214,50 +213,69 @@ set_source_files_properties(${GENERATED_SOURCES} PROPERTIES GENERATED TRUE)
 
 target_sources(ice-slices 
    PRIVATE
-   ${GENERATED_SOURCES}
-   ${SLICES}
+      ${GENERATED_SOURCES}
+      ${SLICES}
 )
 
 target_include_directories(ice-slices
    PRIVATE
-   "${GENERATED_SOURCES_DIR}"
-   "${GENERATED_SOURCES_DIR}/Ice"
-   ${PROJECT_SOURCE_DIR}/cpp/src
-   ${PROJECT_SOURCE_DIR}/cpp/include
+      ${GENERATED_SOURCES_DIR}
+      ${CMAKE_CURRENT_BINARY_DIR}/include/generated
+      ${PROJECT_SOURCE_DIR}/cpp/src
+      ${PROJECT_SOURCE_DIR}/cpp/include
    
 )
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-else()
-	set(ICELIB_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
+if("${languages}" MATCHES "CXX")
+   add_dependencies(ice-slices slice2cpp)
+   add_executable(slice2lang_bin ALIAS slice2cpp)
+
+   include(${PROJECT_SOURCE_DIR}/cpp/cmake/ice_cpp_props.cmake)
+   if(CMAKE_CXX_STANDARD EQUAL 11)
+      set(SLICE_ICE_COMPILE_DEFS "${SLICE_CPP11_COMPILE_DEFS}")
+   else()
+      set(SLICE_ICE_COMPILE_DEFS "${SLICE_CPP98_COMPILE_DEFS")
+   endif()
+   if(WIN32)
+      target_compile_options(ice-slices 
+      PRIVATE 
+         "/wd4996" 
+         ${ICE_COMPILE_OPTIONS} 
+      )
+
+      target_compile_definitions(ice-slices 
+         PRIVATE 
+            ${SLICE_ICE_COMPILE_DEFS}
+            "ICE_API_EXPORTS"
+      )
+
+      source_group(
+         TREE ${CMAKE_CURRENT_SOURCE_DIR}
+         PREFIX "Resource Files" 
+         FILES
+            ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.rc
+      )
+   endif()
 endif()
 
 if(WIN32)
-   if(MSVC)
    source_group(
       TREE ${CMAKE_CURRENT_SOURCE_DIR}
       PREFIX "Slice Files"
       FILES ${SLICES}
    )
-   endif()
 endif()
 
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
-if("${languages}" MATCHES "CXX")
-   add_dependencies(ice-slices slice2cpp)
-   add_executable(slice2lang_bin ALIAS slice2cpp)
-   set(lang_flag "--impl-c++${CMAKE_CXX_STANDARD}")
-endif()
 add_dependencies(ice-slices slice2lang_bin)
 
 foreach(slice ${SLICES})
    add_custom_command(TARGET ice-slices
-      COMMAND slice2lang_bin -I${PROJECT_SOURCE_DIR}/slice ${slice} ${lang_flag}
+      COMMAND slice2lang_bin -I${PROJECT_SOURCE_DIR}/slice ${slice} 
       WORKING_DIRECTORY ${GENERATED_SOURCES_DIR}
       PRE_BUILD
-      DEPENDS ${slice}
       COMMENT "Compiling source files from ${slice}..."
+      DEPENDS ${slice}
    )
 endforeach()
