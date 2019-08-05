@@ -85,8 +85,6 @@ set(GENERATED_SOURCES
    ${GENERATED_SOURCES_DIR}/EndpointTypes.h
    ${GENERATED_SOURCES_DIR}/EndpointTypesI.cpp
    ${GENERATED_SOURCES_DIR}/EndpointTypesI.h
-   ${GENERATED_SOURCES_DIR}/EventLoggerMsg.h
-   ${GENERATED_SOURCES_DIR}/EventLoggerMsg.rc
    ${GENERATED_SOURCES_DIR}/FacetMap.cpp
    ${GENERATED_SOURCES_DIR}/FacetMap.h
    ${GENERATED_SOURCES_DIR}/FacetMapI.cpp
@@ -247,13 +245,6 @@ if("${languages}" MATCHES "CXX")
          PRIVATE 
             ${SLICE_ICE_COMPILE_DEFS}
             "ICE_API_EXPORTS"
-      )
-
-      source_group(
-         TREE ${CMAKE_CURRENT_SOURCE_DIR}
-         PREFIX "Resource Files" 
-         FILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.rc
       )
    endif()
 endif()
