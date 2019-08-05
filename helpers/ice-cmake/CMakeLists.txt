@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.1.0)
 
+if(CMAKE_CONFIGURATION_TYPES)
+   set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+endif()
+
 project(zeroc-ice)
 
 if(WIN32)
@@ -18,12 +22,8 @@ set(zeroc-ice_VERSION_PATCH 2)
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # set the slice ice directory
-include(cmake/CreateSlicesOutputDir.cmake)
-include(cmake/CompileSlices.cmake)
-
-set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
-
-file(GLOB SLICES RELATIVE ${SLICE_DIR} ${SLICE_DIR}/*)
+#include(cmake/CreateSlicesOutputDir.cmake)
+#include(cmake/CompileSlices.cmake)
 
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
