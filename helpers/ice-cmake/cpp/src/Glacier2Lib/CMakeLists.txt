@@ -1,11 +1,11 @@
 
 add_library(glacier2)
 
-set(GENERATED_GLACIER2_SOURCES
+# set(GENERATED_GLACIER2_SOURCES
 
-)
+# )
 
-set_source_files_properties(${GENERATED_GLACIER2_SOURCES} PROPERTIES GENERATED TRUE)
+#set_source_files_properties(${GENERATED_GLACIER2_SOURCES} PROPERTIES GENERATED TRUE)
 
 target_sources(glacier2
    PRIVATE
@@ -20,8 +20,8 @@ target_include_directories(glacier2
    PRIVATE 
       ${CMAKE_SOURCE_DIR}/include
 	   ${CMAKE_SOURCE_DIR}/src
-      ${GENERATED_SOURCE_DIR}
-      ${GENERATED_SOURCE_DIR}/Glacier2
+      # ${GENERATED_SOURCE_DIR}
+      # ${GENERATED_SOURCE_DIR}/Glacier2
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
