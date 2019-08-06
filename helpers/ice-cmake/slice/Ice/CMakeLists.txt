@@ -217,11 +217,10 @@ target_sources(ice-slices
 
 target_include_directories(ice-slices
    PRIVATE
-      ${GENERATED_SOURCES_DIR}
       ${CMAKE_CURRENT_BINARY_DIR}/include/generated
-      ${PROJECT_SOURCE_DIR}/cpp/src
+      ${GENERATED_SOURCES_DIR}
       ${PROJECT_SOURCE_DIR}/cpp/include
-   
+      ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
 if("${languages}" MATCHES "CXX")
