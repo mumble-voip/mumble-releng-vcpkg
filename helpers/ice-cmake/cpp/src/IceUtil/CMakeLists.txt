@@ -72,7 +72,9 @@ if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
          Unicode.h
    )
 endif()
+
 target_include_directories(iceutil PRIVATE ${CMAKE_SOURCE_DIR}/cpp/include)
+
 if(WIN32)
    if(MSVC)
       target_compile_definitions(iceutil 
