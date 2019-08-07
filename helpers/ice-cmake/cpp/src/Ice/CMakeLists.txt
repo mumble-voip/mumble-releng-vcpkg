@@ -383,7 +383,6 @@ foreach(slice ${ICE_SLICES})
 		${slice}
 		ice
 		${GENERATED_SOURCE_DIR}/Ice
-		--impl-c++${CMAKE_CXX_STANDARD}
 	)
 endforeach()
 
