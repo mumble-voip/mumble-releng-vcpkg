@@ -4,7 +4,7 @@ if(NOT ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 endif()
 
-set(GENERATED_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
+set(GENERATED_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
 
 set(GENERATED_ICE_SOURCES
 	${GENERATED_SOURCE_DIR}/Ice/BuiltinSequences.cpp
@@ -328,14 +328,27 @@ set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/EventLoggerMsg.rc PROPER
 find_package(BZip2 REQUIRED)
 add_dependencies(ice slice2cpp)
 
-target_include_directories(ice 
-   PRIVATE 
-      ${CMAKE_SOURCE_DIR}/cpp/include
-		${CMAKE_SOURCE_DIR}/cpp/src
-		${CMAKE_CURRENT_BINARY_DIR}/generated
-		${GENERATED_SOURCE_DIR}
-		${BZIP2_INCLUDE_DIR}
-)
+# deal with Win32 path too long
+
+if(WIN32)
+	target_include_directories(ice 
+		PRIVATE 
+			"\\?\${CMAKE_SOURCE_DIR}/cpp/include"
+			"\\?\${CMAKE_SOURCE_DIR}/cpp/src"
+			"\\?\${CMAKE_CURRENT_BINARY_DIR}/generated"
+			"\\?\${GENERATED_SOURCE_DIR}"
+			"\\?\${BZIP2_INCLUDE_DIR}"
+	)
+else
+	target_include_directories(ice 
+		PRIVATE 
+			${CMAKE_SOURCE_DIR}/cpp/include
+			${CMAKE_SOURCE_DIR}/cpp/src
+			${CMAKE_CURRENT_BINARY_DIR}/generated
+			${GENERATED_SOURCE_DIR}
+			${BZIP2_INCLUDE_DIR}
+	)
+endif()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
@@ -389,7 +402,7 @@ foreach(slice ${ICE_SLICES})
 		${SLICE_DIR}
 		${slice}
 		ice
-		${GENERATED_SOURCE_DIR}
+		${GENERATED_SOURCE_DIR}/Ice
 	)
 endforeach()
 
