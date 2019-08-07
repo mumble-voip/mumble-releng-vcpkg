@@ -7,8 +7,11 @@ if(XCODE)
    )
 endif()
 
-# todo: add GNU Make logic to handle config/Make.rules if needed
+# todo: add GNU Make logic to drive makefile generation
+
+# add project wide c++ properties
 include(cmake/ice_cpp_props.cmake)
+
 if(WIN32)
    if(MSVC)
       include(cmake/mc_compiler.cmake)
@@ -35,6 +38,7 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
    PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+# logic to download and build mcpp from zeroc git
 configure_file(CMakeLists.txt.in zeroc-mcpp-download/CMakeLists.txt)
 
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" . 
