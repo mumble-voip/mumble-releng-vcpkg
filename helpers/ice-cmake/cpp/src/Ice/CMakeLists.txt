@@ -1,5 +1,11 @@
 add_library(ice)
 
+if(NOT ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
+endif()
+
+set(GENERATED_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
+
 set(GENERATED_ICE_SOURCES
 	${GENERATED_SOURCE_DIR}/Ice/BuiltinSequences.cpp
 	${GENERATED_SOURCE_DIR}/Ice/BuiltinSequences.h
@@ -376,12 +382,6 @@ if(WIN32)
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 	)
 endif()
-
-if(NOT ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
-	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
-endif()
-
-set(GENERATED_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 
 foreach(slice ${ICE_SLICES})
 #function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
