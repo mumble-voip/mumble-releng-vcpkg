@@ -1,5 +1,0 @@
-function(CreateSlicesOutputDir slice generated_source_path)
-   if(NOT ${generated_source_path}/${slice})
-      file(MAKE_DIRECTORY ${generated_source_path}/${slice})
-   endif()
-endfunction()
