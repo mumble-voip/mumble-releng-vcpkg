@@ -11,7 +11,7 @@ set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 2)
 
-# do a compiler language check for project creation later
+# do a compiler language check
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # check language type, add subdirectories
@@ -32,3 +32,6 @@ elseif("${languages" MATCHES "Java")
    add_subdirectory(java)
 
 endif()
+
+# create root path for .ice files
+set(SLICE_DIR ${PROJECT_SOURCE_DIR}/slice)
