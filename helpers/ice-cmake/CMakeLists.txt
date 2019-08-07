@@ -14,6 +14,9 @@ set(zeroc-ice_VERSION_PATCH 2)
 # do a compiler language check
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
+# add function to handle slice compiles
+include(cmake/CompileSlices.cmake)
+
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
    if(WIN32)
