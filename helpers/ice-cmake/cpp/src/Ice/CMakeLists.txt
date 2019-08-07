@@ -326,7 +326,8 @@ target_include_directories(ice
    PRIVATE 
       ${CMAKE_SOURCE_DIR}/cpp/include
 		${CMAKE_SOURCE_DIR}/cpp/src
-		${PROJECT_BINARY_DIR}/slice/Ice/include/generated
+		${CMAKE_CURRENT_BINARY_DIR}/generated
+		${GENERATED_SOURCE_DIR}
 		${BZIP2_INCLUDE_DIR}
 )
 
@@ -380,7 +381,7 @@ if(NOT ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 endif()
 
-set(GENERATED_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
+set(GENERATED_SOURCE_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 
 foreach(slice ${ICE_SLICES})
 #function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
@@ -388,7 +389,7 @@ foreach(slice ${ICE_SLICES})
 		${SLICE_DIR}
 		${slice}
 		ice
-		${GENERATED_SOURCE_DIR}/Ice
+		${GENERATED_SOURCE_DIR}
 	)
 endforeach()
 
