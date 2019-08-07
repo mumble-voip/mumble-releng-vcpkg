@@ -5,6 +5,9 @@ if(CMAKE_CONFIGURATION_TYPES)
    set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 endif()
 
+# create root path for .ice files
+set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
+
 project(zeroc-ice)
 
 set(zeroc-ice_VERSION_MAJOR 3)
@@ -35,6 +38,3 @@ elseif("${languages" MATCHES "Java")
    add_subdirectory(java)
 
 endif()
-
-# create root path for .ice files
-set(SLICE_DIR ${PROJECT_SOURCE_DIR}/slice)
