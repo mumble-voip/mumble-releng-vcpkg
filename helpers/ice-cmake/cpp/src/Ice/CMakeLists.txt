@@ -328,27 +328,15 @@ set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/EventLoggerMsg.rc PROPER
 find_package(BZip2 REQUIRED)
 add_dependencies(ice slice2cpp)
 
-# deal with Win32 path too long
+target_include_directories(ice 
+	PRIVATE 
+		${CMAKE_SOURCE_DIR}/cpp/include
+		${CMAKE_SOURCE_DIR}/cpp/src
+		${CMAKE_CURRENT_BINARY_DIR}/generated
+		${GENERATED_SOURCE_DIR}
+		${BZIP2_INCLUDE_DIR}
+)
 
-if(WIN32)
-	target_include_directories(ice 
-		PRIVATE 
-			"\\?\${CMAKE_SOURCE_DIR}/cpp/include"
-			"\\?\${CMAKE_SOURCE_DIR}/cpp/src"
-			"\\?\${CMAKE_CURRENT_BINARY_DIR}/generated"
-			"\\?\${GENERATED_SOURCE_DIR}"
-			"\\?\${BZIP2_INCLUDE_DIR}"
-	)
-else
-	target_include_directories(ice 
-		PRIVATE 
-			${CMAKE_SOURCE_DIR}/cpp/include
-			${CMAKE_SOURCE_DIR}/cpp/src
-			${CMAKE_CURRENT_BINARY_DIR}/generated
-			${GENERATED_SOURCE_DIR}
-			${BZIP2_INCLUDE_DIR}
-	)
-endif()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
@@ -364,6 +352,13 @@ if(WIN32)
 		FILES
 			${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 			${CMAKE_CURRENT_SOURCE_DIR}/Ice.rc
+	)
+
+	source_group(
+		TREE ${SLICE_DIR}/Ice
+		PREFIX "Slice Files"
+		FILES
+			${ICE_SLICES}
 	)
 
 	target_compile_options(ice PRIVATE 
