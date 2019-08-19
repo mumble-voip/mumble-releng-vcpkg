@@ -31,6 +31,7 @@ if(WIN32)
          "/wd4505"
          "/wd4512"
          "/MP"
+         "/bigobj"
       )
       if(NOT BUILD_SHARED_LIBS)
          set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
