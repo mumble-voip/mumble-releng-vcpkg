@@ -1,6 +1,4 @@
 # Add dependencies for C++ related project generation
-
-
 if(XCODE)
    set(zeroc-ice_CONFIG_FILES
       config/Make.xcodesdk.rules
