@@ -330,10 +330,10 @@ add_dependencies(ice slice2cpp)
 
 target_include_directories(ice 
 	PRIVATE 
+		${GENERATED_SOURCE_DIR}
+		${GENERATED_SOURCE_DIR}/Ice
 		${CMAKE_SOURCE_DIR}/cpp/include
 		${CMAKE_SOURCE_DIR}/cpp/src
-		${CMAKE_CURRENT_BINARY_DIR}/generated
-		${GENERATED_SOURCE_DIR}
 		${BZIP2_INCLUDE_DIR}
 )
 
@@ -385,7 +385,7 @@ if(WIN32)
 	
 	add_custom_command(TARGET ice
 		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
-		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+		WORKING_DIRECTORY ${GENERATED_SOURCE_DIR}/Ice
 		PRE_BUILD
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 	)
