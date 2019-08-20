@@ -5,6 +5,7 @@ if(WIN32)
       set(ICE_CPP98_COMPILE_DEFS
          "_CONSOLE" 
          "WIN32_LEAN_AND_MEAN"
+         "ICE_BUILDING_SRC" 
       )
 
       if(CMAKE_CXX_STANDARD EQUAL 11)
