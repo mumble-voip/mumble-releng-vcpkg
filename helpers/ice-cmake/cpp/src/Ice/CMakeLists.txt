@@ -340,7 +340,6 @@ target_include_directories(ice
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-	#set(CMAKE_RC_FLAGS ${ICE_RC_FLAGS})
 else()
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
 endif()
