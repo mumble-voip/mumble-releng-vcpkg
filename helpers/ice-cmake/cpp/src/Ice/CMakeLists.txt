@@ -237,7 +237,6 @@ target_sources(${ICE_PROJECT_NAME}
 	   EndpointFactory.cpp
 		EndpointFactory.h
 		EventLoggerMsg.mc
-		${CMAKE_CURRENT_BINARY_DIR}/EventLoggerMsg.rc
 	   EventHandler.cpp
 	   Exception.cpp
 	   FactoryTable.cpp
@@ -322,8 +321,6 @@ target_sources(${ICE_PROJECT_NAME}
 		${GENERATED_ICE_SOURCES}
 		${ICE_SLICES}
 )
-
-set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/EventLoggerMsg.rc PROPERTIES GENERATED TRUE)
 
 find_package(BZip2 REQUIRED)
 add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
