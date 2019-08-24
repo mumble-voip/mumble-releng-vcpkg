@@ -28,8 +28,6 @@ if(WIN32)
       set_target_properties(slice2cpp PROPERTIES LINK_FLAGS "wsetargv.obj")
 
       target_link_libraries(slice2cpp PRIVATE
-         iceutil
-         slice
          rpcrt4.lib
          advapi32.lib
          DbgHelp.lib
