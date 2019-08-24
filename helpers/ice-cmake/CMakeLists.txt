@@ -5,9 +5,6 @@ if(CMAKE_CONFIGURATION_TYPES)
    set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 endif()
 
-# create root path for .ice files
-set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
-
 project(zeroc-ice)
 
 set(zeroc-ice_VERSION_MAJOR 3)
@@ -16,9 +13,6 @@ set(zeroc-ice_VERSION_PATCH 2)
 
 # do a compiler language check
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
-
-# add function to handle slice compiles
-include(cmake/CompileSlices.cmake)
 
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
@@ -38,3 +32,5 @@ elseif("${languages" MATCHES "Java")
    add_subdirectory(java)
 
 endif()
+
+add_subdirectory(slice)
