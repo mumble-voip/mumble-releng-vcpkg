@@ -14,10 +14,6 @@ target_include_directories(iceboxlib
 		"${CMAKE_SOURCE_DIR}/src"
 )
 
-add_dependencies(iceboxlib ice)
-
-target_link_libraries(iceboxlib PRIVATE ice)
-
 target_compile_definitions(iceboxlib PRIVATE "ICEBOX_API_EXPORTS")
 
 add_executable(icebox Service.cpp)
@@ -32,7 +28,11 @@ target_sources(icebox
 
 add_dependencies(icebox iceboxlib)
 
-target_link_libraries(icebox PRIVATE iceboxlib)
+target_link_libraries(icebox 
+	PRIVATE 
+	iceboxlib
+	${ICE_PROJECT_NAME}
+)
 
 target_include_directories(icebox
    PRIVATE 

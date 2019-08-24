@@ -1,4 +1,4 @@
-add_library(ice)
+add_library(${ICE_PROJECT_NAME})
 
 if(NOT ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/generated/Ice)
@@ -211,7 +211,7 @@ set(ICE_SLICES
 
 set_source_files_properties(${GENERATED_ICE_SOURCES} PROPERTIES GENERATED TRUE)
 
-target_sources(ice
+target_sources(${ICE_PROJECT_NAME}
    PRIVATE
 	   Acceptor.cpp
 	   ACM.cpp
@@ -326,9 +326,9 @@ target_sources(ice
 set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/EventLoggerMsg.rc PROPERTIES GENERATED TRUE)
 
 find_package(BZip2 REQUIRED)
-add_dependencies(ice slice2cpp)
+add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
 
-target_include_directories(ice 
+target_include_directories(${ICE_PROJECT_NAME}
 	PRIVATE 
 		${GENERATED_SOURCE_DIR}
 		${GENERATED_SOURCE_DIR}/Ice
@@ -360,18 +360,18 @@ if(WIN32)
 			${ICE_SLICES}
 	)
 
-	target_compile_options(ice PRIVATE 
+	target_compile_options(${ICE_PROJECT_NAME} PRIVATE 
 		"/wd4996" 
 		${ICE_COMPILE_OPTIONS} 
 	)
 
-	target_compile_definitions(ice PRIVATE 
+	target_compile_definitions(${ICE_PROJECT_NAME} PRIVATE 
 		${ICELIB_COMPILE_DEFS}
 		"ICE_API_EXPORTS"
 	)
 
 	if(BUILD_SHARED_LIBS)
-		target_link_libraries(ice
+		target_link_libraries(${ICE_PROJECT_NAME}
 			PRIVATE
 				advapi32.lib
 				ws2_32.lib
@@ -381,8 +381,13 @@ if(WIN32)
 				Shlwapi.lib
 		)
 	endif()
+
+	target_link_libraries(${ICE_PROJECT_NAME} 
+		PRIVATE 
+		${ICE_ADDITIONAL_DEPS}
+	)
 	
-	add_custom_command(TARGET ice
+	add_custom_command(TARGET ${ICE_PROJECT_NAME}
 		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 		WORKING_DIRECTORY ${GENERATED_SOURCE_DIR}/Ice
 		PRE_BUILD
@@ -395,9 +400,9 @@ foreach(slice ${ICE_SLICES})
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
-		ice
+		${ICE_PROJECT_NAME}
 		${GENERATED_SOURCE_DIR}/Ice
 	)
 endforeach()
 
-install(TARGETS ice DESTINATION lib)
+install(TARGETS ${ICE_PROJECT_NAME} DESTINATION lib)
