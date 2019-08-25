@@ -12,7 +12,7 @@ set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 2)
 
 # add function to handle slice compiles
-include(${PROJECT_SOURCE_DIR}/cmake/CompileSlices.cmake)
+include(cmake/CompileSlices.cmake)
 
 # create root path for .ice files
 set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
@@ -38,5 +38,3 @@ elseif("${languages" MATCHES "Java")
    add_subdirectory(java)
 
 endif()
-
-add_subdirectory(slice)
