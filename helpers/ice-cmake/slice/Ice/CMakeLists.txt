@@ -215,19 +215,17 @@ target_include_directories(ice-slices
    ${CMAKE_CURRENT_BINARY_DIR}
 )
 
-message(STATUS "slice dir is ${SLICE_DIR}")
-
 foreach(slice ${ICE_SLICE_FILES})
    get_filename_component(SLICE_NAME ${slice} NAME_WE)
    set(COMPILED_SLICES 
       ${SLICE_NAME}.h
       ${SLICE_NAME}.cpp
-   )
-   #function(CompileSlices slice2_bin slice_path ice_file slice_outputs)
+	)
+	
+   #function(CompileSlices slice2_bin slice_path ice_file slice_outputs output_dir)
 	CompileSlices(${SLICE_COMPILER}
 		${SLICE_DIR}
 		${SLICE_DIR}/Ice/${slice}
 		${COMPILED_SLICES}
-      #${CMAKE_CURRENT_BINARY_DIR}
 	)
 endforeach()
