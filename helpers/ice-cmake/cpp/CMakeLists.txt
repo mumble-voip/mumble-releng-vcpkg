@@ -48,8 +48,8 @@ configure_file(CMakeLists.txt.in zeroc-mcpp-download/CMakeLists.txt)
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" . 
    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
 
-execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
+# execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+#    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
 
 add_subdirectory("${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp/src"
    "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp/build")
