@@ -47,17 +47,16 @@ target_include_directories(slice
 target_link_libraries(slice PRIVATE iceutil)
 
 if(WIN32)
-   if(MSVC)
-      target_compile_definitions(slice 
-         PRIVATE 
-         "ICE_BUILDING_SLICE_COMPILERS" 
-         ${ICE_CPP98_COMPILE_DEFS}
-      )
-      target_compile_options(slice PRIVATE 
-         "/wd4250"
-         ${ICE_COMPILE_OPTIONS}
-      )
+   target_compile_options(slice PRIVATE 
+      "/wd4250"
+      ${ICE_COMPILE_OPTIONS}
+   )
 
-   endif()
 endif()
+
+target_compile_definitions(slice 
+   PRIVATE 
+      "ICE_BUILDING_SLICE_COMPILERS" 
+      ${ICE_CPP98_COMPILE_DEFS}
+)
 install(TARGETS slice DESTINATION lib)

@@ -76,16 +76,14 @@ endif()
 target_include_directories(iceutil PRIVATE ${CMAKE_SOURCE_DIR}/cpp/include)
 
 if(WIN32)
-   if(MSVC)
-      target_compile_definitions(iceutil 
-         PRIVATE 
-         "ICE_BUILDING_SLICE_COMPILERS"
-         ${ICE_CPP98_COMPILE_DEFS}
-      )
-      target_compile_options(iceutil PRIVATE 
-         ${ICE_COMPILE_OPTIONS}
-      )
-
-   endif()
+   target_compile_options(iceutil PRIVATE 
+      ${ICE_COMPILE_OPTIONS}
+   )
 endif()
+
+target_compile_definitions(iceutil 
+   PRIVATE 
+      "ICE_BUILDING_SLICE_COMPILERS"
+      ${ICE_CPP98_COMPILE_DEFS}
+)
 install(TARGETS iceutil DESTINATION lib)
