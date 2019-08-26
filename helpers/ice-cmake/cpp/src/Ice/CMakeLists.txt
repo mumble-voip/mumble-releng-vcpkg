@@ -399,9 +399,13 @@ if(WIN32)
 				rpcrt4.lib
 				DbgHelp.lib
 				Shlwapi.lib
-				${ICE_ADDITIONAL_DEPS}
 		)
 	endif()
+
+	target_link_libraries(${ICE_PROJECT_NAME}
+		PRIVATE
+		${ICE_ADDITIONAL_DEPS}
+	)
 
 	add_custom_command(TARGET ${ICE_PROJECT_NAME}
 		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
