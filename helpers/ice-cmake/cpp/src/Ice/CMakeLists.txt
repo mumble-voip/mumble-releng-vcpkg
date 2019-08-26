@@ -334,7 +334,7 @@ target_sources(${ICE_PROJECT_NAME}
 		WSEndpoint.h
 		WSTransceiver.cpp
 		WSTransceiver.h
-		#${GENERATED_ICE_SOURCES}
+		${GENERATED_ICE_SOURCES}
 		${ICE_SLICES}
 )
 
