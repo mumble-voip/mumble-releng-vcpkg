@@ -380,14 +380,10 @@ if(WIN32)
 			${GENERATED_ICE_SOURCES}
 	)
 
-	target_compile_options(${ICE_PROJECT_NAME} PRIVATE 
-		"/wd4996" 
-		${ICE_COMPILE_OPTIONS} 
-	)
-
-	target_compile_definitions(${ICE_PROJECT_NAME} PRIVATE 
-		${ICELIB_COMPILE_DEFS}
-		"ICE_API_EXPORTS"
+	target_compile_options(${ICE_PROJECT_NAME} 
+		PRIVATE 
+			"/wd4996" 
+			${ICE_COMPILE_OPTIONS} 
 	)
 
 	if(BUILD_SHARED_LIBS)
@@ -414,6 +410,12 @@ if(WIN32)
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 	)
 endif()
+
+target_compile_definitions(${ICE_PROJECT_NAME} 
+	PRIVATE 
+		${ICELIB_COMPILE_DEFS}
+		"ICE_API_EXPORTS"
+)
 
 foreach(slice ${ICE_SLICES})
 	#function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
