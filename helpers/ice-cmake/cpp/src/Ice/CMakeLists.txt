@@ -25,8 +25,6 @@ set(GENERATED_ICE_SOURCES
 	${GENERATED_ICE_SOURCES_DIR}/EndpointF.h
 	${GENERATED_ICE_SOURCES_DIR}/EndpointTypes.cpp
 	${GENERATED_ICE_SOURCES_DIR}/EndpointTypes.h
-	${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
-	${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.rc
 	${GENERATED_ICE_SOURCES_DIR}/FacetMap.cpp
 	${GENERATED_ICE_SOURCES_DIR}/FacetMap.h
 	${GENERATED_ICE_SOURCES_DIR}/Identity.cpp
@@ -88,6 +86,15 @@ set(GENERATED_ICE_SOURCES
 	${GENERATED_ICE_SOURCES_DIR}/Version.cpp
 	${GENERATED_ICE_SOURCES_DIR}/Version.h
 )
+
+if(WIN32)
+	set(GENERATED_ICE_RESOURCES
+		${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
+		${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.rc
+	)
+
+	set_source_files_properties(${GENERATED_ICE_RESOURCES} PROPERTIES GENERATED TRUE)
+endif()
 
 set(ICE_SLICES
 	${SLICE_DIR}/Ice/BuiltinSequences.ice
@@ -334,7 +341,7 @@ target_sources(${ICE_PROJECT_NAME}
 		WSEndpoint.h
 		WSTransceiver.cpp
 		WSTransceiver.h
-		${GENERATED_ICE_SOURCES}
+		${GENERATED_ICE_RESOURCES}
 		${ICE_SLICES}
 )
 
