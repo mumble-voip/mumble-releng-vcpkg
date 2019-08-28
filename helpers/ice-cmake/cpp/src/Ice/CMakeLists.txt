@@ -8,6 +8,8 @@ if(NOT ${PROJECT_BINARY_DIR}/generated/Ice)
 	file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Ice)
 endif()
 
+set(GENERATED_ICE_SOURCES_DIR ${PROJECT_BINARY_DIR}/generated/Ice)
+
 set(ICE_SLICES
 	${SLICE_DIR}/Ice/BuiltinSequences.ice
 	${SLICE_DIR}/Ice/Communicator.ice
@@ -49,9 +51,6 @@ set(ICE_SLICES
 	${SLICE_DIR}/Ice/ValueFactory.ice
 	${SLICE_DIR}/Ice/Version.ice
 )
-
-set(GENERATED_ICE_SOURCES_DIR ${PROJECT_BINARY_DIR}/generated/Ice)
-
 
 set(GENERATED_ICE_HEADERS
 	${GENERATED_ICE_SOURCES_DIR}/BuiltinSequences.h
@@ -277,9 +276,10 @@ add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
 
 target_include_directories(${ICE_PROJECT_NAME}
 	PRIVATE 
+		${PROJECT_BINARY_DIR}/generated
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
-		${PROJECT_BINARY_DIR}/generated
+		${GENERATED_ICE_SOURCES_DIR}
 		${BZIP2_INCLUDE_DIR}
 )
 
