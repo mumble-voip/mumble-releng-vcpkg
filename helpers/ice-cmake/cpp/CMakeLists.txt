@@ -10,12 +10,6 @@ endif()
 # add project wide c++ properties
 include(cmake/ice_cpp_props.cmake)
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set(ICE_PROJECT_NAME ice++11)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set(ICE_PROJECT_NAME ice)
-endif()
-
 if(WIN32)
    if(MSVC)
       include(cmake/mc_compiler.cmake)

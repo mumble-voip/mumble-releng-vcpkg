@@ -1,3 +1,9 @@
+if(CMAKE_CXX_STANDARD EQUAL 11)
+	set(ICE_PROJECT_NAME ice++11)
+elseif(CMAKE_CXX_STANDARD EQUAL 98)
+	set(ICE_PROJECT_NAME ice)
+endif()
+
 add_library(${ICE_PROJECT_NAME})
 
 if(NOT ${PROJECT_BINARY_DIR}/generated/Ice)
