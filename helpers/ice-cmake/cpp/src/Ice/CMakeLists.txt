@@ -1,7 +1,7 @@
 if(CMAKE_CXX_STANDARD EQUAL 11)
-	set(ICE_PROJECT_NAME ice++11)
+	set(ICE_TARGET_NAME ice++11)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set(ICE_PROJECT_NAME ice)
+	set(ICE_TARGET_NAME ice)
 endif()
 
 if(NOT ${PROJECT_BINARY_DIR}/generated/Ice)
@@ -152,9 +152,9 @@ if(WIN32)
 	set_source_files_properties(${GENERATED_ICE_RESOURCES} PROPERTIES GENERATED TRUE)
 endif()
 
-add_library(${ICE_PROJECT_NAME})
+add_library(${ICE_TARGET_NAME})
 
-target_sources(${ICE_PROJECT_NAME}
+target_sources(${ICE_TARGET_NAME}
    PRIVATE
 		Acceptor.cpp
 		Acceptor.h
@@ -358,13 +358,13 @@ target_sources(${ICE_PROJECT_NAME}
 )
 
 if(WIN32)
-	target_sources(${ICE_PROJECT_NAME}
+	target_sources(${ICE_TARGET_NAME}
 		PRIVATE
 		${GENERATED_ICE_RESOURCES}
 	)
 endif()
 
-target_include_directories(${ICE_PROJECT_NAME}
+target_include_directories(${ICE_TARGET_NAME}
 	PRIVATE 
 		${PROJECT_BINARY_DIR}/generated
 		${PROJECT_SOURCE_DIR}/cpp/include
@@ -375,7 +375,7 @@ target_include_directories(${ICE_PROJECT_NAME}
 # todo - if *nix and Darwin need to include generated/Ice, define here
 
 find_package(BZip2 REQUIRED)
-add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
+add_dependencies(${ICE_TARGET_NAME} slice2cpp)
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
@@ -421,14 +421,14 @@ if(WIN32)
 			${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
 	)
 
-	target_compile_options(${ICE_PROJECT_NAME} 
+	target_compile_options(${ICE_TARGET_NAME} 
 		PRIVATE 
 			"/wd4996" 
 			${ICE_COMPILE_OPTIONS} 
 	)
 
 	if(BUILD_SHARED_LIBS)
-		target_link_libraries(${ICE_PROJECT_NAME}
+		target_link_libraries(${ICE_TARGET_NAME}
 			PRIVATE
 				advapi32.lib
 				ws2_32.lib
@@ -439,7 +439,7 @@ if(WIN32)
 		)
 	endif()
 
-	add_custom_command(TARGET ${ICE_PROJECT_NAME}
+	add_custom_command(TARGET ${ICE_TARGET_NAME}
 		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 		WORKING_DIRECTORY ${GENERATED_ICE_SOURCES_DIR}
 		PRE_BUILD
@@ -447,7 +447,7 @@ if(WIN32)
 	)
 endif()
 
-target_compile_definitions(${ICE_PROJECT_NAME} 
+target_compile_definitions(${ICE_TARGET_NAME} 
 	PRIVATE 
 		${ICELIB_COMPILE_DEFS}
 		"ICE_API_EXPORTS"
@@ -458,9 +458,9 @@ foreach(slice ${ICE_SLICES})
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
-		${ICE_PROJECT_NAME}
+		${ICE_TARGET_NAME}
 		${GENERATED_ICE_SOURCES_DIR}
 	)
 endforeach()
 
-install(TARGETS ${ICE_PROJECT_NAME} DESTINATION lib)
+install(TARGETS ${ICE_TARGET_NAME} DESTINATION lib)

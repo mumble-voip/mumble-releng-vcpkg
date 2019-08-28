@@ -1,7 +1,7 @@
 if(CMAKE_CXX_STANDARD EQUAL 11)
-	set(GLACIER2_PROJECT_NAME glacier2++11)
+	set(GLACIER2_TARGET_NAME glacier2++11)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set(GLACIER2_PROJECT_NAME glacier)
+	set(GLACIER2_TARGET_NAME glacier)
 endif()
 
 if(NOT ${PROJECT_BINARY_DIR}/generated/Glacier2)
@@ -49,9 +49,9 @@ set_source_files_properties(
       GENERATED TRUE)
 
 
-add_library(${GLACIER2_PROJECT_NAME})
+add_library(${GLACIER2_TARGET_NAME})
 
-target_sources(${GLACIER2_PROJECT_NAME}
+target_sources(${GLACIER2_TARGET_NAME}
    PRIVATE
       ${GENERATED_GLACIER2_SOURCES}
       Application.cpp
@@ -60,7 +60,7 @@ target_sources(${GLACIER2_PROJECT_NAME}
       SessionHelper.cpp
 )
 
-target_include_directories(${GLACIER2_PROJECT_NAME}
+target_include_directories(${GLACIER2_TARGET_NAME}
    PRIVATE 
       ${PROJECT_BINARY_DIR}/generated
       ${CMAKE_SOURCE_DIR}/include
@@ -73,20 +73,20 @@ else()
 	set(GLACIER2_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
 endif()
 
-target_compile_definitions(${GLACIER2_PROJECT_NAME} 
+target_compile_definitions(${GLACIER2_TARGET_NAME} 
    PRIVATE 
       ${GLACIER2_COMPILE_DEFS}
       "GLACIER2_API_EXPORTS"
 )
 
-target_compile_options(${GLACIER2_PROJECT_NAME} 
+target_compile_options(${GLACIER2_TARGET_NAME} 
    PRIVATE
       ${ICE_COMPILE_OPTIONS}   
 )
 
 find_package(OpenSSL REQUIRED)
 
-add_dependencies(${GLACIER2_PROJECT_NAME} ice)
+add_dependencies(${GLACIER2_TARGET_NAME} ice)
 
 if(WIN32)
    source_group(
