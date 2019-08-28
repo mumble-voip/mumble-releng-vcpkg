@@ -22,7 +22,7 @@ if(WIN32)
       "/bigobj"
    )
 
-   set(ICE_ADDITIONAL_DEPS
+   set(ICE_APP_ADDITIONAL_DEPS
       "wsetargv.obj"
    )
 
