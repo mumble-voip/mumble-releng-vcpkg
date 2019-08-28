@@ -53,11 +53,12 @@ add_library(${GLACIER2_TARGET_NAME})
 
 target_sources(${GLACIER2_TARGET_NAME}
    PRIVATE
-      ${GENERATED_GLACIER2_SOURCES}
       Application.cpp
       Glacier2.rc
       NullPermissionsVerifier.cpp
       SessionHelper.cpp
+      ${GENERATED_GLACIER2_HEADERS}
+      ${GENERATED_GLACIER2_SOURCES}
 )
 
 target_include_directories(${GLACIER2_TARGET_NAME}
@@ -95,13 +96,28 @@ if(WIN32)
       FILES
          ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
    )
+
+   source_group(
+      TREE ${GENERATED_GLACIER2_SOURCES_DIR}
+      PREFIX "Header Files/Generated"
+      FILES
+         ${GENERATED_GLACIER2_HEADERS}
+   )
+
+   source_group(
+      TREE ${GENERATED_GLACIER2_SOURCES_DIR}
+      PREFIX "Source Files/Generated"
+      FILES
+         ${GENERATED_GLACIER2_SOURCES}
+   )
 endif()
 
-# #function(CompileSlices slice2_bin slice_path slice_dir slice_target output_dir lang_std)
-# CompileSlices(slice2cpp
-#    ${SLICE_DIR}
-#    Glacier2
-#    glacier2
-#    ${GENERATED_SOURCE_DIR}/Glacier2
-#    --impl-c++${CMAKE_CXX_STANDARD}
-# )
+foreach(slice ${GLACIER2_SLICES})
+	#function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
+	CompileSlices(slice2cpp
+		${SLICE_DIR}
+		${slice}
+		${GLACIER2_TARGET_NAME}
+		${GENERATED_GLACIER2_SOURCES_DIR}
+	)
+endforeach()
