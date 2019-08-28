@@ -368,7 +368,6 @@ target_include_directories(${ICE_TARGET_NAME}
 
 # todo - if *nix and Darwin need to include generated/Ice, define here
 
-find_package(BZip2 REQUIRED)
 add_dependencies(${ICE_TARGET_NAME} slice2cpp)
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
