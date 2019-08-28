@@ -73,20 +73,20 @@ else()
 	set(GLACIER2_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
 endif()
 
-target_compile_definitions(glacier2 
+target_compile_definitions(${GLACIER2_PROJECT_NAME} 
    PRIVATE 
       ${GLACIER2_COMPILE_DEFS}
       "GLACIER2_API_EXPORTS"
 )
 
-target_compile_options(glacier2 
+target_compile_options(${GLACIER2_PROJECT_NAME} 
    PRIVATE
       ${ICE_COMPILE_OPTIONS}   
 )
 
 find_package(OpenSSL REQUIRED)
 
-add_dependencies(glacier2 ice)
+add_dependencies(${GLACIER2_PROJECT_NAME} ice)
 
 if(WIN32)
    source_group(
