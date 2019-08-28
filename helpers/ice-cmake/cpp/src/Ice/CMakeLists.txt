@@ -364,9 +364,6 @@ if(WIN32)
 	)
 endif()
 
-find_package(BZip2 REQUIRED)
-add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
-
 target_include_directories(${ICE_PROJECT_NAME}
 	PRIVATE 
 		${PROJECT_BINARY_DIR}/generated
@@ -376,6 +373,9 @@ target_include_directories(${ICE_PROJECT_NAME}
 )
 
 # todo - if *nix and Darwin need to include generated/Ice, define here
+
+find_package(BZip2 REQUIRED)
+add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
