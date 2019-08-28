@@ -341,9 +341,15 @@ target_sources(${ICE_PROJECT_NAME}
 		WSEndpoint.h
 		WSTransceiver.cpp
 		WSTransceiver.h
-		${GENERATED_ICE_RESOURCES}
 		${ICE_SLICES}
 )
+
+if(WIN32)
+	target_sources(${ICE_PROJECT_NAME}
+		PRIVATE
+		${GENERATED_ICE_RESOURCES}
+	)
+endif()
 
 find_package(BZip2 REQUIRED)
 add_dependencies(${ICE_PROJECT_NAME} slice2cpp)
