@@ -11,5 +11,6 @@ function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
       WORKING_DIRECTORY ${output_dir}
       DEPENDS ${ice_file} ${slice2_bin}
       PRE_BUILD
+      COMMENT "Generating sources for ${ice_file}..."
    )
 endfunction()
