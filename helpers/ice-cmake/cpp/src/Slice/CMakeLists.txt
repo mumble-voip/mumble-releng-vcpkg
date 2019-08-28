@@ -1,4 +1,3 @@
-
 add_library(slice STATIC)
 
 target_sources(slice
