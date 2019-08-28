@@ -372,7 +372,6 @@ target_include_directories(${ICE_PROJECT_NAME}
 		${PROJECT_BINARY_DIR}/generated
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
-		${GENERATED_ICE_SOURCES_DIR}
 		${BZIP2_INCLUDE_DIR}
 )
 
