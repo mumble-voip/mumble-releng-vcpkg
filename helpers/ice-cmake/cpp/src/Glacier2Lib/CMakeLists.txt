@@ -91,8 +91,6 @@ target_compile_options(${GLACIER2_TARGET_NAME}
       ${ICE_COMPILE_OPTIONS}   
 )
 
-find_package(OpenSSL REQUIRED)
-
 add_dependencies(${GLACIER2_TARGET_NAME} ${ICE_TARGET_NAME})
 
 if(WIN32)
@@ -115,6 +113,13 @@ if(WIN32)
       PREFIX "Source Files/Generated"
       FILES
          ${GENERATED_GLACIER2_SOURCES}
+   )
+
+   source_group(
+      TREE ${SLICE_DIR}/Glacier2
+      PREFIX "Slice Files"
+      FILES
+         ${GLACIER2_SLICES}
    )
 endif()
 
