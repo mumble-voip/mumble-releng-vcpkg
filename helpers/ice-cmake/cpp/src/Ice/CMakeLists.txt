@@ -4,55 +4,12 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
 	set(ICE_PROJECT_NAME ice)
 endif()
 
-add_library(${ICE_PROJECT_NAME})
-
 if(NOT ${PROJECT_BINARY_DIR}/generated/Ice)
 	file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Ice)
 endif()
 
 set(GENERATED_ICE_SOURCES_DIR ${PROJECT_BINARY_DIR}/generated/Ice)
 
-set(GENERATED_ICE_SOURCES
-	${GENERATED_ICE_SOURCES_DIR}/BuiltinSequences.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Communicator.cpp
-	${GENERATED_ICE_SOURCES_DIR}/CommunicatorF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Connection.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ConnectionF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Current.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Endpoint.cpp
-	${GENERATED_ICE_SOURCES_DIR}/EndpointF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/EndpointTypes.cpp
-	${GENERATED_ICE_SOURCES_DIR}/FacetMap.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Identity.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ImplicitContext.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ImplicitContextF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Instrumentation.cpp
-	${GENERATED_ICE_SOURCES_DIR}/InstrumentationF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/LocalException.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Locator.cpp
-	${GENERATED_ICE_SOURCES_DIR}/LocatorF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Logger.cpp
-	${GENERATED_ICE_SOURCES_DIR}/LoggerF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Metrics.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ObjectAdapter.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ObjectAdapterF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ObjectFactory.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Plugin.cpp
-	${GENERATED_ICE_SOURCES_DIR}/PluginF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Process.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ProcessF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Properties.cpp
-	${GENERATED_ICE_SOURCES_DIR}/PropertiesAdmin.cpp
-	${GENERATED_ICE_SOURCES_DIR}/PropertiesF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/RemoteLogger.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Router.cpp
-	${GENERATED_ICE_SOURCES_DIR}/RouterF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ServantLocator.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ServantLocatorF.cpp
-	${GENERATED_ICE_SOURCES_DIR}/SliceChecksumDict.cpp
-	${GENERATED_ICE_SOURCES_DIR}/ValueFactory.cpp
-	${GENERATED_ICE_SOURCES_DIR}/Version.cpp
-)
 
 set(GENERATED_ICE_HEADERS
 	${GENERATED_ICE_SOURCES_DIR}/BuiltinSequences.h
@@ -96,6 +53,55 @@ set(GENERATED_ICE_HEADERS
 	${GENERATED_ICE_SOURCES_DIR}/Version.h
 )
 
+set(GENERATED_ICE_SOURCES
+	${GENERATED_ICE_SOURCES_DIR}/BuiltinSequences.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Communicator.cpp
+	${GENERATED_ICE_SOURCES_DIR}/CommunicatorF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Connection.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ConnectionF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Current.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Endpoint.cpp
+	${GENERATED_ICE_SOURCES_DIR}/EndpointF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/EndpointTypes.cpp
+	${GENERATED_ICE_SOURCES_DIR}/FacetMap.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Identity.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ImplicitContext.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ImplicitContextF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Instrumentation.cpp
+	${GENERATED_ICE_SOURCES_DIR}/InstrumentationF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/LocalException.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Locator.cpp
+	${GENERATED_ICE_SOURCES_DIR}/LocatorF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Logger.cpp
+	${GENERATED_ICE_SOURCES_DIR}/LoggerF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Metrics.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ObjectAdapter.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ObjectAdapterF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ObjectFactory.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Plugin.cpp
+	${GENERATED_ICE_SOURCES_DIR}/PluginF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Process.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ProcessF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Properties.cpp
+	${GENERATED_ICE_SOURCES_DIR}/PropertiesAdmin.cpp
+	${GENERATED_ICE_SOURCES_DIR}/PropertiesF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/RemoteLogger.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Router.cpp
+	${GENERATED_ICE_SOURCES_DIR}/RouterF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ServantLocator.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ServantLocatorF.cpp
+	${GENERATED_ICE_SOURCES_DIR}/SliceChecksumDict.cpp
+	${GENERATED_ICE_SOURCES_DIR}/ValueFactory.cpp
+	${GENERATED_ICE_SOURCES_DIR}/Version.cpp
+)
+
+set_source_files_properties(
+	${GENERATED_ICE_SOURCES} 
+	${GENERATED_ICE_HEADERS} 
+	PROPERTIES 
+		GENERATED TRUE
+)
+
 if(WIN32)
 	set(GENERATED_ICE_RESOURCES
 		${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
@@ -104,6 +110,8 @@ if(WIN32)
 
 	set_source_files_properties(${GENERATED_ICE_RESOURCES} PROPERTIES GENERATED TRUE)
 endif()
+
+add_library(${ICE_PROJECT_NAME})
 
 set(ICE_SLICES
 	${SLICE_DIR}/Ice/BuiltinSequences.ice
@@ -146,8 +154,6 @@ set(ICE_SLICES
 	${SLICE_DIR}/Ice/ValueFactory.ice
 	${SLICE_DIR}/Ice/Version.ice
 )
-
-set_source_files_properties(${GENERATED_ICE_SOURCES} PROPERTIES GENERATED TRUE)
 
 target_sources(${ICE_PROJECT_NAME}
    PRIVATE
