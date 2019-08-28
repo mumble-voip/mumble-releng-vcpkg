@@ -1,9 +1,3 @@
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set(ICE_TARGET_NAME ice++11)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set(ICE_TARGET_NAME ice)
-endif()
-
 if(NOT ${PROJECT_BINARY_DIR}/generated/Ice)
 	file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Ice)
 endif()
