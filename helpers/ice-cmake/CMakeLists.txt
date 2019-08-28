@@ -22,6 +22,13 @@ get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
+   if(CMAKE_CXX_STANDARD EQUAL 11)
+      set(ICE_TARGET_NAME ice++11)
+      set(GLACIER2_TARGET_NAME glacier2++11)
+   elseif(CMAKE_CXX_STANDARD EQUAL 98)
+      set(ICE_TARGET_NAME ice)
+      set(GLACIER2_TARGET_NAME glacier2)
+   endif()
    if(WIN32)
       # remove related compiler flags that are not supported for win32
       string(REPLACE "/D_WINDOWS" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
