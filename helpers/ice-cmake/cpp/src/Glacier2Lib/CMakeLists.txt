@@ -84,7 +84,18 @@ target_compile_options(glacier2
       ${ICE_COMPILE_OPTIONS}   
 )
 
+find_package(OpenSSL REQUIRED)
+
 add_dependencies(glacier2 ice)
+
+if(WIN32)
+   source_group(
+      TREE ${CMAKE_CURRENT_SOURCE_DIR}
+      PREFIX "Resource Files"
+      FILES
+         ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
+   )
+endif()
 
 # #function(CompileSlices slice2_bin slice_path slice_dir slice_target output_dir lang_std)
 # CompileSlices(slice2cpp
