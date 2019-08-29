@@ -351,13 +351,6 @@ target_sources(${ICE_TARGET_NAME}
 		${ICE_SLICES}
 )
 
-if(WIN32)
-	target_sources(${ICE_TARGET_NAME}
-		PRIVATE
-		${GENERATED_ICE_RESOURCES}
-	)
-endif()
-
 target_include_directories(${ICE_TARGET_NAME}
 	PRIVATE 
 		${PROJECT_BINARY_DIR}/generated
@@ -431,17 +424,25 @@ if(WIN32)
 				Shlwapi.lib
 		)
 
-		target_compile_definitions(${ICE_TARGET_NAME}
-			PRIVATE
-				"ICE_API_EXPORTS"
-		)
 	endif()
+
+	target_sources(${ICE_TARGET_NAME}
+		PRIVATE
+		${GENERATED_ICE_RESOURCES}
+	)
 
 	add_custom_command(TARGET ${ICE_TARGET_NAME}
 		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 		WORKING_DIRECTORY ${GENERATED_ICE_SOURCES_DIR}
 		PRE_BUILD
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
+	)
+endif()
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(${ICE_TARGET_NAME}
+	PRIVATE
+		"ICE_API_EXPORTS"
 	)
 endif()
 

@@ -59,13 +59,6 @@ target_sources(${GLACIER2_TARGET_NAME}
       ${GENERATED_GLACIER2_SOURCES}
 )
 
-if(WIN32)
-   target_sources(${GLACIER2_TARGET_NAME}
-      PRIVATE
-         Glacier2.rc
-   )
-endif()
-
 target_include_directories(${GLACIER2_TARGET_NAME}
    PRIVATE 
       ${PROJECT_BINARY_DIR}/generated
@@ -91,11 +84,6 @@ if(BUILD_SHARED_LIBS)
          "GLACIER2_API_EXPORTS"
    )   
 endif()
-
-target_compile_options(${GLACIER2_TARGET_NAME} 
-   PRIVATE
-      ${ICE_COMPILE_OPTIONS}   
-)
 
 add_dependencies(${GLACIER2_TARGET_NAME} ${ICE_TARGET_NAME})
 
@@ -126,6 +114,16 @@ if(WIN32)
       PREFIX "Slice Files"
       FILES
          ${GLACIER2_SLICES}
+   )
+
+   target_sources(${GLACIER2_TARGET_NAME}
+   PRIVATE
+      Glacier2.rc
+   )
+
+   target_compile_options(${GLACIER2_TARGET_NAME} 
+   PRIVATE
+      ${ICE_COMPILE_OPTIONS}   
    )
 endif()
 
