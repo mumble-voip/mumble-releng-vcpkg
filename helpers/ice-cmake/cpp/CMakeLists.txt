@@ -10,6 +10,14 @@ endif()
 # add project wide c++ properties
 include(cmake/ice_cpp_props.cmake)
 
+if(CMAKE_CXX_STANDARD EQUAL 11)
+   set(ICE_LABEL_NAME ice++11)
+   set(GLACIER2_LABEL_NAME glacier2++11)
+elseif(CMAKE_CXX_STANDARD EQUAL 98)
+   set(ICE_LABEL_NAME ice)
+   set(GLACIER2_LABEL_NAME glacier2)
+endif()
+
 if(WIN32)
    if(MSVC)
       include(cmake/mc_compiler.cmake)
