@@ -430,6 +430,11 @@ if(WIN32)
 				DbgHelp.lib
 				Shlwapi.lib
 		)
+
+		target_compile_definitions(${ICE_TARGET_NAME}
+			PRIVATE
+				"ICE_API_EXPORTS"
+		)
 	endif()
 
 	add_custom_command(TARGET ${ICE_TARGET_NAME}
@@ -443,7 +448,6 @@ endif()
 target_compile_definitions(${ICE_TARGET_NAME} 
 	PRIVATE 
 		${ICELIB_COMPILE_DEFS}
-		"ICE_API_EXPORTS"
 )
 
 foreach(slice ${ICE_SLICES})
