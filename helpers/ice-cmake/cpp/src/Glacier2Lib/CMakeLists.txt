@@ -83,8 +83,14 @@ endif()
 target_compile_definitions(${GLACIER2_TARGET_NAME} 
    PRIVATE 
       ${GLACIER2_COMPILE_DEFS}
-      "GLACIER2_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+   target_compile_definitions(${GLACIER2_TARGET_NAME}
+      PRIVATE
+         "GLACIER2_API_EXPORTS"
+   )   
+endif()
 
 target_compile_options(${GLACIER2_TARGET_NAME} 
    PRIVATE
