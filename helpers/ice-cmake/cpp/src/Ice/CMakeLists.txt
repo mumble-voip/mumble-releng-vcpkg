@@ -462,4 +462,16 @@ foreach(slice ${ICE_SLICES})
 	)
 endforeach()
 
+if(CMAKE_CXX_STANDARD EQUAL 11)
+	set_target_properties(${ICE_TARGET_NAME} 
+		PROPERTIES
+			OUTPUT_NAME ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+	)
+elseif(CMAKE_CXX_STANDARD EQUAL 98)
+	set_target_properties(${ICE_TARGET_NAME} 
+		PROPERTIES
+			OUTPUT_NAME ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+	)
+endif()
+
 install(TARGETS ${ICE_TARGET_NAME} DESTINATION lib)

@@ -115,6 +115,18 @@ foreach(slice ${ICEBOX_SLICES})
 	)
 endforeach()
 
+if(CMAKE_CXX_STANDARD EQUAL 11)
+	set_target_properties(${ICEBOXLIB_TARGET_NAME} 
+		PROPERTIES
+			OUTPUT_NAME icebox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+	)
+elseif(CMAKE_CXX_STANDARD EQUAL 98)
+	set_target_properties(${ICEBOXLIB_TARGET_NAME} 
+		PROPERTIES
+			OUTPUT_NAME icebox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+	)
+endif()
+
 install(TARGETS ${ICEBOXLIB_TARGET_NAME} DESTINATION lib)
 
 add_executable(${ICEBOX_TARGET_NAME})
@@ -135,6 +147,11 @@ if(WIN32)
 	target_compile_options(${ICEBOX_TARGET_NAME}
 		PRIVATE
 		${ICE_COMPILE_OPTIONS}
+	)
+
+	target_link_options(${ICEBOX_TARGET_NAME}
+		PRIVATE
+			${ICE_APP_ADDITIONAL_DEPS}
 	)
 
 	source_group(
@@ -161,6 +178,11 @@ target_include_directories(${ICEBOX_TARGET_NAME}
 		${PROJECT_BINARY_DIR}/generated
    	${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
+)
+
+set_target_properties(${ICEBOX_TARGET_NAME}
+	PROPERTIES
+		OUTPUT_NAME icebox
 )
 
 install(TARGETS ${ICEBOX_TARGET_NAME} DESTINATION bin)
