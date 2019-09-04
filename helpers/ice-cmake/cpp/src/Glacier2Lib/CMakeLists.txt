@@ -128,11 +128,12 @@ if(WIN32)
 endif()
 
 foreach(slice ${GLACIER2_SLICES})
-	#function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
+	#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
-		${GLACIER2_TARGET_NAME}
+      ${GLACIER2_TARGET_NAME}
+      Glacier2
 		${GENERATED_GLACIER2_SOURCES_DIR}
 	)
 endforeach()

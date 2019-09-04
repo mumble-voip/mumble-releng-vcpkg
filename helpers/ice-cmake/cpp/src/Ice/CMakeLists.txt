@@ -452,11 +452,12 @@ target_compile_definitions(${ICE_TARGET_NAME}
 )
 
 foreach(slice ${ICE_SLICES})
-	#function(CompileSlices slice2_bin slice_path ice_file slice_target output_dir)
+	#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
 		${ICE_TARGET_NAME}
+		Ice
 		${GENERATED_ICE_SOURCES_DIR}
 	)
 endforeach()
