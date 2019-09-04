@@ -5,6 +5,13 @@ if(CMAKE_CONFIGURATION_TYPES)
    set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 endif()
 
+# handle debug lib naming based on shipped project naming
+if(WIN32)
+   if(NOT CMAKE_DEBUG_POSTFIX)
+      set(CMAKE_DEBUG_POSTFIX d)
+   endif()
+endif()
+
 project(zeroc-ice)
 
 set(zeroc-ice_VERSION_MAJOR 3)
