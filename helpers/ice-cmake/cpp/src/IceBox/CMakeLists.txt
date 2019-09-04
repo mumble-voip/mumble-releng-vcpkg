@@ -139,7 +139,7 @@ if(WIN32)
 
 	target_compile_options(${ICEBOX_TARGET_NAME}
 		PRIVATE
-		${ICE_COMPILE_OPTIONS}
+			${ICE_COMPILE_OPTIONS}
 	)
 
 	target_link_options(${ICEBOX_TARGET_NAME}
@@ -161,9 +161,7 @@ target_compile_definitions(${ICEBOX_TARGET_NAME}
 		${ICEBOX_COMPILE_DEFS}
 )
 
-target_link_libraries(${ICEBOX_TARGET_NAME} 
-	${ICEBOXLIB_TARGET_NAME}
-)
+add_dependencies(${ICEBOX_TARGET_NAME}	${ICEBOXLIB_TARGET_NAME})
 
 target_include_directories(${ICEBOX_TARGET_NAME}
 	PRIVATE 
