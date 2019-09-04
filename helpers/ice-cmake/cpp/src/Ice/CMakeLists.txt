@@ -439,16 +439,10 @@ if(WIN32)
 	)
 endif()
 
-if(BUILD_SHARED_LIBS)
-	target_compile_definitions(${ICE_TARGET_NAME}
-	PRIVATE
-		"ICE_API_EXPORTS"
-	)
-endif()
-
 target_compile_definitions(${ICE_TARGET_NAME} 
 	PRIVATE 
 		${ICELIB_COMPILE_DEFS}
+		"ICE_API_EXPORTS"
 )
 
 foreach(slice ${ICE_SLICES})

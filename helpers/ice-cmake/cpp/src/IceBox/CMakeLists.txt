@@ -51,16 +51,9 @@ endif()
 
 target_compile_definitions(${ICEBOXLIB_TARGET_NAME} 
    PRIVATE 
-      ${ICEBOX_COMPILE_DEFS}
+		${ICEBOX_COMPILE_DEFS}
+		"ICEBOX_API_EXPORTS"
 )
-
-if(BUILD_SHARED_LIBS)
-   target_compile_definitions(${ICEBOXLIB_TARGET_NAME}
-      PRIVATE
-         "ICEBOX_API_EXPORTS"
-   )   
-endif()
-
 
 add_dependencies(${ICEBOXLIB_TARGET_NAME} ${ICE_TARGET_NAME})
 
@@ -170,7 +163,6 @@ target_compile_definitions(${ICEBOX_TARGET_NAME}
 
 target_link_libraries(${ICEBOX_TARGET_NAME} 
 	${ICEBOXLIB_TARGET_NAME}
-	${ICE_TARGET_NAME}
 )
 
 target_include_directories(${ICEBOX_TARGET_NAME}

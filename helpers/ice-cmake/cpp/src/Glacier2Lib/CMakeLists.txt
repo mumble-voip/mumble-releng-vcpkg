@@ -76,14 +76,8 @@ endif()
 target_compile_definitions(${GLACIER2_TARGET_NAME} 
    PRIVATE 
       ${GLACIER2_COMPILE_DEFS}
+      "GLACIER2_API_EXPORTS"
 )
-
-if(BUILD_SHARED_LIBS)
-   target_compile_definitions(${GLACIER2_TARGET_NAME}
-      PRIVATE
-         "GLACIER2_API_EXPORTS"
-   )   
-endif()
 
 add_dependencies(${GLACIER2_TARGET_NAME} ${ICE_TARGET_NAME})
 
