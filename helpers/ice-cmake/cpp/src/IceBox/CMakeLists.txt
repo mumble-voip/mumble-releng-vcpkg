@@ -161,7 +161,17 @@ target_compile_definitions(${ICEBOX_TARGET_NAME}
 		${ICEBOX_COMPILE_DEFS}
 )
 
-add_dependencies(${ICEBOX_TARGET_NAME}	${ICEBOXLIB_TARGET_NAME})
+target_link_libraries(${ICEBOX_TARGET_NAME}	
+	PRIVATE
+		${ICEBOXLIB_TARGET_NAME}
+)
+
+if(NOT BUILD_SHARED_LIBS)
+	target_link_libraries(${ICEBOX_TARGET_NAME}
+		PRIVATE
+			${ICE_TARGET_NAME}
+	)
+endif()
 
 target_include_directories(${ICEBOX_TARGET_NAME}
 	PRIVATE 
