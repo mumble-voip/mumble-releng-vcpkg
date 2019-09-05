@@ -109,6 +109,7 @@ foreach(slice ${ICEBOX_SLICES})
 endforeach()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
+	# todo - set name instead of target properties, define output_name later
 	set_target_properties(${ICEBOXLIB_TARGET_NAME} 
 		PROPERTIES
 			OUTPUT_NAME icebox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
