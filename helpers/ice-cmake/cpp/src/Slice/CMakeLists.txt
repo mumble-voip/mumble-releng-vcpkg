@@ -2,39 +2,39 @@ add_library(slice STATIC)
 
 target_sources(slice
    PRIVATE
-      Checksum.cpp
-      Checksum.h
-      CPlusPlusUtil.cpp
-      CPlusPlusUtil.h
-      FileTracker.cpp
-      FileTracker.h
-      Grammar.cpp
-      Grammar.h
-      Grammar.y
-      GrammarUtil.h
-      JavaUtil.cpp
-      JavaUtil.h
-      MD5.cpp
-      MD5.h
-      MD5I.cpp
-      MD5I.h
-      Parser.cpp
-      Parser.h
-      PHPUtil.cpp
-      PHPUtil.h
-      Preprocessor.cpp
-      Preprocessor.h
-      Python.cpp
-      PythonUtil.cpp
-      PythonUtil.h
-      Ruby.cpp
-      RubyUtil.cpp
-      RubyUtil.h
-      Scanner.cpp
-      Scanner.l
-      SliceUtil.cpp
-      StringLiteralUtil.cpp
-      Util.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Checksum.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Checksum.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/CPlusPlusUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/CPlusPlusUtil.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/FileTracker.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/FileTracker.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Grammar.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Grammar.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Grammar.y
+      ${CMAKE_CURRENT_SOURCE_DIR}/GrammarUtil.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/JavaUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/JavaUtil.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/MD5.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/MD5.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/MD5I.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/MD5I.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Parser.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Parser.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/PHPUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/PHPUtil.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Preprocessor.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Preprocessor.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Python.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/PythonUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/PythonUtil.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Ruby.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/RubyUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/RubyUtil.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Scanner.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Scanner.l
+      ${CMAKE_CURRENT_SOURCE_DIR}/SliceUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/StringLiteralUtil.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Util.h
 )
 
 target_include_directories(slice 
