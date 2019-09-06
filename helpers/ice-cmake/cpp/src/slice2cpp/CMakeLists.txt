@@ -1,10 +1,10 @@
-
-add_executable(slice2cpp Main.cpp Slice2Cpp.rc)
+add_executable(slice2cpp)
 
 target_sources(slice2cpp 
    PRIVATE
       Gen.cpp
-	   Gen.h
+      Gen.h
+      Main.cpp
 )
 
 target_include_directories(slice2cpp
@@ -26,6 +26,11 @@ if(WIN32)
       advapi32.lib
       DbgHelp.lib
       Shlwapi.lib
+   )
+
+   target_sources(slice2cpp
+      PRIVATE
+         Slice2Cpp.rc
    )
 endif()
 
