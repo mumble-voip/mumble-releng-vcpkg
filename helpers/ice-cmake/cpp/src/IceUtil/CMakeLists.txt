@@ -71,7 +71,10 @@ if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
    )
 endif()
 
-target_include_directories(iceutil PRIVATE ${PROJECT_SOURCE_DIR}/cpp/include)
+target_include_directories(iceutil 
+   PRIVATE 
+      ${PROJECT_SOURCE_DIR}/cpp/include
+)
 
 if(WIN32)
    target_compile_options(iceutil 
