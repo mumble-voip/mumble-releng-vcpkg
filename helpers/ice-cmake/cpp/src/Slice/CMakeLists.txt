@@ -46,9 +46,10 @@ target_include_directories(slice
 target_link_libraries(slice PRIVATE iceutil)
 
 if(WIN32)
-   target_compile_options(slice PRIVATE 
-      "/wd4250"
-      ${ICE_COMPILE_OPTIONS}
+   target_compile_options(slice 
+      PRIVATE 
+         "/wd4250"
+         ${ICE_COMPILE_OPTIONS}
    )
 
 endif()
