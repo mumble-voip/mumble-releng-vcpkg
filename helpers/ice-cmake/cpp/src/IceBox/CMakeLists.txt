@@ -87,13 +87,13 @@ if(WIN32)
    )
 
    target_sources(${ICEBOXLIB_TARGET_NAME}
-   PRIVATE
-      IceBox.rc
+   	PRIVATE
+      	IceBox.rc
    )
 
    target_compile_options(${ICEBOXLIB_TARGET_NAME} 
-   PRIVATE
-      ${ICE_COMPILE_OPTIONS}   
+   	PRIVATE
+      	${ICE_COMPILE_OPTIONS}   
    )
 endif()
 
