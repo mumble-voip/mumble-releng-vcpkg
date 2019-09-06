@@ -39,8 +39,8 @@ target_sources(slice
 
 target_include_directories(slice 
    PRIVATE 
-      ${CMAKE_SOURCE_DIR}/cpp/include
-	   ${CMAKE_SOURCE_DIR}/cpp/src
+      ${PROJECT_SOURCE_DIR}/cpp/include
+	   ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
 target_link_libraries(slice PRIVATE iceutil)

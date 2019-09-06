@@ -2,46 +2,46 @@ add_library(iceutil STATIC)
 
 target_sources(iceutil 
    PRIVATE
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Atomic.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Cond.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Config.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/ConsoleUtil.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/CountDownLatch.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/CtrlCHandler.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/DisableWarnings.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Exception.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/FileUtil.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Functional.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Handle.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/IceUtil.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/InputUtil.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Iterator.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Lock.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Monitor.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Mutex.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/MutexProtocol.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/MutexPtrLock.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/MutexPtrTryLock.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Optional.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Options.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/OutputUtil.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/PopDisableWarnings.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/PushDisableWarnings.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Random.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/RecMutex.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/ResourceConfig.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/ScannerConfig.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/ScopedArray.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Shared.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/StopWatch.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/StringConverter.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/StringUtil.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Thread.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/ThreadException.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Time.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/Timer.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/UndefSysMacros.h
-      ${CMAKE_SOURCE_DIR}/cpp/include/IceUtil/UUID.h   
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Atomic.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Cond.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Config.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/ConsoleUtil.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/CountDownLatch.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/CtrlCHandler.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/DisableWarnings.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Exception.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/FileUtil.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Functional.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Handle.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/IceUtil.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/InputUtil.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Iterator.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Lock.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Monitor.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Mutex.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/MutexProtocol.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/MutexPtrLock.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/MutexPtrTryLock.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Optional.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Options.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/OutputUtil.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/PopDisableWarnings.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/PushDisableWarnings.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Random.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/RecMutex.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/ResourceConfig.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/ScannerConfig.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/ScopedArray.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Shared.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/StopWatch.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/StringConverter.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/StringUtil.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Thread.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/ThreadException.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Time.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/Timer.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/UndefSysMacros.h
+      ${PROJECT_SOURCE_DIR}/cpp/include/IceUtil/UUID.h   
       ConsoleUtil.cpp
       CtrlCHandler.cpp
       FileUtil.cpp
@@ -71,7 +71,7 @@ if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
    )
 endif()
 
-target_include_directories(iceutil PRIVATE ${CMAKE_SOURCE_DIR}/cpp/include)
+target_include_directories(iceutil PRIVATE ${PROJECT_SOURCE_DIR}/cpp/include)
 
 if(WIN32)
    target_compile_options(iceutil 

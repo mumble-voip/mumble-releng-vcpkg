@@ -9,8 +9,8 @@ target_sources(slice2cpp
 
 target_include_directories(slice2cpp
    PRIVATE
-	  ${CMAKE_SOURCE_DIR}/cpp/include
-	  ${CMAKE_SOURCE_DIR}/cpp/src
+	  ${PROJECT_SOURCE_DIR}/cpp/include
+	  ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
 if(WIN32)
