@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1.0)
+cmake_minimum_required(VERSION 3.11.0)
 
 # shipped zeroc-ice shows two configurations defined here
 if(CMAKE_CONFIGURATION_TYPES)
