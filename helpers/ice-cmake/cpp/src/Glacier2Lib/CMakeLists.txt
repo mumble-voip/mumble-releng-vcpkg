@@ -119,10 +119,7 @@ if(WIN32)
    )
 endif()
 
-target_link_libraries(${GLACIER2_TARGET_NAME}
-   PRIVATE
-      ${ICE_TARGET_NAME}
-)
+add_dependencies(${GLACIER2_TARGET_NAME} ${ICE_TARGET_NAME})
 
 foreach(slice ${GLACIER2_SLICES})
 	#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
