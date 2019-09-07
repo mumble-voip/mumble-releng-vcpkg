@@ -95,11 +95,6 @@ if(WIN32)
    )
 endif()
 
-target_link_libraries(${ICEBOXLIB_TARGET_NAME}
-	PUBLIC
-		${ICE_TARGET_NAME}
-)
-
 foreach(slice ${ICEBOX_SLICES})
 	#function(CompileSlices slice2_bin slice_path ice_file slice_target optional_args output_dir)
 	CompileSlices(slice2cpp
@@ -168,17 +163,11 @@ target_compile_definitions(${ICEBOX_TARGET_NAME}
 target_link_libraries(${ICEBOX_TARGET_NAME}	
 	PRIVATE
 		${ICEBOXLIB_TARGET_NAME}
+		${ICE_TARGET_NAME}
 )
 
-if(NOT BUILD_SHARED_LIBS)
-	target_link_libraries(${ICEBOX_TARGET_NAME}
-		PRIVATE
-			${ICE_TARGET_NAME}
-	)
-endif()
-
 target_include_directories(${ICEBOX_TARGET_NAME}
-	PRIVATE 
+	PRIVATE
 		${PROJECT_BINARY_DIR}/generated
    	${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
