@@ -151,11 +151,6 @@ if(WIN32)
       PREFIX "Resource Files"
       FILES
          ${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
-	)
-	
-	target_compile_options(icebox 
-		PRIVATE  
-			${ICE_COMPILE_OPTIONS} 
 	)	
 
 endif()
@@ -167,7 +162,7 @@ target_compile_definitions(icebox
 
 target_link_libraries(icebox	
 	PRIVATE
-		#iceutil
+		iceutil
 		ice
 		iceboxlib
 )
