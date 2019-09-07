@@ -86,7 +86,7 @@ if(WIN32)
 
    target_sources(${ICEBOXLIB_TARGET_NAME}
    	PRIVATE
-      	IceBox.rc
+			${CMAKE_CURRENT_SOURCE_DIR}/IceBox.rc
    )
 
    target_compile_options(${ICEBOXLIB_TARGET_NAME} 
@@ -126,15 +126,15 @@ add_executable(${ICEBOX_TARGET_NAME})
 
 target_sources(${ICEBOX_TARGET_NAME} 
    PRIVATE
-		Service.cpp
-		ServiceManagerI.cpp
-		ServiceManagerI.h
+		${CMAKE_CURRENT_SOURCE_DIR}/Service.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/ServiceManagerI.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/ServiceManagerI.h
 )
 
 if(WIN32)
 	target_sources(${ICEBOX_TARGET_NAME}
 		PRIVATE
-			IceBoxExe.rc
+			${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
 	)
 
 	target_compile_options(${ICEBOX_TARGET_NAME}
