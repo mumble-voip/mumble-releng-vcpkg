@@ -55,8 +55,6 @@ target_compile_definitions(${ICEBOXLIB_TARGET_NAME}
 		"ICEBOX_API_EXPORTS"
 )
 
-add_dependencies(${ICEBOXLIB_TARGET_NAME} ${ICE_TARGET_NAME})
-
 if(WIN32)
    source_group(
       TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -96,6 +94,11 @@ if(WIN32)
       	${ICE_COMPILE_OPTIONS}   
    )
 endif()
+
+target_link_libraries(${ICEBOXLIB_TARGET_NAME}
+	PUBLIC
+		${ICE_TARGET_NAME}
+)
 
 foreach(slice ${ICEBOX_SLICES})
 	#function(CompileSlices slice2_bin slice_path ice_file slice_target optional_args output_dir)
