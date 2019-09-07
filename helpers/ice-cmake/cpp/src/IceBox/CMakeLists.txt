@@ -29,8 +29,7 @@ add_library(${ICEBOXLIB_TARGET_NAME})
 
 target_sources(${ICEBOXLIB_TARGET_NAME}
 	PRIVATE
-		${PROJECT_SOURCE_DIR}/cpp/include/IceBox/Config.h
-		Exception.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/Exception.cpp
 		${GENERATED_ICEBOX_HEADERS}
 		${GENERATED_ICEBOX_SOURCES}
 )
@@ -54,6 +53,8 @@ target_compile_definitions(${ICEBOXLIB_TARGET_NAME}
 		${ICEBOX_COMPILE_DEFS}
 		"ICEBOX_API_EXPORTS"
 )
+
+add_dependencies(${ICEBOXLIB_TARGET_NAME} ${ICE_TARGET_NAME})
 
 if(WIN32)
    source_group(
@@ -92,7 +93,8 @@ if(WIN32)
    target_compile_options(${ICEBOXLIB_TARGET_NAME} 
    	PRIVATE
       	${ICE_COMPILE_OPTIONS}   
-   )
+	)
+	
 endif()
 
 foreach(slice ${ICEBOX_SLICES})
@@ -151,7 +153,12 @@ if(WIN32)
       PREFIX "Resource Files"
       FILES
          ${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
-   )
+	)
+	
+	target_compile_options(${ICEBOX_TARGET_NAME} 
+		PRIVATE  
+			${ICE_COMPILE_OPTIONS} 
+	)	
 
 endif()
 
