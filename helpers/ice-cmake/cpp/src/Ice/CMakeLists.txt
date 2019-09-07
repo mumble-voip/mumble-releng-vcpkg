@@ -305,8 +305,6 @@ target_sources(ice
 		${CMAKE_CURRENT_SOURCE_DIR}/StringUtil.h
 		${CMAKE_CURRENT_SOURCE_DIR}/SysLoggerI.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/SysLoggerI.h
-		${CMAKE_CURRENT_SOURCE_DIR}/SystemdJournalI.cpp
-		${CMAKE_CURRENT_SOURCE_DIR}/SystemdJournalI.h
 		${CMAKE_CURRENT_SOURCE_DIR}/TcpAcceptor.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/TcpAcceptor.h
 		${CMAKE_CURRENT_SOURCE_DIR}/TcpConnector.cpp
@@ -349,6 +347,14 @@ target_sources(ice
 		${GENERATED_ICE_HEADERS}
 		${ICE_SLICES}
 )
+
+if(LINUX)
+	target_sources(ice
+		PRIVATE
+			${CMAKE_CURRENT_SOURCE_DIR}/SystemdJournalI.cpp
+			${CMAKE_CURRENT_SOURCE_DIR}/SystemdJournalI.h
+	)
+endif()
 
 target_include_directories(ice
 	PRIVATE 
