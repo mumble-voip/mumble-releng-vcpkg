@@ -171,6 +171,7 @@ target_link_libraries(${ICEBOX_TARGET_NAME}
 	PRIVATE
 		${ICEBOXLIB_TARGET_NAME}
 		${ICE_TARGET_NAME}
+		iceutil
 )
 
 target_include_directories(${ICEBOX_TARGET_NAME}
