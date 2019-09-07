@@ -43,9 +43,9 @@ set_source_files_properties(
       GENERATED TRUE)
 
 
-add_library(${GLACIER2_TARGET_NAME})
+add_library(glacier2)
 
-target_sources(${GLACIER2_TARGET_NAME}
+target_sources(glacier2
    PRIVATE
       ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
       ${CMAKE_CURRENT_SOURCE_DIR}/NullPermissionsVerifier.cpp
@@ -54,7 +54,7 @@ target_sources(${GLACIER2_TARGET_NAME}
       ${GENERATED_GLACIER2_SOURCES}
 )
 
-target_include_directories(${GLACIER2_TARGET_NAME}
+target_include_directories(glacier2
    PRIVATE 
       ${PROJECT_BINARY_DIR}/generated
 		${PROJECT_SOURCE_DIR}/cpp/include
@@ -68,7 +68,7 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
 	set(GLACIER2_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
 endif()
 
-target_compile_definitions(${GLACIER2_TARGET_NAME} 
+target_compile_definitions(glacier2 
    PRIVATE 
       ${GLACIER2_COMPILE_DEFS}
       "GLACIER2_API_EXPORTS"
@@ -103,26 +103,33 @@ if(WIN32)
          ${GLACIER2_SLICES}
    )
 
-   target_sources(${GLACIER2_TARGET_NAME}
+   target_sources(glacier2
    PRIVATE
       ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
    )
 
-   target_compile_options(${GLACIER2_TARGET_NAME} 
+   target_compile_options(glacier2 
    PRIVATE
       ${ICE_COMPILE_OPTIONS}   
    )
 endif()
 
-add_dependencies(${GLACIER2_TARGET_NAME} ${ICE_TARGET_NAME})
+add_dependencies(glacier2 ice)
 
 foreach(slice ${GLACIER2_SLICES})
 	#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
-      ${GLACIER2_TARGET_NAME}
+      glacier2
       Glacier2
 		${GENERATED_GLACIER2_SOURCES_DIR}
 	)
 endforeach()
+
+if(CMAKE_CXX_STANDARD EQUAL 11)
+	set_target_properties(glacier2 
+		PROPERTIES
+			OUTPUT_NAME glacier2++11
+	)
+endif()

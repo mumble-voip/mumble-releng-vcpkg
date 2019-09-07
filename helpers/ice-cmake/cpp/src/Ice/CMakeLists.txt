@@ -146,9 +146,9 @@ if(WIN32)
 	set_source_files_properties(${GENERATED_ICE_RESOURCES} PROPERTIES GENERATED TRUE)
 endif()
 
-add_library(${ICE_TARGET_NAME})
+add_library(ice)
 
-target_sources(${ICE_TARGET_NAME}
+target_sources(ice
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/Acceptor.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Acceptor.h
@@ -350,7 +350,7 @@ target_sources(${ICE_TARGET_NAME}
 		${ICE_SLICES}
 )
 
-target_include_directories(${ICE_TARGET_NAME}
+target_include_directories(ice
 	PRIVATE 
 		${PROJECT_BINARY_DIR}/generated
 		${PROJECT_SOURCE_DIR}/cpp/include
@@ -360,7 +360,7 @@ target_include_directories(${ICE_TARGET_NAME}
 
 # todo - if *nix and Darwin need to include generated/Ice, define here
 
-add_dependencies(${ICE_TARGET_NAME} slice2cpp)
+add_dependencies(ice slice2cpp)
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
@@ -406,14 +406,14 @@ if(WIN32)
 			${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
 	)
 
-	target_compile_options(${ICE_TARGET_NAME} 
+	target_compile_options(ice 
 		PRIVATE 
 			"/wd4996" 
 			${ICE_COMPILE_OPTIONS} 
 	)
 
 	if(BUILD_SHARED_LIBS)
-		target_link_libraries(${ICE_TARGET_NAME}
+		target_link_libraries(ice
 			PRIVATE
 				advapi32.lib
 				ws2_32.lib
@@ -424,13 +424,13 @@ if(WIN32)
 		)
 	endif()
 	
-	target_sources(${ICE_TARGET_NAME}
+	target_sources(ice
 		PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 		${GENERATED_ICE_RESOURCES}
 	)
 
-	add_custom_command(TARGET ${ICE_TARGET_NAME}
+	add_custom_command(TARGET ice
 		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
 		WORKING_DIRECTORY ${GENERATED_ICE_SOURCES_DIR}
 		PRE_BUILD
@@ -438,7 +438,7 @@ if(WIN32)
 	)
 endif()
 
-target_compile_definitions(${ICE_TARGET_NAME} 
+target_compile_definitions(ice 
 	PRIVATE 
 		${ICELIB_COMPILE_DEFS}
 		"ICE_API_EXPORTS"
@@ -449,23 +449,22 @@ foreach(slice ${ICE_SLICES})
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
-		${ICE_TARGET_NAME}
+		ice
 		Ice
 		${GENERATED_ICE_SOURCES_DIR}
 	)
 endforeach()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
-	# todo - set name instead of target properties, define output_name later
-	set_target_properties(${ICE_TARGET_NAME} 
+	set_target_properties(ice 
 		PROPERTIES
 			OUTPUT_NAME ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(${ICE_TARGET_NAME} 
+	set_target_properties(ice 
 		PROPERTIES
 			OUTPUT_NAME ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 endif()
 
-install(TARGETS ${ICE_TARGET_NAME} DESTINATION lib)
+install(TARGETS ice DESTINATION lib)

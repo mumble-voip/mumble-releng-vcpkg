@@ -31,29 +31,29 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
 	set(ICEBOX_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
 endif()
 
-add_library(${ICEBOXLIB_TARGET_NAME})
+add_library(iceboxlib)
 
-target_sources(${ICEBOXLIB_TARGET_NAME}
+target_sources(iceboxlib
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/Exception.cpp
 		${GENERATED_ICEBOX_HEADERS}
 		${GENERATED_ICEBOX_SOURCES}
 )
 
-target_include_directories(${ICEBOXLIB_TARGET_NAME}
+target_include_directories(iceboxlib
 	PRIVATE 
 		${PROJECT_BINARY_DIR}/generated
    	${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
 )
 
-target_compile_definitions(${ICEBOXLIB_TARGET_NAME} 
+target_compile_definitions(iceboxlib 
    PRIVATE 
 		${ICEBOX_COMPILE_DEFS}
 		"ICEBOX_API_EXPORTS"
 )
 
-add_dependencies(${ICEBOXLIB_TARGET_NAME} ${ICE_TARGET_NAME})
+add_dependencies(iceboxlib ice)
 
 if(WIN32)
    source_group(
@@ -84,12 +84,12 @@ if(WIN32)
          ${ICEBOX_SLICES}
    )
 
-   target_sources(${ICEBOXLIB_TARGET_NAME}
+   target_sources(iceboxlib
    	PRIVATE
 			${CMAKE_CURRENT_SOURCE_DIR}/IceBox.rc
    )
 
-   target_compile_options(${ICEBOXLIB_TARGET_NAME} 
+   target_compile_options(iceboxlib 
    	PRIVATE
       	${ICE_COMPILE_OPTIONS}   
 	)
@@ -101,30 +101,29 @@ foreach(slice ${ICEBOX_SLICES})
 	CompileSlices(slice2cpp
 		${SLICE_DIR}
 		${slice}
-		${ICEBOXLIB_TARGET_NAME}
+		iceboxlib
 		""
 		${GENERATED_ICEBOX_SOURCES_DIR}
 	)
 endforeach()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
-	# todo - set name instead of target properties, define output_name later
-	set_target_properties(${ICEBOXLIB_TARGET_NAME} 
+	set_target_properties(iceboxlib 
 		PROPERTIES
 			OUTPUT_NAME icebox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(${ICEBOXLIB_TARGET_NAME} 
+	set_target_properties(iceboxlib 
 		PROPERTIES
 			OUTPUT_NAME icebox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 endif()
 
-install(TARGETS ${ICEBOXLIB_TARGET_NAME} DESTINATION lib)
+install(TARGETS iceboxlib DESTINATION lib)
 
-add_executable(${ICEBOX_TARGET_NAME})
+add_executable(icebox)
 
-target_sources(${ICEBOX_TARGET_NAME} 
+target_sources(icebox 
    PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/Service.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/ServiceManagerI.cpp
@@ -132,17 +131,17 @@ target_sources(${ICEBOX_TARGET_NAME}
 )
 
 if(WIN32)
-	target_sources(${ICEBOX_TARGET_NAME}
+	target_sources(icebox
 		PRIVATE
 			${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
 	)
 
-	target_compile_options(${ICEBOX_TARGET_NAME}
+	target_compile_options(icebox
 		PRIVATE
 			${ICE_COMPILE_OPTIONS}
 	)
 
-	target_link_options(${ICEBOX_TARGET_NAME}
+	target_link_options(icebox
 		PRIVATE
 			${ICE_APP_ADDITIONAL_DEPS}
 	)
@@ -154,35 +153,30 @@ if(WIN32)
          ${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
 	)
 	
-	target_compile_options(${ICEBOX_TARGET_NAME} 
+	target_compile_options(icebox 
 		PRIVATE  
 			${ICE_COMPILE_OPTIONS} 
 	)	
 
 endif()
 
-target_compile_definitions(${ICEBOX_TARGET_NAME}
+target_compile_definitions(icebox
 	PRIVATE
 		${ICEBOX_COMPILE_DEFS}
 )
 
-target_link_libraries(${ICEBOX_TARGET_NAME}	
+target_link_libraries(icebox	
 	PRIVATE
 		#iceutil
-		${ICE_TARGET_NAME}
-		${ICEBOXLIB_TARGET_NAME}
+		ice
+		iceboxlib
 )
 
-target_include_directories(${ICEBOX_TARGET_NAME}
+target_include_directories(icebox
 	PRIVATE
 		${PROJECT_BINARY_DIR}/generated
    	${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
 )
 
-set_target_properties(${ICEBOX_TARGET_NAME}
-	PROPERTIES
-		OUTPUT_NAME icebox
-)
-
-install(TARGETS ${ICEBOX_TARGET_NAME} DESTINATION bin)
+install(TARGETS icebox DESTINATION bin)
