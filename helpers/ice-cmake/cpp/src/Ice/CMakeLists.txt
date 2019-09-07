@@ -149,7 +149,7 @@ endif()
 add_library(${ICE_TARGET_NAME})
 
 target_sources(${ICE_TARGET_NAME}
-   PRIVATE
+	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/Acceptor.cpp
 		${CMAKE_CURRENT_SOURCE_DIR}/Acceptor.h
 		${CMAKE_CURRENT_SOURCE_DIR}/AcceptorF.h
@@ -412,16 +412,18 @@ if(WIN32)
 			${ICE_COMPILE_OPTIONS} 
 	)
 
-	target_link_libraries(${ICE_TARGET_NAME}
-		PRIVATE
-			advapi32.lib
-			ws2_32.lib
-			Iphlpapi.lib
-			rpcrt4.lib
-			DbgHelp.lib
-			Shlwapi.lib
-	)
-
+	if(BUILD_SHARED_LIBS)
+		target_link_libraries(${ICE_TARGET_NAME}
+			PRIVATE
+				advapi32.lib
+				ws2_32.lib
+				Iphlpapi.lib
+				rpcrt4.lib
+				DbgHelp.lib
+				Shlwapi.lib
+		)
+	endif()
+	
 	target_sources(${ICE_TARGET_NAME}
 		PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
