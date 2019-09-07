@@ -44,7 +44,7 @@ target_include_directories(${ICEBOXLIB_TARGET_NAME}
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICEBOX_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
 else()
-	set(ICEBOX_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS")
+	set(ICEBOX_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
 endif()
 
 target_compile_definitions(${ICEBOXLIB_TARGET_NAME} 
@@ -168,9 +168,9 @@ target_compile_definitions(${ICEBOX_TARGET_NAME}
 
 target_link_libraries(${ICEBOX_TARGET_NAME}	
 	PRIVATE
-		${ICEBOXLIB_TARGET_NAME}
+		#iceutil
 		${ICE_TARGET_NAME}
-		iceutil
+		${ICEBOXLIB_TARGET_NAME}
 )
 
 target_include_directories(${ICEBOX_TARGET_NAME}
