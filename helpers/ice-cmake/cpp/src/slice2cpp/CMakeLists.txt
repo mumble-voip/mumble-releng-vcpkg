@@ -2,9 +2,9 @@ add_executable(slice2cpp)
 
 target_sources(slice2cpp 
    PRIVATE
-      Gen.cpp
-      Gen.h
-      Main.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Gen.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/Gen.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp
 )
 
 target_include_directories(slice2cpp
@@ -30,7 +30,7 @@ if(WIN32)
 
    target_sources(slice2cpp
       PRIVATE
-         Slice2Cpp.rc
+         ${CMAKE_CURRENT_SOURCE_DIR}/Slice2Cpp.rc
    )
 endif()
 
@@ -40,10 +40,11 @@ target_compile_definitions(slice2cpp
       ${ICE_CPP98_COMPILE_DEFS}
 )
 
-target_link_libraries(slice2cpp PRIVATE
-   mcpp
-   slice
-   iceutil   
+target_link_libraries(slice2cpp 
+   PRIVATE
+      mcpp
+      slice
+      iceutil   
 )
 
 install(TARGETS slice2cpp DESTINATION bin)
