@@ -41,7 +41,6 @@ target_include_directories(${ICEBOXLIB_TARGET_NAME}
 		${PROJECT_SOURCE_DIR}/cpp/src
 )
 
-
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set(ICEBOX_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
 else()
