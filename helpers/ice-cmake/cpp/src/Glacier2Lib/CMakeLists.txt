@@ -79,8 +79,6 @@ target_compile_definitions(${GLACIER2_TARGET_NAME}
       "GLACIER2_API_EXPORTS"
 )
 
-add_dependencies(${GLACIER2_TARGET_NAME} ${ICE_TARGET_NAME})
-
 if(WIN32)
    source_group(
       TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -120,6 +118,11 @@ if(WIN32)
       ${ICE_COMPILE_OPTIONS}   
    )
 endif()
+
+target_link_libraries(${GLACIER2_TARGET_NAME}
+   PRIVATE
+      ${ICE_TARGET_NAME}
+)
 
 foreach(slice ${GLACIER2_SLICES})
 	#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
