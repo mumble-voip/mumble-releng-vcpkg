@@ -15,19 +15,19 @@ add_library(mcpp STATIC)
 
 target_sources(mcpp 
    PRIVATE
-      config.h
-	   configed.H
-      directive.c
-	   eval.c
-	   expand.c
-	   internal.H
-	   main.c
-	   mbchar.c
-	   mcpp_lib.h
-	   mcpp_out.h
-	   support.c 
-	   system.c
-	   system.H
+		${CMAKE_CURRENT_SOURCE_DIR}/config.h
+	   ${CMAKE_CURRENT_SOURCE_DIR}/configed.H
+      ${CMAKE_CURRENT_SOURCE_DIR}/directive.c
+	   ${CMAKE_CURRENT_SOURCE_DIR}/eval.c
+	   ${CMAKE_CURRENT_SOURCE_DIR}/expand.c
+	   ${CMAKE_CURRENT_SOURCE_DIR}/internal.H
+	   ${CMAKE_CURRENT_SOURCE_DIR}/main.c
+	   ${CMAKE_CURRENT_SOURCE_DIR}/mbchar.c
+	   ${CMAKE_CURRENT_SOURCE_DIR}/mcpp_lib.h
+	   ${CMAKE_CURRENT_SOURCE_DIR}/mcpp_out.h
+	   ${CMAKE_CURRENT_SOURCE_DIR}/support.c 
+	   ${CMAKE_CURRENT_SOURCE_DIR}/system.c
+	   ${CMAKE_CURRENT_SOURCE_DIR}/system.H
 )
 
 target_compile_definitions(mcpp PRIVATE "HAVE_CONFIG_H" "MCPP_LIB=1")
