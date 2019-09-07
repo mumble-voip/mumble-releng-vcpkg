@@ -47,14 +47,9 @@ add_library(${GLACIER2_TARGET_NAME})
 
 target_sources(${GLACIER2_TARGET_NAME}
    PRIVATE
-      Application.cpp
-      ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Application.h
-      ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Config.h
-      ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Glacier2.h
-      NullPermissionsVerifier.cpp
-      ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/NullPermissionsVerifier.h
-      SessionHelper.cpp
-      ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/SessionHelper.h
+      ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/NullPermissionsVerifier.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/SessionHelper.cpp
       ${GENERATED_GLACIER2_HEADERS}
       ${GENERATED_GLACIER2_SOURCES}
 )
@@ -110,7 +105,7 @@ if(WIN32)
 
    target_sources(${GLACIER2_TARGET_NAME}
    PRIVATE
-      Glacier2.rc
+      ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
    )
 
    target_compile_options(${GLACIER2_TARGET_NAME} 
