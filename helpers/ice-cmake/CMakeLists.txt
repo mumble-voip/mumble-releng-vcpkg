@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.11.0)
 
-# shipped zeroc-ice shows two configurations defined here
-if(CMAKE_CONFIGURATION_TYPES)
-   set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
-endif()
-
-# handle debug lib naming based on shipped project naming
 if(WIN32)
+   # shipped zeroc-ice shows two configurations defined here
+   if(CMAKE_CONFIGURATION_TYPES)
+      set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+   endif()
+
+   # handle debug lib naming based on shipped project naming
    if(NOT CMAKE_DEBUG_POSTFIX)
       set(CMAKE_DEBUG_POSTFIX d)
    endif()
