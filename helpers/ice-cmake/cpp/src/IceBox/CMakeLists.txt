@@ -130,6 +130,13 @@ target_sources(icebox
 		${CMAKE_CURRENT_SOURCE_DIR}/ServiceManagerI.h
 )
 
+target_include_directories(icebox
+	PRIVATE
+		${PROJECT_BINARY_DIR}/generated
+   	${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
+)
+
 if(WIN32)
 	target_sources(icebox
 		PRIVATE
@@ -165,13 +172,6 @@ target_link_libraries(icebox
 		iceutil
 		ice
 		iceboxlib
-)
-
-target_include_directories(icebox
-	PRIVATE
-		${PROJECT_BINARY_DIR}/generated
-   	${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 )
 
 install(TARGETS icebox DESTINATION bin)
