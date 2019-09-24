@@ -7,13 +7,8 @@
 # include_dir - needed to name generated header guards
 # output_dir - specify the output dir for created sources
 function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-   if(include_dir)
-      set(compile_cmd ${slice2_bin} -I${slice_path} ${ice_file} --include-dir ${include_dir})
-   else()
-      set(compile_cmd ${slice2_bin} -I${slice_path} ${ice_file})
-   endif()
    add_custom_command(TARGET ${slice_target}
-      COMMAND ${compile_cmd}
+      COMMAND ${slice2_bin} -I${slice_path} ${ice_file} --include-dir ${include_dir}
       WORKING_DIRECTORY ${output_dir}
       DEPENDS ${ice_file} ${slice2_bin}
       PRE_BUILD
