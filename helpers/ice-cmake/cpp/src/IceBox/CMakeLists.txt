@@ -102,7 +102,7 @@ foreach(slice ${ICEBOX_SLICES})
 		${SLICE_DIR}
 		${slice}
 		iceboxlib
-		""
+		IceBox
 		${GENERATED_ICEBOX_SOURCES_DIR}
 	)
 endforeach()
