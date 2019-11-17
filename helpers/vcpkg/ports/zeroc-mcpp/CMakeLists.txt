@@ -13,19 +13,19 @@ set(mcpp_VERSION_TWEAK 13)
 add_library(mcpp STATIC)
 target_sources(mcpp 
    PRIVATE
-      config.h
-	  configed.H
+   	config.h
+	  	configed.H
       directive.c
-	  eval.c
-	  expand.c
-	  internal.H
-	  main.c
-	  mbchar.c
-	  mcpp_lib.h
-	  mcpp_out.h
-	  support.c 
-	  system.c
-	  system.H
+	  	eval.c
+	  	expand.c
+	  	internal.H
+	  	main.c
+		mbchar.c
+		mcpp_lib.h
+		mcpp_out.h
+		support.c 
+		system.c
+		system.H
 )
 
 target_compile_definitions(mcpp PRIVATE "HAVE_CONFIG_H" "MCPP_LIB=1")
