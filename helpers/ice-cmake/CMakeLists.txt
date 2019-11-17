@@ -16,7 +16,7 @@ project(zeroc-ice)
 
 set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
-set(zeroc-ice_VERSION_PATCH 2)
+set(zeroc-ice_VERSION_PATCH 3)
 
 # add function to handle slice compiles
 include(cmake/CompileSlices.cmake)
