@@ -8,7 +8,7 @@ project(zeroc-mcpp)
 set(mcpp_VERSION_MAJOR 2)
 set(mcpp_VERSION_MINOR 7)
 set(mcpp_VERSION_PATCH 2)
-set(mcpp_VERSION_TWEAK 13)
+set(mcpp_VERSION_TWEAK 14)
 
 add_library(mcpp STATIC)
 target_sources(mcpp 
