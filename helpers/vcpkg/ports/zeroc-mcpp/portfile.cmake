@@ -27,5 +27,5 @@ file(
    
    DESTINATION 
       ${CURRENT_PACKAGES_DIR}/include
-      )
+)
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeroc-mcpp RENAME copyright)
