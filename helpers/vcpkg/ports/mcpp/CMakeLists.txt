@@ -4,7 +4,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum OS X deployment version")
 endif()
 
-project(zeroc-mcpp)
+project(mcpp)
 set(mcpp_VERSION_MAJOR 2)
 set(mcpp_VERSION_MINOR 7)
 set(mcpp_VERSION_PATCH 2)
