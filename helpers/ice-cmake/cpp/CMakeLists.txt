@@ -1,8 +1,8 @@
 # Add dependencies for C++ related project generation
 if(XCODE)
-   set(zeroc-ice_CONFIG_FILES
-      config/Make.xcodesdk.rules
-   )
+    set(zeroc-ice_CONFIG_FILES
+        config/Make.xcodesdk.rules
+    )
 endif()
 
 # todo: add GNU Make logic to drive makefile generation
@@ -11,29 +11,29 @@ endif()
 include(cmake/ice_cpp_props.cmake)
 
 if(WIN32)
-   if(MSVC)
-      include(cmake/mc_compiler.cmake)
-   endif()
+    if(MSVC)
+        include(cmake/mc_compiler.cmake)
+    endif()
 endif(WIN32)
 
 set(zeroc-ice_DOXYGEN_FILES
-   doxygen/config-cpp11
-   doxygen/config-cpp98
-   doxygen/mainpage-cpp11.md
-   doxygen/mainpage-cpp98.md
+    doxygen/config-cpp11
+    doxygen/config-cpp98
+    doxygen/mainpage-cpp11.md
+    doxygen/mainpage-cpp98.md
 )
 
 set(zeroc-ice_CONFIG_FILES
-   config/glacer2router.cfg
-   config/ice_ca.cnf
-   config/icegridnode.cfg
-   config/icegridregistry.cfg
-   config/templates.xml
+    config/glacer2router.cfg
+    config/ice_ca.cnf
+    config/icegridnode.cfg
+    config/icegridregistry.cfg
+    config/templates.xml
 )
 
 set_source_files_properties(
 ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
-   PROPERTIES HEADER_FILE_ONLY TRUE
+    PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
 # logic to download and build mcpp from zeroc git
