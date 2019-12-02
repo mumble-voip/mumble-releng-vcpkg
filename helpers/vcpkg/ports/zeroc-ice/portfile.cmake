@@ -3,18 +3,20 @@ include(vcpkg_common_functions)
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO zeroc-ice/ice
-    REF v3.7.2
+    REF v3.7.3
+    # TODO - update sha512 signature
     SHA512 01ff41a249b4b240d9168e7c1859b5d304281577110704787f5c05c2c93ae4f4a2e79a87f9b652f3d19b01e21615d5ee80fdcb6b531b21cca6598b79ce27358b
     HEAD_REF master
 )
 
+# TODO - modify for cmake that will be copied in.
 if(NOT VCPKG_CMAKE_SYSTEM_NAME)
     vcpkg_install_msbuild(
         SOURCE_PATH ${SOURCE_PATH}
         PROJECT_SUBPATH cpp/msbuild/ice.proj
         TARGET BuildDist
     )
-   
+
 elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
     vcpkg_install_msbuild(
         SOURCE_PATH ${SOURCE_PATH}
