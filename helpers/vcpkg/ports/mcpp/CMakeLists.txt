@@ -47,4 +47,6 @@ elseif(UNIX)
 	endif()
 endif()
 
-install(TARGETS mcpp DESTINATION lib)
+install(TARGETS mcpp EXPORT mcpp-export DESTINATION lib)
+export(EXPORT mcpp-export NAMESPACE mcpp:: FILE mcppConfig.cmake)
+export(PACKAGE mcpp)
