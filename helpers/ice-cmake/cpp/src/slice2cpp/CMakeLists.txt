@@ -1,5 +1,7 @@
 add_executable(slice2cpp)
 
+find_library(MCPP_LIB NAMES mcpp)
+
 target_sources(slice2cpp 
     PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/Gen.cpp
@@ -42,7 +44,7 @@ target_compile_definitions(slice2cpp
 
 target_link_libraries(slice2cpp 
     PRIVATE
-        mcpp
+        ${MCPP_LIB}
         slice
         iceutil   
 )
