@@ -59,8 +59,7 @@ target_include_directories(glacier2
     PRIVATE 
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src
-      
+        ${PROJECT_SOURCE_DIR}/cpp/src    
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
