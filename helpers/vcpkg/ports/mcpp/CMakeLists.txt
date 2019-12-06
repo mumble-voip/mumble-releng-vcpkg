@@ -51,7 +51,7 @@ if(UNIX)
 		PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 	)
 
-	install(
+	install(TARGETS mcpp
 		FILES "LICENSE"
 		DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/mcpp"
 		RENAME "copyright"
@@ -74,3 +74,4 @@ elseif(WIN32)
 		)
 	endif()
 endif()
+install(TARGETS mcpp DESTINATION lib)
