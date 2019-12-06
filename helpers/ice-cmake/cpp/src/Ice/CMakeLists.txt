@@ -366,8 +366,6 @@ target_include_directories(ice
 
 # todo - if *nix and Darwin need to include generated/Ice, define here
 
-add_dependencies(ice slice2cpp)
-
 if(CMAKE_CXX_STANDARD EQUAL 11)
     set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
