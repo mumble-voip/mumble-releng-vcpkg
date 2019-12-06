@@ -36,18 +36,6 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
     PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
-# logic to download and build mcpp from zeroc git
-# configure_file(CMakeLists.txt.in zeroc-mcpp-download/CMakeLists.txt)
-
-# execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" . 
-#    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
-
-# execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-#    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp-download")
-
-# add_subdirectory("${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp/src"
-#    "${CMAKE_BINARY_DIR}/cpp/zeroc-mcpp/build")
-
 find_package(bzip2 1.0 REQUIRED)
 find_package(expat 2.1 REQUIRED)
 find_package(openssl 1.0.0 REQUIRED)
