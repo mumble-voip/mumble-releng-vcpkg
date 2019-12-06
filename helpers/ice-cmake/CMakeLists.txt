@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11.0)
+cmake_minimum_required(VERSION 3.16.0)
 
 if(WIN32)
     # shipped zeroc-ice shows two configurations defined here
