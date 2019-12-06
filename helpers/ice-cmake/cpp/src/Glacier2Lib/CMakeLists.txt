@@ -131,3 +131,5 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
             OUTPUT_NAME glacier2++11
     )
 endif()
+
+install(TARGETS glacier2 DESTINATION lib)
