@@ -166,7 +166,7 @@ target_compile_definitions(icebox
         ${ICEBOX_COMPILE_DEFS}
 )
 
-target_link_libraries(icebox	
+target_link_libraries(icebox
     PRIVATE
         iceboxlib
         ice
