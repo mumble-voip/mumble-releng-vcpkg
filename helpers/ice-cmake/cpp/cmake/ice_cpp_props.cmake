@@ -31,9 +31,13 @@ if(WIN32)
         set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
     endif()
 
-elseif(DARWIN)
+elseif(APPLE)
+
+# TODO - add ICE_CPP98_COMPILE_DEFS
 
 elseif(UNIX OR LINUX)
+
+# TODO - ICE_CPP98_COMPILE_DEFS
 
 endif()
 
