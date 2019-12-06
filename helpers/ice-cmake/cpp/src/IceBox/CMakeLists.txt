@@ -136,6 +136,8 @@ target_include_directories(icebox
 )
 
 if(WIN32)
+    set(rc_flags " /l 0x0409")
+    set(CMAKE_RC_FLAGS ${rc_flags})
     target_sources(icebox
         PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
@@ -167,7 +169,9 @@ target_compile_definitions(icebox
 
 target_link_libraries(icebox	
     PRIVATE
+        iceboxlib
         ice
+        iceutil
 )
 
 install(TARGETS icebox DESTINATION bin)
