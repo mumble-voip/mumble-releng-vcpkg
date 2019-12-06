@@ -53,8 +53,6 @@ target_compile_definitions(iceboxlib
         "ICEBOX_API_EXPORTS"
 )
 
-add_dependencies(iceboxlib ice)
-
 if(WIN32)
     source_group(
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -169,9 +167,7 @@ target_compile_definitions(icebox
 
 target_link_libraries(icebox	
     PRIVATE
-        iceutil
         ice
-        iceboxlib
 )
 
 install(TARGETS icebox DESTINATION bin)

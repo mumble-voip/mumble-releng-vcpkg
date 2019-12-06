@@ -115,8 +115,6 @@ if(WIN32)
     )
 endif()
 
-add_dependencies(glacier2 ice)
-
 foreach(slice ${GLACIER2_SLICES})
     #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
     CompileSlices(slice2cpp

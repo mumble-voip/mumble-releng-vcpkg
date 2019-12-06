@@ -43,8 +43,6 @@ target_include_directories(slice
         ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
-add_dependencies(slice iceutil)
-
 if(WIN32)
     target_compile_options(slice 
         PRIVATE 
