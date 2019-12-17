@@ -191,7 +191,7 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     set(ICEOPENSSL_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
 endif()
 
-target_compile_definitions(icessl
+target_compile_definitions(icesslopenssl
     PRIVATE
         ${ICEOPENSSL_COMPILE_DEFS}
         "ICESSL_OPENSSL_API_EXPORTS"
@@ -217,7 +217,7 @@ target_compile_options(icesslopenssl
 endif()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
-    set_target_properties(icessl 
+    set_target_properties(icesslopenssl 
         PROPERTIES
             OUTPUT_NAME icesslopenssl++11
     )
