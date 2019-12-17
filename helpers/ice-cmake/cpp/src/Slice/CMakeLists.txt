@@ -1,5 +1,7 @@
 add_library(slice STATIC)
 
+add_dependencies(slice iceutil)
+
 target_sources(slice
     PRIVATE
         Checksum.cpp
