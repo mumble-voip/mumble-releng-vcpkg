@@ -52,109 +52,117 @@ add_library(icegrid)
 
 add_dependencies(icegrid glacier2)
 
+# target_sources(icegrid
+#     PRIVATE
+#         Activator.cpp
+#         Activator.h
+#         AdapterCache.cpp
+#         AdapterCache.h
+#         AdminCallbackRouter.cpp
+#         AdminCallbackRouter.h
+#         AdminI.cpp
+#         AdminI.h
+#         AdminRouter.cpp
+#         AdminRouter.h
+#         AdminSessionI.cpp
+#         AdminSessionI.h
+#         Allocatable.cpp
+#         Allocatable.h
+#         AllocatableObjectCache.cpp
+#         AllocatableObjectCache.h
+#         Cache.h
+#         Client.cpp
+#         Database.cpp
+#         Database.h
+#         DescriptorBuilder.cpp
+#         DescriptorBuilder.h
+#         DescriptorHelper.cpp
+#         DescriptorHelper.h
+#         DescriptorParser.cpp
+#         DescriptorParser.h
+#         FileCache.cpp
+#         FileCache.h
+#         FileParserI.cpp
+#         FileParserI.h
+#         FileUserAccountMapperI.cpp
+#         FileUserAccountMapperI.h
+#         Grammar.cpp
+#         Grammar.h
+#         IceGridNode.cpp
+#         IceGridRegistry.cpp
+#         Internal.ice
+#         InternalRegistryI.cpp
+#         InternalRegistryI.h
+#         LocatorI.cpp
+#         LocatorI.h
+#         LocatorRegistryI.cpp
+#         LocatorRegistryI.h
+#         NodeAdminRouter.cpp
+#         NodeAdminRouter.h
+#         NodeCache.cpp
+#         NodeCache.h
+#         NodeI.cpp
+#         NodeI.h
+#         NodeSessionI.cpp
+#         NodeSessionI.h
+#         NodeSessionManager.cpp
+#         NodeSessionManager.h
+#         ObjectCache.cpp
+#         ObjectCache.h
+#         Parser.cpp
+#         Parser.h
+#         PlatformInfo.cpp
+#         PlatformInfo.h
+#         PluginFacadeI.cpp
+#         PluginFacadeI.h
+#         QueryI.cpp
+#         QueryI.h
+#         ReapThread.cpp
+#         ReapThread.h
+#         RegistryAdminRouter.cpp
+#         RegistryAdminRouter.h
+#         RegistryI.cpp
+#         RegistryI.h
+#         ReplicaCache.cpp
+#         ReplicaCache.h
+#         ReplicaSessionI.cpp
+#         ReplicaSessionI.h
+#         ReplicaSessionManager.cpp
+#         ReplicaSessionManager.h
+#         Scanner.cpp
+#         ServerAdapterI.cpp
+#         ServerAdapterI.h
+#         ServerCache.cpp
+#         ServerCache.h
+#         ServerI.cpp
+#         ServerI.h
+#         SessionI.cpp
+#         SessionI.h
+#         SessionManager.cpp
+#         SessionManager.h
+#         SessionServantManager.cpp
+#         SessionServantManager.h
+#         Topics.cpp
+#         Topics.h
+#         TraceLevels.cpp
+#         TraceLevels.h
+#         Util.cpp
+#         Util.h
+#         WaitQueue.cpp
+#         WaitQueue.h
+#         WellKnownObjectsManager.cpp
+#         WellKnownObjectsManager.h
+#         ${GENERATED_ICEGRID_HEADERS}
+#         ${GENERATED_ICEGRID_SOURCES}
+#         ${ICEGRID_SLICES}
+# )
+
 target_sources(icegrid
     PRIVATE
-        Activator.cpp
-        Activator.h
-        AdapterCache.cpp
-        AdapterCache.h
-        AdminCallbackRouter.cpp
-        AdminCallbackRouter.h
-        AdminI.cpp
-        AdminI.h
-        AdminRouter.cpp
-        AdminRouter.h
-        AdminSessionI.cpp
-        AdminSessionI.h
-        Allocatable.cpp
-        Allocatable.h
-        AllocatableObjectCache.cpp
-        AllocatableObjectCache.h
-        Cache.h
-        Client.cpp
-        Database.cpp
-        Database.h
-        DescriptorBuilder.cpp
-        DescriptorBuilder.h
-        DescriptorHelper.cpp
-        DescriptorHelper.h
-        DescriptorParser.cpp
-        DescriptorParser.h
-        FileCache.cpp
-        FileCache.h
-        FileParserI.cpp
-        FileParserI.h
-        FileUserAccountMapperI.cpp
-        FileUserAccountMapperI.h
-        Grammar.cpp
-        Grammar.h
-        IceGridNode.cpp
-        IceGridRegistry.cpp
-        Internal.ice
-        InternalRegistryI.cpp
-        InternalRegistryI.h
-        LocatorI.cpp
-        LocatorI.h
-        LocatorRegistryI.cpp
-        LocatorRegistryI.h
-        NodeAdminRouter.cpp
-        NodeAdminRouter.h
-        NodeCache.cpp
-        NodeCache.h
-        NodeI.cpp
-        NodeI.h
-        NodeSessionI.cpp
-        NodeSessionI.h
-        NodeSessionManager.cpp
-        NodeSessionManager.h
-        ObjectCache.cpp
-        ObjectCache.h
-        Parser.cpp
-        Parser.h
-        PlatformInfo.cpp
-        PlatformInfo.h
-        PluginFacadeI.cpp
-        PluginFacadeI.h
-        QueryI.cpp
-        QueryI.h
-        ReapThread.cpp
-        ReapThread.h
-        RegistryAdminRouter.cpp
-        RegistryAdminRouter.h
-        RegistryI.cpp
-        RegistryI.h
-        ReplicaCache.cpp
-        ReplicaCache.h
-        ReplicaSessionI.cpp
-        ReplicaSessionI.h
-        ReplicaSessionManager.cpp
-        ReplicaSessionManager.h
-        Scanner.cpp
-        ServerAdapterI.cpp
-        ServerAdapterI.h
-        ServerCache.cpp
-        ServerCache.h
-        ServerI.cpp
-        ServerI.h
-        SessionI.cpp
-        SessionI.h
-        SessionManager.cpp
-        SessionManager.h
-        SessionServantManager.cpp
-        SessionServantManager.h
-        Topics.cpp
-        Topics.h
-        TraceLevels.cpp
-        TraceLevels.h
-        Util.cpp
-        Util.h
-        WaitQueue.cpp
-        WaitQueue.h
-        WellKnownObjectsManager.cpp
-        WellKnownObjectsManager.h
+        ${PROJECT_SOURCE_DIR}/cpp/src/IceGridLib/PluginFacadeI.cpp
         ${GENERATED_ICEGRID_HEADERS}
         ${GENERATED_ICEGRID_SOURCES}
-        ${ICEGRID_SLICES}
+        ${ICEGRID_SLICES} 
 )
 
 if(LINUX OR APPLE)
@@ -189,9 +197,7 @@ if(WIN32)
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files"
         FILES
-            IceGridAdmin.rc
-            IceGridNode.rc
-            IceGridRegistry.rc
+            ${PROJECT_SOURCE_DIR}/cpp/src/IceGridLib/IceGrid.rc
     )
 
     source_group(
@@ -208,17 +214,16 @@ if(WIN32)
             ${GENERATED_ICEGRID_SOURCES}
     )
 
-    source_group("Slice Files"
+    source_group(
+        TREE ${SLICE_DIR}/IceGrid
+        PREFIX "Slice Files"
         FILES
             ${ICEGRID_SLICES}
-            ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
     )
 
     target_sources(icegrid
         PRIVATE
-            IceGridAdmin.rc
-            IceGridNode.rc
-            IceGridRegistry.rc
+            ${PROJECT_SOURCE_DIR}/cpp/src/IceGridLib/IceGrid.rc
     )
 
     target_compile_options(icegrid
@@ -238,14 +243,14 @@ foreach(slice ${ICEGRID_SLICES})
     )
 endforeach()
 
-#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-CompileSlices(slice2cpp
-    ${SLICE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-    icegrid
-    IceGrid
-    ${GENERATED_ICEGRID_SOURCES_DIR}
-)
+# #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+# CompileSlices(slice2cpp
+#     ${SLICE_DIR}
+#     ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+#     icegrid
+#     IceGrid
+#     ${GENERATED_ICEGRID_SOURCES_DIR}
+# )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
     set_target_properties(icegrid 
