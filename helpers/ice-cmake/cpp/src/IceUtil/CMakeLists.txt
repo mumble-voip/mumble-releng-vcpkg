@@ -2,32 +2,32 @@ add_library(iceutil STATIC)
 
 target_sources(iceutil 
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/ConsoleUtil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/CtrlCHandler.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/FileUtil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/InputUtil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/MutexProtocol.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Options.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/OutputUtil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Random.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/RecMutex.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Shared.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/StringConverter.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/StringUtil.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ThreadException.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Time.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/UtilException.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/UUID.cpp
+        ConsoleUtil.cpp
+        CtrlCHandler.cpp
+        FileUtil.cpp
+        InputUtil.cpp
+        MutexProtocol.cpp
+        Options.cpp
+        OutputUtil.cpp
+        Random.cpp
+        RecMutex.cpp
+        Shared.cpp
+        StringConverter.cpp
+        StringUtil.cpp
+        ThreadException.cpp
+        Time.cpp
+        UtilException.cpp
+        UUID.cpp
 )
 
 # handle win specific UTF limitations
 if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
     target_sources(iceutil
         PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/ConvertUTF.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/ConvertUTF.h
-            ${CMAKE_CURRENT_SOURCE_DIR}/Unicode.cpp
-            ${CMAKE_CURRENT_SOURCE_DIR}/Unicode.h
+            ConvertUTF.cpp
+            ConvertUTF.h
+            Unicode.cpp
+            Unicode.h
     )
 endif()
 
