@@ -64,7 +64,7 @@ if(WIN32)
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files"
         FILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/IceDiscovery.rc
+            IceDiscovery.rc
     )
 
     source_group(
@@ -90,7 +90,7 @@ if(WIN32)
 
     target_sources(icediscovery
         PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/IceDiscovery.rc
+            IceDiscovery.rc
     )
 
     target_compile_options(icediscovery 
