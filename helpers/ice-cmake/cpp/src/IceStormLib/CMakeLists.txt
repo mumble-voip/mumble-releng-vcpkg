@@ -7,7 +7,7 @@ set(GENERATED_ICESTORM_SOURCES_DIR
 )
 
 set(ICESTORM_SLICES
-    ${SLICE_DIR}/IceStorm/IceDiscovery.ice
+    ${SLICE_DIR}/IceStorm/IceStorm.ice
     ${SLICE_DIR}/IceStorm/Metrics.ice
 )
 
