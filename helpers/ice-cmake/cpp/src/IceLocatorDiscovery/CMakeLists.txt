@@ -89,7 +89,7 @@ if(WIN32)
             IceLocatorDiscovery.rc
     )
 
-    target_compile_options(iceloatordiscovery 
+    target_compile_options(icelocatordiscovery 
         PRIVATE
             ${ICE_COMPILE_OPTIONS}   
     )
