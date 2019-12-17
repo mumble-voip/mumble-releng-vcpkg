@@ -165,6 +165,8 @@ endif()
 
 add_library(icesslopenssl STATIC)
 
+add_dependencies(icesslopenssl ice)
+
 target_sources(icesslopenssl
     PRIVATE
         OpenSSLCertificateI.cpp
