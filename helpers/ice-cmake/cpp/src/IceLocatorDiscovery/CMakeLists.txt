@@ -100,8 +100,8 @@ foreach(slice ${ICELOCATORDISCOVERY_SLICES})
     CompileSlices(slice2cpp
         ${SLICE_DIR}
         ${slice}
-        icediscovery
-        IceDiscovery
+        icelocatordiscovery
+        IceLocatorDiscovery
         ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}
     )
 endforeach()
