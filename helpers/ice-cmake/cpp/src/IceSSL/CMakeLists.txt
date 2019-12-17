@@ -99,8 +99,7 @@ target_include_directories(icessl
     PRIVATE 
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src
-        ${OPENSSL_INCLUDE_DIR}  
+        ${PROJECT_SOURCE_DIR}/cpp/src 
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
