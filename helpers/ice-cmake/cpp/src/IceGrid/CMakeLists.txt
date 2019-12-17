@@ -50,6 +50,8 @@ set_source_files_properties(
 
 add_library(icegrid)
 
+add_dependencies(icegrid glacier2)
+
 target_sources(icegrid
     PRIVATE
         Activator.cpp
