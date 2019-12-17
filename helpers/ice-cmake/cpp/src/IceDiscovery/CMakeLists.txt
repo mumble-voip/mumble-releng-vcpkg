@@ -35,6 +35,9 @@ target_sources(icediscovery
         LookupI.h
         PluginI.cpp
         PluginI.h
+        ${GENERATED_ICEDISCOVERY_HEADERS}
+        ${GENERATED_ICEDISCOVERY_SOURCES}
+        ${ICEDISCOVERY_SLICES}
 )
 
 target_include_directories(icediscovery
@@ -86,13 +89,13 @@ if(WIN32)
     )
 
     target_sources(icediscovery
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/IceDiscovery.rc
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/IceDiscovery.rc
     )
 
     target_compile_options(icediscovery 
-    PRIVATE
-        ${ICE_COMPILE_OPTIONS}   
+        PRIVATE
+            ${ICE_COMPILE_OPTIONS}   
     )
 endif()
 
