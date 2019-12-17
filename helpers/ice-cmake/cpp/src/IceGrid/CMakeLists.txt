@@ -50,6 +50,8 @@ add_library(icegrid)
 
 add_dependencies(icegrid glacier2)
 
+# TODO - find out if these are for test or for other os's
+
 # target_sources(icegrid
 #     PRIVATE
 #         Activator.cpp
