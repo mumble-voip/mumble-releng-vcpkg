@@ -49,7 +49,7 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     set(ICESTORM_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
 endif()
 
-target_compile_definitions(icediscovery
+target_compile_definitions(icestorm
     PRIVATE
         ${ICESTORM_COMPILE_DEFS}
         "ICESTORM_API_EXPORTS"
