@@ -49,7 +49,7 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     set(ICELOCATORDISCOVERY_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
 endif()
 
-target_compile_definitions(icediscovery
+target_compile_definitions(icelocatordiscovery
     PRIVATE
         ${ICELOCATORDISCOVERY_COMPILE_DEFS}
         "ICE_LOCATOR_DISCOVERY_API_EXPORTS"
@@ -84,12 +84,12 @@ if(WIN32)
             ${ICELOCATORDISCOVERY_SLICES}
     )
 
-    target_sources(icediscovery
+    target_sources(icelocatordiscovery
         PRIVATE
             IceLocatorDiscovery.rc
     )
 
-    target_compile_options(icediscovery 
+    target_compile_options(iceloatordiscovery 
         PRIVATE
             ${ICE_COMPILE_OPTIONS}   
     )
