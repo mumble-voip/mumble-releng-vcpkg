@@ -50,9 +50,9 @@ add_dependencies(glacier2 ice)
 
 target_sources(glacier2
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/NullPermissionsVerifier.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/SessionHelper.cpp
+        Application.cpp
+        NullPermissionsVerifier.cpp
+        SessionHelper.cpp
         ${GENERATED_GLACIER2_HEADERS}
         ${GENERATED_GLACIER2_SOURCES}
 )
