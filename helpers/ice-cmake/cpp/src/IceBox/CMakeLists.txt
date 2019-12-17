@@ -35,7 +35,7 @@ add_library(iceboxlib)
 
 target_sources(iceboxlib
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Exception.cpp
+        Exception.cpp
         ${GENERATED_ICEBOX_HEADERS}
         ${GENERATED_ICEBOX_SOURCES}
 )
@@ -58,7 +58,7 @@ if(WIN32)
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files"
         FILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/IceBox.rc
+            IceBox.rc
     )
 
     source_group(
@@ -84,7 +84,7 @@ if(WIN32)
 
     target_sources(iceboxlib
         PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/IceBox.rc
+            IceBox.rc
     )
 
     target_compile_options(iceboxlib 
@@ -123,9 +123,9 @@ add_executable(icebox)
 
 target_sources(icebox 
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Service.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ServiceManagerI.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/ServiceManagerI.h
+        Service.cpp
+        ServiceManagerI.cpp
+        ServiceManagerI.h
 )
 
 target_include_directories(icebox
@@ -139,7 +139,7 @@ if(WIN32)
 
     target_sources(icebox
         PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
+            IceBoxExe.rc
 	)
 
     target_compile_options(icebox
@@ -156,7 +156,7 @@ if(WIN32)
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files"
         FILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/IceBoxExe.rc
+            IceBoxExe.rc
     )	
 
 endif()
@@ -169,8 +169,6 @@ target_compile_definitions(icebox
 target_link_libraries(icebox
     PRIVATE
         iceboxlib
-        ice
-        iceutil
 )
 
 install(TARGETS icebox DESTINATION bin)
