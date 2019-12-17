@@ -167,8 +167,7 @@ target_include_directories(icegrid
     PRIVATE 
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src
-        ${SLICES_DIR}  
+        ${PROJECT_SOURCE_DIR}/cpp/src  
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
@@ -227,7 +226,7 @@ if(WIN32)
     )
 endif()
 
-foreach(slice ${ICEDISCOVERY_SLICES})
+foreach(slice ${ICEGRID_SLICES})
     #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
     CompileSlices(slice2cpp
         ${SLICE_DIR}
@@ -238,12 +237,11 @@ foreach(slice ${ICEDISCOVERY_SLICES})
     )
 endforeach()
 
-CompileSlices(slice2cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-    icegrid
-    IceGrid
-    ${GENERATED_ICEGRID_SOURCES_DIR}
+add_custom_command(icegrid
+    COMMAND slice2cpp -I${slice_path} -Islice ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+    WORKING_DIRECTORY ${ICE}
+    DEPENDS ${ice_file} ${slice2_bin}
+    PRE_BUILD
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
