@@ -38,7 +38,6 @@ set(GENERATED_ICEGRID_SOURCES
     ${GENERATED_ICEGRID_SOURCES_DIR}/Registry.cpp
     ${GENERATED_ICEGRID_SOURCES_DIR}/Session.cpp
     ${GENERATED_ICEGRID_SOURCES_DIR}/UserAccountMapper.cpp
-    ${GENERATED_ICEGRID_SOURCES_DIR}/Internal.cpp
 )
 
 set_source_files_properties(
