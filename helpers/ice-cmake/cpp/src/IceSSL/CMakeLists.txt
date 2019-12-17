@@ -182,6 +182,7 @@ target_sources(icesslopenssl
 
 target_include_directories(icesslopenssl
     PRIVATE
+        ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src 
         ${OPENSSL_INCLUDE_DIR}
