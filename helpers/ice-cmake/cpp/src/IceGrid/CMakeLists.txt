@@ -15,7 +15,6 @@ set(ICEGRID_SLICES
     ${SLICE_DIR}/IceGrid/Registry.ice
     ${SLICE_DIR}/IceGrid/Session.ice
     ${SLICE_DIR}/IceGrid/UserAccountMapper.ice
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
 )
 
 set(GENERATED_ICEGRID_HEADERS
@@ -89,6 +88,7 @@ target_sources(icegrid
         Grammar.h
         IceGridNode.cpp
         IceGridRegistry.cpp
+        Internal.ice
         InternalRegistryI.cpp
         InternalRegistryI.h
         LocatorI.cpp
@@ -199,11 +199,11 @@ if(WIN32)
             ${GENERATED_ICEGRID_SOURCES}
     )
 
-    source_group(
-        #TREE ${SLICE_DIR}/IceGrid
+    source_group(ices
         PREFIX "Slice Files"
         FILES
             ${ICEGRID_SLICES}
+            ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
     )
 
     target_sources(icegrid
@@ -213,7 +213,7 @@ if(WIN32)
             IceGridRegistry.rc
     )
 
-    target_compile_options(icediscovery 
+    target_compile_options(icegrid
         PRIVATE
             ${ICE_COMPILE_OPTIONS}   
     )
