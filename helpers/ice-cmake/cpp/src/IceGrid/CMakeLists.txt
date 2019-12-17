@@ -163,6 +163,14 @@ if(LINUX OR APPLE)
     )
 endif()
 
+target_include_directories(icegrid
+    PRIVATE 
+        ${PROJECT_BINARY_DIR}/generated
+        ${PROJECT_SOURCE_DIR}/cpp/include
+        ${PROJECT_SOURCE_DIR}/cpp/src
+        ${SLICES_DIR}  
+)
+
 if(CMAKE_CXX_STANDARD EQUAL 11)
     set(ICEGRID_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
@@ -232,7 +240,7 @@ endforeach()
 
 CompileSlices(slice2cpp
     ${CMAKE_CURRENT_SOURCE_DIR}
-    Internal.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
     icegrid
     IceGrid
     ${GENERATED_ICEGRID_SOURCES_DIR}
