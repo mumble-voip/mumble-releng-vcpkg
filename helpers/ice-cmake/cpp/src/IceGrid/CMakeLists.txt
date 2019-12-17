@@ -206,8 +206,7 @@ if(WIN32)
             ${GENERATED_ICEGRID_SOURCES}
     )
 
-    source_group(ices
-        PREFIX "Slice Files"
+    source_group("Slice Files"
         FILES
             ${ICEGRID_SLICES}
             ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
@@ -237,11 +236,13 @@ foreach(slice ${ICEGRID_SLICES})
     )
 endforeach()
 
-add_custom_command(icegrid
-    COMMAND slice2cpp -I${slice_path} -Islice ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-    WORKING_DIRECTORY ${ICE}
-    DEPENDS ${ice_file} ${slice2_bin}
-    PRE_BUILD
+#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+CompileSlices(slice2cpp
+    ${SLICE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+    icegrid
+    IceGrid
+    ${GENERATED_ICEGRID_SOURCES_DIR}
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
