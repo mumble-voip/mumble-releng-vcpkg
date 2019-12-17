@@ -36,22 +36,22 @@ target_sources(icessl
         ConnectorI.cpp
         EndpointI.cpp
         Instance.cpp
-        OpenSSLCertificateI.cpp
-        OpenSSLEngine.cpp
-        OpenSSLPluginI.cpp
-        OpenSSLTransceiverI.cpp
-        OpenSSLUtil.cpp
+        # OpenSSLCertificateI.cpp
+        # OpenSSLEngine.cpp
+        # OpenSSLPluginI.cpp
+        # OpenSSLTransceiverI.cpp
+        # OpenSSLUtil.cpp
         PluginI.cpp
         RFC2253.cpp
         SChannelCertificateI.cpp
         SChannelEngine.cpp
         SChannelPluginI.cpp
         SChannelTransceiverI.cpp
-        SecureTransportCertificateI.cpp
-        SecureTransportEngine.cpp
-        SecureTransportPluginI.cpp
-        SecureTransportTransceiverI.cpp
-        SecureTransportUtil.cpp
+        # SecureTransportCertificateI.cpp
+        # SecureTransportEngine.cpp
+        # SecureTransportPluginI.cpp
+        # SecureTransportTransceiverI.cpp
+        # SecureTransportUtil.cpp
         SSLEngine.cpp
         TrustManager.cpp
         Util.cpp
@@ -65,19 +65,19 @@ target_sources(icessl
         EndpointI.h
         Instance.h
         InstanceF.h
-        OpenSSLEngine.h
-        OpenSSLEngineF.h
-        OpenSSLTransceiverI.h
-        OpenSSLUtil.h
+        # OpenSSLEngine.h
+        # OpenSSLEngineF.h
+        # OpenSSLTransceiverI.h
+        # OpenSSLUtil.h
         PluginI.h
         RFC2253.h
         SChannelEngine.h
         SChannelEngineF.h
         SChannelTransceiverI.h
-        SecureTransportEngine.h
-        SecureTransportEngineF.h
-        SecureTransportTransceiverI.h
-        SecureTransportUtil.h
+        # SecureTransportEngine.h
+        # SecureTransportEngineF.h
+        # SecureTransportTransceiverI.h
+        # SecureTransportUtil.h
         SSLEngine.h
         SSLEngineF.h
         TrustManager.h
@@ -92,7 +92,8 @@ target_include_directories(icessl
     PRIVATE 
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src    
+        ${PROJECT_SOURCE_DIR}/cpp/src
+        ${OPENSSL_INCLUDE_DIR}  
 )
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
