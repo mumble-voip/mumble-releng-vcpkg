@@ -40,11 +40,6 @@ target_sources(icessl
         ConnectorI.cpp
         EndpointI.cpp
         Instance.cpp
-        # OpenSSLCertificateI.cpp
-        # OpenSSLEngine.cpp
-        # OpenSSLPluginI.cpp
-        # OpenSSLTransceiverI.cpp
-        # OpenSSLUtil.cpp
         PluginI.cpp
         RFC2253.cpp
         SChannelCertificateI.cpp
@@ -69,10 +64,6 @@ target_sources(icessl
         EndpointI.h
         Instance.h
         InstanceF.h
-        # OpenSSLEngine.h
-        # OpenSSLEngineF.h
-        # OpenSSLTransceiverI.h
-        # OpenSSLUtil.h
         PluginI.h
         RFC2253.h
         SChannelEngine.h
@@ -172,4 +163,63 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
     )
 endif()
 
+add_library(icesslopenssl STATIC)
+
+target_sources(icesslopenssl
+    PRIVATE
+        OpenSSLCertificateI.cpp
+        OpenSSLEngine.cpp
+        OpenSSLPluginI.cpp
+        OpenSSLTransceiverI.cpp
+        OpenSSLUtil.cpp
+        OpenSSLEngine.h
+        OpenSSLEngineF.h
+        OpenSSLTransceiverI.h
+        OpenSSLUtil.h
+)
+
+target_include_directories(icesslopenssl
+    PRIVATE
+        ${OPENSSL_INCLUDE_DIR}
+)
+
+if(CMAKE_CXX_STANDARD EQUAL 11)
+    set(ICEOPENSSL_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
+elseif(CMAKE_CXX_STANDARD EQUAL 98)
+    set(ICEOPENSSL_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
+endif()
+
+target_compile_definitions(icessl
+    PRIVATE
+        ${ICEOPENSSL_COMPILE_DEFS}
+        "ICESSL_OPENSSL_API_EXPORTS"
+)
+
+if(WIN32)
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Resource Files"
+        FILES
+            IceSSLOpenSSL.rc
+    )
+
+    target_sources(icesslopenssl
+    PRIVATE
+        IceSSLOpenSSL.rc
+)
+
+target_compile_options(icesslopenssl 
+    PRIVATE
+        ${ICE_COMPILE_OPTIONS}   
+)
+endif()
+
+if(CMAKE_CXX_STANDARD EQUAL 11)
+    set_target_properties(icessl 
+        PROPERTIES
+            OUTPUT_NAME icesslopenssl++11
+    )
+endif()
+
+install(TARGETS icesslopenssl DESTINATION lib)
 install(TARGETS icessl DESTINATION lib)
