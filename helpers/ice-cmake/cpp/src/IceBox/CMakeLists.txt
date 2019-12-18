@@ -135,6 +135,18 @@ target_include_directories(icebox
         ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
+target_compile_definitions(icebox
+    PRIVATE
+        ${ICEBOX_COMPILE_DEFS}
+)
+
+target_link_libraries(icebox
+    PRIVATE
+        iceutil
+        ice
+        iceboxlib
+)
+
 if(WIN32)
 
     target_sources(icebox
@@ -161,18 +173,6 @@ if(WIN32)
 
 endif()
 
-target_compile_definitions(icebox
-    PRIVATE
-        ${ICEBOX_COMPILE_DEFS}
-)
-
-target_link_libraries(icebox
-    PRIVATE
-        iceutil
-        ice
-        iceboxlib
-)
-
 if(CMAKE_CXX_STANDARD EQUAL 98)
 
     add_executable(iceboxadmin)
@@ -182,9 +182,21 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
             Admin.cpp
     )
 
+    target_include_directories(iceboxadmin
+        PRIVATE
+            ${PROJECT_BINARY_DIR}/generated
+            ${PROJECT_SOURCE_DIR}/cpp/include
+            ${PROJECT_SOURCE_DIR}/cpp/src
+    )
+
     target_link_libraries(iceboxadmin
         PRIVATE
             iceboxlib
+    )
+
+    target_compile_definitions(iceboxadmin
+        PRIVATE
+            ${ICE_CPP98_COMPILE_DEFS}
     )
 
     if(WIN32)
@@ -213,7 +225,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
     endif()
     
     install(TARGETS iceboxadmin DESTINATION bin)
-    
+
 endif()
 
 install(TARGETS icebox DESTINATION bin)
