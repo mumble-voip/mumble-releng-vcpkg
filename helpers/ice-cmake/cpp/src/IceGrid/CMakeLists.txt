@@ -243,6 +243,7 @@ foreach(slice ${ICEGRID_SLICES})
     )
 endforeach()
 
+# TODO - check for other os support or test solutions
 # #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
 # CompileSlices(slice2cpp
 #     ${SLICE_DIR}
