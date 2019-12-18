@@ -109,6 +109,12 @@ if(WIN32)
         PRIVATE
             ${ICE_COMPILE_OPTIONS}   
     )
+
+    set_target_properties(glacier2router 
+        PROPERTIES 
+            LINK_FLAGS ${ICE_APP_ADDITIONAL_DEPS}
+    )
+
 endif()
 
 foreach(slice ${GLACIER2ROUTER_SLICES})
