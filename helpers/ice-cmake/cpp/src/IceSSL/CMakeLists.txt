@@ -33,6 +33,8 @@ set_source_files_properties(
 
 add_library(icessl)
 
+add_dependencies(icessl ice)
+
 target_sources(icessl
     PRIVATE
         AcceptorI.cpp
