@@ -98,7 +98,7 @@ target_compile_definitions(icessl
         "ICESSL_API_EXPORTS"
 )
 
-if(${CMAKE_BUILD_TYPE} EQUAL "WindowsStore")
+if(${CMAKE_SYSTEM_NAME} EQUAL "WindowsStore")
     target_sources(icessl
         PRIVATE
             UWPCertificateI.cpp
