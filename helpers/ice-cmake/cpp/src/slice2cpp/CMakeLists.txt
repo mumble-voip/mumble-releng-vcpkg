@@ -19,7 +19,9 @@ if(WIN32)
     source_group(
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files" 
-        FILES Slice2Cpp.rc)
+        FILES Slice2Cpp.rc
+    )
+    
     target_compile_options(slice2cpp PRIVATE "/wd4250")
 
     set_target_properties(slice2cpp 
