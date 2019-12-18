@@ -4,9 +4,9 @@ find_library(MCPP_LIB NAMES mcpp)
 
 target_sources(slice2cpp 
     PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Gen.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Gen.h
-        ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp
+        Gen.cpp
+        Gen.h
+        Main.cpp
 )
 
 target_include_directories(slice2cpp
@@ -16,10 +16,16 @@ target_include_directories(slice2cpp
 )
 
 if(WIN32)
-    source_group("Resource Files" FILES ${CMAKE_CURRENT_SOURCE_DIR}/Slice2Cpp.rc)
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Resource Files" 
+        FILES Slice2Cpp.rc)
     target_compile_options(slice2cpp PRIVATE "/wd4250")
 
-    set_target_properties(slice2cpp PROPERTIES LINK_FLAGS ${ICE_APP_ADDITIONAL_DEPS})
+    set_target_properties(slice2cpp 
+        PROPERTIES 
+            LINK_FLAGS ${ICE_APP_ADDITIONAL_DEPS}
+    )
 
     target_link_libraries(slice2cpp PRIVATE
         rpcrt4.lib
@@ -30,7 +36,7 @@ if(WIN32)
 
     target_sources(slice2cpp
         PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/Slice2Cpp.rc
+            Slice2Cpp.rc
     )
 endif()
 
