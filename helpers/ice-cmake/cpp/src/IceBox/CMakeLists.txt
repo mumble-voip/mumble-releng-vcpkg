@@ -205,12 +205,6 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         PRIVATE
             iceboxlib
             ice
-            advapi32.lib
-            ws2_32.lib
-            Iphlpapi.lib
-            rpcrt4.lib
-            DbgHelp.lib
-            Shlwapi.lib
     )
 
     target_compile_definitions(iceboxadmin
@@ -232,6 +226,16 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         target_link_options(iceboxadmin
             PRIVATE
                 ${ICE_APP_ADDITIONAL_DEPS}
+        )
+
+        target_link_libraries(iceboxadmin
+            PRIVATE
+                advapi32.lib
+                ws2_32.lib
+                Iphlpapi.lib
+                rpcrt4.lib
+                DbgHelp.lib
+                Shlwapi.lib
         )
 
         source_group(
