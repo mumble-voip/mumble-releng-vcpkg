@@ -53,6 +53,11 @@ target_sources(glacier2
         Application.cpp
         NullPermissionsVerifier.cpp
         SessionHelper.cpp
+        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Application.h
+        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Config.h
+        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Glacier2.h
+        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/NullPermissionsVerifier.h
+        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/SessionHelper.h
         ${GENERATED_GLACIER2_HEADERS}
         ${GENERATED_GLACIER2_SOURCES}
 )
