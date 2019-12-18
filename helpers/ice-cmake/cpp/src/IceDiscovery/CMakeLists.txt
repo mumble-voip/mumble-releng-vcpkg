@@ -27,6 +27,8 @@ set_source_files_properties(
 
 add_library(icediscovery)
 
+add_dependencies(icediscovery ice)
+
 target_sources(icediscovery
     PRIVATE
         LocatorI.cpp
