@@ -147,6 +147,13 @@ target_link_libraries(icebox
         iceutil
         ice
         iceboxlib
+        advapi32.lib
+        ws2_32.lib
+        Iphlpapi.lib
+        rpcrt4.lib
+        DbgHelp.lib
+        Shlwapi.lib
+        ${BZIP2_LIBRARIES}
 )
 
 if(WIN32)
@@ -195,6 +202,12 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         PRIVATE
             iceboxlib
             ice
+            advapi32.lib
+            ws2_32.lib
+            Iphlpapi.lib
+            rpcrt4.lib
+            DbgHelp.lib
+            Shlwapi.lib
     )
 
     target_compile_definitions(iceboxadmin
