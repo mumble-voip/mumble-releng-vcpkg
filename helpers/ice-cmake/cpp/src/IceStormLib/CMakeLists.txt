@@ -30,6 +30,8 @@ set_source_files_properties(
 
 add_library(icestorm)
 
+add_dependencies(icestorm ice)
+
 target_sources(icestorm
     PRIVATE
         ${GENERATED_ICESTORM_HEADERS}
