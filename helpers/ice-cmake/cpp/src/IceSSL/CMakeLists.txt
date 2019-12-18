@@ -54,10 +54,6 @@ target_sources(icessl
         SSLEngine.cpp
         TrustManager.cpp
         Util.cpp
-        # UWPCertificateI.cpp
-        # UWPEngine.cpp
-        # UWPPluginI.cpp
-        # UWPTransceiverI.cpp
         AcceptorI.h
         CertificateI.h
         ConnectorI.h
@@ -78,9 +74,6 @@ target_sources(icessl
         TrustManager.h
         TrustManagerF.h
         Util.h
-        # UWPEngine.h
-        # UWPEngineF.h
-        # UWPTransceiverI.h
         ${GENERATED_ICESSL_HEADERS}
         ${GENERATED_ICESSL_SOURCES}
         ${ICESSL_SLICES}
@@ -104,6 +97,19 @@ target_compile_definitions(icessl
         ${ICESSL_COMPILE_DEFS}
         "ICESSL_API_EXPORTS"
 )
+
+if(${CMAKE_BUILD_TYPE} EQUAL "WindowsStore")
+    target_sources(icessl
+        PRIVATE
+            UWPCertificateI.cpp
+            UWPEngine.cpp
+            UWPPluginI.cpp
+            UWPTransceiverI.cpp
+            UWPEngine.h
+            UWPEngineF.h
+            UWPTransceiverI.h
+    )
+endif()
 
 if(WIN32)
     source_group(
