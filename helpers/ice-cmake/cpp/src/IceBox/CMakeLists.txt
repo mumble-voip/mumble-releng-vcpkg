@@ -147,12 +147,6 @@ target_link_libraries(icebox
         iceutil
         ice
         iceboxlib
-        advapi32.lib
-        ws2_32.lib
-        Iphlpapi.lib
-        rpcrt4.lib
-        DbgHelp.lib
-        Shlwapi.lib
         ${BZIP2_LIBRARIES}
 )
 
@@ -178,7 +172,16 @@ if(WIN32)
         PREFIX "Resource Files"
         FILES
             IceBoxExe.rc
-    )	
+    )
+    target_link_libraries(icebox
+        PRIVATE
+            advapi32.lib
+            ws2_32.lib
+            Iphlpapi.lib
+            rpcrt4.lib
+            DbgHelp.lib
+            Shlwapi.lib
+    )
 
 endif()
 
