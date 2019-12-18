@@ -86,7 +86,7 @@ if(WIN32)
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files"
         FILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
+            Glacier2.rc
     )
 
     source_group(
