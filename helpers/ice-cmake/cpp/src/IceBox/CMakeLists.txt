@@ -142,7 +142,6 @@ target_compile_definitions(icebox
 
 target_link_libraries(icebox
     PRIVATE
-        iceutil
         ice
         iceboxlib
 )
@@ -192,6 +191,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
     target_link_libraries(iceboxadmin
         PRIVATE
             iceboxlib
+            ice
     )
 
     target_compile_definitions(iceboxadmin
