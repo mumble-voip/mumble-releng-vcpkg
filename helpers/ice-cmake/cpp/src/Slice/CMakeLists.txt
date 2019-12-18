@@ -59,4 +59,5 @@ target_compile_definitions(slice
         "ICE_BUILDING_SLICE_COMPILERS" 
         ${ICE_CPP98_COMPILE_DEFS}
 )
+
 install(TARGETS slice DESTINATION lib)
