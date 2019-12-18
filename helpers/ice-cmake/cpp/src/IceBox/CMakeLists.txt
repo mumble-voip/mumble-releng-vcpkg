@@ -33,6 +33,8 @@ endif()
 
 add_library(iceboxlib)
 
+add_dependencies(iceboxlib ice)
+
 target_sources(iceboxlib
     PRIVATE
         Exception.cpp
