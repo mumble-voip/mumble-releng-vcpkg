@@ -122,9 +122,19 @@ if(WIN32)
             LINK_FLAGS ${ICE_APP_ADDITIONAL_DEPS}
     )
 
-    target_link_options(icebox
+    target_link_options(glacier2router
         PRIVATE
             ${ICE_APP_ADDITIONAL_DEPS}
+    )
+
+    target_link_libraries(glacier2router
+        PRIVATE
+            advapi32.lib
+            ws2_32.lib
+            Iphlpapi.lib
+            rpcrt4.lib
+            DbgHelp.lib
+            Shlwapi.lib
     )
 
 endif()
