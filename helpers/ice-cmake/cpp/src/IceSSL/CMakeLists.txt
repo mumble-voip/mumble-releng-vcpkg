@@ -169,68 +169,64 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
     )
 endif()
 
-add_library(icesslopenssl STATIC)
-
-add_dependencies(icesslopenssl ice)
-
-target_sources(icesslopenssl
-    PRIVATE
-        OpenSSLCertificateI.cpp
-        OpenSSLEngine.cpp
-        OpenSSLPluginI.cpp
-        OpenSSLTransceiverI.cpp
-        OpenSSLUtil.cpp
-        OpenSSLEngine.h
-        OpenSSLEngineF.h
-        OpenSSLTransceiverI.h
-        OpenSSLUtil.h
-)
-
-target_include_directories(icesslopenssl
-    PRIVATE
-        ${PROJECT_BINARY_DIR}/generated
-        ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src 
-        ${OPENSSL_INCLUDE_DIR}
-)
-
 if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICEOPENSSL_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICEOPENSSL_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
+    add_library(icesslopenssl STATIC)
 
-target_compile_definitions(icesslopenssl
-    PRIVATE
-        ${ICEOPENSSL_COMPILE_DEFS}
-        "ICESSL_OPENSSL_API_EXPORTS"
-)
+    add_dependencies(icesslopenssl ice)
 
-if(WIN32)
-    source_group(
-        TREE ${CMAKE_CURRENT_SOURCE_DIR}
-        PREFIX "Resource Files"
-        FILES
+    target_sources(icesslopenssl
+        PRIVATE
+            OpenSSLCertificateI.cpp
+            OpenSSLEngine.cpp
+            OpenSSLPluginI.cpp
+            OpenSSLTransceiverI.cpp
+            OpenSSLUtil.cpp
+            OpenSSLEngine.h
+            OpenSSLEngineF.h
+            OpenSSLTransceiverI.h
+            OpenSSLUtil.h
+    )
+
+    target_include_directories(icesslopenssl
+        PRIVATE
+            ${PROJECT_BINARY_DIR}/generated
+            ${PROJECT_SOURCE_DIR}/cpp/include
+            ${PROJECT_SOURCE_DIR}/cpp/src 
+            ${OPENSSL_INCLUDE_DIR}
+    )
+
+    target_compile_definitions(icesslopenssl
+        PRIVATE
+            "${ICE_CPP11_COMPILE_DEFS}"
+            "ICESSL_OPENSSL_API_EXPORTS"
+    )
+
+    if(WIN32)
+        source_group(
+            TREE ${CMAKE_CURRENT_SOURCE_DIR}
+            PREFIX "Resource Files"
+            FILES
+                IceSSLOpenSSL.rc
+        )
+
+        target_sources(icesslopenssl
+        PRIVATE
             IceSSLOpenSSL.rc
     )
 
-    target_sources(icesslopenssl
-    PRIVATE
-        IceSSLOpenSSL.rc
-)
-
-target_compile_options(icesslopenssl 
-    PRIVATE
-        ${ICE_COMPILE_OPTIONS}   
-)
-endif()
-
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set_target_properties(icesslopenssl 
-        PROPERTIES
-            OUTPUT_NAME icesslopenssl++11
+    target_compile_options(icesslopenssl 
+        PRIVATE
+            ${ICE_COMPILE_OPTIONS}   
     )
-endif()
+    endif()
 
-install(TARGETS icesslopenssl DESTINATION lib)
+    if(CMAKE_CXX_STANDARD EQUAL 11)
+        set_target_properties(icesslopenssl 
+            PROPERTIES
+                OUTPUT_NAME icesslopenssl++11
+        )
+    endif()
+
+    install(TARGETS icesslopenssl DESTINATION lib)
+endif()
 install(TARGETS icessl DESTINATION lib)
