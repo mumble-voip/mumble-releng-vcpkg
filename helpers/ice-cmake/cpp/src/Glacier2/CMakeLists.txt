@@ -1,9 +1,9 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/Glacier2Router)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Glacier2Router)
+if(NOT ${PROJECT_BINARY_DIR}/generated/Glacier2)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Glacier2)
 endif()
 
 set(GENERATED_GLACIER2ROUTER_SOURCES_DIR 
-    ${PROJECT_BINARY_DIR}/generated/Glacier2Router
+    ${PROJECT_BINARY_DIR}/generated/Glacier2
 )
 
 set(GLACIER2ROUTER_SLICES
@@ -26,8 +26,6 @@ set_source_files_properties(
 )
 
 add_executable(glacier2router)
-
-add_dependencies(glacier2router glacier2)
 
 target_sources(glacier2router
     PRIVATE
@@ -71,6 +69,13 @@ target_include_directories(glacier2router
 target_compile_definitions(glacier2router
     PRIVATE
         ${ICE_CPP98_COMPILE_DEFS}
+)
+
+target_link_libraries(glacier2router
+    PRIVATE
+        ice
+        glacier2
+        icessl
 )
 
 if(WIN32)
