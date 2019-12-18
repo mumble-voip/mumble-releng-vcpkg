@@ -111,13 +111,13 @@ if(WIN32)
     )
 
     target_sources(glacier2
-    PRIVATE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2.rc
     )
 
     target_compile_options(glacier2 
-    PRIVATE
-        ${ICE_COMPILE_OPTIONS}   
+        PRIVATE
+            ${ICE_COMPILE_OPTIONS}   
     )
 endif()
 
