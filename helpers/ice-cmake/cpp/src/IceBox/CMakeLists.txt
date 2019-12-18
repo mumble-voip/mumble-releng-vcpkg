@@ -173,4 +173,47 @@ target_link_libraries(icebox
         iceboxlib
 )
 
+if(CMAKE_CXX_STANDARD EQUAL 98)
+
+    add_executable(iceboxadmin)
+
+    target_sources(iceboxadmin
+        PRIVATE
+            Admin.cpp
+    )
+
+    target_link_libraries(iceboxadmin
+        PRIVATE
+            iceboxlib
+    )
+
+    if(WIN32)
+        target_sources(iceboxadmin
+            PRIVATE
+                IceBoxAdmin.rc
+        )
+
+        target_compile_options(iceboxadmin
+            PRIVATE
+                ${ICE_COMPILE_OPTIONS}
+        )
+
+        target_link_options(iceboxadmin
+            PRIVATE
+                ${ICE_APP_ADDITIONAL_DEPS}
+        )
+
+        source_group(
+            TREE ${CMAKE_CURRENT_SOURCE_DIR}
+            PREFIX "Resource Files"
+            FILES
+                IceBoxAdmin.rc
+        )
+
+    endif()
+    
+    install(TARGETS iceboxadmin DESTINATION bin)
+    
+endif()
+
 install(TARGETS icebox DESTINATION bin)
