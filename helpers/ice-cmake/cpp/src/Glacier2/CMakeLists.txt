@@ -1,0 +1,125 @@
+if(NOT ${PROJECT_BINARY_DIR}/generated/Glacier2Router)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Glacier2Router)
+endif()
+
+set(GENERATED_GLACIER2ROUTER_SOURCES_DIR 
+    ${PROJECT_BINARY_DIR}/generated/Glacier2Router
+)
+
+set(GLACIER2ROUTER_SLICES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Instrumentation.ice
+)
+
+set(GENERATED_GLACIER2ROUTER_HEADERS
+    ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}/Instrumentation.h
+)
+
+set(GENERATED_GLACIER2ROUTER_SOURCES
+    ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}/Instrumentation.cpp
+)
+
+set_source_files_properties(
+    ${GENERATED_GLACIER2ROUTER_HEADERS}
+    ${GENERATED_GLACIER2ROUTER_SOURCES}
+    PROPERTIES
+        GENERATED TRUE
+)
+
+add_executable(glacier2router)
+
+add_dependencies(glacier2router glacier2)
+
+target_sources(glacier2router
+    PRIVATE
+        Blobject.cpp
+        Blobject.h
+        ClientBlobject.cpp
+        ClientBlobject.h
+        FilterI.cpp
+        FilterI.h
+        FilterManager.cpp
+        FilterManager.h
+        Glacier2Router.cpp
+        Instance.cpp
+        Instance.h
+        Instrumentation.ice
+        InstrumentationI.cpp
+        InstrumentationI.h
+        ProxyVerifier.cpp
+        ProxyVerifier.h
+        RequestQueue.cpp
+        RequestQueue.h
+        RouterI.cpp
+        RouterI.h
+        RoutingTable.cpp
+        RoutingTable.h
+        ServerBlobject.cpp
+        ServerBlobject.h
+        SessionRouterI.cpp
+        SessionRouterI.h
+)
+
+target_include_directories(glacier2router
+    PRIVATE 
+        ${PROJECT_BINARY_DIR}/generated
+        ${PROJECT_SOURCE_DIR}/cpp/include
+        ${PROJECT_SOURCE_DIR}/cpp/src    
+)
+
+target_compile_definitions(glacier2router
+    PRIVATE
+        ${ICE_CPP98_COMPILER_DEFS}
+)
+
+if(WIN32)
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Resource Files"
+        FILES
+            Glacier2Router.rc
+    )
+
+    source_group(
+        TREE ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
+        PREFIX "Header Files/Generated"
+        FILES
+            ${GENERATED_GLACIER2ROUTER_HEADERS}
+    )
+
+    source_group(
+        TREE ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
+        PREFIX "Source Files/Generated"
+        FILES
+            ${GENERATED_GLACIER2ROUTER_SOURCES}
+    )
+
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Slice Files"
+        FILES
+            ${GLACIER2ROUTER_SLICES}
+    )
+
+    target_sources(glacier2router
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2Router.rc
+    )
+
+    target_compile_options(glacier2router 
+        PRIVATE
+            ${ICE_COMPILE_OPTIONS}   
+    )
+endif()
+
+foreach(slice ${GLACIER2ROUTER_SLICES})
+    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+    CompileSlices(slice2cpp
+        ${SLICE_DIR}
+        ${slice}
+        glacier2router
+        Glacier2
+        ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
+    )
+endforeach()
+
+install(TARGETS glacier2router DESTINATION bin)
