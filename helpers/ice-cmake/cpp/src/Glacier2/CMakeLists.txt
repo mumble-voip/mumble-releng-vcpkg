@@ -57,6 +57,8 @@ target_sources(glacier2router
         ServerBlobject.h
         SessionRouterI.cpp
         SessionRouterI.h
+        ${GENERATED_GLACIER2ROUTER_HEADERS}
+        ${GENERATED_GLACIER2ROUTER_SOURCES}
 )
 
 target_include_directories(glacier2router
@@ -68,7 +70,7 @@ target_include_directories(glacier2router
 
 target_compile_definitions(glacier2router
     PRIVATE
-        ${ICE_CPP98_COMPILER_DEFS}
+        ${ICE_CPP98_COMPILE_DEFS}
 )
 
 if(WIN32)
@@ -102,7 +104,7 @@ if(WIN32)
 
     target_sources(glacier2router
         PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/Glacier2Router.rc
+            Glacier2Router.rc
     )
 
     target_compile_options(glacier2router 
