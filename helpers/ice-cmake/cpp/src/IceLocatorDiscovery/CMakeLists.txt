@@ -27,6 +27,8 @@ set_source_files_properties(
 
 add_library(icelocatordiscovery)
 
+add_dependencies(icelocatordiscovery ice)
+
 target_sources(icelocatordiscovery
     PRIVATE
         Plugin.h
