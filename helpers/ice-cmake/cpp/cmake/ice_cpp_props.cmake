@@ -1,5 +1,6 @@
 # define c++ compiler options and preprocessor definitions for all OS types
 set(ICE_COMPILE_DEFS "ICE_BUILDING_SRC")
+set(STATIC_ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
     set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_CPP11_MAPPING")

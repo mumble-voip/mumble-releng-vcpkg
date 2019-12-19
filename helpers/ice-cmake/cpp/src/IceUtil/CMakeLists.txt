@@ -51,7 +51,7 @@ endif()
 target_compile_definitions(iceutil 
     PRIVATE
         "ICE_BUILDING_SLICE_COMPILERS"
-        ${ICE_CPP98_COMPILE_DEFS}
+        ${STATIC_ICE_COMPILE_DEFS}
 )
 
 install(TARGETS iceutil DESTINATION lib)
