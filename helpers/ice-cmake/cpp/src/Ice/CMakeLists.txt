@@ -439,6 +439,11 @@ if(WIN32)
         ${GENERATED_ICE_RESOURCES}
     )
 
+    target_compile_definitions(ice
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
+
     add_custom_command(TARGET ice
         COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
         WORKING_DIRECTORY ${GENERATED_ICE_SOURCES_DIR}
