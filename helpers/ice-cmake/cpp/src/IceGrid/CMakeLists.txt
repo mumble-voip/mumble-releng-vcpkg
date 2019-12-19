@@ -213,6 +213,7 @@ target_link_libraries(icegridadmin
         ice
         glacier2
         ${BZIP2_LIBRARIES}
+        EXPAT::EXPAT
 )
 
 if(WIN32)
