@@ -1,5 +1,7 @@
 add_library(icedb)
 
+add_dependencies(icedb ice)
+
 target_sources(icedb
     PRIVATE
         IceDB.cpp
