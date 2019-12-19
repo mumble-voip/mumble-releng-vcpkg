@@ -46,7 +46,8 @@ target_include_directories(icepatch2
     PRIVATE 
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src  
+        ${PROJECT_SOURCE_DIR}/cpp/src
+        ${BZIP2_INCLUDE_DIR} 
 )
 
 target_compile_definitions(icepatch2
