@@ -134,7 +134,7 @@ endforeach()
 
 # ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
 CompileSlices(slice2cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    ${SLICE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
     icegriddb
     IceGrid
