@@ -79,6 +79,7 @@ target_include_directories(icestormservice
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
+        ${LMDB_INCLUDE_DIR}
 )
 
 target_compile_definitions(icestormservice
@@ -141,14 +142,13 @@ if(WIN32)
 endif()
 
 foreach(slice ${ICESTORMSERVICE_SLICES})
-    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-    CompileSlices(slice2cpp
-        ${SLICE_DIR}
-        ${slice}
-        icestormservice
-        IceStorm
-        ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
-    )
+    add_custom_command(TARGET icestormservice
+    COMMAND slice2cpp -I${SLICE_DIR} -I${PROJECT_SOURCE_DIR}/cpp/src ${slice} --include-dir IceStorm
+    WORKING_DIRECTORY ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+    DEPENDS ${slice} slice2cpp
+    PRE_BUILD
+    COMMENT "Generating sources for ${slice}..."
+)
 endforeach()
 
 set_target_properties(icestormservice
