@@ -364,6 +364,11 @@ target_include_directories(ice
         ${BZIP2_INCLUDE_DIR}
 )
 
+target_link_libraries(ice
+    PRIVATE
+        iceutil
+)
+
 # todo - if *nix and Darwin need to include generated/Ice, define here
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
