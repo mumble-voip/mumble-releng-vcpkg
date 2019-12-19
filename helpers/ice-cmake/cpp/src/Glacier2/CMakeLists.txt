@@ -117,6 +117,11 @@ if(WIN32)
             ${ICE_WIN32_COMPILE_OPTIONS}   
     )
 
+    target_compile_definitions(glacier2router
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
+
     target_link_options(glacier2router
         PRIVATE
             ${ICE_WIN32_LINK_OPTIONS}
