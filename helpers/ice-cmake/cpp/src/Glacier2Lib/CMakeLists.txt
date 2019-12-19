@@ -53,11 +53,6 @@ target_sources(glacier2
         Application.cpp
         NullPermissionsVerifier.cpp
         SessionHelper.cpp
-        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Application.h
-        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Config.h
-        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/Glacier2.h
-        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/NullPermissionsVerifier.h
-        ${PROJECT_SOURCE_DIR}/cpp/include/Glacier2/SessionHelper.h
         ${GENERATED_GLACIER2_HEADERS}
         ${GENERATED_GLACIER2_SOURCES}
 )
@@ -69,15 +64,9 @@ target_include_directories(glacier2
         ${PROJECT_SOURCE_DIR}/cpp/src    
 )
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(GLACIER2_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(GLACIER2_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
-
 target_compile_definitions(glacier2 
     PRIVATE 
-        ${GLACIER2_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
         "GLACIER2_API_EXPORTS"
 )
 
