@@ -99,6 +99,11 @@ if(WIN32)
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}   
     )
+
+    target_compile_definitions(icediscovery
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 endif()
 
 foreach(slice ${ICEDISCOVERY_SLICES})
