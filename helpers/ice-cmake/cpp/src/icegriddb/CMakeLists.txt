@@ -132,13 +132,4 @@ foreach(slice ${ICEGRIDDB_SLICES})
     )
 endforeach()
 
-# # ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
-# CompileSlices(slice2cpp
-#     ${SLICE_DIR}
-#     ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
-#     icegriddb
-#     IceGrid
-#     ${GENERATED_ICEGRIDDB_SOURCES_DIR}
-# )
-
 install(TARGETS icegriddb DESTINATION bin)
