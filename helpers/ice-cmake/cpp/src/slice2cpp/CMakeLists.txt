@@ -40,6 +40,11 @@ if(WIN32)
         PRIVATE
             Slice2Cpp.rc
     )
+
+    target_compile_definitions(slice2cpp
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 endif()
 
 target_compile_definitions(slice2cpp 
