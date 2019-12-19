@@ -25,12 +25,6 @@ set_source_files_properties(
         GENERATED TRUE
 )
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICEBOX_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICEBOX_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
-
 add_library(iceboxlib)
 
 add_dependencies(iceboxlib ice)
