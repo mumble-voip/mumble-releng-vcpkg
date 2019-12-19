@@ -46,4 +46,9 @@ if(WIN32)
     )
 endif()
 
+set_target_properties(icexml 
+    PROPERTIES
+        OUTPUT_NAME icexml${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
+
 install(TARGETS icexml DESTINATION lib)
