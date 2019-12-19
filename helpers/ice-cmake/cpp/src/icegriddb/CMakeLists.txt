@@ -86,7 +86,7 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${SLICE_DIR}/IceGrid
+        TREE $ ${SLICE_DIR}/IceGrid/
         PREFIX "Slice Files"
         FILES
             Descriptor.ice
