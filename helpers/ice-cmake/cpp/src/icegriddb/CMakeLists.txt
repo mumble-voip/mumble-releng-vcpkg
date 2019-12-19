@@ -7,6 +7,7 @@ set(GENERATED_ICEGRIDDB_SOURCES_DIR
 )
 
 set(ICEGRIDDB_SLICES
+    ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
     ${SLICE_DIR}/IceGrid/Descriptor.ice
     ${SLICE_DIR}/IceGrid/Exception.ice
 )
@@ -44,7 +45,8 @@ target_include_directories(icegriddb
     PRIVATE 
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src 
+        ${PROJECT_SOURCE_DIR}/cpp/src
+        ${LMDB_INCLUDE_DIR} 
 )
 
 target_compile_definitions(icegriddb
@@ -132,13 +134,13 @@ foreach(slice ${ICEGRIDDB_SLICES})
     )
 endforeach()
 
-# ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
-CompileSlices(slice2cpp
-    ${SLICE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
-    icegriddb
-    IceGrid
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}
-)
+# # ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
+# CompileSlices(slice2cpp
+#     ${SLICE_DIR}
+#     ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
+#     icegriddb
+#     IceGrid
+#     ${GENERATED_ICEGRIDDB_SOURCES_DIR}
+# )
 
 install(TARGETS icegriddb DESTINATION bin)
