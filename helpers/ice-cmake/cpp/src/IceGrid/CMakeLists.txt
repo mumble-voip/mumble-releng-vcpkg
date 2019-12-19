@@ -209,6 +209,7 @@ target_link_libraries(icegridadmin
         icelocatordiscovery
         icepatch2
         icexml
+        iceboxlib
         ice
         glacier2
 )
