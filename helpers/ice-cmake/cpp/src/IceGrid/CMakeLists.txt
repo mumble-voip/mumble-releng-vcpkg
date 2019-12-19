@@ -153,7 +153,7 @@ if(NOT ${PROJECT_BINARY_DIR}/generated/IceGridAdmin)
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGridAdmin)
 endif()
 
-set(GENERATED_ICEGRID_SOURCES_DIR
+set(GENERATED_ICEGRIDADMIN_SOURCES_DIR
     ${PROJECT_BINARY_DIR}/generated/IceGridAdmin
 )
 
@@ -162,7 +162,7 @@ set(GENERATED_ICEGRIDADMIN_HEADERS
 )
 
 set(GENERATED_ICEGRIDADMIN_SOURCES
-    ${GENERATED_ICEGRID_SOURCES_DIR}/Internal.cpp
+    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}/Internal.cpp
 )
 
 set_source_files_properties(
