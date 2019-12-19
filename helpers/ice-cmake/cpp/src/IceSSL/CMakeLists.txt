@@ -151,6 +151,11 @@ if(WIN32)
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}   
     )
+
+    target_compile_definitions(icessl
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 endif()
 
 foreach(slice ${ICESSL_SLICES})
@@ -175,6 +180,8 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
             OUTPUT_NAME icessl${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
     )
 endif()
+
+install(TARGETS icessl DESTINATION lib)
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
     add_library(icesslopenssl STATIC)
@@ -204,7 +211,7 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
 
     target_compile_definitions(icesslopenssl
         PRIVATE
-            "${ICE_CPP11_COMPILE_DEFS}"
+            ${ICE_CPP11_COMPILE_DEFS}
             "ICESSL_OPENSSL_API_EXPORTS"
     )
 
@@ -217,14 +224,19 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
         )
 
         target_sources(icesslopenssl
-        PRIVATE
-            IceSSLOpenSSL.rc
-    )
+            PRIVATE
+                IceSSLOpenSSL.rc
+        )
 
-    target_compile_options(icesslopenssl 
-        PRIVATE
-            ${ICE_WIN32_COMPILE_OPTIONS}   
-    )
+        target_compile_options(icesslopenssl 
+            PRIVATE
+                ${ICE_WIN32_COMPILE_OPTIONS}   
+        )
+
+        target_compile_definitions(icesslopenssl
+            PRIVATE
+                ${ICE_WIN32_COMPILE_DEFS}
+        )
     endif()
 
     if(CMAKE_CXX_STANDARD EQUAL 11)
@@ -236,5 +248,3 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
 
     install(TARGETS icesslopenssl DESTINATION lib)
 endif()
-
-install(TARGETS icessl DESTINATION lib)
