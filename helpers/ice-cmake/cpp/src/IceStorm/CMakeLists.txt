@@ -1,0 +1,157 @@
+if(NOT ${PROJECT_BINARY_DIR}/generated/IceStorm)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceStorm)
+endif()
+
+set(GENERATED_ICESTORMSERVICE_SOURCES_DIR
+    ${PROJECT_BINARY_DIR}/generated/IceStorm
+)
+
+set(ICESTORMSERVICE_SLICES
+    ${SLICE_DIR}/IceStorm/Election.ice
+    ${SLICE_DIR}/IceStorm/IceStormInternal.ice
+    ${SLICE_DIR}/IceStorm/Instrumentation.ice
+    ${SLICE_DIR}/IceStorm/LinkRecord.ice
+    ${SLICE_DIR}/IceStorm/LLURecord.ice
+    ${SLICE_DIR}/IceStorm/SubscriberRecord.ice
+)
+
+set(GENERATED_ICESTORMSERVICE_HEADERS
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Election.h
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/IceStormInternal.h
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Instrumentation.h
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LinkRecord.h
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LLURecord.h
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/SubscriberRecord.h
+)
+
+set(GENERATED_ICESTORMSERVICE_SOURCES
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Election.cpp
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/IceStormInternal.cpp
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Instrumentation.cpp
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LinkRecord.cpp
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LLURecord.cpp
+    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/SubscriberRecord.cpp
+)
+
+set_source_files_properties(
+    ${GENERATED_ICESTORMSERVICE_HEADERS}
+    ${GENERATED_ICESTORMSERVICE_SOURCES}
+    PROPERTIES
+        GENERATED TRUE
+)
+
+add_library(icestormservice)
+
+target_sources(icestormservice
+    PRIVATE
+        Instance.cpp
+        Instance.h
+        InstrumentationI.cpp
+        InstrumentationI.h
+        NodeI.cpp
+        NodeI.h
+        Observers.cpp
+        Observers.h
+        Replica.h
+        Service.cpp
+        Service.h
+        Subscriber.cpp
+        Subscriber.h
+        TopicI.cpp
+        TopicI.h
+        TopicManagerI.cpp
+        TopicManagerI.h
+        TraceLevels.cpp
+        TraceLevels.h
+        TransientTopicI.cpp
+        TransientTopicI.h
+        TransientTopicManagerI.cpp
+        TransientTopicManagerI.h
+        Util.cpp
+        Util.h
+        ${GENERATED_ICESTORMSERVICE_HEADERS}
+        ${GENERATED_ICESTORMSERVICE_SOURCES}
+        ${ICESTORMSERVICE_SLICES}
+)
+
+target_include_directories(icestormservice
+    PRIVATE 
+        ${PROJECT_BINARY_DIR}/generated
+        ${PROJECT_SOURCE_DIR}/cpp/include
+        ${PROJECT_SOURCE_DIR}/cpp/src
+)
+
+target_compile_definitions(icestormservice
+    PRIVATE
+        ${ICE_COMPILE_DEFS}
+)
+
+target_link_libraries(icestormservice
+    PRIVATE
+        glacier2
+        iceboxlib
+        icedb
+        icegrid
+        icestorm
+)
+
+if(WIN32)
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Resource Files"
+        FILES
+            IceStormService.rc
+    )
+
+    source_group(
+        TREE ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+        PREFIX "Header Files/Generated"
+        FILES
+            ${GENERATED_ICESTORMSERVICE_HEADERS}
+    )
+
+    source_group(
+        TREE ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+        PREFIX "Source Files/Generated"
+        FILES
+            ${GENERATED_ICESTORMSERVICE_SOURCES}
+    )
+
+    source_group(
+        TREE ${SLICE_DIR}/IceStorm
+        PREFIX "Slice Files"
+        FILES
+            ${ICESTORMSERVICE_SLICES}
+    )
+
+    target_sources(icestorm
+        PRIVATE
+            IceStormService.rc
+    )
+
+    target_compile_options(icestormservice
+        PRIVATE
+            ${ICE_WIN32_COMPILE_OPTIONS}   
+    )
+
+    target_compile_definitions(icestormservice
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
+endif()
+
+foreach(slice ${ICESTORMSERVICE_SLICES})
+    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+    CompileSlices(slice2cpp
+        ${SLICE_DIR}
+        ${slice}
+        icestormservice
+        IceStorm
+        ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+    )
+endforeach()
+
+set_target_properties(icestormservice
+    PROPERTIES
+        OUTPUT_NAME icestormservice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
