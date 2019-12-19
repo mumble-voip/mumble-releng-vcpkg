@@ -124,7 +124,7 @@ if(WIN32)
 
     target_link_options(glacier2router
         PRIVATE
-            ${ICE_APP_ADDITIONAL_DEPS}
+            ${ICE_BIN_ADDITIONAL_DEPS}
     )
 
     target_link_libraries(glacier2router
