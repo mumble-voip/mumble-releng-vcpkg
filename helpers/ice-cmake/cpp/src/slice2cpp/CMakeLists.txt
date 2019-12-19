@@ -24,9 +24,9 @@ if(WIN32)
     
     target_compile_options(slice2cpp PRIVATE "/wd4250")
 
-    set_target_properties(slice2cpp 
-        PROPERTIES 
-            LINK_FLAGS ${ICE_APP_ADDITIONAL_DEPS}
+    target_link_options(slice2cpp 
+        PRIVATE 
+            ${ICE_BIN_ADDITIONAL_DEPS}
     )
 
     target_link_libraries(slice2cpp PRIVATE
