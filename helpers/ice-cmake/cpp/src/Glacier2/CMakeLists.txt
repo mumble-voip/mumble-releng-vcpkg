@@ -76,6 +76,7 @@ target_link_libraries(glacier2router
         ice
         glacier2
         icessl
+        ${BZIP2_LIBRARIES}
 )
 
 if(WIN32)
