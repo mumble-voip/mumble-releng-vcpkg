@@ -52,6 +52,10 @@ if(WIN32)
             ${ICE_WIN32_COMPILE_OPTIONS}
    )
 
+    target_compile_definitions(slice
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 endif()
 
 target_compile_definitions(slice 
