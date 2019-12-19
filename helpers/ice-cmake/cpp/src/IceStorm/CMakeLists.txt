@@ -141,6 +141,7 @@ if(WIN32)
     )
 endif()
 
+# since these ices take more than one include path, the CompileSlices is replaced with this
 foreach(slice ${ICESTORMSERVICE_SLICES})
     add_custom_command(TARGET icestormservice
     COMMAND slice2cpp -I${SLICE_DIR} -I${PROJECT_SOURCE_DIR}/cpp/src ${slice} --include-dir IceStorm
