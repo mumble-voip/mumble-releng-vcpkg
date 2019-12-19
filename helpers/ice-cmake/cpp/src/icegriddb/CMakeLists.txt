@@ -62,6 +62,7 @@ target_link_libraries(icegriddb
         icedb
         icegrid
         glacier2
+        ${BZIP2_LIBRARIES}
 )
 
 if(WIN32)
