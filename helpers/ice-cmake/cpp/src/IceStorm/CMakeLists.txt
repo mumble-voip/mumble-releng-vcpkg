@@ -7,12 +7,12 @@ set(GENERATED_ICESTORMSERVICE_SOURCES_DIR
 )
 
 set(ICESTORMSERVICE_SLICES
-    ${SLICE_DIR}/IceStorm/Election.ice
-    ${SLICE_DIR}/IceStorm/IceStormInternal.ice
-    ${SLICE_DIR}/IceStorm/Instrumentation.ice
-    ${SLICE_DIR}/IceStorm/LinkRecord.ice
-    ${SLICE_DIR}/IceStorm/LLURecord.ice
-    ${SLICE_DIR}/IceStorm/SubscriberRecord.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/Election.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/IceStormInternal.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/Instrumentation.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/LinkRecord.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/LLURecord.ice
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubscriberRecord.ice
 )
 
 set(GENERATED_ICESTORMSERVICE_HEADERS
@@ -118,7 +118,7 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${SLICE_DIR}/IceStorm
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Slice Files"
         FILES
             ${ICESTORMSERVICE_SLICES}
