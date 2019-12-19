@@ -179,9 +179,9 @@ add_dependencies(icegridadmin icebox)
 target_sources(icegridadmin
     PRIVATE
         Client.cpp
-        DescriptionBuilder.cpp
-        DescriptionHelper.cpp
-        DescriptionParser.cpp
+        DescriptorBuilder.cpp
+        DescriptorHelper.cpp
+        DescriptorParser.cpp
         FileParserI.cpp
         Grammar.cpp
         Parser.cpp
