@@ -119,6 +119,11 @@ if(WIN32)
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}   
     )
+
+    target_compile_definitions(glacier2
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 endif()
 
 foreach(slice ${GLACIER2_SLICES})
