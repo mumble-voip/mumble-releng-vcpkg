@@ -8,7 +8,7 @@ target_sources(icexml
         Parser.h
 )
 
-target_include_directories(
+target_include_directories(icexml
     PRIVATE
         ${PROJECT_BINARY_DIR}/generated
         ${PROJECT_SOURCE_DIR}/cpp/include
