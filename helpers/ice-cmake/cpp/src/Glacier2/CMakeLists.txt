@@ -117,11 +117,6 @@ if(WIN32)
             ${ICE_WIN32_COMPILE_OPTIONS}   
     )
 
-    set_target_properties(glacier2router 
-        PROPERTIES 
-            LINK_FLAGS ${ICE_APP_ADDITIONAL_DEPS}
-    )
-
     target_link_options(glacier2router
         PRIVATE
             ${ICE_WIN32_LINK_OPTIONS}
