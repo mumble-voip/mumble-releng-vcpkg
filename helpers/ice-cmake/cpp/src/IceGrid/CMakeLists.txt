@@ -212,6 +212,7 @@ target_link_libraries(icegridadmin
         iceboxlib
         ice
         glacier2
+        ${BZIP2_LIBRARIES}
 )
 
 if(WIN32)
