@@ -6,7 +6,7 @@
 # slice_outputs - source filename and types for the specific language
 # include_dir - needed to name generated header guards
 # output_dir - specify the output dir for created sources
-function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+function(CompileSlice slice2_bin slice_path ice_file slice_target include_dir output_dir)
     add_custom_command(TARGET ${slice_target}
         COMMAND ${slice2_bin} -I${slice_path} ${ice_file} --include-dir ${include_dir}
         WORKING_DIRECTORY ${output_dir}
