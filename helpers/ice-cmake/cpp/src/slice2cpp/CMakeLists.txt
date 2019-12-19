@@ -26,7 +26,7 @@ if(WIN32)
 
     target_link_options(slice2cpp 
         PRIVATE 
-            ${ICE_BIN_ADDITIONAL_DEPS}
+            ${ICE_WIN32_LINK_OPTIONS}
     )
 
     target_link_libraries(slice2cpp PRIVATE

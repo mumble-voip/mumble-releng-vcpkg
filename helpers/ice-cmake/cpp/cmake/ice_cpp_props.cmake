@@ -2,13 +2,13 @@
 set(ICE_COMPILE_DEFS "ICE_BUILDING_SRC")
 
 if(WIN32)
-    set(ICE_CPP98_COMPILE_DEFS
+    set(ICE_WIN32_COMPILE_DEFS
         "_CONSOLE" 
         "WIN32_LEAN_AND_MEAN"
         ${ICE_COMPILE_DEFS} 
     )
 
-    set(ICE_COMPILE_OPTIONS
+    set(ICE_WIN32_COMPILE_OPTIONS
         "/W4"
         "/wd4121"
         "/wd4250"
@@ -22,7 +22,7 @@ if(WIN32)
         "/bigobj"
     )
 
-    set(ICE_BIN_ADDITIONAL_DEPS
+    set(ICE_WIN32_LINK_OPTIONS
         "wsetargv.obj"
     )
 

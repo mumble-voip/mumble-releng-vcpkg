@@ -163,7 +163,7 @@ if(WIN32)
 
     target_link_options(icebox
         PRIVATE
-            ${ICE_BIN_ADDITIONAL_DEPS}
+            ${ICE_WIN32_LINK_OPTIONS}
 	)
 
     source_group(
@@ -228,7 +228,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
         target_link_options(iceboxadmin
             PRIVATE
-                ${ICE_BIN_ADDITIONAL_DEPS}
+                ${ICE_WIN32_LINK_OPTIONS}
         )
 
         target_link_libraries(iceboxadmin
