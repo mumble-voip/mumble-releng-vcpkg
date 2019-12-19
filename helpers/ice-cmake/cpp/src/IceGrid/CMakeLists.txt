@@ -210,6 +210,7 @@ target_link_libraries(icegridadmin
         icepatch2
         icexml
         ice
+        glacier2
 )
 
 if(WIN32)
