@@ -369,13 +369,11 @@ target_link_libraries(ice
         iceutil
 )
 
-# todo - if *nix and Darwin need to include generated/Ice, define here
-
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICELIB_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICELIB_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
+target_compile_definitions(ice 
+    PRIVATE 
+        ${ICE_COMPILE_DEFS}
+        "ICE_API_EXPORTS"
+)
 
 if(WIN32)
     source_group(
@@ -451,12 +449,6 @@ if(WIN32)
         DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
     )
 endif()
-
-target_compile_definitions(ice 
-    PRIVATE 
-        ${ICELIB_COMPILE_DEFS}
-        "ICE_API_EXPORTS"
-)
 
 foreach(slice ${ICE_SLICES})
     #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
