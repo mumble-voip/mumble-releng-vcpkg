@@ -114,7 +114,7 @@ if(WIN32)
 
     target_compile_options(glacier2router 
         PRIVATE
-            ${ICE_COMPILE_OPTIONS}   
+            ${ICE_WIN32_COMPILE_OPTIONS}   
     )
 
     set_target_properties(glacier2router 

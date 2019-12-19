@@ -49,7 +49,7 @@ if(WIN32)
     target_compile_options(slice 
         PRIVATE 
             "/wd4250"
-            ${ICE_COMPILE_OPTIONS}
+            ${ICE_WIN32_COMPILE_OPTIONS}
    )
 
 endif()

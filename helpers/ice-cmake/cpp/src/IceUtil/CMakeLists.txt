@@ -39,7 +39,7 @@ target_include_directories(iceutil
 if(WIN32)
     target_compile_options(iceutil 
         PRIVATE
-            ${ICE_COMPILE_OPTIONS}
+            ${ICE_WIN32_COMPILE_OPTIONS}
    )
 endif()
 

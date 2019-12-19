@@ -228,7 +228,7 @@ if(WIN32)
 
     target_compile_options(icegrid
         PRIVATE
-            ${ICE_COMPILE_OPTIONS}   
+            ${ICE_WIN32_COMPILE_OPTIONS}   
     )
 endif()
 

@@ -418,7 +418,7 @@ if(WIN32)
     target_compile_options(ice 
         PRIVATE 
             "/wd4996" 
-            ${ICE_COMPILE_OPTIONS} 
+            ${ICE_WIN32_COMPILE_OPTIONS} 
     )
 
     if(BUILD_SHARED_LIBS)

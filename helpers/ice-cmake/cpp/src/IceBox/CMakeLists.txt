@@ -91,7 +91,7 @@ if(WIN32)
 
     target_compile_options(iceboxlib 
         PRIVATE
-            ${ICE_COMPILE_OPTIONS}   
+            ${ICE_WIN32_COMPILE_OPTIONS}   
     )
 	
 endif()
@@ -158,7 +158,7 @@ if(WIN32)
 
     target_compile_options(icebox
         PRIVATE
-            ${ICE_COMPILE_OPTIONS}
+            ${ICE_WIN32_COMPILE_OPTIONS}
 	)
 
     target_link_options(icebox
@@ -223,7 +223,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
         target_compile_options(iceboxadmin
             PRIVATE
-                ${ICE_COMPILE_OPTIONS}
+                ${ICE_WIN32_COMPILE_OPTIONS}
         )
 
         target_link_options(iceboxadmin

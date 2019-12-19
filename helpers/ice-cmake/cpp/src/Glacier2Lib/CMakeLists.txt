@@ -117,7 +117,7 @@ if(WIN32)
 
     target_compile_options(glacier2 
         PRIVATE
-            ${ICE_COMPILE_OPTIONS}   
+            ${ICE_WIN32_COMPILE_OPTIONS}   
     )
 endif()
 
