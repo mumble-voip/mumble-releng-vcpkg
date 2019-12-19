@@ -36,8 +36,8 @@ target_sources(icepatch2
     PRIVATE
         ClientUtil.cpp
         ClientUtil.h
-        Config.h
-        IcePatch2.h
+        # Config.h
+        # IcePatch2.h
         Util.cpp
         Util.h
         ${GENERATED_ICEPATCH2_HEADERS}
