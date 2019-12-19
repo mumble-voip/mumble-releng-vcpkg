@@ -149,12 +149,12 @@ endif()
 
 install(TARGETS icegrid DESTINATION lib)
 
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceGridAdmin)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGridAdmin)
+if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGrid)
 endif()
 
 set(GENERATED_ICEGRIDADMIN_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceGridAdmin
+    ${PROJECT_BINARY_DIR}/generated/IceGrid
 )
 
 set(GENERATED_ICEGRIDADMIN_HEADERS
