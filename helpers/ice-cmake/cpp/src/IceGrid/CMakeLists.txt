@@ -366,6 +366,9 @@ target_sources(icegridnode
         TraceLevels.cpp
         Util.cpp
         WellKnownObjectManager.cpp
+        ${GENERATED_ICEGRIDNODE_HEADERS}
+        ${GENERATED_ICEGRIDNODE_SOURCES}
+        ${ICEGRIDNODE_SLICES}
 )
 
 target_include_directories(icegridnode
