@@ -1,6 +1,21 @@
 # define c++ compiler options and preprocessor definitions for all OS types
 set(ICE_COMPILE_DEFS "ICE_BUILDING_SRC")
 
+if(CMAKE_CXX_STANDARD EQUAL 11)
+    set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_CPP11_MAPPING")
+elseif(CMAKE_CXX_STANDARD EQUAL 98)
+    # it's c++98
+endif()
+
+if(NOT BUILD_SHARED_LIBS)
+    set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
+
+    # Win32 will not statically build icebox properly in C++11
+    if(CMAKE_CXX_STANDARD EQUAL 11 AND NOT WIN32)
+        set(ICE_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}" "ICE_STATIC_LIBS")
+    endif()
+endif()
+
 if(WIN32)
     set(ICE_WIN32_COMPILE_DEFS
         "_CONSOLE" 
@@ -35,25 +50,10 @@ if(WIN32)
 
 elseif(APPLE)
 
-# TODO - add ICE_CPP98_COMPILE_DEFS
+# TODO - add ICE_COMPILE_DEFS
 
 elseif(UNIX OR LINUX)
 
-# TODO - ICE_CPP98_COMPILE_DEFS
+# TODO - ICE_COMPILE_DEFS
 
-endif()
-
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICE_CPP11_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_CPP11_MAPPING")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICE_CPP98_COMPILE_DEFS "${ICE_COMPILE_DEFS}")
-endif()
-
-if(NOT BUILD_SHARED_LIBS)
-    set(ICE_CPP98_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
-
-    # Win32 will not statically build icebox properly in C++11
-    if(CMAKE_CXX_STANDARD EQUAL 11 AND NOT WIN32)
-        set(ICE_CPP11_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}" "ICE_STATIC_LIBS")
-    endif()
 endif()
