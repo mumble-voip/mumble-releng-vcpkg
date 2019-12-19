@@ -276,7 +276,7 @@ CompileSlices(slice2cpp
     ${SLICE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
     icegridadmin
-    IceGridAdmin
+    IceGrid
     ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
 )
 
