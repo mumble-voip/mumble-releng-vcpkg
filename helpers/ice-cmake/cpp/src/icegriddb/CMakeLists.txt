@@ -85,19 +85,9 @@ if(WIN32)
             ${GENERATED_ICEGRIDDB_SOURCES}
     )
 
-    source_group(
-        TREE ${SLICE_DIR}/IceGrid
-        PREFIX "Slice Files"
+    source_group("Slice Files"
         FILES
-            Descriptor.ice
-            Exception.ice
-    )
-
-    source_group(
-        TREE ${CMAKE_CURRENT_SOURCE_DIR}
-        PREFIX "Slice Files"
-        FILES
-            DBTypes.ice
+            ${ICEGRIDDB_SLICES}
     )
 
     target_sources(icegriddb
