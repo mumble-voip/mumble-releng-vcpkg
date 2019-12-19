@@ -1,7 +1,5 @@
 add_executable(icebridge)
 
-add_dependencies(icebridge ice)
-
 target_sources(icebridge
     PRIVATE
         IceBridge.cpp
@@ -17,6 +15,12 @@ target_include_directories(icebridge
 target_compile_definitions(icebridge
     PRIVATE
         ${ICE_COMPILE_DEFS}
+)
+
+target_link_libraries(icebridge
+    PRIVATE
+        ice
+        ${BZIP2_LIBRARIES}
 )
 
 if(WIN32)
