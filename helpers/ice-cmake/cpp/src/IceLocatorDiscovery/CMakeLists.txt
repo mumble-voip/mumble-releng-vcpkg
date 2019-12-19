@@ -95,6 +95,11 @@ if(WIN32)
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}   
     )
+
+    target_compile_definitions(icelocatordiscovery
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 endif()
 
 foreach(slice ${ICELOCATORDISCOVERY_SLICES})
