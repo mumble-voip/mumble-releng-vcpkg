@@ -50,113 +50,6 @@ add_library(icegrid)
 
 add_dependencies(icegrid glacier2)
 
-# TODO - find out if these are for test or for other os's
-
-# target_sources(icegrid
-#     PRIVATE
-#         Activator.cpp
-#         Activator.h
-#         AdapterCache.cpp
-#         AdapterCache.h
-#         AdminCallbackRouter.cpp
-#         AdminCallbackRouter.h
-#         AdminI.cpp
-#         AdminI.h
-#         AdminRouter.cpp
-#         AdminRouter.h
-#         AdminSessionI.cpp
-#         AdminSessionI.h
-#         Allocatable.cpp
-#         Allocatable.h
-#         AllocatableObjectCache.cpp
-#         AllocatableObjectCache.h
-#         Cache.h
-#         Client.cpp
-#         Database.cpp
-#         Database.h
-#         DescriptorBuilder.cpp
-#         DescriptorBuilder.h
-#         DescriptorHelper.cpp
-#         DescriptorHelper.h
-#         DescriptorParser.cpp
-#         DescriptorParser.h
-#         FileCache.cpp
-#         FileCache.h
-#         FileParserI.cpp
-#         FileParserI.h
-#         FileUserAccountMapperI.cpp
-#         FileUserAccountMapperI.h
-#         Grammar.cpp
-#         Grammar.h
-#         IceGridNode.cpp
-#         IceGridRegistry.cpp
-#         Internal.ice
-#         InternalRegistryI.cpp
-#         InternalRegistryI.h
-#         LocatorI.cpp
-#         LocatorI.h
-#         LocatorRegistryI.cpp
-#         LocatorRegistryI.h
-#         NodeAdminRouter.cpp
-#         NodeAdminRouter.h
-#         NodeCache.cpp
-#         NodeCache.h
-#         NodeI.cpp
-#         NodeI.h
-#         NodeSessionI.cpp
-#         NodeSessionI.h
-#         NodeSessionManager.cpp
-#         NodeSessionManager.h
-#         ObjectCache.cpp
-#         ObjectCache.h
-#         Parser.cpp
-#         Parser.h
-#         PlatformInfo.cpp
-#         PlatformInfo.h
-#         PluginFacadeI.cpp
-#         PluginFacadeI.h
-#         QueryI.cpp
-#         QueryI.h
-#         ReapThread.cpp
-#         ReapThread.h
-#         RegistryAdminRouter.cpp
-#         RegistryAdminRouter.h
-#         RegistryI.cpp
-#         RegistryI.h
-#         ReplicaCache.cpp
-#         ReplicaCache.h
-#         ReplicaSessionI.cpp
-#         ReplicaSessionI.h
-#         ReplicaSessionManager.cpp
-#         ReplicaSessionManager.h
-#         Scanner.cpp
-#         ServerAdapterI.cpp
-#         ServerAdapterI.h
-#         ServerCache.cpp
-#         ServerCache.h
-#         ServerI.cpp
-#         ServerI.h
-#         SessionI.cpp
-#         SessionI.h
-#         SessionManager.cpp
-#         SessionManager.h
-#         SessionServantManager.cpp
-#         SessionServantManager.h
-#         Topics.cpp
-#         Topics.h
-#         TraceLevels.cpp
-#         TraceLevels.h
-#         Util.cpp
-#         Util.h
-#         WaitQueue.cpp
-#         WaitQueue.h
-#         WellKnownObjectsManager.cpp
-#         WellKnownObjectsManager.h
-#         ${GENERATED_ICEGRID_HEADERS}
-#         ${GENERATED_ICEGRID_SOURCES}
-#         ${ICEGRID_SLICES}
-# )
-
 target_sources(icegrid
     PRIVATE
         ${PROJECT_SOURCE_DIR}/cpp/src/IceGridLib/PluginFacadeI.cpp
@@ -242,16 +135,6 @@ foreach(slice ${ICEGRID_SLICES})
     )
 endforeach()
 
-# TODO - check for other os support or test solutions
-# #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-# CompileSlices(slice2cpp
-#     ${SLICE_DIR}
-#     ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-#     icegrid
-#     IceGrid
-#     ${GENERATED_ICEGRID_SOURCES_DIR}
-# )
-
 if(CMAKE_CXX_STANDARD EQUAL 11)
     set_target_properties(icegrid 
         PROPERTIES
@@ -265,3 +148,136 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
 endif()
 
 install(TARGETS icegrid DESTINATION lib)
+
+if(NOT ${PROJECT_BINARY_DIR}/generated/IceGridAdmin)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGridAdmin)
+endif()
+
+set(GENERATED_ICEGRID_SOURCES_DIR
+    ${PROJECT_BINARY_DIR}/generated/IceGridAdmin
+)
+
+set(GENERATED_ICEGRIDADMIN_HEADERS
+    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}/Internal.h
+)
+
+set(GENERATED_ICEGRIDADMIN_SOURCES
+    ${GENERATED_ICEGRID_SOURCES_DIR}/Internal.cpp
+)
+
+set_source_files_properties(
+    ${GENERATED_ICEGRIDADMIN_HEADERS}
+    ${GENERATED_ICEGRIDADMIN_SOURCES}
+    PROPERTIES
+        GENERATED TRUE
+)
+
+add_executable(icegridadmin)
+
+add_dependencies(icegridadmin icebox)
+
+target_sources(icegridadmin
+    PRIVATE
+        Client.cpp
+        DescriptionBuilder.cpp
+        DescriptionHelper.cpp
+        DescriptionParser.cpp
+        FileParserI.cpp
+        Grammar.cpp
+        Parser.cpp
+        Scanner.cpp
+        Util.cpp
+        ${GENERATED_ICEGRIDADMIN_HEADERS}
+        ${GENERATED_ICEGRIDADMIN_SOURCES}
+)
+
+target_include_directories(icegridadmin
+    PRIVATE
+        ${PROJECT_BINARY_DIR}/generated
+        ${PROJECT_SOURCE_DIR}/cpp/include
+        ${PROJECT_SOURCE_DIR}/cpp/src
+)
+
+target_compile_definitions(icegridadmin
+    PRIVATE
+        ${ICE_COMPILE_DEFS}
+)
+
+target_link_libraries(icegridadmin
+    PRIVATE
+        icegrid
+        icelocatordiscovery
+        icepatch2
+        icexml
+)
+
+if(WIN32)
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Resource Files"
+        FILES
+            IceGridAdmin.rc
+    )
+
+    source_group(
+        TREE ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+        PREFIX "Header Files/Generated"
+        FILES
+            ${GENERATED_ICEGRIDADMIN_HEADERS}
+    )
+
+    source_group(
+        TREE ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+        PREFIX "Source Files/Generated"
+        FILES
+            ${GENERATED_ICEGRIDADMIN_SOURCES}
+    )
+
+    source_group(
+        TREE ${CMAKE_CURRENT_SOURCE_DIR}
+        PREFIX "Slice Files"
+        FILES 
+            Internal.ice
+    )
+
+    target_sources(icegridadmin
+        PRIVATE
+            IceGridAdmin.rc
+    )
+
+    target_compile_options(icegridadmin
+        PRIVATE
+            ${ICE_WIN32_COMPILE_OPTIONS}
+    )
+
+    target_compile_definitions(icegridadmin
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
+
+    target_link_options(icegridadmin
+        PRIVATE
+            ${ICE_WIN32_LINK_OPTIONS}
+    )
+
+    target_link_libraries(icegridadmin
+        PRIVATE
+            advapi32.lib
+            ws2_32.lib
+            Iphlpapi.lib
+            rpcrt4.lib
+            DbgHelp.lib
+            Shlwapi.lib
+    )
+endif()
+
+#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+CompileSlices(slice2cpp
+    ${SLICE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+    icegridadmin
+    IceGridAdmin
+    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+)
+
+install(TARGETS icegridadmin DESTINATION bin)
