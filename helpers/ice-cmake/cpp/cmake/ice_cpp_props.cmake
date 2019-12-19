@@ -19,8 +19,7 @@ endif()
 if(WIN32)
     set(ICE_WIN32_COMPILE_DEFS
         "_CONSOLE" 
-        "WIN32_LEAN_AND_MEAN"
-        ${ICE_COMPILE_DEFS} 
+        "WIN32_LEAN_AND_MEAN" 
     )
 
     set(ICE_WIN32_COMPILE_OPTIONS
