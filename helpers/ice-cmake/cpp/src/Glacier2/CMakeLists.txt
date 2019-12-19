@@ -68,7 +68,7 @@ target_include_directories(glacier2router
 
 target_compile_definitions(glacier2router
     PRIVATE
-        ${ICE_CPP98_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
 )
 
 target_link_libraries(glacier2router
