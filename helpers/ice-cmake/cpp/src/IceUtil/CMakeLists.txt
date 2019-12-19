@@ -41,6 +41,11 @@ if(WIN32)
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}
    )
+
+    target_compile_definitions(iceutil
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+   )
 endif()
 
 target_compile_definitions(iceutil 
