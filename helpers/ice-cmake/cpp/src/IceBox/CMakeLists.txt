@@ -51,7 +51,7 @@ target_include_directories(iceboxlib
 
 target_compile_definitions(iceboxlib 
     PRIVATE 
-        ${ICEBOX_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
         "ICEBOX_API_EXPORTS"
 )
 
@@ -92,6 +92,11 @@ if(WIN32)
     target_compile_options(iceboxlib 
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}   
+    )
+
+    target_compile_definitions(iceboxlib
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
     )
 	
 endif()
