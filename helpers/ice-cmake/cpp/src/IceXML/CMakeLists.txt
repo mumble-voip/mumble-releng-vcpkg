@@ -30,6 +30,11 @@ if(WIN32)
             IceXML.rc
     )
 
+    target_sources(icexml
+        PRIVATE
+            IceXML.rc
+    )
+
     target_compile_options(icexml
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}
