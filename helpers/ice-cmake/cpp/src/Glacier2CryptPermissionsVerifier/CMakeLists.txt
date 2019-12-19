@@ -1,6 +1,6 @@
 add_library(glacier2cryptpermissionsverifier)
 
-add_dependencies(glacier2 ice)
+add_dependencies(glacier2cryptpermissionsverifier glacier2 ice)
 
 target_sources(glacier2cryptpermissionsverifier
     PRIVATE
