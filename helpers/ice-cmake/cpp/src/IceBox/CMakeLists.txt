@@ -185,6 +185,8 @@ if(WIN32)
 
 endif()
 
+install(TARGETS icebox DESTINATION bin)
+
 if(CMAKE_CXX_STANDARD EQUAL 98)
 
     add_executable(iceboxadmin)
@@ -252,5 +254,3 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
     install(TARGETS iceboxadmin DESTINATION bin)
 
 endif()
-
-install(TARGETS icebox DESTINATION bin)
