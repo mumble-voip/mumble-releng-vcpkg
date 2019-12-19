@@ -45,15 +45,9 @@ target_include_directories(icestorm
         ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICESTORM_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICESTORM_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
-
 target_compile_definitions(icestorm
     PRIVATE
-        ${ICESTORM_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
         "ICESTORM_API_EXPORTS"
 )
 

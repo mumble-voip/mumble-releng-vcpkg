@@ -49,15 +49,9 @@ target_include_directories(icediscovery
         ${PROJECT_SOURCE_DIR}/cpp/src    
 )
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICEDISCOVERY_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICEDISCOVERY_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
-
 target_compile_definitions(icediscovery
     PRIVATE
-        ${ICEDISCOVERY_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
         "ICEDISCOVERY_API_EXPORTS"
 )
 

@@ -50,7 +50,7 @@ endif()
 target_compile_definitions(slice2cpp 
     PRIVATE 
         "ICE_BUILDING_SLICE_COMPILERS" 
-        ${ICE_CPP98_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
 )
 
 target_link_libraries(slice2cpp 

@@ -88,15 +88,9 @@ target_include_directories(icessl
         ${PROJECT_SOURCE_DIR}/cpp/src 
 )
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-    set(ICESSL_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-    set(ICESSL_COMPILE_DEFS "${ICE_CPP98_COMPILE_DEFS}")
-endif()
-
 target_compile_definitions(icessl
     PRIVATE
-        ${ICESSL_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
         "ICESSL_API_EXPORTS"
 )
 
