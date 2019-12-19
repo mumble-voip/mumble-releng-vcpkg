@@ -137,7 +137,7 @@ CompileSlices(slice2cpp
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
     icegriddb
-    IceGridDB
+    IceGrid
     ${GENERATED_ICEGRIDDB_SOURCES_DIR}
 )
 
