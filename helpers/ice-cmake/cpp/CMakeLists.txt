@@ -54,4 +54,5 @@ add_subdirectory(src/IceStormLib)
 
 if(CMAKE_CXX_STANDARD EQUAL 98)
     add_subdirectory(src/Glacier2)
+    add_subdirectory(src/Glacier2CryptPermissionsVerifier)
 endif()
