@@ -139,7 +139,7 @@ target_include_directories(icebox
 
 target_compile_definitions(icebox
     PRIVATE
-        ${ICEBOX_COMPILE_DEFS}
+        ${ICE_COMPILE_DEFS}
 )
 
 target_link_libraries(icebox
@@ -159,7 +159,12 @@ if(WIN32)
     target_compile_options(icebox
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}
-	)
+    )
+    
+    target_compile_definitions(icebox
+        PRIVATE
+            ${ICE_WIN32_COMPILE_DEFS}
+    )
 
     target_link_options(icebox
         PRIVATE
@@ -212,7 +217,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
     target_compile_definitions(iceboxadmin
         PRIVATE
-            ${ICE_CPP98_COMPILE_DEFS}
+            ${ICE_COMPILE_DEFS}
     )
 
     if(WIN32)
@@ -224,6 +229,11 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         target_compile_options(iceboxadmin
             PRIVATE
                 ${ICE_WIN32_COMPILE_OPTIONS}
+        )
+
+        target_compile_definitions(iceboxadmin
+            PRIVATE
+                ${ICE_WIN32_COMPILE_DEFS}
         )
 
         target_link_options(iceboxadmin
