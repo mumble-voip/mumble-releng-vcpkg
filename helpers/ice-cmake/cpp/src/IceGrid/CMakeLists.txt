@@ -331,6 +331,8 @@ set_source_files_properties(
 
 add_executable(icegridnode)
 
+find_library(LMDB_LIB lmdb)
+
 target_sources(icegridnode
     PRIVATE
         Activator.cpp
@@ -405,6 +407,7 @@ target_link_libraries(icegridnode
         icessl
         icestormservice
         icexml
+        ${LMDB_LIB}
         ${BZIP2_LIBRARIES}
         EXPAT::EXPAT
 )
@@ -459,11 +462,15 @@ if(WIN32)
     target_link_libraries(icegridnode
         PRIVATE
             advapi32.lib
+            crypt32.lib
             ws2_32.lib
             Iphlpapi.lib
             rpcrt4.lib
             DbgHelp.lib
+            pdh.lib
+            secur32.lib
             Shlwapi.lib
+            version.lib
     )
 endif()
 
