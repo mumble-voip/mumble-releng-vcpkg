@@ -395,6 +395,7 @@ target_compile_definitions(icegridnode
 
 target_link_libraries(icegridnode
     PRIVATE
+        iceutil
         glacier2
         ice
         iceboxlib
