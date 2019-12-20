@@ -141,7 +141,7 @@ if(WIN32)
     )
 endif()
 
-list(APPEND ICESTORMSERVICE_SLICE_DIRS "I${SLICE_DIR}" "-I${PROJECT_SOURCE_DIR}/cpp/src")
+list(APPEND ICESTORMSERVICE_SLICE_DIRS "-I${SLICE_DIR}" "-I${PROJECT_SOURCE_DIR}/cpp/src")
 
 foreach(slice ${ICESTORMSERVICE_SLICES})
     #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
