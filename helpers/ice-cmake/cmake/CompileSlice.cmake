@@ -10,7 +10,7 @@
 function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
     add_custom_command(TARGET ${slice_target}
         COMMAND ${slice2_bin} 
-        ARGS "--checksum" ${slice_include_paths} ${ice_file} "--include-dir ${include_dir}"
+        ARGS "--checksum" ${slice_include_paths} ${ice_file} "--include-dir" ${include_dir}
         WORKING_DIRECTORY ${output_dir}
         MAIN_DEPENDENCY ${ice_file}
         PRE_BUILD
