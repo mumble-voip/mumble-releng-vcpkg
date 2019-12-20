@@ -140,7 +140,7 @@ if(WIN32)
 
 endif()
 
-list(APPEND GLACIER2ROUTERS_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND GLACIER2ROUTER_SLICE_DIRS "-I${SLICE_DIR}")
 
 foreach(slice ${GLACIER2ROUTER_SLICES})
     #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
