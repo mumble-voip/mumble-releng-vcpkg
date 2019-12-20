@@ -404,7 +404,7 @@ target_link_libraries(icegridnode
         icessl
         icestormservice
         icexml
-        BZIP2::BZIP2
+        ${BZIP2_LIBRARIES}
         EXPAT::EXPAT
 )
 
