@@ -153,12 +153,10 @@ if(WIN32)
 endif()
 
 foreach(slice ${ICESSL_SLICES})
-    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-    CompileSlices(slice2cpp
-        ${SLICE_DIR}
-        ${slice}
+    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
+    CompileSlice(slice2cpp
+        -I${SLICE_DIR} ${slice} --include-dir IceSSL
         icessl
-        IceSSL
         ${GENERATED_ICESSL_SOURCES_DIR}
     )
 endforeach()

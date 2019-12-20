@@ -17,7 +17,7 @@ set(zeroc-ice_VERSION_PATCH 3)
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 
 # add function to handle slice compiles
-include(cmake/CompileSlices.cmake)
+include(cmake/CompileSlice.cmake)
 
 # create root path for .ice files
 set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
