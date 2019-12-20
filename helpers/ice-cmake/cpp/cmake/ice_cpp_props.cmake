@@ -17,6 +17,8 @@ if(NOT BUILD_SHARED_LIBS)
     endif()
 endif()
 
+list(APPEND COMPILE_SLICES_CPP_PARAMETERS "--checksum" "--include-dir")
+
 if(WIN32)
     set(ICE_WIN32_COMPILE_DEFS
         "_CONSOLE" 
