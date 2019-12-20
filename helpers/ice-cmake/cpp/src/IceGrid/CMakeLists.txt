@@ -331,8 +331,6 @@ set_source_files_properties(
 
 add_executable(icegridnode)
 
-add_dependencies(icegridnode)
-
 target_sources(icegridnode
     PRIVATE
         Activator.cpp
