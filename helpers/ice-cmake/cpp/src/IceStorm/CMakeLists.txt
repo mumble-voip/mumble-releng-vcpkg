@@ -142,14 +142,15 @@ if(WIN32)
 endif()
 
 list(APPEND ICESTORMSERVICE_SLICE_DIRS "-I${SLICE_DIR}" "-I${PROJECT_SOURCE_DIR}/cpp/src")
+list(APPEND ICESTORMSERVICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceStorm")
 
 foreach(slice ${ICESTORMSERVICE_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
     CompileSlice(slice2cpp
         "${ICESTORMSERVICE_SLICE_DIRS}"
+        "${ICESTORMSERVICE_SLICE_PARAMS}"
         ${slice}
         icestormservice
-        IceStorm
         ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
     )
 endforeach()

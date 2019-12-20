@@ -124,14 +124,15 @@ if(WIN32)
 endif()
 
 list(APPEND ICEGRIDDB_SLICE_DIRS "I${SLICE_DIR}")
+list(APPEND ICEGRIDDB_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceGrid")
 
 foreach(slice ${ICEGRIDDB_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
     CompileSlice(slice2cpp
-        ${ICEGRIDDB_SLICE_DIRS}
+        "${ICEGRIDDB_SLICE_DIRS}"
+        "${ICEGRIDDB_SLICE_PARAMS}"
         ${slice}
         icegriddb
-        IceGrid
         ${GENERATED_ICEGRIDDB_SOURCES_DIR}
     )
 endforeach()

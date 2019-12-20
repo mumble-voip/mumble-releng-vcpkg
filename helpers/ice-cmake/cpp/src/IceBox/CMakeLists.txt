@@ -97,14 +97,15 @@ if(WIN32)
 endif()
 
 list(APPEND ICEBOXLIB_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND ICEBOXLIB_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceBox")
 
 foreach(slice ${ICEBOXLIB_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
     CompileSlice(slice2cpp
-        ${ICEBOXLIB_SLICE_DIRS}
+        "${ICEBOXLIB_SLICE_DIRS}"
+        "${ICEBOXLIB_SLICE_PARAMS}"
         ${slice}
         iceboxlib
-        IceBox
         ${GENERATED_ICEBOXLIB_SOURCES_DIR}
     )
 endforeach()

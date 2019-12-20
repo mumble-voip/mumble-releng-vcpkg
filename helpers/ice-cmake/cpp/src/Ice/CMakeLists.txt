@@ -451,14 +451,15 @@ if(WIN32)
 endif()
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
 
 foreach(slice ${ICE_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
     CompileSlice(slice2cpp
-        ${ICE_SLICE_DIRS}
+        "${ICE_SLICE_DIRS}"
+        "${ICE_SLICE_PARAMS}"
         ${slice}
         ice
-        Ice
         ${GENERATED_ICE_SOURCES_DIR}
     )
 endforeach()

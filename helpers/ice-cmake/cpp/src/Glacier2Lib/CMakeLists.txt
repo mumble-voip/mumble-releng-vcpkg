@@ -116,14 +116,15 @@ if(WIN32)
 endif()
 
 list(APPEND GLACIER2_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND GLACIER2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
 
 foreach(slice ${GLACIER2_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
     CompileSlice(slice2cpp
-        ${GLACIER2_SLICE_DIRS}
+        "${GLACIER2_SLICE_DIRS}"
+        "${GLACIER2_SLICE_PARAMS}"
         ${slice}
         glacier2
-        Glacier2
         ${GENERATED_GLACIER2_SOURCES_DIR}
     )
 endforeach()

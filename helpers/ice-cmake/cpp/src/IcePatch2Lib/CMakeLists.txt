@@ -102,14 +102,15 @@ if(WIN32)
 endif()
 
 list(APPEND ICEPATCH2_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND ICEPATCH2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IcePatch2")
 
 foreach(slice ${ICEPATCH2_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
     CompileSlice(slice2cpp
-        ${ICEPATCH2_SLICE_DIRS}
+        "${ICEPATCH2_SLICE_DIRS}"
+        "${ICEPATCH2_SLICE_PARAMS}"
         ${slice}
         icepatch2
-        IcePatch2
         ${GENERATED_ICEPATCH2_SOURCES_DIR}
     )
 endforeach()

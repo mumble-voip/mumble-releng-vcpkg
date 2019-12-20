@@ -97,14 +97,15 @@ if(WIN32)
 endif()
 
 list(APPEND ICELOCATORDISCOVERY_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND ICELOCATORDISCOVERY_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceLocatorDiscovery")
 
 foreach(slice ${ICELOCATORDISCOVERY_SLICES})
     #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
     CompileSlice(slice2cpp
-        ${ICELOCATORDISCOVERY_SLICE_DIRS}
+        "${ICELOCATORDISCOVERY_SLICE_DIRS}"
+        "${ICELOCATORDISCOVERY_SLICE_PARAMS}"
         ${slice}
         icelocatordiscovery
-        IceLocatorDiscovery
         ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}
     )
 endforeach()
