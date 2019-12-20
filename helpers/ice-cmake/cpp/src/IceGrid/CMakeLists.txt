@@ -304,7 +304,7 @@ if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
 endif()
 
 set(GENERATED_ICEGRIDNODE_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceLocatorDiscovery
+    ${PROJECT_BINARY_DIR}/generated/IceGrid
 )
 
 set(ICEGRIDNODE_SLICES
@@ -331,7 +331,7 @@ set_source_files_properties(
 
 add_executable(icegridnode)
 
-add_dependencies(icegridnode icelocatordiscovery)
+add_dependencies(icegridnode)
 
 target_sources(icegridnode
     PRIVATE
