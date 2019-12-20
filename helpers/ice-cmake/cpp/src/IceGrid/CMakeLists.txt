@@ -331,8 +331,6 @@ set_source_files_properties(
 
 add_executable(icegridnode)
 
-find_library(LMDB_LIB lmdb)
-
 target_sources(icegridnode
     PRIVATE
         Activator.cpp
@@ -407,10 +405,20 @@ target_link_libraries(icegridnode
         icessl
         icestormservice
         icexml
-        ${LMDB_LIB}
         ${BZIP2_LIBRARIES}
         EXPAT::EXPAT
 )
+
+# lmdb not needed for c++11
+# https://github.com/zeroc-ice/ice/tree/3.7/cpp#third-party-libraries
+if(CMAKE_CXX_STANDARD EQUAL 98)
+    find_library(LMDB_LIB lmdb)
+    
+    target_link_libraries(icegridnode
+        PRIVATE
+            ${LMDB_LIB}
+    )
+endif()
 
 if(WIN32)
     source_group(
