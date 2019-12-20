@@ -146,11 +146,11 @@ list(APPEND ICESTORMSERVICE_SLICE_DIRS "-I${SLICE_DIR}" "-I${PROJECT_SOURCE_DIR}
 foreach(slice ${ICESTORMSERVICE_SLICES})
     #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
     CompileSlice(slice2cpp
-        ${ICESTORMSERVICE_SLICE_DIRS}
+        "${ICESTORMSERVICE_SLICE_DIRS}"
         ${slice}
         icestormservice
         IceStorm
-        ${GENERATED_ICESSL_SOURCES_DIR}
+        ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
     )
 endforeach()
 
