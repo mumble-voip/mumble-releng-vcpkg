@@ -2,25 +2,25 @@ if(NOT ${PROJECT_BINARY_DIR}/generated/IceBox)
     file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceBox)
 endif()
 
-set(GENERATED_ICEBOX_SOURCES_DIR 
+set(GENERATED_ICEBOXLIB_SOURCES_DIR 
     ${PROJECT_BINARY_DIR}/generated/IceBox
 )
 
-set(ICEBOX_SLICES
+set(ICEBOXLIB_SLICES
     ${SLICE_DIR}/IceBox/IceBox.ice
 )
 
-set(GENERATED_ICEBOX_HEADERS
-    ${GENERATED_ICEBOX_SOURCES_DIR}/IceBox.h
+set(GENERATED_ICEBOXLIB_HEADERS
+    ${GENERATED_ICEBOXLIB_SOURCES_DIR}/IceBox.h
 )
 
-set(GENERATED_ICEBOX_SOURCES
-    ${GENERATED_ICEBOX_SOURCES_DIR}/IceBox.cpp
+set(GENERATED_ICEBOXLIB_SOURCES
+    ${GENERATED_ICEBOXLIB_SOURCES_DIR}/IceBox.cpp
 )
 
 set_source_files_properties(
-    ${GENERATED_ICEBOX_HEADERS}
-    ${GENERATED_ICEBOX_SOURCES} 
+    ${GENERATED_ICEBOXLIB_HEADERS}
+    ${GENERATED_ICEBOXLIB_SOURCES} 
     PROPERTIES 
         GENERATED TRUE
 )
@@ -32,8 +32,9 @@ add_dependencies(iceboxlib ice)
 target_sources(iceboxlib
     PRIVATE
         Exception.cpp
-        ${GENERATED_ICEBOX_HEADERS}
-        ${GENERATED_ICEBOX_SOURCES}
+        ${GENERATED_ICEBOXLIB_HEADERS}
+        ${GENERATED_ICEBOXLIB_SOURCES}
+        ${ICEBOXLIB_SLICES}
 )
 
 target_include_directories(iceboxlib
@@ -58,24 +59,24 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICEBOX_SOURCES_DIR}
+        TREE ${GENERATED_ICEBOXLIB_SOURCES_DIR}
         PREFIX "Header Files/Generated"
         FILES
-            ${GENERATED_ICEBOX_HEADERS}
+            ${GENERATED_ICEBOXLIB_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICEBOX_SOURCES_DIR}
+        TREE ${GENERATED_ICEBOXLIB_SOURCES_DIR}
         PREFIX "Source Files/Generated"
         FILES
-            ${GENERATED_ICEBOX_SOURCES}
+            ${GENERATED_ICEBOXLIB_SOURCES}
     )
 
     source_group(
         TREE ${SLICE_DIR}/IceBox
         PREFIX "Slice Files"
         FILES
-            ${ICEBOX_SLICES}
+            ${ICEBOXLIB_SLICES}
     )
 
     target_sources(iceboxlib
@@ -95,14 +96,16 @@ if(WIN32)
 	
 endif()
 
-foreach(slice ${ICEBOX_SLICES})
-    #function(CompileSlices slice2_bin slice_path ice_file slice_target optional_args output_dir)
-    CompileSlices(slice2cpp
-        ${SLICE_DIR}
+list(APPEND ICEBOXLIB_SLICE_DIRS "-I${SLICE_DIR}")
+
+foreach(slice ${ICEBOXLIB_SLICES})
+    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    CompileSlice(slice2cpp
+        ${ICEBOXLIB_SLICE_DIRS}
         ${slice}
         iceboxlib
         IceBox
-        ${GENERATED_ICEBOX_SOURCES_DIR}
+        ${GENERATED_ICEBOXLIB_SOURCES_DIR}
     )
 endforeach()
 

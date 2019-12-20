@@ -124,10 +124,12 @@ if(WIN32)
     )
 endif()
 
+list(APPEND ICEGRID_SLICE_DIRS "-I${SLICE_DIR}")
+
 foreach(slice ${ICEGRID_SLICES})
-    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-    CompileSlices(slice2cpp
-        ${SLICE_DIR}
+    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    CompileSlice(slice2cpp
+        ${ICEGRID_SLICE_DIRS}
         ${slice}
         icegrid
         IceGrid
@@ -155,6 +157,10 @@ endif()
 
 set(GENERATED_ICEGRIDADMIN_SOURCES_DIR
     ${PROJECT_BINARY_DIR}/generated/IceGrid
+)
+
+set(ICEGRIDADMIN_SLICES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
 )
 
 set(GENERATED_ICEGRIDADMIN_HEADERS
@@ -276,14 +282,18 @@ if(WIN32)
     )
 endif()
 
-#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-CompileSlices(slice2cpp
-    ${SLICE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-    icegridadmin
-    IceGrid
-    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
-)
+list(APPEND ICEGRIDADMIN_SLICE_DIRS "-I${SLICE_DIR}")
+
+foreach(slice ${ICEGRIDADMIN_SLICES})
+    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    CompileSlice(slice2cpp
+        ${ICEGRIDADMIN_SLICE_DIRS}
+        ${slice}
+        icegridadmin
+        IceGrid
+        ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+    )
+endforeach()
 
 install(TARGETS icegridadmin DESTINATION bin)
 
@@ -454,14 +464,17 @@ if(WIN32)
     )
 endif()
 
-# dependency icelocatordiscovery will compile the needed ice, just compile the internal ice
-#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
-CompileSlices(slice2cpp
-    ${SLICE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-    icegridnode
-    IceGrid
-    ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
-)
+list(APPEND ICEGRIDNODE_SLICE_DIRS "-I${SLICE_DIR}")
+
+foreach(slice ${ICEGRIDNODE_SLICES})
+    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    CompileSlice(slice2cpp
+        ${ICEGRIDNODE_SLICE_DIRS}
+        ${slice}
+        icegridnode
+        IceGrid
+        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
+    )
+endforeach()
 
 install(TARGETS icegridnode DESTINATION bin)
