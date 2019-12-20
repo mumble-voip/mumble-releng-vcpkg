@@ -96,10 +96,12 @@ if(WIN32)
 endif()
 
 foreach(slice ${ICEBOX_SLICES})
-    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
-    CompileSlice(slice2cpp
-        -I${SLICE_DIR} ${slice} --include-dir IceBox
+    #function(CompileSlices slice2_bin slice_path ice_file slice_target optional_args output_dir)
+    CompileSlices(slice2cpp
+        ${SLICE_DIR}
+        ${slice}
         iceboxlib
+        IceBox
         ${GENERATED_ICEBOX_SOURCES_DIR}
     )
 endforeach()

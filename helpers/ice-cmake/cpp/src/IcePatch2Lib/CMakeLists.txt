@@ -102,10 +102,12 @@ if(WIN32)
 endif()
 
 foreach(slice ${ICEPATCH2_SLICES})
-    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
-    CompileSlice(slice2cpp
-        -I${SLICE_DIR} ${slice} IcePatch2
+    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+    CompileSlices(slice2cpp
+        ${SLICE_DIR}
+        ${slice}
         icepatch2
+        IcePatch2
         ${GENERATED_ICEPATCH2_SOURCES_DIR}
     )
 endforeach()

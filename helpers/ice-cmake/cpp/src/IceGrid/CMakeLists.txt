@@ -125,10 +125,12 @@ if(WIN32)
 endif()
 
 foreach(slice ${ICEGRID_SLICES})
-    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
-    CompileSlice(slice2cpp
-        -I${SLICE_DIR} ${slice} --include-dir IceGrid
+    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+    CompileSlices(slice2cpp
+        ${SLICE_DIR}
+        ${slice}
         icegrid
+        IceGrid
         ${GENERATED_ICEGRID_SOURCES_DIR}
     )
 endforeach()
@@ -153,10 +155,6 @@ endif()
 
 set(GENERATED_ICEGRIDADMIN_SOURCES_DIR
     ${PROJECT_BINARY_DIR}/generated/IceGrid
-)
-
-set(ICEGRIDADMIN_SLICES
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
 )
 
 set(GENERATED_ICEGRIDADMIN_HEADERS
@@ -278,14 +276,14 @@ if(WIN32)
     )
 endif()
 
-foreach(slice ${ICEGRIDADMIN_SLICES})
-    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
-    CompileSlice(slice2cpp
-        -I${SLICE_DIR}  ${slice} --include-dir IceGrid
-        icegridadmin
-        ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
-    )
-endforeach()
+#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+CompileSlices(slice2cpp
+    ${SLICE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+    icegridadmin
+    IceGrid
+    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+)
 
 install(TARGETS icegridadmin DESTINATION bin)
 
@@ -456,13 +454,14 @@ if(WIN32)
     )
 endif()
 
-foreach(slice ${ICEGRIDNODE_SLICES})
-    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
-    CompileSlice(slice2cpp
-        -I${SLICE_DIR} ${slice} --include-dir IceGrid
-        icegridnode
-        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
-    )
-endforeach()
+# dependency icelocatordiscovery will compile the needed ice, just compile the internal ice
+#function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+CompileSlices(slice2cpp
+    ${SLICE_DIR}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+    icegridnode
+    IceGrid
+    ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
+)
 
 install(TARGETS icegridnode DESTINATION bin)

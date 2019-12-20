@@ -141,10 +141,12 @@ if(WIN32)
 endif()
 
 foreach(slice ${GLACIER2ROUTER_SLICES})
-    #function(CompileSlice slice2bin slice2bin_params slice_target output_dir)
-    CompileSlice(slice2cpp
-        -I${SLICE_DIR} ${slice} --include-dir Glacier2
+    #function(CompileSlices slice2_bin slice_path ice_file slice_target include_dir output_dir)
+    CompileSlices(slice2cpp
+        ${SLICE_DIR}
+        ${slice}
         glacier2router
+        Glacier2
         ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
     )
 endforeach()
