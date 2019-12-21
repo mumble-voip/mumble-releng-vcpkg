@@ -43,10 +43,6 @@ if(WIN32)
         "wsetargv.obj"
     )
 
-    if(NOT BUILD_SHARED_LIBS)
-        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-    endif()
-
 elseif(APPLE)
 
 # TODO - add ICE_COMPILE_DEFS
