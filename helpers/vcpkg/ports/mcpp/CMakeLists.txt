@@ -71,7 +71,11 @@ elseif(WIN32)
 			"/wd4146"
 			"/wd4244"
 			"/wd4267"
-		)
+        )
+        
+        set_property(TARGET mcpp 
+            PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+        )
 	endif()
 endif()
 install(TARGETS mcpp DESTINATION lib)
