@@ -12,16 +12,16 @@ case "$OSTYPE" in
    * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
 
-if [ ! -d "../vcpkg" ]
+if [ ! -d "~/vcpkg" ]
    then 
-      git clone https://github.com/Microsoft/vcpkg.git ../vcpkg
-      if [ "$(ls -A ../vcpkg)" ] 
+      git clone https://github.com/Microsoft/vcpkg.git ~/vcpkg
+      if [ "$(ls -A ~/vcpkg)" ] 
 	     then
 		    # vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
-            cp -R helpers/vcpkg/ports/* ../vcpkg/ports/
+            cp -R helpers/vcpkg/ports/* ~/vcpkg/ports/
             # copy custom triplet files
-            cp helpers/vcpkg/triplets/* ../vcpkg/triplets/
-            cd ../vcpkg
+            cp helpers/vcpkg/triplets/* ~/vcpkg/triplets/
+            cd ~/vcpkg
             case "$OSTYPE" in
                msys* ) ./bootstrap-vcpkg.bat
 			           ./vcpkg integrate install;;
