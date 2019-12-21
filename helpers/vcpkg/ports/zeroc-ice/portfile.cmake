@@ -15,7 +15,7 @@ file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
 # cpp11 mapping for static win32 builds is currently broken, build as cpp98
 
-if(WIN32 AND VCPKG_LIBRARY_LINKAGE EQUAL "static")
+if(WIN32 AND VCPKG_LIBRARY_LINKAGE STREQUAL static)
     vcpkg_configure_cmake(
         SOURCE_PATH ${SOURCE_PATH}
         OPTIONS
@@ -45,6 +45,10 @@ file(
    DESTINATION 
       ${CURRENT_PACKAGES_DIR}/include
 )
+
+if(VCPKG_LIBRARY_LINKAGE STREQUAL static)
+    file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin ${CURRENT_PACKAGES_DIR}/debug/bin)
+endif()
   
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeroc-ice RENAME copyright)
 file(INSTALL ${SOURCE_PATH}/ICE_LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeroc-ice)
