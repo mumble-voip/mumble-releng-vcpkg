@@ -6,7 +6,7 @@
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
 case "$OSTYPE" in
-   msys* ) triplet='x64-windows-static-md';;
+   msys* ) triplet='x64-windows-lib-md';;
    linux-gnu* ) triplet='x64-linux';;
    darwin* ) triplet='x64-osx';;
    * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
