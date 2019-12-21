@@ -45,6 +45,10 @@ if(WIN32)
         PRIVATE
             ${ICE_WIN32_COMPILE_DEFS}
     )
+
+    set_property(TARGET slice2cpp 
+        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    )
 endif()
 
 target_compile_definitions(slice2cpp 
