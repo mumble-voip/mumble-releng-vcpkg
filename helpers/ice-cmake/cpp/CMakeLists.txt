@@ -39,6 +39,7 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
 find_package(bzip2 1.0 REQUIRED)
 find_package(expat 2.1 REQUIRED)
 find_package(openssl 1.0.0 REQUIRED)
+find_package(EXPAT REQUIRED)
 
 add_subdirectory(src/IceUtil)
 add_subdirectory(src/Slice)
@@ -54,7 +55,6 @@ add_subdirectory(src/IceStormLib)
 
 if(CMAKE_CXX_STANDARD EQUAL 98)
     find_package(lmdb CONFIG REQUIRED)
-    find_package(EXPAT REQUIRED)
     add_subdirectory(src/Glacier2)
     add_subdirectory(src/Glacier2CryptPermissionsVerifier)
     add_subdirectory(src/IceBridge)
