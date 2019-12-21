@@ -5,42 +5,30 @@ vcpkg_from_github(
     REPO zeroc-ice/ice
     REF v3.7.3
     # TODO - update sha512 signature
-    SHA512 01ff41a249b4b240d9168e7c1859b5d304281577110704787f5c05c2c93ae4f4a2e79a87f9b652f3d19b01e21615d5ee80fdcb6b531b21cca6598b79ce27358b
+    SHA512 ef43bb28b4a20dcca5078ca2b0ad81269a435317761fc00b4d4bdf85bcdf4dddbf3b3ee6729477bd0957ea519a3705416883ba404386a05914a2c010cb785e27
     HEAD_REF master
 )
 
-# TODO - modify for cmake that will be copied in.
-if(NOT VCPKG_CMAKE_SYSTEM_NAME)
-    vcpkg_install_msbuild(
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
+file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
+
+# cpp11 mapping for static win32 builds is currently broken, build as cpp98
+
+if(WIN32 AND VCPKG_LIBRARY_LINKAGE EQUAL "static")
+    vcpkg_configure_cmake(
         SOURCE_PATH ${SOURCE_PATH}
-        PROJECT_SUBPATH cpp/msbuild/ice.proj
-        TARGET BuildDist
+        OPTIONS
+            -DCMAKE_CXX_STANDARD=98
     )
 
-elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
-    vcpkg_install_msbuild(
+else()
+    vcpkg_configure_cmake(
         SOURCE_PATH ${SOURCE_PATH}
-        PROJECT_SUBPATH cpp/msbuild/ice.proj
-        TARGET UWPBuildDist
     )
-   
-elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Linux")
-    message(STATUS "Building ${TARGET_TRIPLET}...")
-    vcpkg_execute_required_process(
-        COMMAND "make CONFIGS=cpp11-static -j8"
-        WORKING_DIRECTORY ${SOURCE_PATH}
-    )
-    message(STATUS "Building ${TARGET_TRIPLET} done")
-   
-elseif(VCPKG_CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    message(STATUS "Building ${TARGET_TRIPLET}...")
-    vcpkg_execute_required_process(
-        COMMAND "make CONFIGS=cpp11-xcodesdk -j8 srcs"
-        WORKING_DIRECTORY ${SOURCE_PATH}
-    )
-    message(STATUS "Building ${TARGET_TRIPLET} done")
 endif()
 
+vcpkg_install_cmake()
 
 file(
    INSTALL 
@@ -57,14 +45,6 @@ file(
    DESTINATION 
       ${CURRENT_PACKAGES_DIR}/include
 )
-if(NOT VCPKG_CMAKE_SYSTEM_NAME OR VCPKG_CMAKE_SYSTEM_NAME STREQUAL "WindowsStore")
-   if(VCPKG_LIBRARY_LINKAGE STREQUAL static)
-      file(
-	     REMOVE_RECURSE
-		    ${CURRENT_PACKAGES_DIR}/bin
-			${CURRENT_PACKAGES_DIR}/debug/bin
-	   )
-   endif()
-endif()   
+  
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeroc-ice RENAME copyright)
 file(INSTALL ${SOURCE_PATH}/ICE_LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeroc-ice)
