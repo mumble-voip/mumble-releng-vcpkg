@@ -1,4 +1,4 @@
 Source: zeroc-ice
 Version: 3.7.2
 Description: Comprehensive RPC framework with support for C++, C#, Java, JavaScript, Python and more. https://zeroc.com
-Build-Depends: bzip2, expat, zeroc-mcpp, openssl
+Build-Depends: bzip2, expat, mcpp, openssl lmdb
