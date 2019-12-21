@@ -50,11 +50,15 @@ if(WIN32)
         PRIVATE 
             "/wd4250"
             ${ICE_WIN32_COMPILE_OPTIONS}
-   )
+    )
 
     target_compile_definitions(slice
         PRIVATE
             ${ICE_WIN32_COMPILE_DEFS}
+    )
+
+    set_property(TARGET slice 
+        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
     )
 endif()
 
