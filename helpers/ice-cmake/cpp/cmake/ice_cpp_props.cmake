@@ -43,9 +43,6 @@ if(WIN32)
         "wsetargv.obj"
     )
 
-    set(rc_flags " /l 0x0409")
-    set(CMAKE_RC_FLAGS ${rc_flags})
-
     if(NOT BUILD_SHARED_LIBS)
         set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
     endif()
