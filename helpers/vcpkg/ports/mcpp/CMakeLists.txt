@@ -25,13 +25,13 @@ target_sources(mcpp PUBLIC
 	"${CMAKE_CURRENT_SOURCE_DIR}/mcpp_out.h"
 )
 
-set_property(
-	TARGET mcpp
-	PROPERTY PUBLIC_HEADER "mcpp_lib.h" "mcpp_out.h"
-)
-
 if(UNIX)
-	include(GNUInstallDirs)
+    include(GNUInstallDirs)
+    
+    set_property(
+        TARGET mcpp
+        PROPERTY PUBLIC_HEADER "mcpp_lib.h" "mcpp_out.h"
+    )
 
 	target_compile_options(mcpp PRIVATE "-O2")
 
