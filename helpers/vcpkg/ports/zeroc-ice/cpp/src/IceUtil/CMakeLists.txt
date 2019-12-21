@@ -40,12 +40,16 @@ if(WIN32)
     target_compile_options(iceutil 
         PRIVATE
             ${ICE_WIN32_COMPILE_OPTIONS}
-   )
+    )
 
     target_compile_definitions(iceutil
         PRIVATE
             ${ICE_WIN32_COMPILE_DEFS}
-   )
+    )
+
+    set_property(TARGET iceutil 
+        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    )
 endif()
 
 target_compile_definitions(iceutil 
