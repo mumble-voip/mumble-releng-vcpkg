@@ -6,7 +6,7 @@
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
 case "$OSTYPE" in
-   msys* ) triplet='x64-windows-static';;
+   msys* ) triplet='x64-windows-static-md';;
    linux-gnu* ) triplet='x64-linux';;
    darwin* ) triplet='x64-osx';;
    * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
@@ -19,6 +19,8 @@ if [ ! -d "../vcpkg" ]
 	     then
 		    # vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
             cp -R helpers/vcpkg/ports/* ../vcpkg/ports/
+            # copy custom triplet files
+            cp helpers/vcpkg/triplets/* ../vcpkg/triplets/
             cd ../vcpkg
             case "$OSTYPE" in
                msys* ) ./bootstrap-vcpkg.bat
@@ -31,7 +33,7 @@ if [ ! -d "../vcpkg" ]
 			else
                ./vcpkg install qt5-base qt5-svg grpc boost-atomic boost-function \
 			      boost-optional opus speex libvorbis libogg libflac libsndfile \
-				  libmariadb --triplet $triplet
+				  libmariadb zeroc-ice --triplet $triplet
 			fi
       else
          echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
