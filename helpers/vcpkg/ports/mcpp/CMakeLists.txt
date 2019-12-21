@@ -4,6 +4,13 @@ if(APPLE)
 	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.9" CACHE STRING "Minimum macOS deployment version")
 endif()
 
+if(WIN32)
+    # handle debug lib naming based on shipped project naming
+    if(NOT CMAKE_DEBUG_POSTFIX)
+        set(CMAKE_DEBUG_POSTFIX d)
+    endif()
+endif()
+
 project(mcpp VERSION 2.7.2.14)
 
 add_library(mcpp STATIC
