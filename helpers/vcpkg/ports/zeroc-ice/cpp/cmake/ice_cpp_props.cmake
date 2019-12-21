@@ -13,7 +13,7 @@ if(NOT BUILD_SHARED_LIBS)
 
     # Win32 will not statically build icebox properly in C++11
     if(CMAKE_CXX_STANDARD EQUAL 11 AND NOT WIN32)
-        set(ICE_COMPILE_DEFS "${ICE_CPP11_COMPILE_DEFS}" "ICE_STATIC_LIBS")
+       
     endif()
 endif()
 
