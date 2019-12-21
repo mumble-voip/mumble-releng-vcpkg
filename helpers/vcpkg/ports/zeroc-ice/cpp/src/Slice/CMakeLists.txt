@@ -57,9 +57,6 @@ if(WIN32)
             ${ICE_WIN32_COMPILE_DEFS}
     )
 
-    set_property(TARGET slice 
-        PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
-    )
 endif()
 
 if(BUILD_SHARED_LIBS)
