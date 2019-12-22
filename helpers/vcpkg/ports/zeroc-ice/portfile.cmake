@@ -25,6 +25,8 @@ if(WIN32 AND VCPKG_LIBRARY_LINKAGE STREQUAL static)
 else()
     vcpkg_configure_cmake(
         SOURCE_PATH ${SOURCE_PATH}
+        OPTIONS
+            -DCMAKE_CXX_STANDARD=11
     )
 endif()
 
