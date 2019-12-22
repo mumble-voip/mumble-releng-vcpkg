@@ -410,16 +410,12 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
             EXPAT::EXPAT
     )
 
-    # lmdb not needed for c++11
-    # https://github.com/zeroc-ice/ice/tree/3.7/cpp#third-party-libraries
-    if(CMAKE_CXX_STANDARD EQUAL 98)
-        find_library(LMDB_LIB lmdb)
-        
-        target_link_libraries(icegridnode
-            PRIVATE
-                ${LMDB_LIB}
-        )
-    endif()
+    find_library(LMDB_LIB lmdb)
+    
+    target_link_libraries(icegridnode
+        PRIVATE
+            ${LMDB_LIB}
+    )
 
     if(WIN32)
         source_group(
