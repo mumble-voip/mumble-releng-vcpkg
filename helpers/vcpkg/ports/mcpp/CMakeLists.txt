@@ -62,6 +62,10 @@ if(UNIX)
 		RENAME "copyright"
 	)
 elseif(WIN32)
+
+    # define character set - not set, per shipped project files
+    add_definitions(-D_SBCS)
+    
 	target_compile_definitions(mcpp PRIVATE
 		"_WIN32_WINNT=0x600"
 		"WIN32_LEAN_AND_MEAN"
