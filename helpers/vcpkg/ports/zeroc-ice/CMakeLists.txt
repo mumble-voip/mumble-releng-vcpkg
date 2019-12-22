@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 3.16.0)
 
-if(WIN32)
-    # handle debug lib naming based on shipped project naming
-    if(NOT CMAKE_DEBUG_POSTFIX)
-        set(CMAKE_DEBUG_POSTFIX d)
-    endif()
+# handle debug lib naming based on shipped project naming
+if(NOT CMAKE_DEBUG_POSTFIX)
+    set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
 project(zeroc-ice)
