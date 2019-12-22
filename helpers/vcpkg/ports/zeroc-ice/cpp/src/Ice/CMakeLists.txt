@@ -369,6 +369,13 @@ target_link_libraries(ice
         iceutil
 )
 
+if(CMAKE_CXX_STANDARD EQUAL 11)
+    target_link_libraries(ice
+        PUBLIC
+            ${BZIP2_LIBRARIES}
+    )
+endif()
+
 target_compile_definitions(ice 
     PRIVATE 
         ${ICE_COMPILE_DEFS}
