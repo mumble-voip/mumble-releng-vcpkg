@@ -214,7 +214,6 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         PRIVATE
             iceboxlib
             ice
-            iceutil
             ${BZIP2_LIBRARIES}
     )
 
