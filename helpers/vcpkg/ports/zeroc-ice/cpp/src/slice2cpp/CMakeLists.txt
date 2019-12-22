@@ -48,14 +48,10 @@ if(WIN32)
 
 endif()
 
-if(BUILD_SHARED_LIBS)
-    set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
-endif()
-
 target_compile_definitions(slice2cpp 
     PRIVATE 
         "ICE_BUILDING_SLICE_COMPILERS"
-        ${ICE_COMPILE_DEFS}
+        ${STATIC_ICE_COMPILE_DEFS}
 )
 
 target_link_libraries(slice2cpp 
