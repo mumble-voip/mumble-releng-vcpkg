@@ -49,10 +49,6 @@ if(WIN32)
 
 endif()
 
-if(BUILD_SHARED_LIBS)
-    set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
-endif()
-
 target_compile_definitions(iceutil 
     PRIVATE
         "ICE_BUILDING_SLICE_COMPILERS"
