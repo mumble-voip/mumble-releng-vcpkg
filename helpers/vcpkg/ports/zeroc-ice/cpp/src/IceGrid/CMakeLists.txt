@@ -152,348 +152,351 @@ endif()
 
 install(TARGETS icegrid DESTINATION lib)
 
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGrid)
-endif()
+if(CMAKE_CXX_STANDARD EQUAL 98)
+    if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
+        file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGrid)
+    endif()
 
-set(GENERATED_ICEGRIDADMIN_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceGrid
-)
+    set(GENERATED_ICEGRIDADMIN_SOURCES_DIR
+        ${PROJECT_BINARY_DIR}/generated/IceGrid
+    )
 
-set(ICEGRIDADMIN_SLICES
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-)
+    set(ICEGRIDADMIN_SLICES
+        ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+    )
 
-set(GENERATED_ICEGRIDADMIN_HEADERS
-    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}/Internal.h
-)
+    set(GENERATED_ICEGRIDADMIN_HEADERS
+        ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}/Internal.h
+    )
 
-set(GENERATED_ICEGRIDADMIN_SOURCES
-    ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}/Internal.cpp
-)
+    set(GENERATED_ICEGRIDADMIN_SOURCES
+        ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}/Internal.cpp
+    )
 
-set_source_files_properties(
-    ${GENERATED_ICEGRIDADMIN_HEADERS}
-    ${GENERATED_ICEGRIDADMIN_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
-)
-
-add_executable(icegridadmin)
-
-add_dependencies(icegridadmin icebox)
-
-target_sources(icegridadmin
-    PRIVATE
-        Client.cpp
-        DescriptorBuilder.cpp
-        DescriptorHelper.cpp
-        DescriptorParser.cpp
-        FileParserI.cpp
-        Grammar.cpp
-        Parser.cpp
-        Scanner.cpp
-        Util.cpp
+    set_source_files_properties(
         ${GENERATED_ICEGRIDADMIN_HEADERS}
         ${GENERATED_ICEGRIDADMIN_SOURCES}
-)
-
-target_include_directories(icegridadmin
-    PRIVATE
-        ${PROJECT_BINARY_DIR}/generated
-        ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src
-)
-
-target_compile_definitions(icegridadmin
-    PRIVATE
-        ${ICE_COMPILE_DEFS}
-)
-
-target_link_libraries(icegridadmin
-    PRIVATE
-        icegrid
-        icelocatordiscovery
-        icepatch2
-        icexml
-        iceboxlib
-        ice
-        glacier2
-        ${BZIP2_LIBRARIES}
-        EXPAT::EXPAT
-)
-
-if(WIN32)
-    source_group(
-        TREE ${CMAKE_CURRENT_SOURCE_DIR}
-        PREFIX "Resource Files"
-        FILES
-            IceGridAdmin.rc
+        PROPERTIES
+            GENERATED TRUE
     )
 
-    source_group(
-        TREE ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
-        PREFIX "Header Files/Generated"
-        FILES
-            ${GENERATED_ICEGRIDADMIN_HEADERS}
-    )
+    add_executable(icegridadmin)
 
-    source_group(
-        TREE ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
-        PREFIX "Source Files/Generated"
-        FILES
-            ${GENERATED_ICEGRIDADMIN_SOURCES}
-    )
-
-    source_group(
-        TREE ${CMAKE_CURRENT_SOURCE_DIR}
-        PREFIX "Slice Files"
-        FILES 
-            Internal.ice
-    )
+    add_dependencies(icegridadmin icebox)
 
     target_sources(icegridadmin
         PRIVATE
-            IceGridAdmin.rc
+            Client.cpp
+            DescriptorBuilder.cpp
+            DescriptorHelper.cpp
+            DescriptorParser.cpp
+            FileParserI.cpp
+            Grammar.cpp
+            Parser.cpp
+            Scanner.cpp
+            Util.cpp
+            ${GENERATED_ICEGRIDADMIN_HEADERS}
+            ${GENERATED_ICEGRIDADMIN_SOURCES}
     )
 
-    target_compile_options(icegridadmin
+    target_include_directories(icegridadmin
         PRIVATE
-            ${ICE_WIN32_COMPILE_OPTIONS}
+            ${PROJECT_BINARY_DIR}/generated
+            ${PROJECT_SOURCE_DIR}/cpp/include
+            ${PROJECT_SOURCE_DIR}/cpp/src
     )
 
     target_compile_definitions(icegridadmin
         PRIVATE
-            ${ICE_WIN32_COMPILE_DEFS}
-    )
-
-    target_link_options(icegridadmin
-        PRIVATE
-            ${ICE_WIN32_LINK_OPTIONS}
+            ${ICE_COMPILE_DEFS}
     )
 
     target_link_libraries(icegridadmin
         PRIVATE
-            advapi32.lib
-            ws2_32.lib
-            Iphlpapi.lib
-            rpcrt4.lib
-            DbgHelp.lib
-            Shlwapi.lib
+            icegrid
+            icelocatordiscovery
+            icepatch2
+            icexml
+            iceboxlib
+            ice
+            glacier2
+            ${BZIP2_LIBRARIES}
+            EXPAT::EXPAT
     )
-endif()
 
-list(APPEND ICEGRIDADMIN_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND ICEGRIDADMIN_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceGrid")
+    if(WIN32)
+        source_group(
+            TREE ${CMAKE_CURRENT_SOURCE_DIR}
+            PREFIX "Resource Files"
+            FILES
+                IceGridAdmin.rc
+        )
 
-foreach(slice ${ICEGRIDADMIN_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
-    CompileSlice(slice2cpp
-        "${ICEGRIDADMIN_SLICE_DIRS}"
-        "${ICEGRIDADMIN_SLICE_PARAMS}"
-        ${slice}
-        icegridadmin
-        ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+        source_group(
+            TREE ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+            PREFIX "Header Files/Generated"
+            FILES
+                ${GENERATED_ICEGRIDADMIN_HEADERS}
+        )
+
+        source_group(
+            TREE ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+            PREFIX "Source Files/Generated"
+            FILES
+                ${GENERATED_ICEGRIDADMIN_SOURCES}
+        )
+
+        source_group(
+            TREE ${CMAKE_CURRENT_SOURCE_DIR}
+            PREFIX "Slice Files"
+            FILES 
+                Internal.ice
+        )
+
+        target_sources(icegridadmin
+            PRIVATE
+                IceGridAdmin.rc
+        )
+
+        target_compile_options(icegridadmin
+            PRIVATE
+                ${ICE_WIN32_COMPILE_OPTIONS}
+        )
+
+        target_compile_definitions(icegridadmin
+            PRIVATE
+                ${ICE_WIN32_COMPILE_DEFS}
+        )
+
+        target_link_options(icegridadmin
+            PRIVATE
+                ${ICE_WIN32_LINK_OPTIONS}
+        )
+
+        target_link_libraries(icegridadmin
+            PRIVATE
+                advapi32.lib
+                ws2_32.lib
+                Iphlpapi.lib
+                rpcrt4.lib
+                DbgHelp.lib
+                Shlwapi.lib
+        )
+    endif()
+
+    list(APPEND ICEGRIDADMIN_SLICE_DIRS "-I${SLICE_DIR}")
+    list(APPEND ICEGRIDADMIN_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceGrid")
+
+    foreach(slice ${ICEGRIDADMIN_SLICES})
+        #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+        CompileSlice(slice2cpp
+            "${ICEGRIDADMIN_SLICE_DIRS}"
+            "${ICEGRIDADMIN_SLICE_PARAMS}"
+            ${slice}
+            icegridadmin
+            ${GENERATED_ICEGRIDADMIN_SOURCES_DIR}
+        )
+    endforeach()
+
+    install(TARGETS icegridadmin DESTINATION bin)
+
+    if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
+        file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGrid)
+    endif()
+
+    set(GENERATED_ICEGRIDNODE_SOURCES_DIR
+        ${PROJECT_BINARY_DIR}/generated/IceGrid
     )
-endforeach()
 
-install(TARGETS icegridadmin DESTINATION bin)
+    set(ICEGRIDNODE_SLICES
+        ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
+        ${SLICE_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.ice
+    )
 
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGrid)
-endif()
+    set(GENERATED_ICEGRIDNODE_HEADERS
+        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/IceLocatorDiscovery.h
+        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/Internal.h
+    )
 
-set(GENERATED_ICEGRIDNODE_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceGrid
-)
+    set(GENERATED_ICEGRIDNODE_SOURCES
+        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/IceLocatorDiscovery.cpp
+        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/Internal.cpp
+    )
 
-set(ICEGRIDNODE_SLICES
-    ${CMAKE_CURRENT_SOURCE_DIR}/Internal.ice
-    ${SLICE_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.ice
-)
-
-set(GENERATED_ICEGRIDNODE_HEADERS
-    ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/IceLocatorDiscovery.h
-    ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/Internal.h
-)
-
-set(GENERATED_ICEGRIDNODE_SOURCES
-    ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/IceLocatorDiscovery.cpp
-    ${GENERATED_ICEGRIDNODE_SOURCES_DIR}/Internal.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICEGRIDNODE_HEADERS}
-    ${GENERATED_ICEGRIDNODE_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
-)
-
-add_executable(icegridnode)
-
-target_sources(icegridnode
-    PRIVATE
-        Activator.cpp
-        AdapterCache.cpp
-        AdminCallbackRouter.cpp
-        AdminI.cpp
-        AdminRouter.cpp
-        AdminSessionI.cpp
-        Allocatable.cpp
-        AllocatableObjectCache.cpp
-        Database.cpp
-        DescriptorBuilder.cpp
-        DescriptorHelper.cpp
-        DescriptorParser.cpp
-        FileCache.cpp
-        FileUserAccountMapperI.cpp
-        IceGridNode.cpp
-        InternalRegistryI.cpp
-        LocatorI.cpp
-        LocatorRegistryI.cpp
-        NodeAdminRouter.cpp
-        NodeCache.cpp
-        NodeI.cpp
-        NodeSessionI.cpp
-        NodeSessionManager.cpp
-        ObjectCache.cpp
-        PlatformInfo.cpp
-        PluginFacadeI.cpp
-        QueryI.cpp
-        ReapThread.cpp
-        RegistryAdminRouter.cpp
-        RegistryI.cpp
-        ReplicaCache.cpp
-        ReplicaSessionI.cpp
-        ReplicaSessionManager.cpp
-        ServerAdapterI.cpp
-        ServerCache.cpp
-        ServerI.cpp
-        SessionI.cpp
-        SessionManager.cpp
-        SessionServantManager.cpp
-        Topics.cpp
-        TraceLevels.cpp
-        Util.cpp
-        WellKnownObjectsManager.cpp
+    set_source_files_properties(
         ${GENERATED_ICEGRIDNODE_HEADERS}
         ${GENERATED_ICEGRIDNODE_SOURCES}
-        ${ICEGRIDNODE_SLICES}
-)
-
-target_include_directories(icegridnode
-    PRIVATE
-        ${PROJECT_BINARY_DIR}/generated
-        ${PROJECT_SOURCE_DIR}/cpp/include
-        ${PROJECT_SOURCE_DIR}/cpp/src
-)
-
-target_compile_definitions(icegridnode
-    PRIVATE
-        ${ICE_COMPILE_DEFS}
-)
-
-target_link_libraries(icegridnode
-    PRIVATE
-        iceutil
-        glacier2
-        ice
-        iceboxlib
-        icedb
-        icegrid
-        icepatch2
-        icessl
-        icestormservice
-        icexml
-        ${BZIP2_LIBRARIES}
-        EXPAT::EXPAT
-)
-
-# lmdb not needed for c++11
-# https://github.com/zeroc-ice/ice/tree/3.7/cpp#third-party-libraries
-if(CMAKE_CXX_STANDARD EQUAL 98)
-    find_library(LMDB_LIB lmdb)
-    
-    target_link_libraries(icegridnode
-        PRIVATE
-            ${LMDB_LIB}
-    )
-endif()
-
-if(WIN32)
-    source_group(
-        TREE ${CMAKE_CURRENT_SOURCE_DIR}
-        PREFIX "Resource Files"
-        FILES
-            IceGridNode.rc
+        PROPERTIES
+            GENERATED TRUE
     )
 
-    source_group(
-        TREE ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
-        PREFIX "Header Files/Generated"
-        FILES
-            ${GENERATED_ICEGRIDNODE_HEADERS}
-    )
-
-    source_group(
-        TREE ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
-        PREFIX "Source Files/Generated"
-        FILES
-            ${GENERATED_ICEGRIDNODE_SOURCES}
-    )
-
-    source_group("Slice Files"
-        FILES 
-            ${ICEGRIDNODE_SLICES}
-    )
+    add_executable(icegridnode)
 
     target_sources(icegridnode
         PRIVATE
-            IceGridNode.rc
+            Activator.cpp
+            AdapterCache.cpp
+            AdminCallbackRouter.cpp
+            AdminI.cpp
+            AdminRouter.cpp
+            AdminSessionI.cpp
+            Allocatable.cpp
+            AllocatableObjectCache.cpp
+            Database.cpp
+            DescriptorBuilder.cpp
+            DescriptorHelper.cpp
+            DescriptorParser.cpp
+            FileCache.cpp
+            FileUserAccountMapperI.cpp
+            IceGridNode.cpp
+            InternalRegistryI.cpp
+            LocatorI.cpp
+            LocatorRegistryI.cpp
+            NodeAdminRouter.cpp
+            NodeCache.cpp
+            NodeI.cpp
+            NodeSessionI.cpp
+            NodeSessionManager.cpp
+            ObjectCache.cpp
+            PlatformInfo.cpp
+            PluginFacadeI.cpp
+            QueryI.cpp
+            ReapThread.cpp
+            RegistryAdminRouter.cpp
+            RegistryI.cpp
+            ReplicaCache.cpp
+            ReplicaSessionI.cpp
+            ReplicaSessionManager.cpp
+            ServerAdapterI.cpp
+            ServerCache.cpp
+            ServerI.cpp
+            SessionI.cpp
+            SessionManager.cpp
+            SessionServantManager.cpp
+            Topics.cpp
+            TraceLevels.cpp
+            Util.cpp
+            WellKnownObjectsManager.cpp
+            ${GENERATED_ICEGRIDNODE_HEADERS}
+            ${GENERATED_ICEGRIDNODE_SOURCES}
+            ${ICEGRIDNODE_SLICES}
     )
 
-    target_compile_options(icegridnode
+    target_include_directories(icegridnode
         PRIVATE
-            ${ICE_WIN32_COMPILE_OPTIONS}
+            ${PROJECT_BINARY_DIR}/generated
+            ${PROJECT_SOURCE_DIR}/cpp/include
+            ${PROJECT_SOURCE_DIR}/cpp/src
     )
 
     target_compile_definitions(icegridnode
         PRIVATE
-            ${ICE_WIN32_COMPILE_DEFS}
-    )
-
-    target_link_options(icegridnode
-        PRIVATE
-            ${ICE_WIN32_LINK_OPTIONS}
+            ${ICE_COMPILE_DEFS}
     )
 
     target_link_libraries(icegridnode
         PRIVATE
-            advapi32.lib
-            crypt32.lib
-            ws2_32.lib
-            Iphlpapi.lib
-            rpcrt4.lib
-            DbgHelp.lib
-            pdh.lib
-            secur32.lib
-            Shlwapi.lib
-            version.lib
+            iceutil
+            glacier2
+            ice
+            iceboxlib
+            icedb
+            icegrid
+            icepatch2
+            icessl
+            icestormservice
+            icexml
+            ${BZIP2_LIBRARIES}
+            EXPAT::EXPAT
     )
+
+    # lmdb not needed for c++11
+    # https://github.com/zeroc-ice/ice/tree/3.7/cpp#third-party-libraries
+    if(CMAKE_CXX_STANDARD EQUAL 98)
+        find_library(LMDB_LIB lmdb)
+        
+        target_link_libraries(icegridnode
+            PRIVATE
+                ${LMDB_LIB}
+        )
+    endif()
+
+    if(WIN32)
+        source_group(
+            TREE ${CMAKE_CURRENT_SOURCE_DIR}
+            PREFIX "Resource Files"
+            FILES
+                IceGridNode.rc
+        )
+
+        source_group(
+            TREE ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
+            PREFIX "Header Files/Generated"
+            FILES
+                ${GENERATED_ICEGRIDNODE_HEADERS}
+        )
+
+        source_group(
+            TREE ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
+            PREFIX "Source Files/Generated"
+            FILES
+                ${GENERATED_ICEGRIDNODE_SOURCES}
+        )
+
+        source_group("Slice Files"
+            FILES 
+                ${ICEGRIDNODE_SLICES}
+        )
+
+        target_sources(icegridnode
+            PRIVATE
+                IceGridNode.rc
+        )
+
+        target_compile_options(icegridnode
+            PRIVATE
+                ${ICE_WIN32_COMPILE_OPTIONS}
+        )
+
+        target_compile_definitions(icegridnode
+            PRIVATE
+                ${ICE_WIN32_COMPILE_DEFS}
+        )
+
+        target_link_options(icegridnode
+            PRIVATE
+                ${ICE_WIN32_LINK_OPTIONS}
+        )
+
+        target_link_libraries(icegridnode
+            PRIVATE
+                advapi32.lib
+                crypt32.lib
+                ws2_32.lib
+                Iphlpapi.lib
+                rpcrt4.lib
+                DbgHelp.lib
+                pdh.lib
+                secur32.lib
+                Shlwapi.lib
+                version.lib
+        )
+    endif()
+
+    list(APPEND ICEGRIDNODE_SLICE_DIRS "-I${SLICE_DIR}")
+    list(APPEND ICEGRIDNODE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceGrid")
+
+    foreach(slice ${ICEGRIDNODE_SLICES})
+        #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+        CompileSlice(slice2cpp
+            "${ICEGRIDNODE_SLICE_DIRS}"
+            "${ICEGRIDNODE_SLICE_PARAMS}"
+            ${slice}
+            icegridnode
+            ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
+        )
+    endforeach()
+
+    install(TARGETS icegridnode DESTINATION bin)
+
 endif()
-
-list(APPEND ICEGRIDNODE_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND ICEGRIDNODE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceGrid")
-
-foreach(slice ${ICEGRIDNODE_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
-    CompileSlice(slice2cpp
-        "${ICEGRIDNODE_SLICE_DIRS}"
-        "${ICEGRIDNODE_SLICE_PARAMS}"
-        ${slice}
-        icegridnode
-        ${GENERATED_ICEGRIDNODE_SOURCES_DIR}
-    )
-endforeach()
-
-install(TARGETS icegridnode DESTINATION bin)
