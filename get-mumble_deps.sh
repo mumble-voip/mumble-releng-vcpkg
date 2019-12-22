@@ -31,9 +31,9 @@ if [ ! -d "~/vcpkg" ]
 			   then
 			      echo "Triplet type is not defined! Aborting..."
 			else
-               ./vcpkg install qt5-base qt5-svg grpc boost-atomic boost-function \
-			      boost-optional opus speex libvorbis libogg libflac libsndfile \
-				  libmariadb zeroc-ice --triplet $triplet
+               ./vcpkg install qt5-base qt5-svg qt5-tools grpc boost-atomic \
+                  boost-function boost-optional boost-system boost-thread libvorbis \
+                  libogg libflac libsndfile libmariadb zeroc-ice --triplet $triplet
 			fi
       else
          echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
