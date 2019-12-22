@@ -11,13 +11,13 @@ endif()
 if(NOT BUILD_SHARED_LIBS)
     set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
 
-    # Win32 will not statically build icebox properly in C++11
-    if(CMAKE_CXX_STANDARD EQUAL 11 AND NOT WIN32)
-       
+    # Win32 will not statically build icebox properly in C++11 with /MT
+    if(CMAKE_CXX_STANDARD EQUAL 11 AND WIN32)
+        set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
     endif()
 endif()
 
-list(APPEND COMPILE_SLICES_CPP_PARAMETERS "--checksum" "--include-dir")
+list(APPEND COMPILE_SLICES_CPP_PARAMETERS "--include-dir")
 
 if(WIN32)
     set(ICE_WIN32_COMPILE_DEFS
