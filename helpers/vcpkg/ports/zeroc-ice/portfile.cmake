@@ -30,10 +30,12 @@ else()
     )
 endif()
 
-vcpkg_build_cmake()
+vcpkg_install_cmake()
 
 file(INSTALL ${SOURCE_PATH}/cpp/include DESTINATION ${CURRENT_PACKAGES_DIR})
 file(INSTALL ${SOURCE_PATH}/slice DESTINATION ${CURRENT_PACKAGES_DIR})
+
+file(INSTALL ${CURRENT_PACKAGES_DIR}/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tools/ice)
 
 vcpkg_copy_tool_dependencies(${CURRENT_PACKAGES_DIR}/tools/ice)
 
