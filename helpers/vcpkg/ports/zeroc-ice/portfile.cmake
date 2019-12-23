@@ -30,23 +30,12 @@ else()
     )
 endif()
 
-vcpkg_install_cmake()
+vcpkg_build_cmake()
 
-file(
-   INSTALL 
-      ${SOURCE_PATH}/cpp/include/Glacier2
-      ${SOURCE_PATH}/cpp/include/Ice
-	  ${SOURCE_PATH}/cpp/include/IceBox
-	  ${SOURCE_PATH}/cpp/include/IceBT
-	  ${SOURCE_PATH}/cpp/include/IceGrid
-	  ${SOURCE_PATH}/cpp/include/IceIAP
-	  ${SOURCE_PATH}/cpp/include/IcePatch2
-	  ${SOURCE_PATH}/cpp/include/IceSSL
-	  ${SOURCE_PATH}/cpp/include/IceStorm
-	  ${SOURCE_PATH}/cpp/include/IceUtil
-   DESTINATION 
-      ${CURRENT_PACKAGES_DIR}/include
-)
+file(INSTALL ${SOURCE_PATH}/cpp/include DESTINATION ${CURRENT_PACKAGES_DIR})
+file(INSTALL ${SOURCE_PATH}/slice DESTINATION ${CURRENT_PACKAGES_DIR})
+
+vcpkg_copy_tool_dependencies(${CURRENT_PACKAGES_DIR}/tools/ice)
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL static)
     file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin ${CURRENT_PACKAGES_DIR}/debug/bin)
