@@ -15,6 +15,13 @@ target_include_directories(slice2cpp
         ${PROJECT_SOURCE_DIR}/cpp/src
 )
 
+target_link_libraries(slice2cpp 
+    PRIVATE
+        ${MCPP_LIB}
+        slice
+        iceutil   
+)
+
 if(WIN32)
     source_group(
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -52,13 +59,6 @@ target_compile_definitions(slice2cpp
     PRIVATE 
         "ICE_BUILDING_SLICE_COMPILERS"
         ${STATIC_ICE_COMPILE_DEFS}
-)
-
-target_link_libraries(slice2cpp 
-    PRIVATE
-        ${MCPP_LIB}
-        slice
-        iceutil   
 )
 
 install(TARGETS slice2cpp DESTINATION bin)
