@@ -27,8 +27,6 @@ set_source_files_properties(
 
 add_library(iceboxlib)
 
-add_dependencies(iceboxlib ice)
-
 target_sources(iceboxlib
     PRIVATE
         Exception.cpp
@@ -48,6 +46,11 @@ target_compile_definitions(iceboxlib
     PRIVATE 
         ${ICE_COMPILE_DEFS}
         "ICEBOX_API_EXPORTS"
+)
+
+target_link_libraries(iceboxlib
+    PRIVATE
+        ice
 )
 
 if(WIN32)
