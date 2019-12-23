@@ -409,12 +409,10 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
             ${BZIP2_LIBRARIES}
             EXPAT::EXPAT
     )
-
-    find_library(LMDB_LIB lmdb)
     
     target_link_libraries(icegridnode
         PRIVATE
-            ${LMDB_LIB}
+            lmdb
     )
 
     if(WIN32)

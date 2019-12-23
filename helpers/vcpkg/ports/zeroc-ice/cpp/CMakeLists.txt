@@ -38,8 +38,15 @@ ${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
 
 find_package(bzip2 1.0 REQUIRED)
 find_package(expat 2.1 REQUIRED)
-find_package(OpenSSL REQUIRED)
 find_package(EXPAT REQUIRED)
+
+if(CMAKE_CXX_STANDARD EQUAL 98)
+    find_package(lmdb CONFIG REQUIRED)
+endif()
+
+if(CMAKE_CXX_STANDARD EQUAL 11)
+    find_package(OpenSSL REQUIRED)
+endif()
 
 add_subdirectory(src/IceUtil)
 add_subdirectory(src/Slice)
