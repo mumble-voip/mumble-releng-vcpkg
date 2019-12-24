@@ -24,7 +24,9 @@ if [ ! -d "~/vcpkg" ]
             cd ~/vcpkg
             case "$OSTYPE" in
                 msys* ) ./bootstrap-vcpkg.bat -disableMetrics
-                        ./vcpkg integrate install;;
+                        ./vcpkg integrate install
+                        # install dns-sd provider
+                        ./vcpkg install mdnsresponder:$triplet;;
                 * ) bash bootstrap-vcpkg.sh;;
             esac
             if [ -z "$triplet" ]
