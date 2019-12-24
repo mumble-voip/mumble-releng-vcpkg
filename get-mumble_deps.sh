@@ -23,7 +23,7 @@ if [ ! -d "~/vcpkg" ]
             cp helpers/vcpkg/triplets/* ~/vcpkg/triplets/
             cd ~/vcpkg
             case "$OSTYPE" in
-                msys* ) ./bootstrap-vcpkg.bat
+                msys* ) ./bootstrap-vcpkg.bat -disableMetrics
                         ./vcpkg integrate install;;
                 * ) bash bootstrap-vcpkg.sh;;
             esac
