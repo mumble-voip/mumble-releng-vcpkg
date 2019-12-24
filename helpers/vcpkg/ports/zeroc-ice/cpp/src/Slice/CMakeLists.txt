@@ -1,7 +1,5 @@
 add_library(slice STATIC)
 
-add_dependencies(slice iceutil)
-
 target_sources(slice
     PRIVATE
         Checksum.cpp
@@ -43,6 +41,11 @@ target_include_directories(slice
     PRIVATE 
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
+)
+
+target_link_libraries(slice
+    PRIVATE
+        iceutil
 )
 
 if(WIN32)
