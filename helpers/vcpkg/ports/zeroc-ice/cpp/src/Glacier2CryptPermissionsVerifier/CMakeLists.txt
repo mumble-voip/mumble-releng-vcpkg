@@ -1,7 +1,5 @@
 add_library(glacier2cryptpermissionsverifier)
 
-add_dependencies(glacier2cryptpermissionsverifier glacier2 ice)
-
 target_sources(glacier2cryptpermissionsverifier
     PRIVATE
         CryptPermissionsVerifierI.cpp
@@ -18,6 +16,12 @@ target_compile_definitions(glacier2cryptpermissionsverifier
     PRIVATE
         ${ICE_COMPILE_DEFS}
         "CRYPT_PERMISSIONS_VERIFIER_API_EXPORTS"
+)
+
+target_link_libraries(glacier2cryptpermissionsverifier
+    PRIVATE
+        ice
+        glacier2
 )
 
 if(WIN32)
