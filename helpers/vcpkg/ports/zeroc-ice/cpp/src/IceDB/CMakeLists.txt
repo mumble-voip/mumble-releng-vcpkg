@@ -1,7 +1,5 @@
 add_library(icedb)
 
-add_dependencies(icedb ice)
-
 target_sources(icedb
     PRIVATE
         IceDB.cpp
@@ -20,6 +18,11 @@ target_compile_definitions(icedb
     PRIVATE 
         ${ICE_COMPILE_DEFS}
         "ICE_DB_API_EXPORTS"
+)
+
+target_link_libraries(icedb
+    PRIVATE
+        ice
 )
 
 if(WIN32)
