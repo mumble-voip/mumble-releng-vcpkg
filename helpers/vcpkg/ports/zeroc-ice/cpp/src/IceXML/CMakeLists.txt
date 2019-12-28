@@ -1,7 +1,5 @@
 add_library(icexml)
 
-add_dependencies(icexml ice)
-
 target_sources(icexml
     PRIVATE
         Parser.cpp
@@ -20,6 +18,11 @@ target_compile_definitions(icexml
     PRIVATE
         ${ICE_COMPILE_DEFS}
         "ICE_XML_API_EXPORTS"
+)
+
+target_link_libraries(icexml
+    PRIVATE
+        ice
 )
 
 if(WIN32)
