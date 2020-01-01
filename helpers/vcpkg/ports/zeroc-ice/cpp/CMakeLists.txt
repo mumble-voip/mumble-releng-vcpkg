@@ -60,7 +60,6 @@ add_subdirectory(src/IceSSL)
 add_subdirectory(src/IceStormLib)
 
 if(CMAKE_CXX_STANDARD EQUAL 98)
-    find_package(lmdb CONFIG REQUIRED)
     add_subdirectory(src/Glacier2)
     add_subdirectory(src/Glacier2CryptPermissionsVerifier)
     add_subdirectory(src/IceBridge)
