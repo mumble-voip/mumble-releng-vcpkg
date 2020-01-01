@@ -10,11 +10,9 @@ endif()
 # add project wide c++ properties
 include(cmake/ice_cpp_props.cmake)
 
-if(WIN32)
-    if(MSVC)
-        include(cmake/mc_compiler.cmake)
-    endif()
-endif(WIN32)
+if(MSVC)
+    include(cmake/mc_compiler.cmake)
+endif()
 
 set(zeroc-ice_DOXYGEN_FILES
     doxygen/config-cpp11
