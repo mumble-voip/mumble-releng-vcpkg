@@ -5,6 +5,15 @@ if(XCODE)
     )
 endif()
 
+# create include/generated folder for generated headers
+if(NOT ${PROJECT_BINARY_DIR}/include/generated)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/include/generated)
+endif()
+
+set(GENERATED_HEADERS_DIR 
+    ${PROJECT_BINARY_DIR}/include/generated
+)
+
 # todo: add GNU Make logic to drive makefile generation
 
 # add project wide c++ properties
@@ -52,6 +61,7 @@ add_subdirectory(src/Ice)
 add_subdirectory(src/Glacier2Lib)
 add_subdirectory(src/IceBox)
 add_subdirectory(src/IceDiscovery)
+add_subdirectory(src/IceGridLib)
 add_subdirectory(src/IceGrid)
 add_subdirectory(src/IceLocatorDiscovery)
 add_subdirectory(src/IceSSL)
