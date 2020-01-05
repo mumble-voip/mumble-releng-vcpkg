@@ -1,10 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/Glacier2)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Glacier2)
+if(NOT ${GENERATED_SLICES_DIR}/Glacier2)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2)
 endif()
-
-set(GENERATED_GLACIER2_SOURCES_DIR 
-    ${PROJECT_BINARY_DIR}/generated/Glacier2
-)
 
 set(GLACIER2_SLICES
     ${SLICE_DIR}/Glacier2/Metrics.ice
@@ -17,32 +13,24 @@ set(GLACIER2_SLICES
 )
 
 set(GENERATED_GLACIER2_HEADERS
-    ${GENERATED_GLACIER2_SOURCES_DIR}/Metrics.h
-    ${GENERATED_GLACIER2_SOURCES_DIR}/PermissionsVerifier.h
-    ${GENERATED_GLACIER2_SOURCES_DIR}/PermissionsVerifierF.h
-    ${GENERATED_GLACIER2_SOURCES_DIR}/Router.h
-    ${GENERATED_GLACIER2_SOURCES_DIR}/RouterF.h
-    ${GENERATED_GLACIER2_SOURCES_DIR}/SSLInfo.h
-    ${GENERATED_GLACIER2_SOURCES_DIR}/Session.h
+    ${GENERATED_SLICES_DIR}/Glacier2/Metrics.h
+    ${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifier.h
+    ${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifierF.h
+    ${GENERATED_SLICES_DIR}/Glacier2/Router.h
+    ${GENERATED_SLICES_DIR}/Glacier2/RouterF.h
+    ${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.h
+    ${GENERATED_SLICES_DIR}/Glacier2/Session.h
 )
 
 set(GENERATED_GLACIER2_SOURCES
-    ${GENERATED_GLACIER2_SOURCES_DIR}/Metrics.cpp
-    ${GENERATED_GLACIER2_SOURCES_DIR}/PermissionsVerifier.cpp
-    ${GENERATED_GLACIER2_SOURCES_DIR}/PermissionsVerifierF.cpp
-    ${GENERATED_GLACIER2_SOURCES_DIR}/Router.cpp
-    ${GENERATED_GLACIER2_SOURCES_DIR}/RouterF.cpp
-    ${GENERATED_GLACIER2_SOURCES_DIR}/SSLInfo.cpp
-    ${GENERATED_GLACIER2_SOURCES_DIR}/Session.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/Metrics.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifier.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifierF.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/Router.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/RouterF.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.cpp
+    ${GENERATED_SLICES_DIR}/Glacier2/Session.cpp
 )
-
-set_source_files_properties(
-    ${GENERATED_GLACIER2_HEADERS}
-    ${GENERATED_GLACIER2_SOURCES} 
-    PROPERTIES 
-        GENERATED TRUE
-)
-
 
 add_library(glacier2)
 
@@ -59,7 +47,7 @@ target_sources(glacier2
 
 target_include_directories(glacier2
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src    
 )
@@ -79,14 +67,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_GLACIER2_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/Glacier2
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_GLACIER2_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_GLACIER2_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/Glacier2
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_GLACIER2_SOURCES}
@@ -119,13 +107,15 @@ list(APPEND GLACIER2_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND GLACIER2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
 
 foreach(slice ${GLACIER2_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${GLACIER2_SLICE_DIRS}"
         "${GLACIER2_SLICE_PARAMS}"
+        "${GLACIER2_SLICE_DIRS}"
         ${slice}
-        glacier2
-        ${GENERATED_GLACIER2_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/Glacier2
+        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
     )
 endforeach()
 

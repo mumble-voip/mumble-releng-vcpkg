@@ -1,10 +1,6 @@
-if(NOT ${GENERATED_HEADERS_DIR}/IceGrid)
-    file(MAKE_DIRECTORY ${GENERATED_HEADERS_DIR}/IceGrid)
+if(NOT ${GENERATED_SLICES_DIR}/IceGrid)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid)
 endif()
-
-# set(GENERATED_ICEGRID_SOURCES_DIR
-#     ${PROJECT_BINARY_DIR}/generated/IceGrid
-# )
 
 set(ICEGRID_SLICES
     ${SLICE_DIR}/IceGrid/Admin.ice
@@ -18,33 +14,26 @@ set(ICEGRID_SLICES
 )
 
 set(GENERATED_ICEGRID_HEADERS
-    ${GENERATED_HEADERS_DIR}/IceGrid/Admin.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/Descriptor.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/Exception.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/FileParser.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/PluginFacade.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/Registry.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/Session.h
-    ${GENERATED_HEADERS_DIR}/IceGrid/UserAccountMapper.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Admin.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Descriptor.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Exception.h
+    ${GENERATED_SLICES_DIR}/IceGrid/FileParser.h
+    ${GENERATED_SLICES_DIR}/IceGrid/PluginFacade.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Registry.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Session.h
+    ${GENERATED_SLICES_DIR}/IceGrid/UserAccountMapper.h
 )
 
 set(GENERATED_ICEGRID_SOURCES
-    ${CMAKE_CURRENT_BINARY_DIR}/Admin.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/Descriptor.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/Exception.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/FileParser.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/PluginFacade.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/Registry.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/Session.cpp
-    ${CMAKE_CURRENT_BINARY_DIR}/UserAccountMapper.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Admin.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Descriptor.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Exception.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/FileParser.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/PluginFacade.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Registry.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Session.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/UserAccountMapper.cpp
 )
-
-# set_source_files_properties(
-#     ${GENERATED_ICEGRID_HEADERS}
-#     ${GENERATED_ICEGRID_SOURCES}
-#     PROPERTIES
-#         GENERATED TRUE
-# )
 
 add_library(icegrid)
 
@@ -66,7 +55,7 @@ endif()
 
 target_include_directories(icegrid
     PRIVATE 
-        ${GENERATED_HEADERS_DIR}
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src  
 )
@@ -91,14 +80,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_HEADERS_DIR}/IceGrid
+        TREE ${GENERATED_SLICES_DIR}/IceGrid
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICEGRID_HEADERS}
     )
 
     source_group(
-        TREE ${CMAKE_CURRENT_BINARY_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceGrid
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICEGRID_SOURCES}
@@ -137,8 +126,9 @@ foreach(slice ${ICEGRID_SLICES})
         "${ICEGRID_SLICE_PARAMS}"
         "${ICEGRID_SLICE_DIRS}"
         ${slice}
-        ${GENERATED_HEADERS_DIR}/IceGrid/${slice_name}.h
-        ${CMAKE_CURRENT_BINARY_DIR}/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceGrid
+        ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
     )
 endforeach()
 

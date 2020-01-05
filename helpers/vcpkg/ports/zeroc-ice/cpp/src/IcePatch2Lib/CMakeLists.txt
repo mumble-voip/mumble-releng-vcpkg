@@ -1,10 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IcePatch2)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IcePatch2)
+if(NOT ${GENERATED_SLICES_DIR}/IcePatch2)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IcePatch2)
 endif()
-
-set(GENERATED_ICEPATCH2_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IcePatch2
-)
 
 set(ICEPATCH2_SLICES
     ${SLICE_DIR}/IcePatch2/FileInfo.ice
@@ -12,25 +8,16 @@ set(ICEPATCH2_SLICES
 )
 
 set(GENERATED_ICEPATCH2_HEADERS
-    ${GENERATED_ICEPATCH2_SOURCES_DIR}/FileInfo.h
-    ${GENERATED_ICEPATCH2_SOURCES_DIR}/FileServer.h
+    ${GENERATED_SLICES_DIR}/IcePatch2/FileInfo.h
+    ${GENERATED_SLICES_DIR}/IcePatch2/FileServer.h
 )
 
 set(GENERATED_ICEPATCH2_SOURCES
-    ${GENERATED_ICEPATCH2_SOURCES_DIR}/FileInfo.cpp
-    ${GENERATED_ICEPATCH2_SOURCES_DIR}/FileServer.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICEPATCH2_HEADERS}
-    ${GENERATED_ICEPATCH2_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IcePatch2/FileInfo.cpp
+    ${GENERATED_SLICES_DIR}/IcePatch2/FileServer.cpp
 )
 
 add_library(icepatch2)
-
-add_dependencies(icepatch2 ice)
 
 target_sources(icepatch2
     PRIVATE
@@ -44,7 +31,7 @@ target_sources(icepatch2
 
 target_include_directories(icepatch2
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
         ${BZIP2_INCLUDE_DIR} 
@@ -56,6 +43,11 @@ target_compile_definitions(icepatch2
         "ICEPATCH2_API_EXPORTS"
 )
 
+target_link_libraries(icepatch2
+    PRIVATE
+        ice
+)
+
 if(WIN32)
     source_group(
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -65,14 +57,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICEPATCH2_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IcePatch2
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICEPATCH2_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICEPATCH2_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IcePatch2
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICEPATCH2_SOURCES}
@@ -105,13 +97,15 @@ list(APPEND ICEPATCH2_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICEPATCH2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IcePatch2")
 
 foreach(slice ${ICEPATCH2_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICEPATCH2_SLICE_DIRS}"
         "${ICEPATCH2_SLICE_PARAMS}"
+        "${ICEPATCH2_SLICE_DIRS}"
         ${slice}
-        icepatch2
-        ${GENERATED_ICEPATCH2_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IcePatch2
+        ${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.h
     )
 endforeach()
 

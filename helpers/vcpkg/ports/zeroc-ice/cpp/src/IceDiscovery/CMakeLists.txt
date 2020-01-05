@@ -1,33 +1,20 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceDiscovery)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceDiscovery)
+if(NOT ${GENERATED_SLICES_DIR}/IceDiscovery)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery)
 endif()
-
-set(GENERATED_ICEDISCOVERY_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceDiscovery
-)
 
 set(ICEDISCOVERY_SLICES
     ${SLICE_DIR}/IceDiscovery/IceDiscovery.ice
 )
 
 set(GENERATED_ICEDISCOVERY_HEADERS
-    ${GENERATED_ICEDISCOVERY_SOURCES_DIR}/IceDiscovery.h
+    ${GENERATED_SLICES_DIR}/IceDiscovery/IceDiscovery.h
 )
 
 set(GENERATED_ICEDISCOVERY_SOURCES
-    ${GENERATED_ICEDISCOVERY_SOURCES_DIR}/IceDiscovery.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICEDISCOVERY_HEADERS}
-    ${GENERATED_ICEDISCOVERY_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceDiscovery/IceDiscovery.cpp
 )
 
 add_library(icediscovery)
-
-add_dependencies(icediscovery ice)
 
 target_sources(icediscovery
     PRIVATE
@@ -44,7 +31,7 @@ target_sources(icediscovery
 
 target_include_directories(icediscovery
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src    
 )
@@ -53,6 +40,11 @@ target_compile_definitions(icediscovery
     PRIVATE
         ${ICE_COMPILE_DEFS}
         "ICEDISCOVERY_API_EXPORTS"
+)
+
+target_link_libraries(icediscovery
+    PRIVATE
+        ice
 )
 
 if(WIN32)
@@ -64,14 +56,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICEDISCOVERY_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceDiscovery
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICEDISCOVERY_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICEDISCOVERY_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceDiscovery
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICEDISCOVERY_SOURCES}
@@ -104,13 +96,15 @@ list(APPEND ICEDISCOVERY_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICEDISCOVERY_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceDiscovery")
 
 foreach(slice ${ICEDISCOVERY_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICEDISCOVERY_SLICE_DIRS}"
         "${ICEDISCOVERY_SLICE_PARAMS}"
+        "${ICEDISCOVERY_SLICE_DIRS}"
         ${slice}
-        icediscovery
-        ${GENERATED_ICEDISCOVERY_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceDiscovery
+        ${GENERATED_SLICES_DIR}/IceDiscovery/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceDiscovery/${slice_name}.h
     )
 endforeach()
 

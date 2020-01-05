@@ -1,10 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceGrid)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceGrid)
+if(NOT ${GENERATED_SLICES_DIR}/IceGrid)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid)
 endif()
-
-set(GENERATED_ICEGRIDDB_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceGrid
-)
 
 set(ICEGRIDDB_SLICES
     ${CMAKE_CURRENT_SOURCE_DIR}/DBTypes.ice
@@ -13,22 +9,15 @@ set(ICEGRIDDB_SLICES
 )
 
 set(GENERATED_ICEGRIDDB_HEADERS
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}/DBTypes.h
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}/Descriptor.h
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}/Exception.h
+    ${GENERATED_SLICES_DIR}/IceGrid/DBTypes.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Descriptor.h
+    ${GENERATED_SLICES_DIR}/IceGrid/Exception.h
 )
 
 set(GENERATED_ICEGRIDDB_SOURCES
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}/DBTypes.cpp
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}/Descriptor.cpp
-    ${GENERATED_ICEGRIDDB_SOURCES_DIR}/Exception.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICEGRIDDB_HEADERS}
-    ${GENERATED_ICEGRIDDB_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceGrid/DBTypes.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Descriptor.cpp
+    ${GENERATED_SLICES_DIR}/IceGrid/Exception.cpp
 )
 
 add_executable(icegriddb)
@@ -43,7 +32,7 @@ target_sources(icegriddb
 
 target_include_directories(icegriddb
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
         ${LMDB_INCLUDE_DIR} 
@@ -74,14 +63,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICEGRIDDB_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceGrid
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICEGRIDDB_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICEGRIDDB_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceGrid
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICEGRIDDB_SOURCES}
@@ -127,13 +116,15 @@ list(APPEND ICEGRIDDB_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICEGRIDDB_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceGrid")
 
 foreach(slice ${ICEGRIDDB_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICEGRIDDB_SLICE_DIRS}"
         "${ICEGRIDDB_SLICE_PARAMS}"
+        "${ICEGRIDDB_SLICE_DIRS}"
         ${slice}
-        icegriddb
-        ${GENERATED_ICEGRIDDB_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceGrid
+        ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
     )
 endforeach()
 

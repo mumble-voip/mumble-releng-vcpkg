@@ -1,33 +1,20 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceLocatorDiscovery)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceLocatorDiscovery)
+if(NOT ${GENERATED_SLICES_DIR}/IceLocatorDiscovery)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceLocatorDiscovery)
 endif()
-
-set(GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceLocatorDiscovery
-)
 
 set(ICELOCATORDISCOVERY_SLICES
     ${SLICE_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.ice
 )
 
 set(GENERATED_ICELOCATORDISCOVERY_HEADERS
-    ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}/IceLocatorDiscovery.h
+    ${GENERATED_SLICES_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.h
 )
 
 set(GENERATED_ICELOCATORDISCOVERY_SOURCES
-    ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}/IceLocatorDiscovery.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICELOCATORDISCOVERY_HEADERS}
-    ${GENERATED_ICELOCATORDISCOVERY_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.cpp
 )
 
 add_library(icelocatordiscovery)
-
-add_dependencies(icelocatordiscovery ice)
 
 target_sources(icelocatordiscovery
     PRIVATE
@@ -40,7 +27,7 @@ target_sources(icelocatordiscovery
 
 target_include_directories(icelocatordiscovery
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src    
 )
@@ -49,6 +36,11 @@ target_compile_definitions(icelocatordiscovery
     PRIVATE
         ${ICE_COMPILE_DEFS}
         "ICE_LOCATOR_DISCOVERY_API_EXPORTS"
+)
+
+target_link_libraries(icelocatordiscovery
+    PRIVATE
+        ice
 )
 
 if(WIN32)
@@ -60,14 +52,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceLocatorDiscovery
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICELOCATORDISCOVERY_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceLocatorDiscovery
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICELOCATORDISCOVERY_SOURCES}
@@ -100,13 +92,15 @@ list(APPEND ICELOCATORDISCOVERY_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICELOCATORDISCOVERY_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceLocatorDiscovery")
 
 foreach(slice ${ICELOCATORDISCOVERY_SLICES})
-    #function(CompileSlice slice2_bin slice_include_paths ice_file slice_target include_dir output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICELOCATORDISCOVERY_SLICE_DIRS}"
         "${ICELOCATORDISCOVERY_SLICE_PARAMS}"
+        "${ICELOCATORDISCOVERY_SLICE_DIRS}"
         ${slice}
-        icelocatordiscovery
-        ${GENERATED_ICELOCATORDISCOVERY_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceLocatorDiscovery
+        ${GENERATED_SLICES_DIR}/IceLocatorDiscovery/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceLocatorDiscovery/${slice_name}.h
     )
 endforeach()
 

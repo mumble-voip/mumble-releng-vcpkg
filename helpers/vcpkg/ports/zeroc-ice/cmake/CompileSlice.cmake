@@ -5,14 +5,17 @@
 # slice2bin_params - parameters passed for specific slice2_bin use cases
 # slice_include_paths - include dir(s) needed for -I parameter
 # ice_files - files to be compiled (<filename>.ice)
-# output_dir - specify the output dir for created sources
+# output_dir - generated source output path
+# output_file - generated source output file name
+
 function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-    add_custom_command(OUTPUT ${output_file}
+    add_custom_command(OUTPUT ${output_file} ${ARGN}
         COMMAND ${slice2_bin} 
         ARGS ${slice_include_paths} ${ice_file} ${slice2bin_params}
+        BYPRODUCTS ${output_file} ${ARGN}
         WORKING_DIRECTORY ${output_dir}
-        MAIN_DEPENDENCY ${slice2_bin}
-        DEPENDS ${ice_file}
-        COMMENT "Compiling sources for ${ice_file}..."
+        MAIN_DEPENDENCY ${ice_file}
+        DEPENDS ${slice2_bin}
+        COMMENT "Generating sources for ${ice_file}..."
     )
 endfunction()

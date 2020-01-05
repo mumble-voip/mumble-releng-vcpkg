@@ -1,10 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceSSL)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceSSL)
+if(NOT ${GENERATED_SLICES_DIR}/IceSSL)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL)
 endif()
-
-set(GENERATED_ICESSL_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceSSL
-)
 
 set(ICESSL_SLICES
     ${SLICE_DIR}/IceSSL/ConnectionInfo.ice
@@ -13,27 +9,18 @@ set(ICESSL_SLICES
 )
 
 set(GENERATED_ICESSL_HEADERS
-    ${GENERATED_ICESSL_SOURCES_DIR}/ConnectionInfo.h
-    ${GENERATED_ICESSL_SOURCES_DIR}/ConnectionInfoF.h
-    ${GENERATED_ICESSL_SOURCES_DIR}/EndpointInfo.h
+    ${GENERATED_SLICES_DIR}/IceSSL/ConnectionInfo.h
+    ${GENERATED_SLICES_DIR}/IceSSL/ConnectionInfoF.h
+    ${GENERATED_SLICES_DIR}/IceSSL/EndpointInfo.h
 )
 
 set(GENERATED_ICESSL_SOURCES
-    ${GENERATED_ICESSL_SOURCES_DIR}/ConnectionInfo.cpp
-    ${GENERATED_ICESSL_SOURCES_DIR}/ConnectionInfoF.cpp
-    ${GENERATED_ICESSL_SOURCES_DIR}/EndpointInfo.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICESSL_HEADERS}
-    ${GENERATED_ICESSL_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceSSL/ConnectionInfo.cpp
+    ${GENERATED_SLICES_DIR}/IceSSL/ConnectionInfoF.cpp
+    ${GENERATED_SLICES_DIR}/IceSSL/EndpointInfo.cpp
 )
 
 add_library(icessl)
-
-add_dependencies(icessl ice)
 
 target_sources(icessl
     PRIVATE
@@ -83,7 +70,7 @@ target_sources(icessl
 
 target_include_directories(icessl
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src 
 )
@@ -92,6 +79,11 @@ target_compile_definitions(icessl
     PRIVATE
         ${ICE_COMPILE_DEFS}
         "ICESSL_API_EXPORTS"
+)
+
+target_link_libraries(icessl
+    PRIVATE
+        ice
 )
 
 if(${CMAKE_SYSTEM_NAME} EQUAL "WindowsStore")
@@ -116,14 +108,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICESSL_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceSSL
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICESSL_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICESSL_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceSSL
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICESSL_SOURCES}
@@ -156,13 +148,15 @@ list(APPEND ICESSL_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICESSL_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceSSL")
 
 foreach(slice ${ICESSL_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICESSL_SLICE_DIRS}"
         "${ICESSL_SLICE_PARAMS}"
+        "${ICESSL_SLICE_DIRS}"
         ${slice}
-        icessl
-        ${GENERATED_ICESSL_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceSSL
+        ${GENERATED_SLICES_DIR}/IceSSL/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceSSL/${slice_name}.h
     )
 endforeach()
 

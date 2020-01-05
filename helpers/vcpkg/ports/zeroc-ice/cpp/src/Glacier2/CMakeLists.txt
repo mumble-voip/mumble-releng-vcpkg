@@ -1,28 +1,17 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/Glacier2)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Glacier2)
+if(NOT ${GENERATED_SLICES_DIR}/Glacier2)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2)
 endif()
-
-set(GENERATED_GLACIER2ROUTER_SOURCES_DIR 
-    ${PROJECT_BINARY_DIR}/generated/Glacier2
-)
 
 set(GLACIER2ROUTER_SLICES
     ${CMAKE_CURRENT_SOURCE_DIR}/Instrumentation.ice
 )
 
 set(GENERATED_GLACIER2ROUTER_HEADERS
-    ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}/Instrumentation.h
+    ${GENERATED_SLICES_DIR}/Glacier2/Instrumentation.h
 )
 
 set(GENERATED_GLACIER2ROUTER_SOURCES
-    ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}/Instrumentation.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_GLACIER2ROUTER_HEADERS}
-    ${GENERATED_GLACIER2ROUTER_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/Glacier2/Instrumentation.cpp
 )
 
 add_executable(glacier2router)
@@ -61,7 +50,7 @@ target_sources(glacier2router
 
 target_include_directories(glacier2router
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src    
 )
@@ -88,14 +77,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/Glacier2
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_GLACIER2ROUTER_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/Glacier2
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_GLACIER2ROUTER_SOURCES}
@@ -144,13 +133,15 @@ list(APPEND GLACIER2ROUTER_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND GLACIER2ROUTER_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
 
 foreach(slice ${GLACIER2ROUTER_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${GLACIER2ROUTER_SLICE_DIRS}"
         "${GLACIER2ROUTER_SLICE_PARAMS}"
+        "${GLACIER2ROUTER_SLICE_DIRS}"
         ${slice}
-        glacier2router
-        ${GENERATED_GLACIER2ROUTER_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/Glacier2
+        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
     )
 endforeach()
 

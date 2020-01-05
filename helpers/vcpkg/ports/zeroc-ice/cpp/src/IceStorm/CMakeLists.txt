@@ -1,10 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceStorm)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceStorm)
+if(NOT ${GENERATED_SLICES_DIR}/IceStorm)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm)
 endif()
-
-set(GENERATED_ICESTORMSERVICE_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceStorm
-)
 
 set(ICESTORMSERVICE_SLICES
     ${CMAKE_CURRENT_SOURCE_DIR}/Election.ice
@@ -16,28 +12,21 @@ set(ICESTORMSERVICE_SLICES
 )
 
 set(GENERATED_ICESTORMSERVICE_HEADERS
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Election.h
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/IceStormInternal.h
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Instrumentation.h
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LinkRecord.h
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LLURecord.h
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/SubscriberRecord.h
+    ${GENERATED_SLICES_DIR}/IceStorm/Election.h
+    ${GENERATED_SLICES_DIR}/IceStorm/IceStormInternal.h
+    ${GENERATED_SLICES_DIR}/IceStorm/Instrumentation.h
+    ${GENERATED_SLICES_DIR}/IceStorm/LinkRecord.h
+    ${GENERATED_SLICES_DIR}/IceStorm/LLURecord.h
+    ${GENERATED_SLICES_DIR}/IceStorm/SubscriberRecord.h
 )
 
 set(GENERATED_ICESTORMSERVICE_SOURCES
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Election.cpp
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/IceStormInternal.cpp
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/Instrumentation.cpp
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LinkRecord.cpp
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/LLURecord.cpp
-    ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}/SubscriberRecord.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICESTORMSERVICE_HEADERS}
-    ${GENERATED_ICESTORMSERVICE_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceStorm/Election.cpp
+    ${GENERATED_SLICES_DIR}/IceStorm/IceStormInternal.cpp
+    ${GENERATED_SLICES_DIR}/IceStorm/Instrumentation.cpp
+    ${GENERATED_SLICES_DIR}/IceStorm/LinkRecord.cpp
+    ${GENERATED_SLICES_DIR}/IceStorm/LLURecord.cpp
+    ${GENERATED_SLICES_DIR}/IceStorm/SubscriberRecord.cpp
 )
 
 add_library(icestormservice)
@@ -76,7 +65,7 @@ target_sources(icestormservice
 
 target_include_directories(icestormservice
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
         ${LMDB_INCLUDE_DIR}
@@ -105,14 +94,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceStorm
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICESTORMSERVICE_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceStorm
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICESTORMSERVICE_SOURCES}
@@ -145,13 +134,15 @@ list(APPEND ICESTORMSERVICE_SLICE_DIRS "-I${SLICE_DIR}" "-I${PROJECT_SOURCE_DIR}
 list(APPEND ICESTORMSERVICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceStorm")
 
 foreach(slice ${ICESTORMSERVICE_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICESTORMSERVICE_SLICE_DIRS}"
         "${ICESTORMSERVICE_SLICE_PARAMS}"
+        "${ICESTORMSERVICE_SLICE_DIRS}"
         ${slice}
-        icestormservice
-        ${GENERATED_ICESTORMSERVICE_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceStorm
+        ${GENERATED_SLICES_DIR}/IceStorm/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceStorm/${slice_name}.h
     )
 endforeach()
 
@@ -159,3 +150,5 @@ set_target_properties(icestormservice
     PROPERTIES
         OUTPUT_NAME icestormservice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
+
+install(TARGETS icestormservice DESTINATION lib)

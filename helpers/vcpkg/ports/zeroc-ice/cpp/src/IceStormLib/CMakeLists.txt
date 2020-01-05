@@ -1,10 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceStorm)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceStorm)
+if(NOT ${GENERATED_SLICES_DIR}/IceStorm)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm)
 endif()
-
-set(GENERATED_ICESTORM_SOURCES_DIR
-    ${PROJECT_BINARY_DIR}/generated/IceStorm
-)
 
 set(ICESTORM_SLICES
     ${SLICE_DIR}/IceStorm/IceStorm.ice
@@ -12,25 +8,16 @@ set(ICESTORM_SLICES
 )
 
 set(GENERATED_ICESTORM_HEADERS
-    ${GENERATED_ICESTORM_SOURCES_DIR}/IceStorm.h
-    ${GENERATED_ICESTORM_SOURCES_DIR}/Metrics.h
+    ${GENERATED_SLICES_DIR}/IceStorm/IceStorm.h
+    ${GENERATED_SLICES_DIR}/IceStorm/Metrics.h
 )
 
 set(GENERATED_ICESTORM_SOURCES
-    ${GENERATED_ICESTORM_SOURCES_DIR}/IceStorm.cpp
-    ${GENERATED_ICESTORM_SOURCES_DIR}/Metrics.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICESTORM_HEADERS}
-    ${GENERATED_ICESTORM_SOURCES}
-    PROPERTIES
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceStorm/IceStorm.cpp
+    ${GENERATED_SLICES_DIR}/IceStorm/Metrics.cpp
 )
 
 add_library(icestorm)
-
-add_dependencies(icestorm ice)
 
 target_sources(icestorm
     PRIVATE
@@ -51,6 +38,11 @@ target_compile_definitions(icestorm
         "ICESTORM_API_EXPORTS"
 )
 
+target_link_libraries(icestorm
+    PRIVATE
+        ice
+)
+
 if(WIN32)
     source_group(
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -60,14 +52,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICESTORM_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceStorm
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICESTORM_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICESTORM_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceStorm
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICESTORM_SOURCES}
@@ -100,13 +92,15 @@ list(APPEND ICESTORM_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICESTORM_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceStorm")
 
 foreach(slice ${ICESTORM_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICESTORM_SLICE_DIRS}"
         "${ICESTORM_SLICE_PARAMS}"
+        "${ICESTORM_SLICE_DIRS}"
         ${slice}
-        icestorm
-        ${GENERATED_ICESTORM_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceStorm
+        ${GENERATED_SLICES_DIR}/IceStorm/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceStorm/${slice_name}.h
     )
 endforeach()
 

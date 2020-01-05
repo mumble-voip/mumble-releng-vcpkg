@@ -1,28 +1,17 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/IceBox)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/IceBox)
+if(NOT ${GENERATED_SLICES_DIR}/IceBox)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceBox)
 endif()
-
-set(GENERATED_ICEBOXLIB_SOURCES_DIR 
-    ${PROJECT_BINARY_DIR}/generated/IceBox
-)
 
 set(ICEBOXLIB_SLICES
     ${SLICE_DIR}/IceBox/IceBox.ice
 )
 
 set(GENERATED_ICEBOXLIB_HEADERS
-    ${GENERATED_ICEBOXLIB_SOURCES_DIR}/IceBox.h
+    ${GENERATED_SLICES_DIR}/IceBox/IceBox.h
 )
 
 set(GENERATED_ICEBOXLIB_SOURCES
-    ${GENERATED_ICEBOXLIB_SOURCES_DIR}/IceBox.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICEBOXLIB_HEADERS}
-    ${GENERATED_ICEBOXLIB_SOURCES} 
-    PROPERTIES 
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/IceBox/IceBox.cpp
 )
 
 add_library(iceboxlib)
@@ -37,7 +26,7 @@ target_sources(iceboxlib
 
 target_include_directories(iceboxlib
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
 )
@@ -62,14 +51,14 @@ if(WIN32)
     )
 
     source_group(
-        TREE ${GENERATED_ICEBOXLIB_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceBox
         PREFIX "Header Files/Generated"
         FILES
             ${GENERATED_ICEBOXLIB_HEADERS}
     )
 
     source_group(
-        TREE ${GENERATED_ICEBOXLIB_SOURCES_DIR}
+        TREE ${GENERATED_SLICES_DIR}/IceBox
         PREFIX "Source Files/Generated"
         FILES
             ${GENERATED_ICEBOXLIB_SOURCES}
@@ -103,13 +92,15 @@ list(APPEND ICEBOXLIB_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICEBOXLIB_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceBox")
 
 foreach(slice ${ICEBOXLIB_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICEBOXLIB_SLICE_DIRS}"
         "${ICEBOXLIB_SLICE_PARAMS}"
+        "${ICEBOXLIB_SLICE_DIRS}"
         ${slice}
-        iceboxlib
-        ${GENERATED_ICEBOXLIB_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/IceBox
+        ${GENERATED_SLICES_DIR}/IceBox/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IceBox/${slice_name}.h
     )
 endforeach()
 
@@ -138,7 +129,7 @@ target_sources(icebox
 
 target_include_directories(icebox
     PRIVATE
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
 )
@@ -208,7 +199,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
     target_include_directories(iceboxadmin
         PRIVATE
-            ${PROJECT_BINARY_DIR}/generated
+            ${GENERATED_SLICES_DIR}
             ${PROJECT_SOURCE_DIR}/cpp/include
             ${PROJECT_SOURCE_DIR}/cpp/src
     )

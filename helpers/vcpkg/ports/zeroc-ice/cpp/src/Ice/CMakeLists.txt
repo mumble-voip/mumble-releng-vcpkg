@@ -1,8 +1,6 @@
-if(NOT ${PROJECT_BINARY_DIR}/generated/Ice)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated/Ice)
+if(NOT ${GENERATED_SLICES_DIR}/Ice)
+    file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Ice)
 endif()
-
-set(GENERATED_ICE_SOURCES_DIR ${PROJECT_BINARY_DIR}/generated/Ice)
 
 set(ICE_SLICES
     ${SLICE_DIR}/Ice/BuiltinSequences.ice
@@ -47,103 +45,95 @@ set(ICE_SLICES
 )
 
 set(GENERATED_ICE_HEADERS
-    ${GENERATED_ICE_SOURCES_DIR}/BuiltinSequences.h
-    ${GENERATED_ICE_SOURCES_DIR}/Communicator.h
-    ${GENERATED_ICE_SOURCES_DIR}/CommunicatorF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Connection.h
-    ${GENERATED_ICE_SOURCES_DIR}/ConnectionF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Current.h
-    ${GENERATED_ICE_SOURCES_DIR}/Endpoint.h
-    ${GENERATED_ICE_SOURCES_DIR}/EndpointF.h
-    ${GENERATED_ICE_SOURCES_DIR}/EndpointTypes.h
-    ${GENERATED_ICE_SOURCES_DIR}/FacetMap.h
-    ${GENERATED_ICE_SOURCES_DIR}/Identity.h
-    ${GENERATED_ICE_SOURCES_DIR}/ImplicitContext.h
-    ${GENERATED_ICE_SOURCES_DIR}/ImplicitContextF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Instrumentation.h
-    ${GENERATED_ICE_SOURCES_DIR}/InstrumentationF.h
-    ${GENERATED_ICE_SOURCES_DIR}/LocalException.h
-    ${GENERATED_ICE_SOURCES_DIR}/Locator.h
-    ${GENERATED_ICE_SOURCES_DIR}/LocatorF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Logger.h
-    ${GENERATED_ICE_SOURCES_DIR}/LoggerF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Metrics.h
-    ${GENERATED_ICE_SOURCES_DIR}/ObjectAdapter.h
-    ${GENERATED_ICE_SOURCES_DIR}/ObjectAdapterF.h
-    ${GENERATED_ICE_SOURCES_DIR}/ObjectFactory.h
-    ${GENERATED_ICE_SOURCES_DIR}/Plugin.h
-    ${GENERATED_ICE_SOURCES_DIR}/PluginF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Process.h
-    ${GENERATED_ICE_SOURCES_DIR}/ProcessF.h
-    ${GENERATED_ICE_SOURCES_DIR}/Properties.h
-    ${GENERATED_ICE_SOURCES_DIR}/PropertiesAdmin.h
-    ${GENERATED_ICE_SOURCES_DIR}/PropertiesF.h
-    ${GENERATED_ICE_SOURCES_DIR}/RemoteLogger.h
-    ${GENERATED_ICE_SOURCES_DIR}/Router.h
-    ${GENERATED_ICE_SOURCES_DIR}/RouterF.h
-    ${GENERATED_ICE_SOURCES_DIR}/ServantLocator.h
-    ${GENERATED_ICE_SOURCES_DIR}/ServantLocatorF.h
-    ${GENERATED_ICE_SOURCES_DIR}/SliceChecksumDict.h
-    ${GENERATED_ICE_SOURCES_DIR}/ValueFactory.h
-    ${GENERATED_ICE_SOURCES_DIR}/Version.h
+    ${GENERATED_SLICES_DIR}/Ice/BuiltinSequences.h
+    ${GENERATED_SLICES_DIR}/Ice/Communicator.h
+    ${GENERATED_SLICES_DIR}/Ice/CommunicatorF.h
+    ${GENERATED_SLICES_DIR}/Ice/Connection.h
+    ${GENERATED_SLICES_DIR}/Ice/ConnectionF.h
+    ${GENERATED_SLICES_DIR}/Ice/Current.h
+    ${GENERATED_SLICES_DIR}/Ice/Endpoint.h
+    ${GENERATED_SLICES_DIR}/Ice/EndpointF.h
+    ${GENERATED_SLICES_DIR}/Ice/EndpointTypes.h
+    ${GENERATED_SLICES_DIR}/Ice/FacetMap.h
+    ${GENERATED_SLICES_DIR}/Ice/Identity.h
+    ${GENERATED_SLICES_DIR}/Ice/ImplicitContext.h
+    ${GENERATED_SLICES_DIR}/Ice/ImplicitContextF.h
+    ${GENERATED_SLICES_DIR}/Ice/Instrumentation.h
+    ${GENERATED_SLICES_DIR}/Ice/InstrumentationF.h
+    ${GENERATED_SLICES_DIR}/Ice/LocalException.h
+    ${GENERATED_SLICES_DIR}/Ice/Locator.h
+    ${GENERATED_SLICES_DIR}/Ice/LocatorF.h
+    ${GENERATED_SLICES_DIR}/Ice/Logger.h
+    ${GENERATED_SLICES_DIR}/Ice/LoggerF.h
+    ${GENERATED_SLICES_DIR}/Ice/Metrics.h
+    ${GENERATED_SLICES_DIR}/Ice/ObjectAdapter.h
+    ${GENERATED_SLICES_DIR}/Ice/ObjectAdapterF.h
+    ${GENERATED_SLICES_DIR}/Ice/ObjectFactory.h
+    ${GENERATED_SLICES_DIR}/Ice/Plugin.h
+    ${GENERATED_SLICES_DIR}/Ice/PluginF.h
+    ${GENERATED_SLICES_DIR}/Ice/Process.h
+    ${GENERATED_SLICES_DIR}/Ice/ProcessF.h
+    ${GENERATED_SLICES_DIR}/Ice/Properties.h
+    ${GENERATED_SLICES_DIR}/Ice/PropertiesAdmin.h
+    ${GENERATED_SLICES_DIR}/Ice/PropertiesF.h
+    ${GENERATED_SLICES_DIR}/Ice/RemoteLogger.h
+    ${GENERATED_SLICES_DIR}/Ice/Router.h
+    ${GENERATED_SLICES_DIR}/Ice/RouterF.h
+    ${GENERATED_SLICES_DIR}/Ice/ServantLocator.h
+    ${GENERATED_SLICES_DIR}/Ice/ServantLocatorF.h
+    ${GENERATED_SLICES_DIR}/Ice/SliceChecksumDict.h
+    ${GENERATED_SLICES_DIR}/Ice/ValueFactory.h
+    ${GENERATED_SLICES_DIR}/Ice/Version.h
 )
 
 set(GENERATED_ICE_SOURCES
-    ${GENERATED_ICE_SOURCES_DIR}/BuiltinSequences.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Communicator.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/CommunicatorF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Connection.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ConnectionF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Current.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Endpoint.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/EndpointF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/EndpointTypes.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/FacetMap.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Identity.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ImplicitContext.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ImplicitContextF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Instrumentation.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/InstrumentationF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/LocalException.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Locator.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/LocatorF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Logger.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/LoggerF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Metrics.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ObjectAdapter.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ObjectAdapterF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ObjectFactory.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Plugin.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/PluginF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Process.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ProcessF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Properties.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/PropertiesAdmin.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/PropertiesF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/RemoteLogger.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Router.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/RouterF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ServantLocator.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ServantLocatorF.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/SliceChecksumDict.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/ValueFactory.cpp
-    ${GENERATED_ICE_SOURCES_DIR}/Version.cpp
-)
-
-set_source_files_properties(
-    ${GENERATED_ICE_SOURCES} 
-    ${GENERATED_ICE_HEADERS} 
-    PROPERTIES 
-        GENERATED TRUE
+    ${GENERATED_SLICES_DIR}/Ice/BuiltinSequences.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Communicator.cpp
+    ${GENERATED_SLICES_DIR}/Ice/CommunicatorF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Connection.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ConnectionF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Current.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Endpoint.cpp
+    ${GENERATED_SLICES_DIR}/Ice/EndpointF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/EndpointTypes.cpp
+    ${GENERATED_SLICES_DIR}/Ice/FacetMap.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Identity.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ImplicitContext.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ImplicitContextF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Instrumentation.cpp
+    ${GENERATED_SLICES_DIR}/Ice/InstrumentationF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/LocalException.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Locator.cpp
+    ${GENERATED_SLICES_DIR}/Ice/LocatorF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Logger.cpp
+    ${GENERATED_SLICES_DIR}/Ice/LoggerF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Metrics.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ObjectAdapter.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ObjectAdapterF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ObjectFactory.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Plugin.cpp
+    ${GENERATED_SLICES_DIR}/Ice/PluginF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Process.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ProcessF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Properties.cpp
+    ${GENERATED_SLICES_DIR}/Ice/PropertiesAdmin.cpp
+    ${GENERATED_SLICES_DIR}/Ice/PropertiesF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/RemoteLogger.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Router.cpp
+    ${GENERATED_SLICES_DIR}/Ice/RouterF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ServantLocator.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ServantLocatorF.cpp
+    ${GENERATED_SLICES_DIR}/Ice/SliceChecksumDict.cpp
+    ${GENERATED_SLICES_DIR}/Ice/ValueFactory.cpp
+    ${GENERATED_SLICES_DIR}/Ice/Version.cpp
 )
 
 if(WIN32)
     set(GENERATED_ICE_RESOURCES
-        ${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
-        ${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.rc
+        ${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
+        ${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
 	)
 
-    set_source_files_properties(${GENERATED_ICE_RESOURCES} PROPERTIES GENERATED TRUE)
 endif()
 
 add_library(ice)
@@ -358,7 +348,7 @@ endif()
 
 target_include_directories(ice
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
         ${BZIP2_INCLUDE_DIR}
@@ -381,15 +371,12 @@ if(WIN32)
         TREE ${CMAKE_CURRENT_SOURCE_DIR}
         PREFIX "Resource Files" 
         FILES
-            EventLoggerMsg.mc
             Ice.rc
     )
 
-    source_group(
-        TREE ${GENERATED_ICE_SOURCES_DIR}
-        PREFIX "Resource Files/Generated"
+    source_group("Resource Files/Generated"
         FILES
-            ${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.rc
+            ${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
     )
 
     source_group(
@@ -399,19 +386,15 @@ if(WIN32)
             ${ICE_SLICES}
     )
 
-    source_group(
-        TREE ${GENERATED_ICE_SOURCES_DIR}
-        PREFIX "Source Files/Generated"
+    source_group("Source Files/Generated"
         FILES
             ${GENERATED_ICE_SOURCES}
     )
 
-    source_group(
-        TREE ${GENERATED_ICE_SOURCES_DIR}
-        PREFIX "Header Files/Generated"
+    source_group("Header Files/Generated"
         FILES
             ${GENERATED_ICE_HEADERS}
-            ${GENERATED_ICE_SOURCES_DIR}/EventLoggerMsg.h
+            ${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
     )
 
     target_compile_options(ice 
@@ -420,22 +403,22 @@ if(WIN32)
             ${ICE_WIN32_COMPILE_OPTIONS} 
     )
 
-    if(BUILD_SHARED_LIBS)
-        target_link_libraries(ice
-            PRIVATE
-                advapi32.lib
-                ws2_32.lib
-                Iphlpapi.lib
-                rpcrt4.lib
-                DbgHelp.lib
-                Shlwapi.lib
-        )
-	endif()
+    target_link_libraries(ice
+        PRIVATE
+            advapi32.lib
+            ws2_32.lib
+            Iphlpapi.lib
+            rpcrt4.lib
+            DbgHelp.lib
+            Shlwapi.lib
+    )
+
 	
     target_sources(ice
         PRIVATE
-        EventLoggerMsg.mc
-        ${GENERATED_ICE_RESOURCES}
+            EventLoggerMsg.mc
+            Ice.rc
+            ${GENERATED_ICE_RESOURCES}
     )
 
     target_compile_definitions(ice
@@ -443,11 +426,13 @@ if(WIN32)
             ${ICE_WIN32_COMPILE_DEFS}
     )
 
-    add_custom_command(TARGET ice
+    add_custom_command(
+        OUTPUT 
+            ${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc 
+            ${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
         COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
-        WORKING_DIRECTORY ${GENERATED_ICE_SOURCES_DIR}
-        PRE_BUILD
-        DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
+        WORKING_DIRECTORY ${GENERATED_SLICES_DIR}/Ice
+        DEPENDS EventLoggerMsg.mc 
     )
 endif()
 
@@ -455,13 +440,15 @@ list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
 
 foreach(slice ${ICE_SLICES})
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file slice_target output_dir)
+    get_filename_component(slice_name ${slice} NAME_WE)
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
     CompileSlice(slice2cpp
-        "${ICE_SLICE_DIRS}"
         "${ICE_SLICE_PARAMS}"
+        "${ICE_SLICE_DIRS}"
         ${slice}
-        ice
-        ${GENERATED_ICE_SOURCES_DIR}
+        ${GENERATED_SLICES_DIR}/Ice
+        ${GENERATED_SLICES_DIR}/Ice/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/Ice/${slice_name}.h
     )
 endforeach()
 
