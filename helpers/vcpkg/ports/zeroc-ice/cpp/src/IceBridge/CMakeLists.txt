@@ -7,7 +7,7 @@ target_sources(icebridge
 
 target_include_directories(icebridge
     PRIVATE
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
 )

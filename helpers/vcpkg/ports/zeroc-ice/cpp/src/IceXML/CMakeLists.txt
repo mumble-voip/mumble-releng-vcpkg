@@ -8,7 +8,7 @@ target_sources(icexml
 
 target_include_directories(icexml
     PRIVATE
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src
         ${EXPAT_INCLUDE_DIR}

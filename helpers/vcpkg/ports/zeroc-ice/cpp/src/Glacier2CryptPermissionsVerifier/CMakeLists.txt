@@ -7,7 +7,7 @@ target_sources(glacier2cryptpermissionsverifier
 
 target_include_directories(glacier2cryptpermissionsverifier
     PRIVATE 
-        ${PROJECT_BINARY_DIR}/generated
+        ${GENERATED_SLICES_DIR}
         ${PROJECT_SOURCE_DIR}/cpp/include
         ${PROJECT_SOURCE_DIR}/cpp/src  
 )
