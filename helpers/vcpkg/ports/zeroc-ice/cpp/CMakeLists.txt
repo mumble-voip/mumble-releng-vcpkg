@@ -6,12 +6,12 @@ if(XCODE)
 endif()
 
 # create include/generated folder for generated headers
-if(NOT ${PROJECT_BINARY_DIR}/include/generated)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/include/generated)
+if(NOT ${PROJECT_BINARY_DIR}/generated)
+    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated)
 endif()
 
-set(GENERATED_HEADERS_DIR 
-    ${PROJECT_BINARY_DIR}/include/generated
+set(GENERATED_SLICES_DIR 
+    ${PROJECT_BINARY_DIR}/generated
 )
 
 # todo: add GNU Make logic to drive makefile generation
