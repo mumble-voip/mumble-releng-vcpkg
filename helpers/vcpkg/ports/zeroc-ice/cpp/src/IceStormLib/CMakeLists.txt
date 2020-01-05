@@ -116,5 +116,5 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     )
 endif()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm DESTINATION generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm DESTINATION include/generated)
 install(TARGETS icestorm DESTINATION lib)

@@ -128,5 +128,5 @@ foreach(slice ${ICEGRIDDB_SLICES})
     )
 endforeach()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION include/generated)
 install(TARGETS icegriddb DESTINATION bin)

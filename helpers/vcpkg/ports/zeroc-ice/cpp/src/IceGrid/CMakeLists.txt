@@ -135,7 +135,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         )
     endforeach()
 
-    install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION generated)
+    install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION include/generated)
     install(TARGETS icegridadmin DESTINATION bin)
 
     if(NOT ${GENERATED_SLICES_DIR}/IceGrid)
@@ -316,7 +316,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
         )
     endforeach()
 
-    install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION generated)
+    install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION include/generated)
     install(TARGETS icegridnode DESTINATION bin)
 
 endif()

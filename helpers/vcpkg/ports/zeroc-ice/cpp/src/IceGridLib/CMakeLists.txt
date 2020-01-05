@@ -144,5 +144,5 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     )
 endif()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION include/generated)
 install(TARGETS icegrid DESTINATION lib)

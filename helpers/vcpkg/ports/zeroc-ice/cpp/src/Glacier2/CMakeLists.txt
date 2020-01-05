@@ -145,5 +145,5 @@ foreach(slice ${GLACIER2ROUTER_SLICES})
     )
 endforeach()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 DESTINATION generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 DESTINATION include/generated)
 install(TARGETS glacier2router DESTINATION bin)
