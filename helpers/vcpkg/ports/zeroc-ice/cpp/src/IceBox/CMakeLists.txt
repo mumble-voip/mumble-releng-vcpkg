@@ -116,6 +116,7 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     )
 endif()
 
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceBox DESTINATION generated)
 install(TARGETS iceboxlib DESTINATION lib)
 
 add_executable(icebox)
