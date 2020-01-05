@@ -120,5 +120,8 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     )
 endif()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery DESTINATION include/generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery 
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
 install(TARGETS icediscovery DESTINATION lib)

@@ -464,5 +464,8 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     )
 endif()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice DESTINATION include/generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
 install(TARGETS ice DESTINATION lib)

@@ -151,5 +151,8 @@ set_target_properties(icestormservice
         OUTPUT_NAME icestormservice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm DESTINATION /include/generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
 install(TARGETS icestormservice DESTINATION lib)

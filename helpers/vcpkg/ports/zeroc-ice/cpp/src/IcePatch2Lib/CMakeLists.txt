@@ -114,5 +114,8 @@ set_target_properties(icepatch2
         OUTPUT_NAME icepatch2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IcePatch2 DESTINATION include/generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IcePatch2 
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
 install(TARGETS icepatch2 DESTINATION lib)

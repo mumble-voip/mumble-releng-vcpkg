@@ -131,5 +131,8 @@ elseif(CMAKE_CXX_STANDARD EQUAL 98)
     )
 endif()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 DESTINATION include/generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
 install(TARGETS glacier2 DESTINATION lib)

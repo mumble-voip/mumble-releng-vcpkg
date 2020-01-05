@@ -128,5 +128,8 @@ foreach(slice ${ICEGRIDDB_SLICES})
     )
 endforeach()
 
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid DESTINATION include/generated)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid 
+    DESTINATION include
+    FILES_MATCHING PATTERN "*.h"
+)
 install(TARGETS icegriddb DESTINATION bin)
