@@ -124,14 +124,17 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
     foreach(slice ${ICEGRIDADMIN_SLICES})
         get_filename_component(slice_name ${slice} NAME_WE)
-        #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
+        set(output_files
+            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
+            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
+        )
+        #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
         CompileSlice(slice2cpp
             "${ICEGRIDADMIN_SLICE_PARAMS}"
             "${ICEGRIDADMIN_SLICE_DIRS}"
             ${slice}
             ${GENERATED_SLICES_DIR}/IceGrid
-            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
-            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
+            "${output_files}"
         )
     endforeach()
 
@@ -308,14 +311,17 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
     foreach(slice ${ICEGRIDNODE_SLICES})
         get_filename_component(slice_name ${slice} NAME_WE)
-        #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
+        set(output_files 
+            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
+            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
+        )
+        #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
         CompileSlice(slice2cpp
             "${ICEGRIDNODE_SLICE_PARAMS}"
             "${ICEGRIDNODE_SLICE_DIRS}"
             ${slice}
             ${GENERATED_SLICES_DIR}/IceGrid
-            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
-            ${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
+            "${output_files}"
         )
     endforeach()
 

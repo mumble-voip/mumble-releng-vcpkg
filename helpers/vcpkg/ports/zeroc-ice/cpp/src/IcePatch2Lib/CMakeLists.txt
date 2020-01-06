@@ -98,14 +98,17 @@ list(APPEND ICEPATCH2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IcePatch2")
 
 foreach(slice ${ICEPATCH2_SLICES})
     get_filename_component(slice_name ${slice} NAME_WE)
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
+    set(output_files 
+        ${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.cpp
+        ${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.h
+    )
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
     CompileSlice(slice2cpp
         "${ICEPATCH2_SLICE_PARAMS}"
         "${ICEPATCH2_SLICE_DIRS}"
         ${slice}
         ${GENERATED_SLICES_DIR}/IcePatch2
-        ${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.cpp
-        ${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.h
+        "${output_files}"
     )
 endforeach()
 

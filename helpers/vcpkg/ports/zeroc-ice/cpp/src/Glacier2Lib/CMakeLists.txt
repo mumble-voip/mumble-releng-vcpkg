@@ -108,14 +108,17 @@ list(APPEND GLACIER2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
 
 foreach(slice ${GLACIER2_SLICES})
     get_filename_component(slice_name ${slice} NAME_WE)
-    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_file)
+    set(output_files 
+        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp 
+        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
+    )
+    #function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
     CompileSlice(slice2cpp
         "${GLACIER2_SLICE_PARAMS}"
         "${GLACIER2_SLICE_DIRS}"
         ${slice}
         ${GENERATED_SLICES_DIR}/Glacier2
-        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp
-        ${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
+        "${output_files}"
     )
 endforeach()
 

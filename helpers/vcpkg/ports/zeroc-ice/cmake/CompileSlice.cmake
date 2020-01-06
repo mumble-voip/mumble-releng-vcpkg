@@ -9,10 +9,10 @@
 # output_file - generated source output file name
 
 function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-    add_custom_command(OUTPUT ${output_file} ${ARGN}
+    add_custom_command(OUTPUT ${output_file}
         COMMAND ${slice2_bin} 
         ARGS ${slice_include_paths} ${ice_file} ${slice2bin_params}
-        BYPRODUCTS ${output_file} ${ARGN}
+        BYPRODUCTS ${output_file}
         WORKING_DIRECTORY ${output_dir}
         MAIN_DEPENDENCY ${ice_file}
         DEPENDS ${slice2_bin}
