@@ -85,7 +85,7 @@ target_link_libraries(icestormservice
 		icestorm
 	)
 
-	if(WIN32)
+if(WIN32)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files"

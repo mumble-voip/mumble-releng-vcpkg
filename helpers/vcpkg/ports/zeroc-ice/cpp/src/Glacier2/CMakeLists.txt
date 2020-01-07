@@ -126,7 +126,6 @@ if(WIN32)
 			DbgHelp.lib
 			Shlwapi.lib
 	)
-
 endif()
 
 list(APPEND GLACIER2ROUTER_SLICE_DIRS "-I${SLICE_DIR}")

@@ -194,7 +194,6 @@ endif()
 install(TARGETS icebox DESTINATION bin)
 
 if(CMAKE_CXX_STANDARD EQUAL 98)
-
 	add_executable(iceboxadmin)
 
 	target_sources(iceboxadmin
@@ -220,6 +219,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 	)
+	
 	if(WIN32)
 		target_sources(iceboxadmin
 			PRIVATE
