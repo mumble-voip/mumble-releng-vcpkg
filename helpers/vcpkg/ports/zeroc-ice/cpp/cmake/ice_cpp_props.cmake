@@ -14,7 +14,7 @@ if(NOT BUILD_SHARED_LIBS)
 	# Win32 will not statically build icebox properly in C++11 with /MT
 	# if(CMAKE_CXX_STANDARD EQUAL 11 AND WIN32)
 	#     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
-# endif()
+	# endif()
 endif()
 
 list(APPEND COMPILE_SLICES_CPP_PARAMETERS "--include-dir")
