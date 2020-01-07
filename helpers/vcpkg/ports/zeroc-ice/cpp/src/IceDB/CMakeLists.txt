@@ -23,6 +23,7 @@ target_compile_definitions(icedb
 target_link_libraries(icedb
 	PRIVATE
 		ice
+		lmdb
 )
 
 if(WIN32)
