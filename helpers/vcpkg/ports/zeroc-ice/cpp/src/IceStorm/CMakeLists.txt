@@ -114,7 +114,7 @@ if(WIN32)
 			${ICESTORMSERVICE_SLICES}
 	)
 
-	target_sources(icestorm
+	target_sources(icestormservice
 		PRIVATE
 			IceStormService.rc
 	)
