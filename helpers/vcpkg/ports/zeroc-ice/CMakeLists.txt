@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.16.0)
+cmake_minimum_required(VERSION 3.7.2)
 
 # handle debug lib naming based on shipped project naming
 if(NOT CMAKE_DEBUG_POSTFIX)
