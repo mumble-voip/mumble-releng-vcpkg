@@ -1,17 +1,17 @@
 # Add dependencies for C++ related project generation
 if(XCODE)
-    set(zeroc-ice_CONFIG_FILES
-        config/Make.xcodesdk.rules
-    )
+	set(zeroc-ice_CONFIG_FILES
+		config/Make.xcodesdk.rules
+	)
 endif()
 
 # create include/generated folder for generated headers
 if(NOT ${PROJECT_BINARY_DIR}/generated)
-    file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated)
+	file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated)
 endif()
 
 set(GENERATED_SLICES_DIR 
-    ${PROJECT_BINARY_DIR}/generated
+	${PROJECT_BINARY_DIR}/generated
 )
 
 # todo: add GNU Make logic to drive makefile generation
@@ -20,38 +20,39 @@ set(GENERATED_SLICES_DIR
 include(cmake/ice_cpp_props.cmake)
 
 if(MSVC)
-    include(cmake/mc_compiler.cmake)
+	include(cmake/mc_compiler.cmake)
 endif()
 
 set(zeroc-ice_DOXYGEN_FILES
-    doxygen/config-cpp11
-    doxygen/config-cpp98
-    doxygen/mainpage-cpp11.md
-    doxygen/mainpage-cpp98.md
+	doxygen/config-cpp11
+	doxygen/config-cpp98
+	doxygen/mainpage-cpp11.md
+	doxygen/mainpage-cpp98.md
 )
 
 set(zeroc-ice_CONFIG_FILES
-    config/glacer2router.cfg
-    config/ice_ca.cnf
-    config/icegridnode.cfg
-    config/icegridregistry.cfg
-    config/templates.xml
+	config/glacer2router.cfg
+	config/ice_ca.cnf
+	config/icegridnode.cfg
+	config/icegridregistry.cfg
+	config/templates.xml
 )
 
 set_source_files_properties(
-${zeroc-ice_CONFIG_FILES} ${zeroc-ice_DOXYGEN_FILES}
-    PROPERTIES HEADER_FILE_ONLY TRUE
+	${zeroc-ice_CONFIG_FILES} 
+	${zeroc-ice_DOXYGEN_FILES}
+	PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
 find_package(BZip2 REQUIRED)
 find_package(EXPAT REQUIRED)
 
 if(CMAKE_CXX_STANDARD EQUAL 98)
-    find_package(lmdb CONFIG REQUIRED)
+	find_package(lmdb CONFIG REQUIRED)
 endif()
 
 if(CMAKE_CXX_STANDARD EQUAL 11)
-    find_package(OpenSSL REQUIRED)
+	find_package(OpenSSL REQUIRED)
 endif()
 
 add_subdirectory(src/IceUtil)
@@ -68,12 +69,12 @@ add_subdirectory(src/IceSSL)
 add_subdirectory(src/IceStormLib)
 
 if(CMAKE_CXX_STANDARD EQUAL 98)
-    add_subdirectory(src/Glacier2)
-    add_subdirectory(src/Glacier2CryptPermissionsVerifier)
-    add_subdirectory(src/IceBridge)
-    add_subdirectory(src/IceDB)
-    add_subdirectory(src/icegriddb)
-    add_subdirectory(src/IcePatch2Lib)
-    add_subdirectory(src/IceStorm)
-    add_subdirectory(src/IceXML)
+	add_subdirectory(src/Glacier2)
+	add_subdirectory(src/Glacier2CryptPermissionsVerifier)
+	add_subdirectory(src/IceBridge)
+	add_subdirectory(src/IceDB)
+	add_subdirectory(src/icegriddb)
+	add_subdirectory(src/IcePatch2Lib)
+	add_subdirectory(src/IceStorm)
+	add_subdirectory(src/IceXML)
 endif()
