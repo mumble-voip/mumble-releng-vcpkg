@@ -14,8 +14,6 @@ set(GENERATED_SLICES_DIR
 	${PROJECT_BINARY_DIR}/generated
 )
 
-# todo: add GNU Make logic to drive makefile generation
-
 # add project wide c++ properties
 include(cmake/ice_cpp_props.cmake)
 
