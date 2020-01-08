@@ -13,29 +13,21 @@ file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
-# cpp11 mapping for static win32 builds is currently broken, build as cpp98
-
-# if(WIN32 AND VCPKG_LIBRARY_LINKAGE STREQUAL static)
-#     vcpkg_configure_cmake(
-#         SOURCE_PATH ${SOURCE_PATH}
-#         OPTIONS
-#             -DCMAKE_CXX_STANDARD=98
-#     )
-
-# else()
-#     vcpkg_configure_cmake(
-#         SOURCE_PATH ${SOURCE_PATH}
-#         OPTIONS
-#             -DCMAKE_CXX_STANDARD=11
-#     )
-# endif()
-
-vcpkg_configure_cmake(
-	SOURCE_PATH ${SOURCE_PATH}
-	PREFER_NINJA
-	OPTIONS
-		-DCMAKE_CXX_STANDARD=98
-)
+if("cpp11" IN_LIST FEATURES)
+	vcpkg_configure_cmake(
+		SOURCE_PATH ${SOURCE_PATH}
+		PREFER_NINJA
+		OPTIONS
+			-DCMAKE_CXX_STANDARD=11
+	)
+else()
+	vcpkg_configure_cmake(
+		SOURCE_PATH ${SOURCE_PATH}
+		PREFER_NINJA
+		OPTIONS
+			-DCMAKE_CXX_STANDARD=98
+	)
+endif()
 
 vcpkg_install_cmake()
 
