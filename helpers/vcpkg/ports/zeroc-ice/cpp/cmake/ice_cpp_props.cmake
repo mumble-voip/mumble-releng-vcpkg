@@ -43,13 +43,8 @@ if(WIN32)
 	set(ICE_WIN32_LINK_OPTIONS
 		"wsetargv.obj"
 	)
-
 elseif(APPLE)
-
 # TODO - add ICE_COMPILE_DEFS
-
 elseif(UNIX OR LINUX)
-
 # TODO - ICE_COMPILE_DEFS
-
 endif()
