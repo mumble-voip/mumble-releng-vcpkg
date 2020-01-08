@@ -8,10 +8,6 @@ vcpkg_from_github(
 	HEAD_REF master
 )
 
-if(WIN32)
-	vcpkg_check_linkage(ONLY_DYNAMIC_CRT)
-endif()
-
 vcpkg_configure_cmake(
 	SOURCE_PATH ${SOURCE_PATH}
 	PREFER_NINJA
