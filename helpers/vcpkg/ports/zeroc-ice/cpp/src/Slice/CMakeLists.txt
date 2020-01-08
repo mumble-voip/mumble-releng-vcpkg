@@ -67,4 +67,9 @@ target_compile_definitions(slice
 		${STATIC_ICE_COMPILE_DEFS}
 )
 
+set_target_properties(slice 
+	PROPERTIES
+		OUTPUT_NAME Slice
+)
+
 install(TARGETS slice DESTINATION lib)

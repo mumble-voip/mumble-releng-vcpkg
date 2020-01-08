@@ -166,12 +166,12 @@ endforeach()
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set_target_properties(icessl
 		PROPERTIES
-			OUTPUT_NAME icessl${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
 	set_target_properties(icessl 
 		PROPERTIES
-			OUTPUT_NAME icessl${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 endif()
 
@@ -240,7 +240,7 @@ if(CMAKE_CXX_STANDARD EQUAL 11)
 	if(CMAKE_CXX_STANDARD EQUAL 11)
 		set_target_properties(icesslopenssl 
 			PROPERTIES
-				OUTPUT_NAME icesslopenssl++11
+				OUTPUT_NAME IceSSLOpenSSL++11
 		)
 	endif()
 

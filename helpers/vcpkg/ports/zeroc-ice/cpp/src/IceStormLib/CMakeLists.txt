@@ -110,12 +110,12 @@ endforeach()
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set_target_properties(icestorm 
 		PROPERTIES
-			OUTPUT_NAME icestorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
 	set_target_properties(icestorm 
 		PROPERTIES
-			OUTPUT_NAME icestorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 endif()
 

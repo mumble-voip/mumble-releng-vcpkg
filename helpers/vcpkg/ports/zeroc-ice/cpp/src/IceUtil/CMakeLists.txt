@@ -54,4 +54,9 @@ target_compile_definitions(iceutil
 		${STATIC_ICE_COMPILE_DEFS}
 )
 
+set_target_properties(iceutil 
+	PROPERTIES
+		OUTPUT_NAME IceUtil
+)
+
 install(TARGETS iceutil DESTINATION lib)

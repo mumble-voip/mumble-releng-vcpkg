@@ -52,7 +52,7 @@ endif()
 
 set_target_properties(icedb
 	PROPERTIES
-		OUTPUT_NAME icedb${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+		OUTPUT_NAME IceDB${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
 install(TARGETS icedb DESTINATION lib)

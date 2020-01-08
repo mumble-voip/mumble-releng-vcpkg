@@ -43,4 +43,9 @@ if(WIN32)
 	)
 endif()
 
+set_target_properties(glacier2cryptpermissionsverifier 
+	PROPERTIES
+		OUTPUT_NAME Glacier2CryptPermissionsVerifier${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
+
 install(TARGETS glacier2cryptpermissionsverifier DESTINATION lib)

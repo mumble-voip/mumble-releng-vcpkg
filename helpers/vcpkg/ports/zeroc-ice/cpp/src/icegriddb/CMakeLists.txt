@@ -135,4 +135,10 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid
 	DESTINATION include
 	FILES_MATCHING PATTERN "*.h"
 )
+
+set_target_properties(icegriddb
+	PROPERTIES
+		OUTPUT_NAME IceGridDB
+)
+
 install(TARGETS icegriddb DESTINATION bin)

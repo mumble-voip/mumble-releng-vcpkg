@@ -125,12 +125,12 @@ endforeach()
 if(CMAKE_CXX_STANDARD EQUAL 11)
 	set_target_properties(glacier2 
 		PROPERTIES
-			OUTPUT_NAME glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 elseif(CMAKE_CXX_STANDARD EQUAL 98)
 	set_target_properties(glacier2 
 		PROPERTIES
-			OUTPUT_NAME glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 endif()
 
