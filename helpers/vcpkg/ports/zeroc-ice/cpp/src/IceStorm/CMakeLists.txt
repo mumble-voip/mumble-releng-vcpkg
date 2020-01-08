@@ -151,7 +151,7 @@ endforeach()
 
 set_target_properties(icestormservice
 	PROPERTIES
-		OUTPUT_NAME IceStormService
+		OUTPUT_NAME IceStormService${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
