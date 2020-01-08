@@ -90,8 +90,6 @@ if(WIN32)
 		PRIVATE
 			${ICE_WIN32_COMPILE_DEFS}
 	)
-
-	target_link_libraries(icediscovery PRIVATE shlwapi.lib)
 endif()
 
 list(APPEND ICEDISCOVERY_SLICE_DIRS "-I${SLICE_DIR}")
