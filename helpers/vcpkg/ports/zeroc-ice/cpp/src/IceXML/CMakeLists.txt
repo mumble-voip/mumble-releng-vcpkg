@@ -51,7 +51,7 @@ endif()
 
 set_target_properties(icexml 
 	PROPERTIES
-		OUTPUT_NAME IceXML
+		OUTPUT_NAME IceXML${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
 install(TARGETS icexml DESTINATION lib)
