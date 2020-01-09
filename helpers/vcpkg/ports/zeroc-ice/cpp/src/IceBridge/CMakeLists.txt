@@ -10,7 +10,6 @@ target_include_directories(icebridge
 		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
-		${BZIP2_INCLUDE_DIR}
 )
 
 target_compile_definitions(icebridge
@@ -21,7 +20,6 @@ target_compile_definitions(icebridge
 target_link_libraries(icebridge
 	PRIVATE
 		ice
-		${BZIP2_LIBRARIES}
 )
 
 if(WIN32)
