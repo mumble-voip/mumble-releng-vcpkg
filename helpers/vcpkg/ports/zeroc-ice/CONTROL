@@ -1,5 +1,6 @@
 Source: zeroc-ice
 Version: 3.7.3
+Homepage: https://github.com/zeroc-ice/ice
 Description: Comprehensive RPC framework with support for C++, CSharp, Java, JavaScript, Python and more.
 Build-Depends: bzip2, expat, mcpp, lmdb
 
