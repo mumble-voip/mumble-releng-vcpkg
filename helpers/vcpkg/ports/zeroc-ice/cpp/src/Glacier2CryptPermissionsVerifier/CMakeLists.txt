@@ -41,6 +41,17 @@ if(WIN32)
 		PRIVATE
 			${ICE_WIN32_COMPILE_DEFS}
 	)
+
+	target_link_libraries(glacier2cryptpermissionsverifier
+		PRIVATE
+			crypt32.lib
+			bcrypt.lib
+	)
+
+	target_sources(glacier2cryptpermissionsverifier
+		PRIVATE
+			CryptPermissionsVerifier.rc
+	)
 endif()
 
 set_target_properties(glacier2cryptpermissionsverifier 
