@@ -43,16 +43,6 @@ if(WIN32)
 			${ICE_WIN32_LINK_OPTIONS}
 	)
 
-	target_link_libraries(icebridge
-		PRIVATE
-			advapi32.lib
-			ws2_32.lib
-			Iphlpapi.lib
-			rpcrt4.lib
-			DbgHelp.lib
-			Shlwapi.lib
-	)
-
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files"

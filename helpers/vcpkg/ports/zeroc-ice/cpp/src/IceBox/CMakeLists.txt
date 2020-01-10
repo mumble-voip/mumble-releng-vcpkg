@@ -180,15 +180,6 @@ if(WIN32)
 		FILES
 			IceBoxExe.rc
 	)
-	target_link_libraries(icebox
-		PRIVATE
-			advapi32.lib
-			ws2_32.lib
-			Iphlpapi.lib
-			rpcrt4.lib
-			DbgHelp.lib
-			Shlwapi.lib
-	)
 endif()
 
 install(TARGETS icebox DESTINATION bin)
