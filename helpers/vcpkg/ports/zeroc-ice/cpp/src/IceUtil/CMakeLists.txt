@@ -17,6 +17,7 @@ target_sources(iceutil
 		ThreadException.cpp
 		Time.cpp
 		UtilException.cpp
+		Unicode.h
 		UUID.cpp
 )
 
@@ -27,7 +28,6 @@ if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
 			ConvertUTF.cpp
 			ConvertUTF.h
 			Unicode.cpp
-			Unicode.h
 	)
 endif()
 
