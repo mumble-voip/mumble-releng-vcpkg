@@ -2,7 +2,6 @@ vcpkg_from_github(
 	OUT_SOURCE_PATH SOURCE_PATH
 	REPO zeroc-ice/ice
 	REF v3.7.3
-	# TODO - update sha512 signature
 	SHA512 ef43bb28b4a20dcca5078ca2b0ad81269a435317761fc00b4d4bdf85bcdf4dddbf3b3ee6729477bd0957ea519a3705416883ba404386a05914a2c010cb785e27
 	HEAD_REF master
 )
