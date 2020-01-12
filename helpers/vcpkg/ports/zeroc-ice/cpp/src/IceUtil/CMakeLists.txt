@@ -17,16 +17,24 @@ target_sources(iceutil
 		ThreadException.cpp
 		Time.cpp
 		UtilException.cpp
-		Unicode.h
 		UUID.cpp
 )
 
 # handle win specific UTF limitations
-if(${CMAKE_VS_PLATFORM_TOOLSET_VERSION} MATCHES "v100")
+if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100")
 	target_sources(iceutil
 		PRIVATE
 			ConvertUTF.cpp
 			ConvertUTF.h
+			Unicode.h
+			Unicode.cpp		
+	)
+endif()
+
+if(LINUX OR APPLE)
+	target_sources(iceutil
+		PRIVATE
+			Unicode.h
 			Unicode.cpp
 	)
 endif()
@@ -34,6 +42,12 @@ endif()
 target_include_directories(iceutil 
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
+)
+
+target_compile_definitions(iceutil 
+	PRIVATE
+		${ICE_COMPILE_DEFS}
+		"ICE_BUILDING_SLICE_COMPILERS"
 )
 
 if(WIN32)
@@ -47,12 +61,6 @@ if(WIN32)
 			${ICE_WIN32_COMPILE_DEFS}
 	)
 endif()
-
-target_compile_definitions(iceutil 
-	PRIVATE
-		"ICE_BUILDING_SLICE_COMPILERS"
-		${STATIC_ICE_COMPILE_DEFS}
-)
 
 set_target_properties(iceutil 
 	PROPERTIES
