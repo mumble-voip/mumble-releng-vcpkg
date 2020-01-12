@@ -8,8 +8,8 @@ set(GLACIER2_SLICES
 	${SLICE_DIR}/Glacier2/PermissionsVerifierF.ice
 	${SLICE_DIR}/Glacier2/Router.ice
 	${SLICE_DIR}/Glacier2/RouterF.ice
-	${SLICE_DIR}/Glacier2/SSLInfo.ice
 	${SLICE_DIR}/Glacier2/Session.ice
+	${SLICE_DIR}/Glacier2/SSLInfo.ice
 )
 
 set(GENERATED_GLACIER2_HEADERS
@@ -18,8 +18,8 @@ set(GENERATED_GLACIER2_HEADERS
 	${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifierF.h
 	${GENERATED_SLICES_DIR}/Glacier2/Router.h
 	${GENERATED_SLICES_DIR}/Glacier2/RouterF.h
-	${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.h
 	${GENERATED_SLICES_DIR}/Glacier2/Session.h
+	${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.h
 )
 
 set(GENERATED_GLACIER2_SOURCES
@@ -28,13 +28,11 @@ set(GENERATED_GLACIER2_SOURCES
 	${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifierF.cpp
 	${GENERATED_SLICES_DIR}/Glacier2/Router.cpp
 	${GENERATED_SLICES_DIR}/Glacier2/RouterF.cpp
-	${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.cpp
 	${GENERATED_SLICES_DIR}/Glacier2/Session.cpp
+	${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.cpp
 )
 
 add_library(glacier2)
-
-add_dependencies(glacier2 ice)
 
 target_sources(glacier2
 	PRIVATE
@@ -56,6 +54,11 @@ target_compile_definitions(glacier2
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
 		"GLACIER2_API_EXPORTS"
+)
+
+target_link_libraries(glacier2
+	PRIVATE
+		ice
 )
 
 if(WIN32)

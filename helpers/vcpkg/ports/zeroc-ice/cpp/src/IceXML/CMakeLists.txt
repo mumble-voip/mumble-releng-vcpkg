@@ -23,6 +23,7 @@ target_compile_definitions(icexml
 target_link_libraries(icexml
 	PRIVATE
 		ice
+		EXPAT::EXPAT
 )
 
 if(WIN32)

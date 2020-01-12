@@ -46,6 +46,7 @@ target_compile_definitions(icepatch2
 target_link_libraries(icepatch2
 	PRIVATE
 		ice
+		BZip2::BZip2
 )
 
 if(WIN32)

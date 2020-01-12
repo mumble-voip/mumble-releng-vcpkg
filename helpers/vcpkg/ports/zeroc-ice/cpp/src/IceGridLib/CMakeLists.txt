@@ -68,6 +68,7 @@ target_compile_definitions(icegrid
 
 target_link_libraries(icegrid
 	PRIVATE
+		ice
 		glacier2
 	)
 

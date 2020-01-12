@@ -142,6 +142,14 @@ if(WIN32)
 		PRIVATE
 			${ICE_WIN32_COMPILE_DEFS}
 	)
+
+	target_link_libraries(icessl
+		PRIVATE
+			advapi32.lib
+			secur32.lib
+			crypt32.lib
+			ws2_32.lib
+	)
 endif()
 
 list(APPEND ICESSL_SLICE_DIRS "-I${SLICE_DIR}")

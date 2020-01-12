@@ -148,6 +148,7 @@ target_compile_definitions(icebox
 
 target_link_libraries(icebox
 	PRIVATE
+		ice
 		iceboxlib
 		${BZIP2_LIBRARIES}
 )
