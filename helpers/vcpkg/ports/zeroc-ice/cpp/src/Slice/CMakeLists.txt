@@ -48,6 +48,12 @@ target_link_libraries(slice
 		iceutil
 )
 
+target_compile_definitions(slice 
+	PRIVATE  
+		${ICE_COMPILE_DEFS}
+		"ICE_BUILDING_SLICE_COMPILERS"
+)
+
 if(WIN32)
 	target_compile_options(slice 
 		PRIVATE 
@@ -60,12 +66,6 @@ if(WIN32)
 			${ICE_WIN32_COMPILE_DEFS}
 	)
 endif()
-
-target_compile_definitions(slice 
-	PRIVATE 
-		"ICE_BUILDING_SLICE_COMPILERS" 
-		${STATIC_ICE_COMPILE_DEFS}
-)
 
 set_target_properties(slice 
 	PROPERTIES

@@ -15,6 +15,12 @@ target_include_directories(slice2cpp
 		${PROJECT_SOURCE_DIR}/cpp/src
 )
 
+target_compile_definitions(slice2cpp 
+	PRIVATE 
+		${ICE_COMPILE_DEFS}
+		"ICE_BUILDING_SLICE_COMPILERS"
+)
+
 target_link_libraries(slice2cpp 
 	PRIVATE
 		${MCPP_LIB}
@@ -53,11 +59,5 @@ if(WIN32)
 			${ICE_WIN32_COMPILE_DEFS}
 	)
 endif()
-
-target_compile_definitions(slice2cpp 
-	PRIVATE 
-		"ICE_BUILDING_SLICE_COMPILERS"
-		${STATIC_ICE_COMPILE_DEFS}
-)
 
 install(TARGETS slice2cpp DESTINATION bin)
