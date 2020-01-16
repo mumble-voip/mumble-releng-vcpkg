@@ -356,7 +356,7 @@ target_include_directories(ice
 target_link_libraries(ice
 	PRIVATE
 		iceutil
-		${BZIP2_LIBRARIES}
+		BZip2::BZip2
 )
 
 target_compile_definitions(ice 
