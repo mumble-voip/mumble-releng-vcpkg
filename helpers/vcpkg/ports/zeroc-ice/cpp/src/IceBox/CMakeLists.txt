@@ -139,6 +139,7 @@ target_include_directories(icebox
 		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
+		${BZIP2_INCLUDE_DIR}
 )
 
 target_compile_definitions(icebox
@@ -150,7 +151,7 @@ target_link_libraries(icebox
 	PRIVATE
 		ice
 		iceboxlib
-		${BZIP2_LIBRARIES}
+		BZip2::BZip2
 )
 
 if(WIN32)
@@ -203,7 +204,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 		PRIVATE
 			iceboxlib
 			ice
-			${BZIP2_LIBRARIES}
+			BZip2::BZip2
 	)
 
 	target_compile_definitions(iceboxadmin
