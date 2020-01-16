@@ -16,8 +16,6 @@ set(GENERATED_ICEGRIDADMIN_SOURCES
 
 add_executable(icegridadmin)
 
-add_dependencies(icegridadmin icebox)
-
 target_sources(icegridadmin
 	PRIVATE
 		Client.cpp
@@ -38,6 +36,8 @@ target_include_directories(icegridadmin
 		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
+		${EXPAT_INCLUDE_DIR}
+		${BZIP2_INCLUDE_DIR}
 )
 
 target_compile_definitions(icegridadmin
@@ -49,12 +49,12 @@ target_link_libraries(icegridadmin
 	PRIVATE
 		icegrid
 		icelocatordiscovery
-		icepatch2
-		icexml
 		iceboxlib
+		icexml
+		icepatch2
 		ice
 		glacier2
-		${BZIP2_LIBRARIES}
+		BZip2::BZip2
 		EXPAT::EXPAT
 )
 
@@ -219,6 +219,8 @@ target_include_directories(icegridnode
 		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
+		${BZIP2_INCLUDE_DIR}
+		${EXPAT_INCLUDE_DIR}
 )
 
 target_compile_definitions(icegridnode
@@ -228,7 +230,6 @@ target_compile_definitions(icegridnode
 
 target_link_libraries(icegridnode
 	PRIVATE
-		iceutil
 		glacier2
 		ice
 		iceboxlib
@@ -236,15 +237,11 @@ target_link_libraries(icegridnode
 		icegrid
 		icepatch2
 		icessl
+		icestorm
 		icestormservice
 		icexml
-		${BZIP2_LIBRARIES}
+		BZip2::BZip2
 		EXPAT::EXPAT
-)
-
-target_link_libraries(icegridnode
-	PRIVATE
-		lmdb
 )
 
 if(WIN32)
@@ -293,13 +290,11 @@ if(WIN32)
 	target_link_libraries(icegridnode
 		PRIVATE
 			advapi32.lib
-			crypt32.lib
 			ws2_32.lib
 			Iphlpapi.lib
 			rpcrt4.lib
 			DbgHelp.lib
 			pdh.lib
-			secur32.lib
 			Shlwapi.lib
 			version.lib
 	)
