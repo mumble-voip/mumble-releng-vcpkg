@@ -83,6 +83,7 @@ target_link_libraries(icestormservice
 		icedb
 		icegrid
 		icestorm
+		ice
 	)
 
 if(WIN32)
