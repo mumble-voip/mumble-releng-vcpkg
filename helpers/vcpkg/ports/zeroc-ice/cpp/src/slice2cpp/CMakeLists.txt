@@ -24,8 +24,7 @@ target_compile_definitions(slice2cpp
 target_link_libraries(slice2cpp 
 	PRIVATE
 		${MCPP_LIB}
-		slice
-		iceutil   
+		slice  
 )
 
 if(WIN32)
@@ -40,6 +39,7 @@ if(WIN32)
 	target_link_options(slice2cpp 
 		PRIVATE 
 			${ICE_WIN32_LINK_OPTIONS}
+			"/NODEFAULTLIB:msvcrt.lib"
 	)
 
 	target_link_libraries(slice2cpp PRIVATE
