@@ -52,7 +52,8 @@ target_include_directories(glacier2router
 	PRIVATE 
 		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src    
+		${PROJECT_SOURCE_DIR}/cpp/src
+		${BZIP2_INCLUDE_DIR}    
 )
 
 target_compile_definitions(glacier2router
@@ -65,7 +66,7 @@ target_link_libraries(glacier2router
 		ice
 		glacier2
 		icessl
-		${BZIP2_LIBRARIES}
+		BZip2::BZip2
 )
 
 if(WIN32)
