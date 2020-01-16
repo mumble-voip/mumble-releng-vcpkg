@@ -35,7 +35,8 @@ target_include_directories(icegriddb
 		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
-		${LMDB_INCLUDE_DIR} 
+		${LMDB_INCLUDE_DIR}
+		${BZIP2_INCLUDE_DIR} 
 )
 
 target_compile_definitions(icegriddb
@@ -49,9 +50,8 @@ target_link_libraries(icegriddb
 		lmdb
 		ice
 		icedb
-		icegrid
 		glacier2
-		${BZIP2_LIBRARIES}
+		BZip2::BZip2
 )
 
 if(WIN32)
