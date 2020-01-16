@@ -1,20 +1,10 @@
 # define c++ compiler options and preprocessor definitions for all OS types
 set(ICE_COMPILE_DEFS "ICE_BUILDING_SRC")
+set(ICE_CPP11_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_CPP11_MAPPING")
 set(STATIC_ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_CPP11_MAPPING")
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	# it's c++98
-endif()
-
 if(NOT BUILD_SHARED_LIBS)
-	set(ICE_COMPILE_DEFS "${ICE_COMPILE_DEFS}" "ICE_STATIC_LIBS")
-
-	# Win32 will not statically build icebox properly in C++11 with /MT
-	# if(CMAKE_CXX_STANDARD EQUAL 11 AND WIN32)
-	#     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
-	# endif()
+	set(ICE_COMPILE_DEFS "${STATIC_ICE_COMPILE_DEFS}")
 endif()
 
 list(APPEND COMPILE_SLICES_CPP_PARAMETERS "--include-dir")
@@ -29,12 +19,12 @@ if(MSVC)
 	
 	)
 
-	set(ICE_WIN32_COMPILE_DEFS
+	set(ICE_MSVC_COMPILE_DEFS
 		"_CONSOLE" 
 		"WIN32_LEAN_AND_MEAN" 
 	)
 
-	set(ICE_WIN32_COMPILE_OPTIONS
+	set(ICE_MSVC_COMPILE_OPTIONS
 		"/W4"
 		"/wd4121"
 		"/wd4250"
@@ -49,7 +39,7 @@ if(MSVC)
 		"/bigobj"
 	)
 
-	set(ICE_WIN32_LINK_OPTIONS
+	set(ICE_MSVC_LINK_OPTIONS
 		"wsetargv.obj"
 		"/OPT:NOLBR"
 	)
