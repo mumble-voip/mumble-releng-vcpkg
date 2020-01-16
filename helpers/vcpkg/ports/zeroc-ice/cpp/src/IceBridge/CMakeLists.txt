@@ -22,7 +22,7 @@ target_link_libraries(icebridge
 		ice
 )
 
-if(WIN32)
+if(MSVC)
 	target_sources(icebridge
 		PRIVATE
 			IceBridge.rc
@@ -30,17 +30,17 @@ if(WIN32)
 
 	target_compile_options(icebridge
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(icebridge
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 
 	target_link_options(icebridge
 		PRIVATE
-			${ICE_WIN32_LINK_OPTIONS}
+			${ICE_MSVC_LINK_OPTIONS}
 	)
 
 	source_group(

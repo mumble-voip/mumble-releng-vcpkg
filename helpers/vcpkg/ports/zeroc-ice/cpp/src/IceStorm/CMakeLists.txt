@@ -86,7 +86,7 @@ target_link_libraries(icestormservice
 		ice
 	)
 
-if(WIN32)
+if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files"
@@ -122,12 +122,12 @@ if(WIN32)
 
 	target_compile_options(icestormservice
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}   
+			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
 	target_compile_definitions(icestormservice
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 endif()
 

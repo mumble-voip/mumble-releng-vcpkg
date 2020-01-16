@@ -54,16 +54,16 @@ target_compile_definitions(slice
 		"ICE_BUILDING_SLICE_COMPILERS"
 )
 
-if(WIN32)
+if(MSVC)
 	target_compile_options(slice 
 		PRIVATE 
 			"/wd4250"
-			${ICE_WIN32_COMPILE_OPTIONS}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(slice
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 endif()
 

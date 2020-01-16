@@ -128,7 +128,7 @@ set(GENERATED_ICE_SOURCES
 	${GENERATED_SLICES_DIR}/Ice/Version.cpp
 )
 
-if(WIN32)
+if(MSVC)
 	set(GENERATED_ICE_RESOURCES
 		${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
 		${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
@@ -365,7 +365,7 @@ target_compile_definitions(ice
 		"ICE_API_EXPORTS"
 )
 
-if(WIN32)
+if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files" 
@@ -399,7 +399,7 @@ if(WIN32)
 	target_compile_options(ice 
 		PRIVATE 
 			"/wd4996" 
-			${ICE_WIN32_COMPILE_OPTIONS} 
+			${ICE_MSVC_COMPILE_OPTIONS} 
 	)
 
 	target_link_libraries(ice
@@ -422,7 +422,7 @@ if(WIN32)
 
 	target_compile_definitions(ice
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 
 	add_custom_command(

@@ -50,15 +50,15 @@ target_compile_definitions(iceutil
 		"ICE_BUILDING_SLICE_COMPILERS"
 )
 
-if(WIN32)
+if(MSVC)
 	target_compile_options(iceutil 
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(iceutil
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 endif()
 

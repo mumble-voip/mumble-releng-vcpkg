@@ -42,7 +42,7 @@ target_link_libraries(iceboxlib
 		ice
 )
 
-if(WIN32)
+if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files"
@@ -78,12 +78,12 @@ if(WIN32)
 
 	target_compile_options(iceboxlib 
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}   
+			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
 	target_compile_definitions(iceboxlib
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 endif()
 
@@ -154,7 +154,7 @@ target_link_libraries(icebox
 		BZip2::BZip2
 )
 
-if(WIN32)
+if(MSVC)
 	target_sources(icebox
 		PRIVATE
 			IceBoxExe.rc
@@ -162,17 +162,17 @@ if(WIN32)
 
 	target_compile_options(icebox
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(icebox
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 
 	target_link_options(icebox
 		PRIVATE
-			${ICE_WIN32_LINK_OPTIONS}
+			${ICE_MSVC_LINK_OPTIONS}
 	)
 
 	source_group(
@@ -212,7 +212,7 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 			${ICE_COMPILE_DEFS}
 	)
 	
-	if(WIN32)
+	if(MSVC)
 		target_sources(iceboxadmin
 			PRIVATE
 				IceBoxAdmin.rc
@@ -220,17 +220,17 @@ if(CMAKE_CXX_STANDARD EQUAL 98)
 
 		target_compile_options(iceboxadmin
 			PRIVATE
-				${ICE_WIN32_COMPILE_OPTIONS}
+				${ICE_MSVC_COMPILE_OPTIONS}
 		)
 
 		target_compile_definitions(iceboxadmin
 			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
+				${ICE_MSVC_COMPILE_DEFS}
 		)
 
 		target_link_options(iceboxadmin
 			PRIVATE
-				${ICE_WIN32_LINK_OPTIONS}
+				${ICE_MSVC_LINK_OPTIONS}
 		)
 
 		target_link_libraries(iceboxadmin

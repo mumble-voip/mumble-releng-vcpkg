@@ -27,7 +27,7 @@ target_link_libraries(slice2cpp
 		slice  
 )
 
-if(WIN32)
+if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files" 
@@ -38,7 +38,7 @@ if(WIN32)
 
 	target_link_options(slice2cpp 
 		PRIVATE 
-			${ICE_WIN32_LINK_OPTIONS}
+			${ICE_MSVC_LINK_OPTIONS}
 			"/NODEFAULTLIB:msvcrt.lib"
 	)
 
@@ -56,7 +56,7 @@ if(WIN32)
 
 	target_compile_definitions(slice2cpp
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 endif()
 

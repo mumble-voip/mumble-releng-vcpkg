@@ -25,7 +25,7 @@ get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
-	if(WIN32)
+	if(MSVC)
 		# define character set - not set, per shipped project files
 		add_definitions(-D_SBCS)
 

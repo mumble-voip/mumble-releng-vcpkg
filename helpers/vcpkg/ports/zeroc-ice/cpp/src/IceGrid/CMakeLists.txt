@@ -58,7 +58,7 @@ target_link_libraries(icegridadmin
 		EXPAT::EXPAT
 )
 
-if(WIN32)
+if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files"
@@ -94,17 +94,17 @@ if(WIN32)
 
 	target_compile_options(icegridadmin
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(icegridadmin
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 
 	target_link_options(icegridadmin
 		PRIVATE
-			${ICE_WIN32_LINK_OPTIONS}
+			${ICE_MSVC_LINK_OPTIONS}
 	)
 
 	target_link_libraries(icegridadmin
@@ -244,7 +244,7 @@ target_link_libraries(icegridnode
 		EXPAT::EXPAT
 )
 
-if(WIN32)
+if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
 		PREFIX "Resource Files"
@@ -274,17 +274,17 @@ if(WIN32)
 
 	target_compile_options(icegridnode
 		PRIVATE
-			${ICE_WIN32_COMPILE_OPTIONS}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(icegridnode
 		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
+			${ICE_MSVC_COMPILE_DEFS}
 	)
 
 	target_link_options(icegridnode
 		PRIVATE
-			${ICE_WIN32_LINK_OPTIONS}
+			${ICE_MSVC_LINK_OPTIONS}
 	)
 
 	target_link_libraries(icegridnode
