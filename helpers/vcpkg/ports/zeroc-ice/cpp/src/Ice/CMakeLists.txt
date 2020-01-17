@@ -334,141 +334,143 @@ set(ICE_SOURCES
 	${ICE_SLICES}
 )
 
-add_library(ice)
+if(NOT WINDOWS_STORE)
+	add_library(ice)
 
-target_sources(ice PRIVATE ${ICE_SOURCES})
+	target_sources(ice PRIVATE ${ICE_SOURCES})
 
-if(LINUX)
-	target_sources(ice
-		PRIVATE
-			SystemdJournalI.cpp
-			SystemdJournalI.h
-	)
-endif()
+	if(LINUX)
+		target_sources(ice
+			PRIVATE
+				SystemdJournalI.cpp
+				SystemdJournalI.h
+		)
+	endif()
 
-target_include_directories(ice
-	PRIVATE 
-		${GENERATED_SLICES_DIR}
-		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
-		${BZIP2_INCLUDE_DIR}
-)
-
-target_link_libraries(ice
-	PRIVATE
-		iceutil
-		BZip2::BZip2
-)
-
-target_compile_definitions(ice 
-	PRIVATE 
-		${ICE_COMPILE_DEFS}
-		"ICE_API_EXPORTS"
-)
-
-if(MSVC)
-	source_group(
-		TREE ${CMAKE_CURRENT_SOURCE_DIR}
-		PREFIX "Resource Files" 
-		FILES
-			Ice.rc
-	)
-
-	source_group("Resource Files/Generated"
-		FILES
-			${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
-	)
-
-	source_group(
-		TREE ${SLICE_DIR}/Ice
-		PREFIX "Slice Files"
-		FILES
-			${ICE_SLICES}
-	)
-
-	source_group("Source Files/Generated"
-		FILES
-			${GENERATED_ICE_SOURCES}
-	)
-
-	source_group("Header Files/Generated"
-		FILES
-			${GENERATED_ICE_HEADERS}
-			${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
-	)
-
-	target_compile_options(ice 
+	target_include_directories(ice
 		PRIVATE 
-			"/wd4996" 
-			${ICE_MSVC_COMPILE_OPTIONS} 
+			${GENERATED_SLICES_DIR}
+			${PROJECT_SOURCE_DIR}/cpp/include
+			${PROJECT_SOURCE_DIR}/cpp/src
+			${BZIP2_INCLUDE_DIR}
 	)
 
 	target_link_libraries(ice
 		PRIVATE
-			advapi32.lib
-			ws2_32.lib
-			Iphlpapi.lib
-			rpcrt4.lib
-			DbgHelp.lib
-			Shlwapi.lib
+			iceutil
+			BZip2::BZip2
 	)
 
-
-	target_sources(ice
-		PRIVATE
-			EventLoggerMsg.mc
-			Ice.rc
-			${GENERATED_ICE_RESOURCES}
+	target_compile_definitions(ice 
+		PRIVATE 
+			${ICE_COMPILE_DEFS}
+			"ICE_API_EXPORTS"
 	)
 
-	target_compile_definitions(ice
-		PRIVATE
-			${ICE_MSVC_COMPILE_DEFS}
-	)
+	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files" 
+			FILES
+				Ice.rc
+		)
 
-	add_custom_command(
-		OUTPUT 
-			${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc 
-			${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
-		COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
-		WORKING_DIRECTORY ${GENERATED_SLICES_DIR}/Ice
-		DEPENDS EventLoggerMsg.mc 
+		source_group("Resource Files/Generated"
+			FILES
+				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
+		)
+
+		source_group(
+			TREE ${SLICE_DIR}/Ice
+			PREFIX "Slice Files"
+			FILES
+				${ICE_SLICES}
+		)
+
+		source_group("Source Files/Generated"
+			FILES
+				${GENERATED_ICE_SOURCES}
+		)
+
+		source_group("Header Files/Generated"
+			FILES
+				${GENERATED_ICE_HEADERS}
+				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
+		)
+
+		target_compile_options(ice 
+			PRIVATE 
+				"/wd4996" 
+				${ICE_MSVC_COMPILE_OPTIONS} 
+		)
+
+		target_link_libraries(ice
+			PRIVATE
+				advapi32.lib
+				ws2_32.lib
+				Iphlpapi.lib
+				rpcrt4.lib
+				DbgHelp.lib
+				Shlwapi.lib
+		)
+
+
+		target_sources(ice
+			PRIVATE
+				EventLoggerMsg.mc
+				Ice.rc
+				${GENERATED_ICE_RESOURCES}
+		)
+
+		target_compile_definitions(ice
+			PRIVATE
+				${ICE_MSVC_COMPILE_DEFS}
+		)
+
+		add_custom_command(
+			OUTPUT 
+				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc 
+				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
+			COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
+			WORKING_DIRECTORY ${GENERATED_SLICES_DIR}/Ice
+			DEPENDS EventLoggerMsg.mc 
+		)
+	endif()
+
+	list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
+	list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
+
+	foreach(slice ${ICE_SLICES})
+		get_filename_component(slice_name ${slice} NAME_WE)
+		set(output_files 
+			${GENERATED_SLICES_DIR}/Ice/${slice_name}.cpp 
+			${GENERATED_SLICES_DIR}/Ice/${slice_name}.h
+		)
+		#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
+		CompileSlice(slice2cpp
+			"${ICE_SLICE_PARAMS}"
+			"${ICE_SLICE_DIRS}"
+			${slice}
+			${GENERATED_SLICES_DIR}/Ice
+			"${output_files}"
+		)
+	endforeach()
+
+	if(CMAKE_CXX_STANDARD EQUAL 11)
+		set_target_properties(ice 
+			PROPERTIES
+				OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+		)
+	elseif(CMAKE_CXX_STANDARD EQUAL 98)
+		set_target_properties(ice 
+			PROPERTIES
+				OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+		)
+	endif()
+
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
 	)
+	install(TARGETS ice DESTINATION lib)
 endif()
-
-list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
-
-foreach(slice ${ICE_SLICES})
-	get_filename_component(slice_name ${slice} NAME_WE)
-	set(output_files 
-		${GENERATED_SLICES_DIR}/Ice/${slice_name}.cpp 
-		${GENERATED_SLICES_DIR}/Ice/${slice_name}.h
-	)
-	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-	CompileSlice(slice2cpp
-		"${ICE_SLICE_PARAMS}"
-		"${ICE_SLICE_DIRS}"
-		${slice}
-		${GENERATED_SLICES_DIR}/Ice
-		"${output_files}"
-	)
-endforeach()
-
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set_target_properties(ice 
-		PROPERTIES
-			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-	)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(ice 
-		PROPERTIES
-			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-	)
-endif()
-
-install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
-	DESTINATION include
-	FILES_MATCHING PATTERN "*.h"
-)
-install(TARGETS ice DESTINATION lib)

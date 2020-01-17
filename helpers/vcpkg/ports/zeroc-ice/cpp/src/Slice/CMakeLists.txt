@@ -1,4 +1,4 @@
-if(NOT CMAKE_SYSTEM_NAME "WindowsStore")
+if(NOT WINDOWS_STORE)
 	add_library(slice STATIC)
 
 	target_sources(slice

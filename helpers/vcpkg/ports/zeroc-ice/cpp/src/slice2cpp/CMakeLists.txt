@@ -1,4 +1,4 @@
-if(NOT CMAKE_SYSTEM_NAME "WindowsStore")
+if(NOT WINDOWS_STORE)
 	add_executable(slice2cpp)
 
 	find_library(MCPP_LIB NAMES mcpp)

@@ -1,4 +1,4 @@
-if(NOT CMAKE_SYSTEM_NAME "WindowsStore")
+if(NOT WINDOWS_STORE)
 	add_library(iceutil STATIC)
 
 	target_sources(iceutil 
