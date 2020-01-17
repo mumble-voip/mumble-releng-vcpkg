@@ -16,6 +16,7 @@ target_sources(iceutil
 		StringUtil.cpp
 		ThreadException.cpp
 		Time.cpp
+		Unicode.h
 		UtilException.cpp
 		UUID.cpp
 )
@@ -26,7 +27,6 @@ if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100")
 		PRIVATE
 			ConvertUTF.cpp
 			ConvertUTF.h
-			Unicode.h
 			Unicode.cpp		
 	)
 endif()
