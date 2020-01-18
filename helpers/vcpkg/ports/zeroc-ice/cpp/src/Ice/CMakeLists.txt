@@ -354,6 +354,8 @@ if(NOT WINDOWS_STORE)
 	
 	add_library(ice)
 
+	set_property(TARGET ice PROPERTY CXX_STANDARD 98)
+
 	target_sources(ice 
 		PRIVATE 
 			${ICE_SOURCES}
@@ -473,6 +475,8 @@ if(NOT WINDOWS_STORE)
 	install(TARGETS ice DESTINATION lib)
 
 	add_library(ice++11)
+
+	set_property(TARGET ice++11 PROPERTY CXX_STANDARD 11)
 
 	target_sources(ice++11 
 		PRIVATE 

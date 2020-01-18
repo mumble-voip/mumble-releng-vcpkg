@@ -1,6 +1,8 @@
 if(NOT WINDOWS_STORE)
 	add_executable(slice2cpp)
 
+	set_property(TARGET slice2cpp PROPERTY CXX_STANDARD 98)
+
 	find_library(MCPP_LIB NAMES mcpp)
 
 	target_sources(slice2cpp 

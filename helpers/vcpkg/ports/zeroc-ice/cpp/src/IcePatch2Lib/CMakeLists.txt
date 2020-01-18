@@ -19,6 +19,8 @@ set(GENERATED_ICEPATCH2_SOURCES
 
 add_library(icepatch2)
 
+set_property(TARGET icepatch2 PROPERTY CXX_STANDARD 98)
+
 target_sources(icepatch2
 	PRIVATE
 		ClientUtil.cpp
