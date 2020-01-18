@@ -32,7 +32,7 @@ set(GENERATED_GLACIER2_SOURCES
 	${GENERATED_SLICES_DIR}/Glacier2/SSLInfo.cpp
 )
 
-set(GLACIER2 SOURCES
+set(GLACIER2_SOURCES
 	Application.cpp
 	NullPermissionsVerifier.cpp
 	SessionHelper.cpp
@@ -59,7 +59,14 @@ if(NOT WINDOWS_STORE)
 		)
 	endforeach()
 
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
+
 	add_library(glacier2)
+
+	set_property(TARGET glacier2 PROPERTY CXX_STANDARD 98)
 
 	target_sources(glacier2
 		PRIVATE
@@ -87,7 +94,6 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(glacier2
 		PRIVATE
 			ice
-			#iceutil
 	)
 
 	if(MSVC)
@@ -140,13 +146,11 @@ if(NOT WINDOWS_STORE)
 			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS glacier2 DESTINATION lib)
 
 	add_library(glacier2++11)
+
+	set_property(TARGET glacier2++11 PROPERTY CXX_STANDARD 11)
 
 	target_sources(glacier2++11
 		PRIVATE
@@ -175,7 +179,6 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(glacier2++11
 		PRIVATE
 			ice++11
-			#iceutil
 	)
 
 	if(MSVC)
@@ -224,13 +227,9 @@ if(NOT WINDOWS_STORE)
 	endif()
 
 	set_target_properties(glacier2++11 
-	PROPERTIES
-		OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+		PROPERTIES
+			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS glacier2++11 DESTINATION lib)
 endif()
