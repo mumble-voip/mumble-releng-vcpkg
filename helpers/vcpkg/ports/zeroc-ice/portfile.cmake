@@ -10,21 +10,11 @@ file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
-if("cpp11" IN_LIST FEATURES)
-	vcpkg_configure_cmake(
-		SOURCE_PATH ${SOURCE_PATH}
-		PREFER_NINJA
-		OPTIONS
-			-DCMAKE_CXX_STANDARD=11
-	)
-else()
-	vcpkg_configure_cmake(
-		SOURCE_PATH ${SOURCE_PATH}
-		PREFER_NINJA
-		OPTIONS
-			-DCMAKE_CXX_STANDARD=98
-	)
-endif()
+# TODO - handle features for "tests" project
+vcpkg_configure_cmake(
+	SOURCE_PATH ${SOURCE_PATH}
+	PREFER_NINJA
+)
 
 vcpkg_install_cmake()
 
