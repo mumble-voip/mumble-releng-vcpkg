@@ -86,7 +86,7 @@ target_link_libraries(icessl
 		ice
 )
 
-if(${CMAKE_SYSTEM_NAME} EQUAL "WindowsStore")
+if(WINDOWS_STORE)
 	target_sources(icessl
 		PRIVATE
 			UWPCertificateI.cpp
