@@ -107,17 +107,10 @@ foreach(slice ${ICESTORM_SLICES})
 	)
 endforeach()
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set_target_properties(icestorm 
-		PROPERTIES
-			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-	)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(icestorm 
-		PROPERTIES
-			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-	)
-endif()
+set_target_properties(icestorm 
+	PROPERTIES
+		OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
 	DESTINATION include
