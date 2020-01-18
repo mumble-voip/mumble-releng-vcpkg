@@ -41,7 +41,7 @@ set(GLACIER2 SOURCES
 
 if(NOT WINDOWS_STORE)
 	list(APPEND GLACIER2_SLICE_DIRS "-I${SLICE_DIR}")
-	list(APPEND GLACIER2_CPP_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
+	list(APPEND GLACIER2_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
 
 	foreach(slice ${GLACIER2_SLICES})
 		get_filename_component(slice_name ${slice} NAME_WE)
@@ -87,7 +87,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(glacier2
 		PRIVATE
 			ice
-			iceutil
+			#iceutil
 	)
 
 	if(MSVC)
@@ -157,7 +157,6 @@ if(NOT WINDOWS_STORE)
 
 	target_include_directories(glacier2++11
 		PRIVATE 
-			${GENERATED_SLICES_DIR}/Glacier2
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src    
@@ -176,7 +175,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(glacier2++11
 		PRIVATE
 			ice++11
-			iceutil
+			#iceutil
 	)
 
 	if(MSVC)
