@@ -372,7 +372,6 @@ if(NOT WINDOWS_STORE)
 	target_include_directories(ice
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
-			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src
 			${BZIP2_INCLUDE_DIR}
