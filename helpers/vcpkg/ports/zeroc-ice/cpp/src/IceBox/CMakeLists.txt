@@ -34,12 +34,16 @@ target_include_directories(iceboxlib
 target_compile_definitions(iceboxlib 
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
-		"ICEBOX_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(iceboxlib PRIVATE "ICEBOX_API_EXPORTS")
+endif()
 
 target_link_libraries(iceboxlib
 	PRIVATE
 		ice
+		iceutil
 )
 
 if(MSVC)
@@ -106,17 +110,10 @@ foreach(slice ${ICEBOXLIB_SLICES})
 	)
 endforeach()
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set_target_properties(iceboxlib 
-		PROPERTIES
-			OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-	)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(iceboxlib 
-		PROPERTIES
-			OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-	)
-endif()
+set_target_properties(iceboxlib 
+	PROPERTIES
+		OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/IceBox 
 	DESTINATION include

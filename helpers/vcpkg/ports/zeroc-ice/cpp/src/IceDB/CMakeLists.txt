@@ -17,12 +17,16 @@ target_include_directories(icedb
 target_compile_definitions(icedb
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
-		"ICE_DB_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(icedb PRIVATE "ICE_DB_API_EXPORTS")
+endif()
 
 target_link_libraries(icedb
 	PRIVATE
 		ice
+		iceutil
 		lmdb
 )
 

@@ -35,8 +35,14 @@ target_include_directories(icelocatordiscovery
 target_compile_definitions(icelocatordiscovery
 	PRIVATE
 		${ICE_COMPILE_DEFS}
-		"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(icelocatordiscovery 
+		PRIVATE 
+			"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
+	)
+endif()
 
 target_link_libraries(icelocatordiscovery
 	PRIVATE
@@ -107,17 +113,10 @@ foreach(slice ${ICELOCATORDISCOVERY_SLICES})
 	)
 endforeach()
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set_target_properties(icelocatordiscovery 
-		PROPERTIES
-			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-	)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(icelocatordiscovery 
-		PROPERTIES
-			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-	)
-endif()
+set_target_properties(icelocatordiscovery 
+	PROPERTIES
+		OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/IceLocatorDiscovery 
 	DESTINATION include

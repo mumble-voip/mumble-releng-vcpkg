@@ -63,8 +63,11 @@ target_include_directories(icegrid
 target_compile_definitions(icegrid
 	PRIVATE
 		${ICE_COMPILE_DEFS}
-		"ICEGRID_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(icegrid PRIVATE "ICEGRID_API_EXPORTS")
+endif()
 
 target_link_libraries(icegrid
 	PRIVATE
@@ -136,17 +139,10 @@ foreach(slice ${ICEGRID_SLICES})
 	)
 endforeach()
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set_target_properties(icegrid 
-		PROPERTIES
-			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-	)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(icegrid 
-		PROPERTIES
-			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-	)
-endif()
+set_target_properties(icegrid 
+	PROPERTIES
+		OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid 
 	DESTINATION include

@@ -53,12 +53,16 @@ target_include_directories(glacier2
 target_compile_definitions(glacier2 
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
-		"GLACIER2_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(glacier2 PRIVATE "GLACIER2_API_EXPORTS")
+endif()
 
 target_link_libraries(glacier2
 	PRIVATE
 		ice
+		iceutil
 )
 
 if(MSVC)
@@ -125,17 +129,10 @@ foreach(slice ${GLACIER2_SLICES})
 	)
 endforeach()
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	set_target_properties(glacier2 
-		PROPERTIES
-			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-	)
-elseif(CMAKE_CXX_STANDARD EQUAL 98)
-	set_target_properties(glacier2 
-		PROPERTIES
-			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-	)
-endif()
+set_target_properties(glacier2 
+PROPERTIES
+	OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
 	DESTINATION include

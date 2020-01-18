@@ -35,8 +35,11 @@ target_include_directories(icestorm
 target_compile_definitions(icestorm
 	PRIVATE
 		${ICE_COMPILE_DEFS}
-		"ICESTORM_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(icestorm PRIVATE "ICESTORM_API_EXPORTS")
+endif()
 
 target_link_libraries(icestorm
 	PRIVATE

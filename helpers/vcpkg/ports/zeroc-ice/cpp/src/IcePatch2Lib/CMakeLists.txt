@@ -40,8 +40,11 @@ target_include_directories(icepatch2
 target_compile_definitions(icepatch2
 	PRIVATE
 		${ICE_COMPILE_DEFS}
-		"ICEPATCH2_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(icepatch2 PRIVATE "ICEPATCH2_API_EXPORTS")
+endif()
 
 target_link_libraries(icepatch2
 	PRIVATE

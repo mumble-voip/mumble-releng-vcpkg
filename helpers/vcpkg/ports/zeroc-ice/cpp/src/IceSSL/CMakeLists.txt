@@ -78,8 +78,11 @@ target_include_directories(icessl
 target_compile_definitions(icessl
 	PRIVATE
 		${ICE_COMPILE_DEFS}
-		"ICESSL_API_EXPORTS"
 )
+
+if(BUILD_SHARED_LIBS)
+	target_compile_definitions(icessl PRIVATE "ICESSL_API_EXPORTS")
+endif()
 
 target_link_libraries(icessl
 	PRIVATE
@@ -182,68 +185,69 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL
 )
 install(TARGETS icessl DESTINATION lib)
 
-if(CMAKE_CXX_STANDARD EQUAL 11)
-	add_library(icesslopenssl STATIC)
 
-	add_dependencies(icesslopenssl ice)
+# add_library(icesslopenssl STATIC)
 
-	target_sources(icesslopenssl
-		PRIVATE
-			OpenSSLCertificateI.cpp
-			OpenSSLEngine.cpp
-			OpenSSLPluginI.cpp
-			OpenSSLTransceiverI.cpp
-			OpenSSLUtil.cpp
-			OpenSSLEngine.h
-			OpenSSLEngineF.h
-			OpenSSLTransceiverI.h
-			OpenSSLUtil.h
-	)
+# target_sources(icesslopenssl
+# 	PRIVATE
+# 		OpenSSLCertificateI.cpp
+# 		OpenSSLEngine.cpp
+# 		OpenSSLPluginI.cpp
+# 		OpenSSLTransceiverI.cpp
+# 		OpenSSLUtil.cpp
+# 		OpenSSLEngine.h
+# 		OpenSSLEngineF.h
+# 		OpenSSLTransceiverI.h
+# 		OpenSSLUtil.h
+# )
 
-	target_include_directories(icesslopenssl
-		PRIVATE
-			${PROJECT_BINARY_DIR}/generated
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src 
-			${OPENSSL_INCLUDE_DIR}
-	)
+# target_include_directories(icesslopenssl
+# 	PRIVATE
+# 		${PROJECT_BINARY_DIR}/generated
+# 		${PROJECT_SOURCE_DIR}/cpp/include
+# 		${PROJECT_SOURCE_DIR}/cpp/src 
+# 		${OPENSSL_INCLUDE_DIR}
+# )
 
-	target_compile_definitions(icesslopenssl
-		PRIVATE
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICESSL_OPENSSL_API_EXPORTS"
-	)
+# target_compile_definitions(icesslopenssl
+# 	PRIVATE
+# 		${ICE_CPP11_COMPILE_DEFS}
+# )
 
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceSSLOpenSSL.rc
-		)
+# if(BUILD_SHARED_LIBS)
+# 	target_compile_definitions(icesslopenssl PRIVATE "ICESSL_OPENSSL_API_EXPORTS")
+# endif()
 
-		target_sources(icesslopenssl
-			PRIVATE
-				IceSSLOpenSSL.rc
-		)
+# target_link_libraries(icesslopenssl PRIVATE icessl)
 
-		target_compile_options(icesslopenssl 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
+# if(MSVC)
+# 	source_group(
+# 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
+# 		PREFIX "Resource Files"
+# 		FILES
+# 			IceSSLOpenSSL.rc
+# 	)
 
-		target_compile_definitions(icesslopenssl
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-	endif()
+# 	target_sources(icesslopenssl
+# 		PRIVATE
+# 			IceSSLOpenSSL.rc
+# 	)
 
-	if(CMAKE_CXX_STANDARD EQUAL 11)
-		set_target_properties(icesslopenssl 
-			PROPERTIES
-				OUTPUT_NAME IceSSLOpenSSL++11
-		)
-	endif()
+# 	target_compile_options(icesslopenssl 
+# 		PRIVATE
+# 			${ICE_MSVC_COMPILE_OPTIONS}   
+# 	)
 
-	install(TARGETS icesslopenssl DESTINATION lib)
-endif()
+# 	target_compile_definitions(icesslopenssl
+# 		PRIVATE
+# 			${ICE_MSVC_COMPILE_DEFS}
+# 	)
+# endif()
+
+# set_target_properties(icesslopenssl 
+# 	PROPERTIES
+# 		OUTPUT_NAME IceSSLOpenSSL++11
+# )
+
+# install(TARGETS icesslopenssl DESTINATION lib)
+

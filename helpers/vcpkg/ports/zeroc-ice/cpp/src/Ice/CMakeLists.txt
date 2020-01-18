@@ -364,8 +364,11 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(ice 
 		PRIVATE 
 			${ICE_COMPILE_DEFS}
-			"ICE_API_EXPORTS"
 	)
+
+	if(BUILD_SHARED_LIBS)
+		target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
+	endif()
 
 	if(MSVC)
 		source_group(
@@ -462,11 +465,13 @@ if(NOT WINDOWS_STORE)
 				OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 		)
 	elseif(CMAKE_CXX_STANDARD EQUAL 98)
-		set_target_properties(ice 
-			PROPERTIES
-				OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-		)
+
 	endif()
+
+	set_target_properties(ice 
+		PROPERTIES
+			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+	)
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
 		DESTINATION include
