@@ -1,6 +1,8 @@
 if(NOT WINDOWS_STORE)
 	add_library(slice STATIC)
 
+	set_property(TARGET slice PROPERTY CXX_STANDARD 98)
+
 	target_sources(slice
 		PRIVATE
 			Checksum.cpp

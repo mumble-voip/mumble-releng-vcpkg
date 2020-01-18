@@ -1,6 +1,8 @@
 if(NOT WINDOWS_STORE)
 	add_library(iceutil STATIC)
 
+	set_property(TARGET iceutil PROPERTY CXX_STANDARD 98)
+
 	target_sources(iceutil 
 		PRIVATE
 			ConsoleUtil.cpp

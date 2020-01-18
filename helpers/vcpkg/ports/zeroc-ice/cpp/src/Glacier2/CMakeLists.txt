@@ -1,155 +1,147 @@
-if(NOT ${GENERATED_SLICES_DIR}/Glacier2)
-	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2)
-endif()
+if(NOT WINDOWS_STORE)
+	if(NOT ${GENERATED_SLICES_DIR}/Glacier2)
+		file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2)
+	endif()
 
-set(GLACIER2ROUTER_SLICES
-	${CMAKE_CURRENT_SOURCE_DIR}/Instrumentation.ice
-)
-
-set(GENERATED_GLACIER2ROUTER_HEADERS
-	${GENERATED_SLICES_DIR}/Glacier2/Instrumentation.h
-)
-
-set(GENERATED_GLACIER2ROUTER_SOURCES
-	${GENERATED_SLICES_DIR}/Glacier2/Instrumentation.cpp
-)
-
-add_executable(glacier2router)
-
-target_sources(glacier2router
-	PRIVATE
-		Blobject.cpp
-		Blobject.h
-		ClientBlobject.cpp
-		ClientBlobject.h
-		FilterI.cpp
-		FilterI.h
-		FilterManager.cpp
-		FilterManager.h
-		Glacier2Router.cpp
-		Instance.cpp
-		Instance.h
-		Instrumentation.ice
-		InstrumentationI.cpp
-		InstrumentationI.h
-		ProxyVerifier.cpp
-		ProxyVerifier.h
-		RequestQueue.cpp
-		RequestQueue.h
-		RouterI.cpp
-		RouterI.h
-		RoutingTable.cpp
-		RoutingTable.h
-		ServerBlobject.cpp
-		ServerBlobject.h
-		SessionRouterI.cpp
-		SessionRouterI.h
-		${GENERATED_GLACIER2ROUTER_HEADERS}
-		${GENERATED_GLACIER2ROUTER_SOURCES}
-)
-
-target_include_directories(glacier2router
-	PRIVATE 
-		${GENERATED_SLICES_DIR}
-		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
-		${BZIP2_INCLUDE_DIR}    
-)
-
-target_compile_definitions(glacier2router
-	PRIVATE
-		${ICE_COMPILE_DEFS}
-)
-
-target_link_libraries(glacier2router
-	PRIVATE
-		ice
-		glacier2
-		icessl
-		BZip2::BZip2
-)
-
-if(MSVC)
-	source_group(
-		TREE ${CMAKE_CURRENT_SOURCE_DIR}
-		PREFIX "Resource Files"
-		FILES
-			Glacier2Router.rc
+	set(GLACIER2ROUTER_SLICES
+		${CMAKE_CURRENT_SOURCE_DIR}/Instrumentation.ice
 	)
 
-	source_group(
-		TREE ${GENERATED_SLICES_DIR}/Glacier2
-		PREFIX "Header Files/Generated"
-		FILES
-			${GENERATED_GLACIER2ROUTER_HEADERS}
+	set(GENERATED_GLACIER2ROUTER_HEADERS
+		${GENERATED_SLICES_DIR}/Glacier2/Instrumentation.h
 	)
 
-	source_group(
-		TREE ${GENERATED_SLICES_DIR}/Glacier2
-		PREFIX "Source Files/Generated"
-		FILES
-			${GENERATED_GLACIER2ROUTER_SOURCES}
+	set(GENERATED_GLACIER2ROUTER_SOURCES
+		${GENERATED_SLICES_DIR}/Glacier2/Instrumentation.cpp
 	)
 
-	source_group(
-		TREE ${CMAKE_CURRENT_SOURCE_DIR}
-		PREFIX "Slice Files"
-		FILES
-			${GLACIER2ROUTER_SLICES}
-	)
+	add_executable(glacier2router)
+
+	set_property(TARGET glacier2router PROPERTY CXX_STANDARD 98)
 
 	target_sources(glacier2router
 		PRIVATE
-			Glacier2Router.rc
+			Blobject.cpp
+			Blobject.h
+			ClientBlobject.cpp
+			ClientBlobject.h
+			FilterI.cpp
+			FilterI.h
+			FilterManager.cpp
+			FilterManager.h
+			Glacier2Router.cpp
+			Instance.cpp
+			Instance.h
+			Instrumentation.ice
+			InstrumentationI.cpp
+			InstrumentationI.h
+			ProxyVerifier.cpp
+			ProxyVerifier.h
+			RequestQueue.cpp
+			RequestQueue.h
+			RouterI.cpp
+			RouterI.h
+			RoutingTable.cpp
+			RoutingTable.h
+			ServerBlobject.cpp
+			ServerBlobject.h
+			SessionRouterI.cpp
+			SessionRouterI.h
+			${GENERATED_GLACIER2ROUTER_HEADERS}
+			${GENERATED_GLACIER2ROUTER_SOURCES}
 	)
 
-	target_compile_options(glacier2router 
-		PRIVATE
-			${ICE_MSVC_COMPILE_OPTIONS}   
+	target_include_directories(glacier2router
+		PRIVATE 
+			${GENERATED_SLICES_DIR}
+			${PROJECT_SOURCE_DIR}/cpp/include
+			${PROJECT_SOURCE_DIR}/cpp/src   
 	)
 
 	target_compile_definitions(glacier2router
 		PRIVATE
-			${ICE_MSVC_COMPILE_DEFS}
-	)
-
-	target_link_options(glacier2router
-		PRIVATE
-			${ICE_MSVC_LINK_OPTIONS}
+			${ICE_COMPILE_DEFS}
 	)
 
 	target_link_libraries(glacier2router
 		PRIVATE
-			advapi32.lib
-			ws2_32.lib
-			Iphlpapi.lib
-			rpcrt4.lib
-			DbgHelp.lib
-			Shlwapi.lib
+			icessl
+			glacier2
 	)
+
+	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				Glacier2Router.rc
+		)
+
+		source_group(
+			TREE ${GENERATED_SLICES_DIR}/Glacier2
+			PREFIX "Header Files/Generated"
+			FILES
+				${GENERATED_GLACIER2ROUTER_HEADERS}
+		)
+
+		source_group(
+			TREE ${GENERATED_SLICES_DIR}/Glacier2
+			PREFIX "Source Files/Generated"
+			FILES
+				${GENERATED_GLACIER2ROUTER_SOURCES}
+		)
+
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Slice Files"
+			FILES
+				${GLACIER2ROUTER_SLICES}
+		)
+
+		target_sources(glacier2router
+			PRIVATE
+				Glacier2Router.rc
+		)
+
+		target_compile_options(glacier2router 
+			PRIVATE
+				${ICE_MSVC_COMPILE_OPTIONS}   
+		)
+
+		target_compile_definitions(glacier2router
+			PRIVATE
+				${ICE_MSVC_COMPILE_DEFS}
+		)
+
+		target_link_options(glacier2router
+			PRIVATE
+				${ICE_MSVC_LINK_OPTIONS}
+				"/NODEFAULTLIB:libcmtd.lib"
+		)
+	endif()
+
+	list(APPEND GLACIER2ROUTER_SLICE_DIRS "-I${SLICE_DIR}")
+	list(APPEND GLACIER2ROUTER_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
+
+	foreach(slice ${GLACIER2ROUTER_SLICES})
+		get_filename_component(slice_name ${slice} NAME_WE)
+		set(output_files 
+			${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp 
+			${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
+		)
+		#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
+		CompileSlice(slice2cpp
+			"${GLACIER2ROUTER_SLICE_PARAMS}"
+			"${GLACIER2ROUTER_SLICE_DIRS}"
+			${slice}
+			${GENERATED_SLICES_DIR}/Glacier2
+			"${output_files}"
+		)
+	endforeach()
+
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
+	install(TARGETS glacier2router DESTINATION bin)
 endif()
-
-list(APPEND GLACIER2ROUTER_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND GLACIER2ROUTER_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
-
-foreach(slice ${GLACIER2ROUTER_SLICES})
-	get_filename_component(slice_name ${slice} NAME_WE)
-	set(output_files 
-		${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp 
-		${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
-	)
-	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-	CompileSlice(slice2cpp
-		"${GLACIER2ROUTER_SLICE_PARAMS}"
-		"${GLACIER2ROUTER_SLICE_DIRS}"
-		${slice}
-		${GENERATED_SLICES_DIR}/Glacier2
-		"${output_files}"
-	)
-endforeach()
-
-install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2 
-	DESTINATION include
-	FILES_MATCHING PATTERN "*.h"
-)
-install(TARGETS glacier2router DESTINATION bin)
