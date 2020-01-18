@@ -43,8 +43,19 @@ if(MSVC)
 		"wsetargv.obj"
 		"/OPT:NOLBR"
 	)
+	
+	set(ICE_UWP_COMPILE_DEFS
+		"WINAPI_FAMILY=2"
+		"_UNICODE"
+		"UNICODE"
+	)
+
+	set(ICE_UWP_COMPILE_OPTIONS
+		"/wd4264"
+		"/wd4221"
+	)	
 elseif(APPLE)
-# TODO - add ICE_COMPILE_DEFS
+	# TODO - add ICE_COMPILE_DEFS
 elseif(UNIX OR LINUX)
-# TODO - ICE_COMPILE_DEFS
+	# TODO - ICE_COMPILE_DEFS
 endif()
