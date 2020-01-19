@@ -12,7 +12,9 @@ set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 3)
 
 # shipped zeroc-ice shows two configurations defined here
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+if(CMAKE_CONFIGURATION_TYPES)
+	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+endif()
 
 # add function to handle slice compiles
 include(cmake/CompileSlice.cmake)
