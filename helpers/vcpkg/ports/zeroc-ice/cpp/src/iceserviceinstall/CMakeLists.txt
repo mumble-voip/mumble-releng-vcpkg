@@ -37,11 +37,7 @@ source_group(
 
 target_compile_options(iceserviceinstall PRIVATE "/wd4250")
 
-target_link_options(iceserviceinstall 
-	PRIVATE 
-		${ICE_MSVC_LINK_OPTIONS}
-		"/MANIFESTUAC:level=\"requireAdministrator\" uiAccess=\"false\""
-)
+set_property(TARGET iceserviceinstall PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 
 target_link_libraries(iceserviceinstall PRIVATE
 	authz.lib

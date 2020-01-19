@@ -132,10 +132,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icegridadmin
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icegridadmin PROPERTY ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icegridadmin DESTINATION bin)
@@ -262,10 +259,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icegridnode
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icegridnode PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 
 		target_link_libraries(icegridnode
 			PRIVATE
@@ -392,10 +386,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icegridregistry
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icegridregistry PROPERTY ${ICE_MSVC_LINK_OPTIONS})
 
 		target_link_libraries(icegridregistry
 			PRIVATE

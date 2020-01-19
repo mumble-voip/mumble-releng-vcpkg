@@ -114,10 +114,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(glacier2router
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET glacier2router PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	list(APPEND GLACIER2ROUTER_SLICE_DIRS "-I${SLICE_DIR}")

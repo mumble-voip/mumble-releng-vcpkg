@@ -99,10 +99,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icegriddb
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icegriddb PROPERTY ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	list(APPEND ICEGRIDDB_SLICE_DIRS "-I${SLICE_DIR}")

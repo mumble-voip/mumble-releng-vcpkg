@@ -241,6 +241,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icebox
 		PRIVATE
 			iceboxlib
+			ice
 	)
 
 	if(MSVC)
@@ -266,10 +267,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icebox
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icebox PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icebox DESTINATION bin)
@@ -298,6 +296,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icebox++11
 		PRIVATE
 			iceboxlib++11
+			ice++11
 	)
 
 	if(MSVC)
@@ -323,10 +322,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icebox++11
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icebox++11 PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icebox++11 DESTINATION bin)
@@ -358,6 +354,13 @@ if(NOT WINDOWS_STORE)
 	)
 
 	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				IceBoxAdmin.rc
+		)
+		
 		target_sources(iceboxadmin
 			PRIVATE
 				IceBoxAdmin.rc
@@ -373,17 +376,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(iceboxadmin
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
-
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceBoxAdmin.rc
-		)
+		set_property(TARGET iceboxadmin PROPERTY ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS iceboxadmin DESTINATION bin)

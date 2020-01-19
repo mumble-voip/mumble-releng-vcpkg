@@ -26,6 +26,12 @@ if(NOT WINDOWS_STORE)
 	)
 
 	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				IceBridge.rc
+		)
 		target_sources(icebridge
 			PRIVATE
 				IceBridge.rc
@@ -41,17 +47,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icebridge
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
-
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceBridge.rc
-		)
+		set_property(TARGET icebridge PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icebridge DESTINATION bin)

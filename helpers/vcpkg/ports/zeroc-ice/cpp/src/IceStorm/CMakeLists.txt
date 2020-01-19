@@ -146,10 +146,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icestormadmin
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icestormadmin PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icestormadmin DESTINATION bin)
@@ -231,10 +228,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		target_link_options(icestormdb
-			PRIVATE
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET icestormdb PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icestormdb DESTINATION bin)

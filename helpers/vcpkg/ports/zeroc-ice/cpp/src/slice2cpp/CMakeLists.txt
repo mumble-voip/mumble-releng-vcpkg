@@ -39,10 +39,7 @@ if(NOT WINDOWS_STORE)
 
 		target_compile_options(slice2cpp PRIVATE "/wd4250")
 
-		target_link_options(slice2cpp 
-			PRIVATE 
-				${ICE_MSVC_LINK_OPTIONS}
-		)
+		set_property(TARGET slice2cpp PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
 
 		target_link_libraries(slice2cpp PRIVATE
 			rpcrt4.lib

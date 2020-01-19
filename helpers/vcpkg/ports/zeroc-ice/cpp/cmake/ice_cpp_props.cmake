@@ -43,8 +43,7 @@ if(MSVC)
 	)
 
 	set(ICE_MSVC_LINK_OPTIONS
-		"wsetargv.obj"
-		"/OPT:NOLBR"
+		" wsetargv.obj /OPT:NOLBR"
 	)
 	
 	set(ICE_UWP_COMPILE_DEFS
