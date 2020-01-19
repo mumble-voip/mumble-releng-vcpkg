@@ -50,10 +50,10 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(icegriddb
 		PRIVATE
-			lmdb
 			ice
 			icedb
 			glacier2
+			lmdb
 			BZip2::BZip2
 	)
 

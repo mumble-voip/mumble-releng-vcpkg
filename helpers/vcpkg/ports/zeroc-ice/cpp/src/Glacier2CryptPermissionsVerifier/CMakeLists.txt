@@ -26,8 +26,8 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(glacier2cryptpermissionsverifier
 		PRIVATE
-			ice
 			glacier2
+			ice
 	)
 
 	if(MSVC)

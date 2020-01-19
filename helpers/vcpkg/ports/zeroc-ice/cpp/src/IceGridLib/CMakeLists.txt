@@ -102,8 +102,8 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(icegrid
 		PRIVATE
-			ice
 			glacier2
+			ice
 		)
 
 	if(MSVC)
@@ -197,8 +197,8 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(icegrid++11
 		PRIVATE
-			ice++11
 			glacier2++11
+			ice++11
 		)
 
 	if(MSVC)

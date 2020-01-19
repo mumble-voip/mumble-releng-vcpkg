@@ -65,8 +65,9 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(glacier2router
 		PRIVATE
-			icessl
 			glacier2
+			icessl
+			ice
 	)
 
 	if(MSVC)

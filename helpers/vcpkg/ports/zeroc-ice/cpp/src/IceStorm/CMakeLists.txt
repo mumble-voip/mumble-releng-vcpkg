@@ -99,6 +99,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icestormadmin 
 		PRIVATE
 			icestorm
+			ice
 	)
 
 	if(MSVC)
@@ -181,6 +182,8 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icestormdb 
 		PRIVATE
 			icestorm
+			ice
+			icepatch2
 			icedb
 	)
 
@@ -288,6 +291,10 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icestormservice
 		PRIVATE
 			icestorm
+			ice
+			icegrid
+			glacier2
+			iceboxlib
 			icedb
 		)
 

@@ -29,7 +29,6 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icedb
 		PRIVATE
 			ice
-			iceutil
 			lmdb
 	)
 

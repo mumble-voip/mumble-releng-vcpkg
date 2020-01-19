@@ -78,12 +78,12 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icegridadmin
 		PRIVATE
 			icegrid
-			icelocatordiscovery
+			glacier2
+			ice
+			icepatch2
 			iceboxlib
 			icexml
-			icepatch2
-			ice
-			glacier2
+			icelocatordiscovery
 			BZip2::BZip2
 			EXPAT::EXPAT
 	)
@@ -210,16 +210,16 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(icegridnode
 		PRIVATE
+			icegrid
 			glacier2
 			ice
 			iceboxlib
-			icedb
-			icegrid
-			icepatch2
-			icessl
-			icestorm
 			icestormservice
+			icestorm
 			icexml
+			icessl
+			icepatch2
+			icedb
 			BZip2::BZip2
 			EXPAT::EXPAT
 	)
@@ -341,13 +341,16 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(icegridregistry
 		PRIVATE
-			iceboxlib
 			icegrid
-			icepatch2
-			icessl
-			icestorm
+			glacier2
+			ice
+			iceboxlib
 			icestormservice
+			icestorm
 			icexml
+			icessl
+			icepatch2
+			icedb
 			lmdb
 	)
 

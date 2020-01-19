@@ -23,6 +23,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icepatch2calc
 		PRIVATE
 			icepatch2
+			ice
 	)
 
 	if(MSVC)
