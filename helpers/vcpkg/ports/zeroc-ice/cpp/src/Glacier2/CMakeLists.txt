@@ -116,7 +116,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(glacier2router
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:libcmtd.lib"
 		)
 	endif()
 

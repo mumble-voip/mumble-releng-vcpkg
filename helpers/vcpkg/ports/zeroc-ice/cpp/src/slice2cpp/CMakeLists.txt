@@ -42,7 +42,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(slice2cpp 
 			PRIVATE 
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:msvcrt.lib"
 		)
 
 		target_link_libraries(slice2cpp PRIVATE

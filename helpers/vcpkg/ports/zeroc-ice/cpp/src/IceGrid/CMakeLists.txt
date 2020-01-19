@@ -265,7 +265,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icegridnode
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:libcmtd.lib"
 		)
 
 		target_link_libraries(icegridnode
@@ -393,7 +392,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icegridregistry
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:libcmtd.lib"
 		)
 
 		target_link_libraries(icegridregistry

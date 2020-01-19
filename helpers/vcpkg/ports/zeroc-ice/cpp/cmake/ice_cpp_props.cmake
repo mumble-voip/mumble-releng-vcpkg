@@ -42,6 +42,8 @@ if(MSVC)
 	set(ICE_MSVC_LINK_OPTIONS
 		"wsetargv.obj"
 		"/OPT:NOLBR"
+		"/NODEFAULTLIB:msvcrt"
+		"/NODEFAULTLIB:libcmtd"
 	)
 	
 	set(ICE_UWP_COMPILE_DEFS

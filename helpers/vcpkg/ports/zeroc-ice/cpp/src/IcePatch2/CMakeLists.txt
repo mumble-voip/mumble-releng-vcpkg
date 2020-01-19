@@ -51,7 +51,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icepatch2calc
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:libcmtd"
 		)
 	endif()
 
@@ -110,7 +109,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icepatch2client
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:libcmtd"
 		)
 	endif()
 
@@ -170,7 +168,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icepatch2server
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-				"/NODEFAULTLIB:libcmtd"
 		)
 	endif()
 
