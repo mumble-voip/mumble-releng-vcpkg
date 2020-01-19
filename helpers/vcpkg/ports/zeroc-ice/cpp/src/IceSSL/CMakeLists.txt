@@ -186,7 +186,6 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(icessl++11
 		PRIVATE
-			${ICE_COMPILE_DEFS}
 			${ICE_CPP11_COMPILE_DEFS}
 	)
 
@@ -358,7 +357,6 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(icesslopenssl++11
 		PRIVATE
-			${ICE_COMPILE_DEFS}
 			${ICE_CPP11_COMPILE_DEFS}
 	)
 

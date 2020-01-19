@@ -140,7 +140,6 @@ target_include_directories(icestorm++11
 
 target_compile_definitions(icestorm++11
 	PRIVATE
-		${ICE_COMPILE_DEFS}
 		${ICE_CPP_COMPILE_DEFS}
 )
 

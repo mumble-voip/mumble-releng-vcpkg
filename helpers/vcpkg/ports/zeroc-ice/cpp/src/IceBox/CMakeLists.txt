@@ -154,7 +154,6 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(iceboxlib++11 
 		PRIVATE 
-			${ICE_COMPILE_DEFS}
 			${ICE_CPP11_COMPILE_DEFS}
 	)
 
@@ -299,7 +298,6 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(icebox++11
 		PRIVATE
-			${ICE_COMPILE_DEFS}
 			${ICE_CPP11_COMPILE_DEFS}
 	)
 

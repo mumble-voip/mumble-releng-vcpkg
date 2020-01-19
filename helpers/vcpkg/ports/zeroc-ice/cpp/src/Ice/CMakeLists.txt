@@ -509,7 +509,6 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(ice++11 
 		PRIVATE 
-			${ICE_COMPILE_DEFS}
 			${ICE_CPP11_COMPILE_DEFS}
 	)
 
