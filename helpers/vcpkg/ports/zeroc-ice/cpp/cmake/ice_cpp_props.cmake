@@ -22,7 +22,9 @@ if(MSVC)
 
 	set(ICE_MSVC_COMPILE_DEFS
 		"_CONSOLE" 
-		"WIN32_LEAN_AND_MEAN" 
+		"WIN32_LEAN_AND_MEAN"
+		"_SBCS"
+		"_WIN32_WINNT=0x603"
 	)
 
 	set(ICE_MSVC_COMPILE_OPTIONS
@@ -43,8 +45,6 @@ if(MSVC)
 	set(ICE_MSVC_LINK_OPTIONS
 		"wsetargv.obj"
 		"/OPT:NOLBR"
-		"/NODEFAULTLIB:msvcrt"
-		"/NODEFAULTLIB:libcmtd"
 	)
 	
 	set(ICE_UWP_COMPILE_DEFS
