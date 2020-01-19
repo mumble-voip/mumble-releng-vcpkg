@@ -26,26 +26,24 @@ if(NOT WINDOWS_STORE)
 		ServiceManagerI.h
 	)
 
-	if(NOT WINDOWS_STORE)
-		list(APPEND ICEBOXLIB_SLICE_DIRS "-I${SLICE_DIR}")
-		list(APPEND ICEBOXLIB_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceBox")
+	list(APPEND ICEBOXLIB_SLICE_DIRS "-I${SLICE_DIR}")
+	list(APPEND ICEBOXLIB_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceBox")
 
-		foreach(slice ${ICEBOXLIB_SLICES})
-			get_filename_component(slice_name ${slice} NAME_WE)
-			set(output_files 
-				${GENERATED_SLICES_DIR}/IceBox/${slice_name}.cpp 
-				${GENERATED_SLICES_DIR}/IceBox/${slice_name}.h
-			)
-			#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-			CompileSlice(slice2cpp
-				"${ICEBOXLIB_SLICE_PARAMS}"
-				"${ICEBOXLIB_SLICE_DIRS}"
-				${slice}
-				${GENERATED_SLICES_DIR}/IceBox
-				"${output_files}"
-			)
-		endforeach()
-	endif()
+	foreach(slice ${ICEBOXLIB_SLICES})
+		get_filename_component(slice_name ${slice} NAME_WE)
+		set(output_files 
+			${GENERATED_SLICES_DIR}/IceBox/${slice_name}.cpp 
+			${GENERATED_SLICES_DIR}/IceBox/${slice_name}.h
+		)
+		#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
+		CompileSlice(slice2cpp
+			"${ICEBOXLIB_SLICE_PARAMS}"
+			"${ICEBOXLIB_SLICE_DIRS}"
+			${slice}
+			${GENERATED_SLICES_DIR}/IceBox
+			"${output_files}"
+		)
+	endforeach()
 
 	add_library(iceboxlib)
 
@@ -77,7 +75,6 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(iceboxlib
 		PRIVATE
 			ice
-			iceutil
 	)
 
 	if(MSVC)
@@ -168,7 +165,6 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(iceboxlib++11
 		PRIVATE
 			ice++11
-			iceutil
 	)
 
 	if(MSVC)
@@ -251,11 +247,17 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(icebox
 		PRIVATE
-			ice
 			iceboxlib
 	)
 
 	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				IceBoxExe.rc
+		)
+
 		target_sources(icebox
 			PRIVATE
 				IceBoxExe.rc
@@ -274,13 +276,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icebox
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-		)
-
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceBoxExe.rc
 		)
 	endif()
 
@@ -311,10 +306,16 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icebox++11
 		PRIVATE
 			iceboxlib++11
-			ice++11
 	)
 
 	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				IceBoxExe.rc
+		)
+
 		target_sources(icebox++11
 			PRIVATE
 				IceBoxExe.rc
@@ -333,13 +334,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(icebox++11
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-		)
-
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceBoxExe.rc
 		)
 	endif()
 
@@ -364,8 +358,6 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(iceboxadmin
 		PRIVATE
 			iceboxlib
-			ice
-			BZip2::BZip2
 	)
 
 	target_compile_definitions(iceboxadmin
@@ -392,16 +384,6 @@ if(NOT WINDOWS_STORE)
 		target_link_options(iceboxadmin
 			PRIVATE
 				${ICE_MSVC_LINK_OPTIONS}
-		)
-
-		target_link_libraries(iceboxadmin
-			PRIVATE
-				advapi32.lib
-				ws2_32.lib
-				Iphlpapi.lib
-				rpcrt4.lib
-				DbgHelp.lib
-				Shlwapi.lib
 		)
 
 		source_group(
