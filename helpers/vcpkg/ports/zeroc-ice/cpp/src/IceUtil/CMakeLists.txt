@@ -29,15 +29,26 @@ if(NOT WINDOWS_STORE)
 			PRIVATE
 				ConvertUTF.cpp
 				ConvertUTF.h
-				Unicode.cpp		
+				Unicode.cpp	
+				Unicode.h	
 		)
 	endif()
 
-	if(LINUX OR APPLE)
+	if(LINUX)
 		target_sources(iceutil
 			PRIVATE
 				Unicode.h
 				Unicode.cpp
+		)
+	endif()
+
+	if(APPLE)
+		target_sources(iceutil
+			PRIVATE
+				ConvertUTF.cpp
+				ConvertUTF.h
+				Unicode.cpp	
+				Unicode.h	
 		)
 	endif()
 
