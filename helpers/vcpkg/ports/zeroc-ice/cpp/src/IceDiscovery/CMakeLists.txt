@@ -65,11 +65,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icediscovery
 		PRIVATE
 			${ICE_COMPILE_DEFS}
+			"ICE_DISCOVERY_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icediscovery PRIVATE "ICE_DISCOVERY_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icediscovery
 		PRIVATE
@@ -154,11 +151,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icediscovery++11
 		PRIVATE
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICE_DISCOVERY_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icediscovery++11 PRIVATE "ICE_DISCOVERY_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icediscovery++11
 		PRIVATE

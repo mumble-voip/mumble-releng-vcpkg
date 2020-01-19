@@ -94,11 +94,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icegrid
 		PRIVATE
 			${ICE_COMPILE_DEFS}
+			"ICEGRID_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icegrid PRIVATE "ICEGRID_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icegrid
 		PRIVATE
@@ -188,11 +185,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icegrid++11
 		PRIVATE
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICEGRID_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icegrid++11 PRIVATE "ICEGRID_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icegrid++11
 		PRIVATE

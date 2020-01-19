@@ -85,11 +85,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(glacier2 
 		PRIVATE 
 			${ICE_COMPILE_DEFS}
+			"GLACIER2_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(glacier2 PRIVATE "GLACIER2_API_EXPORTS")
-	endif()
 
 	target_link_libraries(glacier2
 		PRIVATE
@@ -169,11 +166,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(glacier2++11 
 		PRIVATE 
 			${ICE_CPP11_COMPILE_DEFS}
+			"GLACIER2_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(glacier2++11 PRIVATE "GLACIER2_API_EXPORTS")
-	endif()
 
 	target_link_libraries(glacier2++11
 		PRIVATE

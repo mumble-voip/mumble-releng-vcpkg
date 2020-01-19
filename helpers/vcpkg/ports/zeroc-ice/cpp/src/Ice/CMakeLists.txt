@@ -388,11 +388,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(ice 
 		PRIVATE 
 			${ICE_COMPILE_DEFS}
+			"ICE_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(ice PRIVATE "ICE_API_EXPORTS")
-	endif()
 
 	if(MSVC)
 		source_group(
@@ -510,11 +507,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(ice++11 
 		PRIVATE 
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICE_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(ice++11 PRIVATE "ICE_API_EXPORTS")
-	endif()
 
 	if(MSVC)
 		source_group(

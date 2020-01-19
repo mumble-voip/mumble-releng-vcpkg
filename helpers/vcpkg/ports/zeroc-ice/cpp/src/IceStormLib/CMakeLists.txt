@@ -36,175 +36,169 @@ if(NOT WINDOWS_STORE)
 			"${output_files}"
 		)
 	endforeach()
-endif()
 
-add_library(icestorm)
 
-target_sources(icestorm
-	PRIVATE
-		${GENERATED_ICESTORM_HEADERS}
-		${GENERATED_ICESTORM_SOURCES}
-)
-
-target_include_directories(icestorm
-	PRIVATE 
-		${PROJECT_BINARY_DIR}/generated
-		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
-)
-
-target_compile_definitions(icestorm
-	PRIVATE
-		${ICE_COMPILE_DEFS}
-)
-
-if(BUILD_SHARED_LIBS)
-	target_compile_definitions(icestorm PRIVATE "ICESTORM_API_EXPORTS")
-endif()
-
-target_link_libraries(icestorm
-	PRIVATE
-		ice
-)
-
-if(MSVC)
-	source_group(
-		TREE ${CMAKE_CURRENT_SOURCE_DIR}
-		PREFIX "Resource Files"
-		FILES
-			IceStorm.rc
-	)
-
-	source_group(
-		TREE ${GENERATED_SLICES_DIR}/IceStorm
-		PREFIX "Header Files/Generated"
-		FILES
-			${GENERATED_ICESTORM_HEADERS}
-	)
-
-	source_group(
-		TREE ${GENERATED_SLICES_DIR}/IceStorm
-		PREFIX "Source Files/Generated"
-		FILES
-			${GENERATED_ICESTORM_SOURCES}
-	)
-
-	source_group(
-		TREE ${SLICE_DIR}/IceStorm
-		PREFIX "Slice Files"
-		FILES
-			${ICESTORM_SLICES}
-	)
+	add_library(icestorm)
 
 	target_sources(icestorm
 		PRIVATE
-			IceStorm.rc
+			${GENERATED_ICESTORM_HEADERS}
+			${GENERATED_ICESTORM_SOURCES}
 	)
 
-	target_compile_options(icestorm 
-		PRIVATE
-			${ICE_MSVC_COMPILE_OPTIONS}   
+	target_include_directories(icestorm
+		PRIVATE 
+			${PROJECT_BINARY_DIR}/generated
+			${PROJECT_SOURCE_DIR}/cpp/include
+			${PROJECT_SOURCE_DIR}/cpp/src
 	)
 
 	target_compile_definitions(icestorm
 		PRIVATE
-			${ICE_MSVC_COMPILE_DEFS}
-	)
-endif()
-
-set_target_properties(icestorm 
-	PROPERTIES
-		OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-)
-
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
-	DESTINATION include
-	FILES_MATCHING PATTERN "*.h"
-)
-install(TARGETS icestorm DESTINATION lib)
-
-add_library(icestorm++11)
-
-target_sources(icestorm++11
-	PRIVATE
-		${GENERATED_ICESTORM_HEADERS}
-		${GENERATED_ICESTORM_SOURCES}
-)
-
-target_include_directories(icestorm++11
-	PRIVATE 
-		${PROJECT_BINARY_DIR}/generated
-		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
-)
-
-target_compile_definitions(icestorm++11
-	PRIVATE
-		${ICE_CPP_COMPILE_DEFS}
-)
-
-if(BUILD_SHARED_LIBS)
-	target_compile_definitions(icestorm++11 PRIVATE "ICESTORM_API_EXPORTS")
-endif()
-
-target_link_libraries(icestorm++11
-	PRIVATE
-		ice++11
-)
-
-if(MSVC)
-	source_group(
-		TREE ${CMAKE_CURRENT_SOURCE_DIR}
-		PREFIX "Resource Files"
-		FILES
-			IceStorm.rc
+			${ICE_COMPILE_DEFS}
+			"ICESTORM_API_EXPORTS"
 	)
 
-	source_group(
-		TREE ${GENERATED_SLICES_DIR}/IceStorm
-		PREFIX "Header Files/Generated"
-		FILES
-			${GENERATED_ICESTORM_HEADERS}
+	target_link_libraries(icestorm
+		PRIVATE
+			ice
 	)
 
-	source_group(
-		TREE ${GENERATED_SLICES_DIR}/IceStorm
-		PREFIX "Source Files/Generated"
-		FILES
-			${GENERATED_ICESTORM_SOURCES}
+	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				IceStorm.rc
+		)
+
+		source_group(
+			TREE ${GENERATED_SLICES_DIR}/IceStorm
+			PREFIX "Header Files/Generated"
+			FILES
+				${GENERATED_ICESTORM_HEADERS}
+		)
+
+		source_group(
+			TREE ${GENERATED_SLICES_DIR}/IceStorm
+			PREFIX "Source Files/Generated"
+			FILES
+				${GENERATED_ICESTORM_SOURCES}
+		)
+
+		source_group(
+			TREE ${SLICE_DIR}/IceStorm
+			PREFIX "Slice Files"
+			FILES
+				${ICESTORM_SLICES}
+		)
+
+		target_sources(icestorm
+			PRIVATE
+				IceStorm.rc
+		)
+
+		target_compile_options(icestorm 
+			PRIVATE
+				${ICE_MSVC_COMPILE_OPTIONS}   
+		)
+
+		target_compile_definitions(icestorm
+			PRIVATE
+				${ICE_MSVC_COMPILE_DEFS}
+		)
+	endif()
+
+	set_target_properties(icestorm 
+		PROPERTIES
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 
-	source_group(
-		TREE ${SLICE_DIR}/IceStorm
-		PREFIX "Slice Files"
-		FILES
-			${ICESTORM_SLICES}
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
 	)
+	install(TARGETS icestorm DESTINATION lib)
+
+	add_library(icestorm++11)
 
 	target_sources(icestorm++11
 		PRIVATE
-			IceStorm.rc
+			${GENERATED_ICESTORM_HEADERS}
+			${GENERATED_ICESTORM_SOURCES}
 	)
 
-	target_compile_options(icestorm++11 
-		PRIVATE
-			${ICE_MSVC_COMPILE_OPTIONS}   
+	target_include_directories(icestorm++11
+		PRIVATE 
+			${PROJECT_BINARY_DIR}/generated
+			${PROJECT_SOURCE_DIR}/cpp/include
+			${PROJECT_SOURCE_DIR}/cpp/src
 	)
 
 	target_compile_definitions(icestorm++11
 		PRIVATE
-			${ICE_MSVC_COMPILE_DEFS}
+			${ICE_CPP_COMPILE_DEFS}
+			"ICESTORM_API_EXPORTS"
 	)
+
+	target_link_libraries(icestorm++11
+		PRIVATE
+			ice++11
+	)
+
+	if(MSVC)
+		source_group(
+			TREE ${CMAKE_CURRENT_SOURCE_DIR}
+			PREFIX "Resource Files"
+			FILES
+				IceStorm.rc
+		)
+
+		source_group(
+			TREE ${GENERATED_SLICES_DIR}/IceStorm
+			PREFIX "Header Files/Generated"
+			FILES
+				${GENERATED_ICESTORM_HEADERS}
+		)
+
+		source_group(
+			TREE ${GENERATED_SLICES_DIR}/IceStorm
+			PREFIX "Source Files/Generated"
+			FILES
+				${GENERATED_ICESTORM_SOURCES}
+		)
+
+		source_group(
+			TREE ${SLICE_DIR}/IceStorm
+			PREFIX "Slice Files"
+			FILES
+				${ICESTORM_SLICES}
+		)
+
+		target_sources(icestorm++11
+			PRIVATE
+				IceStorm.rc
+		)
+
+		target_compile_options(icestorm++11 
+			PRIVATE
+				${ICE_MSVC_COMPILE_OPTIONS}   
+		)
+
+		target_compile_definitions(icestorm++11
+			PRIVATE
+				${ICE_MSVC_COMPILE_DEFS}
+		)
+	endif()
+
+	set_target_properties(icestorm++11 
+		PROPERTIES
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+	)
+
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
+	install(TARGETS icestorm++11 DESTINATION lib)
 endif()
-
-set_target_properties(icestorm++11 
-	PROPERTIES
-		OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-)
-
-install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
-	DESTINATION include
-	FILES_MATCHING PATTERN "*.h"
-)
-install(TARGETS icestorm++11 DESTINATION lib)
-

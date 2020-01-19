@@ -66,11 +66,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(iceboxlib 
 		PRIVATE 
 			${ICE_COMPILE_DEFS}
+			"ICEBOX_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(iceboxlib PRIVATE "ICEBOX_API_EXPORTS")
-	endif()
 
 	target_link_libraries(iceboxlib
 		PRIVATE
@@ -155,11 +152,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(iceboxlib++11 
 		PRIVATE 
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICEBOX_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(iceboxlib++11 PRIVATE "ICEBOX_API_EXPORTS")
-	endif()
 
 	target_link_libraries(iceboxlib++11
 		PRIVATE

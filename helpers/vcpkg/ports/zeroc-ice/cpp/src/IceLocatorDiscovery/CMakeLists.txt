@@ -66,14 +66,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icelocatordiscovery
 		PRIVATE
 			${ICE_COMPILE_DEFS}
+			"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icelocatordiscovery 
-			PRIVATE 
-				"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
-		)
-	endif()
 
 	target_link_libraries(icelocatordiscovery
 		PRIVATE
@@ -154,14 +148,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icelocatordiscovery++11
 		PRIVATE
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icelocatordiscovery++11 
-			PRIVATE 
-				"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
-		)
-	endif()
 
 	target_link_libraries(icelocatordiscovery++11
 		PRIVATE

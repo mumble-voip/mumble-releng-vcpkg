@@ -93,11 +93,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icessl
 		PRIVATE
 			${ICE_COMPILE_DEFS}
+			"ICESSL_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icessl PRIVATE "ICESSL_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icessl
 		PRIVATE
@@ -187,11 +184,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icessl++11
 		PRIVATE
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICESSL_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icessl++11 PRIVATE "ICESSL_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icessl++11
 		PRIVATE
@@ -288,11 +282,8 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icesslopenssl
 		PRIVATE
 			${ICE_COMPILE_DEFS}
+			"ICESSL_OPENSSL_API_EXPORTS"
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icesslopenssl PRIVATE "ICESSL_OPENSSL_API_EXPORTS")
-	endif()
 
 	target_link_libraries(icesslopenssl
 		PRIVATE 
@@ -358,6 +349,7 @@ if(NOT WINDOWS_STORE)
 	target_compile_definitions(icesslopenssl++11
 		PRIVATE
 			${ICE_CPP11_COMPILE_DEFS}
+			"ICESSL_OPENSSL_API_EXPORTS"
 	)
 
 	target_link_libraries(icesslopenssl++11 
@@ -366,12 +358,6 @@ if(NOT WINDOWS_STORE)
 			OpenSSL::SSL 
 			OpenSSL::Crypto
 	)
-
-	if(BUILD_SHARED_LIBS)
-		target_compile_definitions(icesslopenssl++11 PRIVATE "ICESSL_OPENSSL_API_EXPORTS")
-	endif()
-
-	target_link_libraries(icesslopenssl++11 PRIVATE icessl++11)
 
 	if(MSVC)
 		source_group(
