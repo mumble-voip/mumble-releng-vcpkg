@@ -281,7 +281,7 @@ target_sources(icesslopenssl
 
 target_include_directories(icesslopenssl
 	PRIVATE
-		${PROJECT_BINARY_DIR}/generated
+		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src 
 		${OPENSSL_INCLUDE_DIR}
@@ -298,7 +298,7 @@ endif()
 
 target_link_libraries(icesslopenssl
 	PRIVATE 
-		ice++11
+		icessl
 		OpenSSL::SSL 
 		OpenSSL::Crypto
 )
@@ -351,7 +351,7 @@ target_sources(icesslopenssl++11
 
 target_include_directories(icesslopenssl++11
 	PRIVATE
-		${PROJECT_BINARY_DIR}/generated
+		${GENERATED_SLICES_DIR}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src 
 		${OPENSSL_INCLUDE_DIR}
@@ -365,7 +365,7 @@ target_compile_definitions(icesslopenssl++11
 
 target_link_libraries(icesslopenssl++11 
 	PRIVATE 
-		ice++11
+		icessl++11
 		OpenSSL::SSL 
 		OpenSSL::Crypto
 )
