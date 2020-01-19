@@ -67,3 +67,7 @@ add_subdirectory(src/IcePatch2Lib)
 add_subdirectory(src/IcePatch2)
 add_subdirectory(src/IceStorm)
 add_subdirectory(src/IceXML)
+
+if(MSVC AND NOT WINDOWS_STORE)
+	add_subdirectory(src/iceserviceinstall)
+endif()
