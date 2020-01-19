@@ -19,7 +19,6 @@ if(NOT WINDOWS_STORE)
 			StringUtil.cpp
 			ThreadException.cpp
 			Time.cpp
-			Unicode.h
 			UtilException.cpp
 			UUID.cpp
 	)
@@ -49,7 +48,7 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(iceutil 
 		PRIVATE
-			${STATIC_ICE_COMPILE_DEFS}
+			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_SLICE_COMPILERS"
 	)
 
