@@ -53,7 +53,7 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(slice 
 		PRIVATE  
-			${STATIC_ICE_COMPILE_DEFS}
+			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_SLICE_COMPILERS"
 	)
 
