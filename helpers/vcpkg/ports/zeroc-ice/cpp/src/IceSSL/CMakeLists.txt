@@ -269,12 +269,12 @@ if(NOT WINDOWS_STORE)
 		PRIVATE
 			OpenSSLCertificateI.cpp
 			OpenSSLEngine.cpp
-			OpenSSLPluginI.cpp
-			OpenSSLTransceiverI.cpp
-			OpenSSLUtil.cpp
 			OpenSSLEngine.h
 			OpenSSLEngineF.h
+			OpenSSLPluginI.cpp
+			OpenSSLTransceiverI.cpp
 			OpenSSLTransceiverI.h
+			OpenSSLUtil.cpp
 			OpenSSLUtil.h
 	)
 
@@ -339,12 +339,12 @@ if(NOT WINDOWS_STORE)
 		PRIVATE
 			OpenSSLCertificateI.cpp
 			OpenSSLEngine.cpp
-			OpenSSLPluginI.cpp
-			OpenSSLTransceiverI.cpp
-			OpenSSLUtil.cpp
 			OpenSSLEngine.h
 			OpenSSLEngineF.h
+			OpenSSLPluginI.cpp
+			OpenSSLTransceiverI.cpp
 			OpenSSLTransceiverI.h
+			OpenSSLUtil.cpp
 			OpenSSLUtil.h
 	)
 
