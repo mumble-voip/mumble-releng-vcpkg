@@ -262,6 +262,14 @@ if(NOT WINDOWS_STORE)
 				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
 					${ICE_MSVC_DLL_LINK_OPTIONS}"
 		)
+		
+		target_link_libraries(icegridnode
+			PRIVATE
+				advapi32.lib
+				pdh.lib
+				ws2_32.lib
+				version.lib
+		)
 
 	endif()
 
@@ -385,6 +393,14 @@ if(NOT WINDOWS_STORE)
 			PROPERTY 
 				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
 					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
+
+		target_link_libraries(icegridregistry
+			PRIVATE
+				advapi32.lib
+				pdh.lib
+				ws2_32.lib
+				version.lib
 		)
 	endif()
 
