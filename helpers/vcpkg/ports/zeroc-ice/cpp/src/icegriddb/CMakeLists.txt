@@ -39,7 +39,6 @@ if(NOT WINDOWS_STORE)
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src
 			${LMDB_INCLUDE_DIR}
-			${BZIP2_INCLUDE_DIR} 
 	)
 
 	target_compile_definitions(icegriddb
@@ -54,7 +53,6 @@ if(NOT WINDOWS_STORE)
 			icedb
 			glacier2
 			lmdb
-			BZip2::BZip2
 	)
 
 	if(MSVC)
@@ -99,7 +97,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icegriddb PROPERTY ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icegriddb PROPERTY ${ICE_MSVC_APP_LINK_OPTIONS})
 	endif()
 
 	list(APPEND ICEGRIDDB_SLICE_DIRS "-I${SLICE_DIR}")

@@ -122,6 +122,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icelocatordiscovery 
 		PROPERTIES
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icelocatordiscovery DESTINATION lib)
@@ -204,6 +205,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icelocatordiscovery++11 
 		PROPERTIES
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icelocatordiscovery++11 DESTINATION lib)

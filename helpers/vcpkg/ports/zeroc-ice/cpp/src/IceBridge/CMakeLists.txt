@@ -47,7 +47,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icebridge PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icebridge 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
 	endif()
 
 	install(TARGETS icebridge DESTINATION bin)

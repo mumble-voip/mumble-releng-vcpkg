@@ -37,7 +37,10 @@ source_group(
 
 target_compile_options(iceserviceinstall PRIVATE "/wd4250")
 
-set_property(TARGET iceserviceinstall PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+set_property(TARGET iceserviceinstall PROPERTY 
+	LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+		${ICE_MSVC_DLL_LINK_OPTIONS}"
+)
 
 target_link_libraries(iceserviceinstall PRIVATE
 	authz.lib

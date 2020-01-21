@@ -74,6 +74,11 @@ if(NOT WINDOWS_STORE)
 		)
 	endforeach()
 
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
+
 	add_library(icessl)
 
 	target_sources(icessl
@@ -157,12 +162,9 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icessl 
 		PROPERTIES
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS icessl DESTINATION lib)
 
 	add_library(icessl++11)
@@ -242,18 +244,16 @@ if(NOT WINDOWS_STORE)
 				secur32.lib
 				crypt32.lib
 				ws2_32.lib
+				rpcrt4.lib
 		)
 	endif()
 
 	set_target_properties(icessl++11 
 		PROPERTIES
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS icessl++11 DESTINATION lib)
 
 	add_library(icesslopenssl)
@@ -288,6 +288,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icesslopenssl
 		PRIVATE 
 			icessl
+			ice
 			OpenSSL::SSL 
 			OpenSSL::Crypto
 	)
@@ -319,6 +320,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icesslopenssl 
 		PROPERTIES
 			OUTPUT_NAME IceSSLOpenSSL
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icesslopenssl DESTINATION lib)
@@ -355,6 +357,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(icesslopenssl++11 
 		PRIVATE 
 			icessl++11
+			ice++11
 			OpenSSL::SSL 
 			OpenSSL::Crypto
 	)
@@ -386,6 +389,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icesslopenssl++11 
 		PROPERTIES
 			OUTPUT_NAME IceSSLOpenSSL++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icesslopenssl++11 DESTINATION lib)

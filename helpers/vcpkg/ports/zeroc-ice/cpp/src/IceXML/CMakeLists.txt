@@ -54,6 +54,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icexml 
 		PROPERTIES
 			OUTPUT_NAME IceXML${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icexml DESTINATION lib)

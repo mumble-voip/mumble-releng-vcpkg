@@ -146,7 +146,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icestormadmin PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icestormadmin 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
 	endif()
 
 	install(TARGETS icestormadmin DESTINATION bin)
@@ -228,7 +232,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icestormdb PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icestormdb 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)		
 	endif()
 
 	install(TARGETS icestormdb DESTINATION bin)
@@ -340,6 +348,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icestormservice
 		PROPERTIES
 			OUTPUT_NAME IceStormService${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icestormservice DESTINATION lib)

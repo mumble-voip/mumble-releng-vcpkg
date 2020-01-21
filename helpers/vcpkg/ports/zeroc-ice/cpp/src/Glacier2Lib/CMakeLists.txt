@@ -141,6 +141,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(glacier2  
 		PROPERTIES
 			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS glacier2 DESTINATION lib)
@@ -222,6 +223,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(glacier2++11 
 		PROPERTIES
 			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS glacier2++11 DESTINATION lib)

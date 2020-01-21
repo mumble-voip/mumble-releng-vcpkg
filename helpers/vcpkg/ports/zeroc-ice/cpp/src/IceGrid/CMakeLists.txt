@@ -57,8 +57,8 @@ if(NOT WINDOWS_STORE)
 			Parser.cpp
 			Scanner.cpp
 			Util.cpp
-			${GENERATED_ICEGRID_HEADERS}
-			${GENERATED_ICEGRID_SOURCES}
+			${GENERATED_SLICES_DIR}/IceGrid/Internal.cpp
+			${GENERATED_SLICES_DIR}/IceGrid/Internal.h
 	)
 
 	target_include_directories(icegridadmin
@@ -66,8 +66,6 @@ if(NOT WINDOWS_STORE)
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src
-			${EXPAT_INCLUDE_DIR}
-			${BZIP2_INCLUDE_DIR}
 	)
 
 	target_compile_definitions(icegridadmin
@@ -84,8 +82,6 @@ if(NOT WINDOWS_STORE)
 			iceboxlib
 			icexml
 			icelocatordiscovery
-			BZip2::BZip2
-			EXPAT::EXPAT
 	)
 
 	if(MSVC)
@@ -132,7 +128,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icegridadmin PROPERTY ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icegridadmin 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
 	endif()
 
 	install(TARGETS icegridadmin DESTINATION bin)
@@ -196,8 +196,7 @@ if(NOT WINDOWS_STORE)
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src
-			${BZIP2_INCLUDE_DIR}
-			${EXPAT_INCLUDE_DIR}
+			${LMDB_INCLUDE_DIR}
 	)
 
 	target_compile_definitions(icegridnode
@@ -217,8 +216,7 @@ if(NOT WINDOWS_STORE)
 			icessl
 			icepatch2
 			icedb
-			BZip2::BZip2
-			EXPAT::EXPAT
+			lmdb
 	)
 
 	if(MSVC)
@@ -259,15 +257,12 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icegridnode PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
-
-		target_link_libraries(icegridnode
-			PRIVATE
-				advapi32.lib
-				pdh.lib
-				ws2_32.lib
-				version.lib
+		set_property(TARGET icegridnode 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
 		)
+
 	endif()
 
 	install(TARGETS icegridnode DESTINATION bin)
@@ -386,14 +381,10 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icegridregistry PROPERTY ${ICE_MSVC_LINK_OPTIONS})
-
-		target_link_libraries(icegridregistry
-			PRIVATE
-				advapi32.lib
-				pdh.lib
-				ws2_32.lib
-				version.lib
+		set_property(TARGET icegridregistry 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
 		)
 	endif()
 

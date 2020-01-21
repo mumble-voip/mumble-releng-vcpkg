@@ -122,6 +122,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(iceboxlib 
 		PROPERTIES
 			OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceBox 
@@ -208,6 +209,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(iceboxlib++11 
 		PROPERTIES
 			OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceBox 
@@ -267,7 +269,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icebox PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icebox 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
 	endif()
 
 	install(TARGETS icebox DESTINATION bin)
@@ -322,7 +328,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET icebox++11 PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icebox++11 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
 	endif()
 
 	install(TARGETS icebox++11 DESTINATION bin)
@@ -346,6 +356,7 @@ if(NOT WINDOWS_STORE)
 	target_link_libraries(iceboxadmin
 		PRIVATE
 			iceboxlib
+			ice
 	)
 
 	target_compile_definitions(iceboxadmin
@@ -376,7 +387,11 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS}
 		)
 
-		set_property(TARGET iceboxadmin PROPERTY ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET iceboxadmin 
+			PROPERTY 
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+					${ICE_MSVC_DLL_LINK_OPTIONS}"
+		)
 	endif()
 
 	install(TARGETS iceboxadmin DESTINATION bin)

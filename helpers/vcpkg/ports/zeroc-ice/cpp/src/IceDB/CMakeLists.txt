@@ -56,6 +56,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icedb
 		PROPERTIES
 			OUTPUT_NAME IceDB${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icedb DESTINATION lib)

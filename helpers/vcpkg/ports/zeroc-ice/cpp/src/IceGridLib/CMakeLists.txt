@@ -151,6 +151,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icegrid 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icegrid DESTINATION lib)
@@ -242,6 +243,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icegrid++11 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(TARGETS icegrid++11 DESTINATION lib)

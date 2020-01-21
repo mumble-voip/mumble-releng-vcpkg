@@ -351,6 +351,11 @@ if(NOT WINDOWS_STORE)
 			"${output_files}"
 		)
 	endforeach()
+
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
 	
 	add_library(ice)
 
@@ -463,12 +468,9 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(ice 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS ice DESTINATION lib)
 
 	add_library(ice++11)
@@ -500,7 +502,7 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(ice++11
 		PRIVATE
-			iceutil
+			iceutil++11
 			BZip2::BZip2
 	)
 
@@ -557,7 +559,6 @@ if(NOT WINDOWS_STORE)
 				Shlwapi.lib
 		)
 
-
 		target_sources(ice++11
 			PRIVATE
 				EventLoggerMsg.mc
@@ -583,11 +584,8 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(ice++11 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS ice++11 DESTINATION lib)
 endif()

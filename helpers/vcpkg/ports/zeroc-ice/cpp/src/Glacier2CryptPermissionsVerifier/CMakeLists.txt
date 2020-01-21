@@ -20,7 +20,7 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(glacier2cryptpermissionsverifier
 		PRIVATE
-			${ICE_COMPILE_DEFS}
+			${STATIC_ICE_COMPILE_DEFS}
 			"CRYPT_PERMISSIONS_VERIFIER_API_EXPORTS"
 	)
 
@@ -28,6 +28,7 @@ if(NOT WINDOWS_STORE)
 		PRIVATE
 			glacier2
 			ice
+			iceutil
 	)
 
 	if(MSVC)
@@ -52,6 +53,11 @@ if(NOT WINDOWS_STORE)
 			PRIVATE
 				crypt32.lib
 				bcrypt.lib
+		)
+
+		set_property(TARGET glacier2cryptpermissionsverifier
+			PROPERTY
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 		)
 
 		target_sources(glacier2cryptpermissionsverifier

@@ -43,6 +43,11 @@ if(NOT WINDOWS_STORE)
 		)
 	endforeach()
 
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
+
 	add_library(icediscovery)
 
 	set_property(TARGET icediscovery PROPERTY CXX_STANDARD 98)
@@ -121,12 +126,9 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icediscovery 
 		PROPERTIES
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS icediscovery DESTINATION lib)
 
 	add_library(icediscovery++11)
@@ -207,11 +209,8 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icediscovery++11 
 		PROPERTIES
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS icediscovery++11 DESTINATION lib)
 endif()

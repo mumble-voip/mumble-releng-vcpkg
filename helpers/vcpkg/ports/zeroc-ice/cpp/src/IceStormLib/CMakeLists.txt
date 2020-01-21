@@ -37,6 +37,10 @@ if(NOT WINDOWS_STORE)
 		)
 	endforeach()
 
+	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
+		DESTINATION include
+		FILES_MATCHING PATTERN "*.h"
+	)
 
 	add_library(icestorm)
 
@@ -112,12 +116,9 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icestorm 
 		PROPERTIES
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS icestorm DESTINATION lib)
 
 	add_library(icestorm++11)
@@ -137,7 +138,7 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(icestorm++11
 		PRIVATE
-			${ICE_CPP_COMPILE_DEFS}
+			${ICE_CPP11_COMPILE_DEFS}
 			"ICESTORM_API_EXPORTS"
 	)
 
@@ -194,11 +195,8 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icestorm++11 
 		PROPERTIES
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
-	)
 	install(TARGETS icestorm++11 DESTINATION lib)
 endif()

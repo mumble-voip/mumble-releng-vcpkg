@@ -49,7 +49,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS} 
 		)
 
-		set_property(TARGET icepatch2calc PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icepatch2calc PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icepatch2calc DESTINATION bin)
@@ -104,7 +104,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS} 
 		)
 
-		set_property(TARGET icepatch2client PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icepatch2client PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icepatch2client DESTINATION bin)
@@ -160,7 +160,7 @@ if(NOT WINDOWS_STORE)
 				${ICE_MSVC_COMPILE_DEFS} 
 		)
 
-		set_property(TARGET icepatch2server PROPERTY LINK_FLAGS ${ICE_MSVC_LINK_OPTIONS})
+		set_property(TARGET icepatch2server PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 	endif()
 
 	install(TARGETS icepatch2server DESTINATION bin)

@@ -119,6 +119,7 @@ if(NOT WINDOWS_STORE)
 	set_target_properties(icepatch2
 		PROPERTIES
 			OUTPUT_NAME IcePatch2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IcePatch2 
