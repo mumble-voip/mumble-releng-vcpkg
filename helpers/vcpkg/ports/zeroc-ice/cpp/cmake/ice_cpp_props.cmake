@@ -54,12 +54,12 @@ if(MSVC)
 	)
 
 	set(ICE_MSVC_DLL_LINK_OPTIONS
-		"/ERRORREPORT:QUEUE \
-		/NOLOGO \
-		/MANIFEST \
-		/MANIFESTUAC:\"level='asInvoker' uiAccess='false'\" \ 
-		/NXCOMPAT \
-		/DYNAMICBASE \
+		"/ERRORREPORT:QUEUE 
+		/NOLOGO 
+		/MANIFEST 
+		/MANIFESTUAC:\"level='asInvoker' uiAccess='false'\" 
+		/NXCOMPAT 
+		/DYNAMICBASE 
 		/TLBID:1"
 	)
 	
