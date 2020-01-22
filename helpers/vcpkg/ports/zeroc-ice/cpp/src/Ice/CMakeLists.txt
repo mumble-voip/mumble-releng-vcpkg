@@ -366,6 +366,7 @@ if(NOT WINDOWS_STORE)
 			${ICE_SOURCES}
 			${GENERATED_ICE_SOURCES}
 			${GENERATED_ICE_HEADERS}
+			$<TARGET_OBJECTS:iceutil>
 	)
 
 	if(LINUX)
@@ -386,7 +387,6 @@ if(NOT WINDOWS_STORE)
 
 	target_link_libraries(ice
 		PRIVATE
-			iceutil
 			BZip2::BZip2
 	)
 

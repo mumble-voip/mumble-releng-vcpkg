@@ -20,7 +20,7 @@ if(NOT WINDOWS_STORE)
 
 	target_compile_definitions(glacier2cryptpermissionsverifier
 		PRIVATE
-			${STATIC_ICE_COMPILE_DEFS}
+			${ICE_COMPILE_DEFS}
 			"CRYPT_PERMISSIONS_VERIFIER_API_EXPORTS"
 	)
 
@@ -28,7 +28,6 @@ if(NOT WINDOWS_STORE)
 		PRIVATE
 			glacier2
 			ice
-			iceutil
 	)
 
 	if(MSVC)
