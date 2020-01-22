@@ -6,11 +6,12 @@ vcpkg_from_github(
 	HEAD_REF master
 )
 
+# sideload cmake requirements for C++, hopefully to be removed pending PR to zeroc
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
-# TODO - handle features for "tests" project
+# TODO - handle features for "tests" projects
 vcpkg_configure_cmake(
 	SOURCE_PATH ${SOURCE_PATH}
 	PREFER_NINJA
@@ -27,9 +28,7 @@ file(INSTALL ${CURRENT_PACKAGES_DIR}/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/to
 
 vcpkg_copy_tool_dependencies(${CURRENT_PACKAGES_DIR}/tools/ice)
 
-if(VCPKG_LIBRARY_LINKAGE STREQUAL static)
-	file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin ${CURRENT_PACKAGES_DIR}/debug/bin)
-endif()
+file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin ${CURRENT_PACKAGES_DIR}/debug/bin)
 
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/include)
   
