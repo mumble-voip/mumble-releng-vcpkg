@@ -125,7 +125,11 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icelocatordiscovery DESTINATION lib)
+	install(TARGETS icelocatordiscovery 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_library(icelocatordiscovery++11)
 	
@@ -208,5 +212,9 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icelocatordiscovery++11 DESTINATION lib)
+	install(TARGETS icelocatordiscovery++11 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif()

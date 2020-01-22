@@ -130,7 +130,11 @@ if(NOT WINDOWS_STORE)
 		FILES_MATCHING PATTERN "*.h"
 	)
 
-	install(TARGETS iceboxlib DESTINATION lib)
+	install(TARGETS iceboxlib 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_library(iceboxlib++11)
 
@@ -217,7 +221,11 @@ if(NOT WINDOWS_STORE)
 		FILES_MATCHING PATTERN "*.h"
 	)
 
-	install(TARGETS iceboxlib++11 DESTINATION lib)
+	install(TARGETS iceboxlib++11 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_executable(icebox)
 

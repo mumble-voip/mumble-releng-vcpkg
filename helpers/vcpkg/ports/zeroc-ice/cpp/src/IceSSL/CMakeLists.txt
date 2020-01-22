@@ -165,7 +165,11 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icessl DESTINATION lib)
+	install(TARGETS icessl 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_library(icessl++11)
 
@@ -254,7 +258,11 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icessl++11 DESTINATION lib)
+	install(TARGETS icessl++11 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_library(icesslopenssl)
 
@@ -323,7 +331,11 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icesslopenssl DESTINATION lib)
+	install(TARGETS icesslopenssl 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_library(icesslopenssl++11)
 
@@ -392,5 +404,9 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icesslopenssl++11 DESTINATION lib)
+	install(TARGETS icesslopenssl++11 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif()

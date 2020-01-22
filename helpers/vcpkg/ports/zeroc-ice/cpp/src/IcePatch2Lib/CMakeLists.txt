@@ -126,5 +126,10 @@ if(NOT WINDOWS_STORE)
 		DESTINATION include
 		FILES_MATCHING PATTERN "*.h"
 	)
-	install(TARGETS icepatch2 DESTINATION lib)
+
+	install(TARGETS icepatch2 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif()

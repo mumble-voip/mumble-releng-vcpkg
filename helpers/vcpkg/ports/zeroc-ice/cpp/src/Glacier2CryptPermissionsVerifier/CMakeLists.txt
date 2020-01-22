@@ -70,5 +70,9 @@ if(NOT WINDOWS_STORE)
 			OUTPUT_NAME Glacier2CryptPermissionsVerifier${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 
-	install(TARGETS glacier2cryptpermissionsverifier DESTINATION lib)
+	install(TARGETS glacier2cryptpermissionsverifier 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif()

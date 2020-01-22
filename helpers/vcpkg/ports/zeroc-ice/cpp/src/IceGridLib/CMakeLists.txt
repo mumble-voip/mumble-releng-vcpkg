@@ -154,7 +154,11 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icegrid DESTINATION lib)
+	install(TARGETS icegrid 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 
 	add_library(icegrid++11)
 
@@ -246,5 +250,9 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icegrid++11 DESTINATION lib)
+	install(TARGETS icegrid++11 
+		RUNTIME DESTINATION bin
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif()

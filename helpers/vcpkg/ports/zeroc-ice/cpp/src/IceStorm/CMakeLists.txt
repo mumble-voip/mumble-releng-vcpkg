@@ -351,5 +351,9 @@ if(NOT WINDOWS_STORE)
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icestormservice DESTINATION lib)
+	install(TARGETS icestormservice 
+		RUNTIME DESTINATION bin 
+		LIBRARY DESTINATION lib
+		ARCHIVE DESTINATION lib
+	)
 endif()
