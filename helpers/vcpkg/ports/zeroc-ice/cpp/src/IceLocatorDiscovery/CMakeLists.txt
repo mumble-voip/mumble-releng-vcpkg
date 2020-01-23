@@ -19,7 +19,7 @@ set(ICELOCATORDISCOVERY_SOURCES
 	PluginI.cpp
 )
 
-if(NOT WINDOWS_STORE)
+if(NOT BUILD_ICE_UWP)
 	list(APPEND ICELOCATORDISCOVERY_SLICE_DIRS "-I${SLICE_DIR}")
 	list(APPEND ICELOCATORDISCOVERY_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceLocatorDiscovery")
 
@@ -40,15 +40,31 @@ if(NOT WINDOWS_STORE)
 	endforeach()
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceLocatorDiscovery 
-		DESTINATION include
+		DESTINATION ${GENERATED_H_INSTALL_DIR}
 		FILES_MATCHING PATTERN "*.h"
 	)
 
-	add_library(icelocatordiscovery)
+	if(BUILD_ICE_CPP98)
+		set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscovery)
+		add_library(${ICELOCATOR_DISCOVERY_TARGET})
+		set_target_properties(${ICELOCATOR_DISCOVERY_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 98
+		)
+	elseif(BUILD_ICE_CPP11)
+		set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscovery++11)
+		add_library(${ICELOCATOR_DISCOVERY_TARGET})
+		set_target_properties(${ICELOCATOR_DISCOVERY_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 11
+		)
+	endif()
 
-	set_property(TARGET icelocatordiscovery PROPERTY CXX_STANDARD 98)
-
-	target_sources(icelocatordiscovery
+	target_sources(${ICELOCATOR_DISCOVERY_TARGET}
 		PRIVATE
 			${ICELOCATORDISCOVERY_SOURCES}
 			${GENERATED_ICELOCATORDISCOVERY_HEADERS}
@@ -56,23 +72,30 @@ if(NOT WINDOWS_STORE)
 			${ICELOCATORDISCOVERY_SLICES}
 	)
 
-	target_include_directories(icelocatordiscovery
+	target_include_directories(${ICELOCATOR_DISCOVERY_TARGET}
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src    
 	)
 
-	target_compile_definitions(icelocatordiscovery
+	target_compile_definitions(${ICELOCATOR_DISCOVERY_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
 	)
 
-	target_link_libraries(icelocatordiscovery
-		PRIVATE
-			ice
-	)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICELOCATOR_DISCOVERY_TARGET}
+			PRIVATE
+				ice
+		)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICELOCATOR_DISCOVERY_TARGET}
+			PRIVATE
+				ice++11
+		)
+	endif()
 
 	if(MSVC)
 		source_group(
@@ -103,118 +126,25 @@ if(NOT WINDOWS_STORE)
 				${ICELOCATORDISCOVERY_SLICES}
 		)
 
-		target_sources(icelocatordiscovery
+		target_sources(${ICELOCATOR_DISCOVERY_TARGET}
 			PRIVATE
 				IceLocatorDiscovery.rc
 		)
 
-		target_compile_options(icelocatordiscovery 
+		target_compile_options(${ICELOCATOR_DISCOVERY_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
 		)
 
-		target_compile_definitions(icelocatordiscovery
+		target_compile_definitions(${ICELOCATOR_DISCOVERY_TARGET}
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 
-	set_target_properties(icelocatordiscovery 
-		PROPERTIES
-			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icelocatordiscovery 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-
-	add_library(icelocatordiscovery++11)
-	
-	set_property(TARGET icelocatordiscovery++11 PROPERTY CXX_STANDARD 11)
-
-	target_sources(icelocatordiscovery++11
-		PRIVATE
-			${ICELOCATORDISCOVERY_SOURCES}
-			${GENERATED_ICELOCATORDISCOVERY_HEADERS}
-			${GENERATED_ICELOCATORDISCOVERY_SOURCES}
-			${ICELOCATORDISCOVERY_SLICES}
-	)
-
-	target_include_directories(icelocatordiscovery++11
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src    
-	)
-
-	target_compile_definitions(icelocatordiscovery++11
-		PRIVATE
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
-	)
-
-	target_link_libraries(icelocatordiscovery++11
-		PRIVATE
-			ice++11
-	)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceLocatorDiscovery.rc
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceLocatorDiscovery
-			PREFIX "Header Files/Generated"
-			FILES
-				${GENERATED_ICELOCATORDISCOVERY_HEADERS}
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceLocatorDiscovery
-			PREFIX "Source Files/Generated"
-			FILES
-				${GENERATED_ICELOCATORDISCOVERY_SOURCES}
-		)
-
-		source_group(
-			TREE ${SLICE_DIR}/IceLocatorDiscovery
-			PREFIX "Slice Files"
-			FILES
-				${ICELOCATORDISCOVERY_SLICES}
-		)
-
-		target_sources(icelocatordiscovery
-			PRIVATE
-				IceLocatorDiscovery.rc
-		)
-
-		target_compile_options(icelocatordiscovery++11 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(icelocatordiscovery++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-	endif()
-
-	set_target_properties(icelocatordiscovery++11 
-		PROPERTIES
-			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icelocatordiscovery++11 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	install(TARGETS ${ICELOCATOR_DISCOVERY_TARGET} 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
 endif()

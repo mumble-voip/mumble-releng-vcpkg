@@ -23,7 +23,7 @@ set(ICEDISCOVERY_SOURCES
 	PluginI.h
 )
 
-if(NOT WINDOWS_STORE)
+if(NOT BUILD_ICE_UWP)
 	list(APPEND ICEDISCOVERY_SLICE_DIRS "-I${SLICE_DIR}")
 	list(APPEND ICEDISCOVERY_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceDiscovery")
 
@@ -44,15 +44,31 @@ if(NOT WINDOWS_STORE)
 	endforeach()
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery 
-		DESTINATION include
+		DESTINATION ${GENERATED_H_INSTALL_DIR}
 		FILES_MATCHING PATTERN "*.h"
 	)
 
-	add_library(icediscovery)
+	if(BUILD_ICE_CPP98)
+		set(ICEDISCOVERY_TARGET icediscovery)
+		add_library(${ICEDISCOVERY_TARGET})
+		set_target_properties(${ICEDISCOVERY_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 98
+		)
+	elseif(BUILD_ICE_CPP11)
+		set(ICEDISCOVERY_TARGET icediscovery++11)
+		add_library(${ICEDISCOVERY_TARGET})
+		set_target_properties(${ICEDISCOVERY_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 11
+		)
+	endif()
 
-	set_property(TARGET icediscovery PROPERTY CXX_STANDARD 98)
-
-	target_sources(icediscovery
+	target_sources(${ICEDISCOVERY_TARGET}
 		PRIVATE
 			${ICEDISCOVERY_SOURCES}
 			${GENERATED_ICEDISCOVERY_HEADERS}
@@ -60,23 +76,24 @@ if(NOT WINDOWS_STORE)
 			${ICEDISCOVERY_SLICES}
 	)
 
-	target_include_directories(icediscovery
+	target_include_directories(${ICEDISCOVERY_TARGET}
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src    
 	)
 
-	target_compile_definitions(icediscovery
+	target_compile_definitions(${ICEDISCOVERY_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICE_DISCOVERY_API_EXPORTS"
 	)
 
-	target_link_libraries(icediscovery
-		PRIVATE
-			ice
-	)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICEDISCOVERY_TARGET} PRIVATE ice)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICEDISCOVERY_TARGET} PRIVATE ice++11)
+	endif()
 
 	if(MSVC)
 		source_group(
@@ -107,118 +124,25 @@ if(NOT WINDOWS_STORE)
 				${ICEDISCOVERY_SLICES}
 		)
 
-		target_sources(icediscovery
+		target_sources(${ICEDISCOVERY_TARGET}
 			PRIVATE
 				IceDiscovery.rc
 		)
 
-		target_compile_options(icediscovery 
+		target_compile_options(${ICEDISCOVERY_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
 		)
 
-		target_compile_definitions(icediscovery
+		target_compile_definitions(${ICEDISCOVERY_TARGET}
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 
-	set_target_properties(icediscovery 
-		PROPERTIES
-			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icediscovery 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-
-	add_library(icediscovery++11)
-
-	set_property(TARGET icediscovery++11 PROPERTY CXX_STANDARD 11)
-
-	target_sources(icediscovery++11
-		PRIVATE
-			${ICEDISCOVERY_SOURCES}
-			${GENERATED_ICEDISCOVERY_HEADERS}
-			${GENERATED_ICEDISCOVERY_SOURCES}
-			${ICEDISCOVERY_SLICES}
-	)
-
-	target_include_directories(icediscovery++11
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src    
-	)
-
-	target_compile_definitions(icediscovery++11
-		PRIVATE
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICE_DISCOVERY_API_EXPORTS"
-	)
-
-	target_link_libraries(icediscovery++11
-		PRIVATE
-			ice++11
-	)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceDiscovery.rc
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceDiscovery
-			PREFIX "Header Files/Generated"
-			FILES
-				${GENERATED_ICEDISCOVERY_HEADERS}
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceDiscovery
-			PREFIX "Source Files/Generated"
-			FILES
-				${GENERATED_ICEDISCOVERY_SOURCES}
-		)
-
-		source_group(
-			TREE ${SLICE_DIR}/IceDiscovery
-			PREFIX "Slice Files"
-			FILES
-				${ICEDISCOVERY_SLICES}
-		)
-
-		target_sources(icediscovery++11
-			PRIVATE
-				IceDiscovery.rc
-		)
-
-		target_compile_options(icediscovery++11 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(icediscovery++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-	endif()
-
-	set_target_properties(icediscovery++11 
-		PROPERTIES
-			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icediscovery++11 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	install(TARGETS ${ICEDISCOVERY_TARGET} 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
 endif()

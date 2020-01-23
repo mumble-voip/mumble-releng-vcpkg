@@ -54,7 +54,7 @@ set(ICESSL_SOURCES
 	${ICESSL_SLICES}
 )
 
-if(NOT WINDOWS_STORE)
+if(NOT BUILD_ICE_UWP)
 	list(APPEND ICESSL_SLICE_DIRS "-I${SLICE_DIR}")
 	list(APPEND ICESSL_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceSSL")
 
@@ -75,36 +75,55 @@ if(NOT WINDOWS_STORE)
 	endforeach()
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL 
-		DESTINATION include
+		DESTINATION ${GENERATED_H_INSTALL_DIR}
 		FILES_MATCHING PATTERN "*.h"
 	)
 
-	add_library(icessl)
+	if(BUILD_ICE_CPP98)
+		set(ICESSL_TARGET icessl)
+		add_library(${ICESSL_TARGET})
+		set_target_properties(${ICESSL_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 98
+		)
+	elseif(BUILD_ICE_CPP11)
+		set(ICESSL_TARGET icessl++11)
+		add_library(${ICESSL_TARGET})
+		set_target_properties(${ICESSL_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 11
+		)
+	endif()
 
-	target_sources(icessl
+	target_sources(${ICESSL_TARGET}
 		PRIVATE
 			${ICESSL_SOURCES}
 			${GENERATED_ICESSL_HEADERS}
 			${GENERATED_ICESSL_SOURCES}
 	)
 
-	target_include_directories(icessl
+	target_include_directories(${ICESSL_TARGET}
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src 
 	)
 
-	target_compile_definitions(icessl
+	target_compile_definitions(${ICESSL_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICESSL_API_EXPORTS"
 	)
 
-	target_link_libraries(icessl
-		PRIVATE
-			ice
-	)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICESSL_TARGET} PRIVATE ice)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICESSL_TARGET} PRIVATE ice++11)
+	endif()
 
 	if(MSVC)
 		source_group(
@@ -135,22 +154,22 @@ if(NOT WINDOWS_STORE)
 				${ICESSL_SLICES}
 		)
 
-		target_sources(icessl
+		target_sources(${ICESSL_TARGET}
 			PRIVATE
 				IceSSL.rc
 		)
 
-		target_compile_options(icessl 
+		target_compile_options(${ICESSL_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
 		)
 
-		target_compile_definitions(icessl
+		target_compile_definitions(${ICESSL_TARGET}
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 
-		target_link_libraries(icessl
+		target_link_libraries(${ICESSL_TARGET}
 			PRIVATE
 				advapi32.lib
 				secur32.lib
@@ -159,114 +178,33 @@ if(NOT WINDOWS_STORE)
 		)
 	endif()
 
-	set_target_properties(icessl 
-		PROPERTIES
-			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+	install(TARGETS ${ICESSL_TARGET} 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
 
-	install(TARGETS icessl 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-
-	add_library(icessl++11)
-
-	target_sources(icessl++11
-		PRIVATE
-			${ICESSL_SOURCES}
-			${GENERATED_ICESSL_HEADERS}
-			${GENERATED_ICESSL_SOURCES}
-	)
-
-	target_include_directories(icessl++11
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src 
-	)
-
-	target_compile_definitions(icessl++11
-		PRIVATE
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICESSL_API_EXPORTS"
-	)
-
-	target_link_libraries(icessl++11
-		PRIVATE
-			ice++11
-	)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceSSL.rc
+	if(BUILD_ICE_CPP98)
+		set(ICESSL_OPENSSL_TARGET icesslopenssl)
+		add_library(${ICESSL_OPENSSL_TARGET})
+		set_target_properties(${ICESSL_OPENSSL_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceSSLOpenSSL
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 98
 		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceSSL
-			PREFIX "Header Files/Generated"
-			FILES
-				${GENERATED_ICESSL_HEADERS}
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceSSL
-			PREFIX "Source Files/Generated"
-			FILES
-				${GENERATED_ICESSL_SOURCES}
-		)
-
-		source_group(
-			TREE ${SLICE_DIR}/IceSSL
-			PREFIX "Slice Files"
-			FILES
-				${ICESSL_SLICES}
-		)
-
-		target_sources(icessl++11
-			PRIVATE
-				IceSSL.rc
-		)
-
-		target_compile_options(icessl++11 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(icessl++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-
-		target_link_libraries(icessl++11
-			PRIVATE
-				advapi32.lib
-				secur32.lib
-				crypt32.lib
-				ws2_32.lib
-				rpcrt4.lib
+	elseif(BUILD_ICE_CPP11)
+		set(ICESSL_OPENSSL_TARGET icesslopenssl++11)
+		add_library(${ICESSL_OPENSSL_TARGET})
+		set_target_properties(${ICESSL_OPENSSL_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceSSLOpenSSL++11
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 11
 		)
 	endif()
 
-	set_target_properties(icessl++11 
-		PROPERTIES
-			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icessl++11 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-
-	add_library(icesslopenssl)
-
-	target_sources(icesslopenssl
+	target_sources(${ICESSL_OPENSSL_TARGET}
 		PRIVATE
 			OpenSSLCertificateI.cpp
 			OpenSSLEngine.cpp
@@ -279,7 +217,7 @@ if(NOT WINDOWS_STORE)
 			OpenSSLUtil.h
 	)
 
-	target_include_directories(icesslopenssl
+	target_include_directories(${ICESSL_OPENSSL_TARGET}
 		PRIVATE
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
@@ -287,19 +225,29 @@ if(NOT WINDOWS_STORE)
 			${OPENSSL_INCLUDE_DIR}
 	)
 
-	target_compile_definitions(icesslopenssl
+	target_compile_definitions(${ICESSL_OPENSSL_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICESSL_OPENSSL_API_EXPORTS"
 	)
 
-	target_link_libraries(icesslopenssl
-		PRIVATE 
-			icessl
-			ice
-			OpenSSL::SSL 
-			OpenSSL::Crypto
-	)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICESSL_OPENSSL_TARGET}
+			PRIVATE 
+				icessl
+				ice
+				OpenSSL::SSL 
+				OpenSSL::Crypto
+		)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICESSL_OPENSSL_TARGET}
+			PRIVATE
+				icessl++11
+				ice++11
+				OpenSSL::SSL
+				OpenSSL::Crypto
+		)
+	endif()
 
 	if(MSVC)
 		source_group(
@@ -309,104 +257,25 @@ if(NOT WINDOWS_STORE)
 				IceSSLOpenSSL.rc
 		)
 
-		target_sources(icesslopenssl
+		target_sources(${ICESSL_OPENSSL_TARGET}
 			PRIVATE
 				IceSSLOpenSSL.rc
 		)
 
-		target_compile_options(icesslopenssl 
+		target_compile_options(${ICESSL_OPENSSL_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
 		)
 
-		target_compile_definitions(icesslopenssl
+		target_compile_definitions(${ICESSL_OPENSSL_TARGET}
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 
-	set_target_properties(icesslopenssl 
-		PROPERTIES
-			OUTPUT_NAME IceSSLOpenSSL
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icesslopenssl 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-
-	add_library(icesslopenssl++11)
-
-	target_sources(icesslopenssl++11
-		PRIVATE
-			OpenSSLCertificateI.cpp
-			OpenSSLEngine.cpp
-			OpenSSLEngine.h
-			OpenSSLEngineF.h
-			OpenSSLPluginI.cpp
-			OpenSSLTransceiverI.cpp
-			OpenSSLTransceiverI.h
-			OpenSSLUtil.cpp
-			OpenSSLUtil.h
-	)
-
-	target_include_directories(icesslopenssl++11
-		PRIVATE
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src 
-			${OPENSSL_INCLUDE_DIR}
-	)
-
-	target_compile_definitions(icesslopenssl++11
-		PRIVATE
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICESSL_OPENSSL_API_EXPORTS"
-	)
-
-	target_link_libraries(icesslopenssl++11 
-		PRIVATE 
-			icessl++11
-			ice++11
-			OpenSSL::SSL 
-			OpenSSL::Crypto
-	)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceSSLOpenSSL.rc
-		)
-
-		target_sources(icesslopenssl++11
-			PRIVATE
-				IceSSLOpenSSL.rc
-		)
-
-		target_compile_options(icesslopenssl++11 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(icesslopenssl++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-	endif()
-
-	set_target_properties(icesslopenssl++11 
-		PROPERTIES
-			OUTPUT_NAME IceSSLOpenSSL++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icesslopenssl++11 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	install(TARGETS ${ICESSL_OPENSSL_TARGET} 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
 endif()

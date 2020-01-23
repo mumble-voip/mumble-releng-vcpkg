@@ -11,16 +11,27 @@ set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 3)
 
-# shipped zeroc-ice shows two configurations defined here
+option(BUILD_ICE_TESTS OFF)
+option(BUILD_ICE_ALL OFF)
+option(BUILD_ICE_CXX OFF)
+
 if(CMAKE_CONFIGURATION_TYPES)
-	set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+	if(BUILD_ICE_TESTS)
+		set(CMAKE_CONFIGURATION_TYPES "Debug" CACHE STRING "" FORCE)
+	else()
+		set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
+	endif()
 endif()
 
-# add function to handle slice compiles
+# add function to handle slice compiles (icebuilder)
 include(cmake/CompileSlice.cmake)
 
 # create root path for .ice files
 set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
+
+if(BUILD_ICE_CXX)
+	enable_language(CXX)
+endif()
 
 # do a compiler language check
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)

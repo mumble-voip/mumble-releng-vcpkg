@@ -60,15 +60,31 @@ if(NOT WINDOWS_STORE)
 	endforeach()
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid 
-		DESTINATION include
+		DESTINATION ${GENERATED_H_INSTALL_DIR}
 		FILES_MATCHING PATTERN "*.h"
 	)
 
-	add_library(icegrid)
+	if(BUILD_ICE_CPP98)
+		set(ICEGRID_TARGET icegrid)
+		add_library(${ICEGRID_TARGET})
+		set_target_properties(${ICEGRID_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 98
+		)
+	elseif(BUILD_ICE_CPP11)
+		set(ICEGRID_TARGET icegrid++11)
+		add_library(${ICEGRID_TARGET})
+		set_target_properties(${ICEGRID_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 11
+		)
+	endif()
 
-	set_property(TARGET icegrid PROPERTY CXX_STANDARD 98)
-
-	target_sources(icegrid
+	target_sources(${ICEGRID_TARGET}
 		PRIVATE
 			${ICEGRID_SOURCES}
 			${GENERATED_ICEGRID_HEADERS}
@@ -77,31 +93,39 @@ if(NOT WINDOWS_STORE)
 	)
 
 	if(LINUX OR APPLE)
-		target_sources(icegrid
+		target_sources(${ICEGRID_TARGET}
 			PRIVATE
 				Grammar.y
 				Scanner.l
 		)
 	endif()
 
-	target_include_directories(icegrid
+	target_include_directories(${ICEGRID_TARGET}
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src  
 	)
 
-	target_compile_definitions(icegrid
+	target_compile_definitions(${ICEGRID_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICEGRID_API_EXPORTS"
 	)
 
-	target_link_libraries(icegrid
-		PRIVATE
-			glacier2
-			ice
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICEGRID_TARGET}
+			PRIVATE
+				glacier2
+				ice
 		)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICEGRID_TARGET}
+			PRIVATE
+				glacier2++11
+				ice++11
+		)
+	endif()
 
 	if(MSVC)
 		source_group(
@@ -132,127 +156,31 @@ if(NOT WINDOWS_STORE)
 				${ICEGRID_SLICES}
 		)
 
-		target_sources(icegrid
+		target_sources(${ICEGRID_TARGET}
 			PRIVATE
 				IceGrid.rc
 		)
 
-		target_compile_options(icegrid
+		target_compile_options(${ICEGRID_TARGET}
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
 		)
 
-		target_compile_definitions(icegrid
+		target_compile_definitions(${ICEGRID_TARGET}
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 
-	set_target_properties(icegrid 
+	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS icegrid 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
-
-	add_library(icegrid++11)
-
-	set_property(TARGET icegrid++11 PROPERTY CXX_STANDARD 11)
-
-	target_sources(icegrid++11
-		PRIVATE
-			${ICEGRID_SOURCES}
-			${GENERATED_ICEGRID_HEADERS}
-			${GENERATED_ICEGRID_SOURCES}
-			${ICEGRID_SLICES} 
-	)
-
-	if(LINUX OR APPLE)
-		target_sources(icegrid++11
-			PRIVATE
-				Grammar.y
-				Scanner.l
-		)
-	endif()
-
-	target_include_directories(icegrid++11
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src  
-	)
-
-	target_compile_definitions(icegrid++11
-		PRIVATE
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICEGRID_API_EXPORTS"
-	)
-
-	target_link_libraries(icegrid++11
-		PRIVATE
-			glacier2++11
-			ice++11
-		)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceGrid.rc
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceGrid
-			PREFIX "Header Files/Generated"
-			FILES
-				${GENERATED_ICEGRID_HEADERS}
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceGrid
-			PREFIX "Source Files/Generated"
-			FILES
-				${GENERATED_ICEGRID_SOURCES}
-		)
-
-		source_group(
-			TREE ${SLICE_DIR}/IceGrid
-			PREFIX "Slice Files"
-			FILES
-				${ICEGRID_SLICES}
-		)
-
-		target_sources(icegrid++11
-			PRIVATE
-				IceGrid.rc
-		)
-
-		target_compile_options(icegrid++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(icegrid++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-	endif()
-
-	set_target_properties(icegrid++11 
-		PROPERTIES
-			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icegrid++11 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	install(TARGETS ${ICEGRID_TARGET} 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
 endif()

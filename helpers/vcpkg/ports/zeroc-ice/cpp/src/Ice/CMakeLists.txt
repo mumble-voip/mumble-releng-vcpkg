@@ -332,36 +332,52 @@ set(ICE_SOURCES
 	${ICE_SLICES}
 )
 
-if(NOT WINDOWS_STORE)
-	list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
-	list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
+list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
 
-	foreach(slice ${ICE_SLICES})
-		get_filename_component(slice_name ${slice} NAME_WE)
-		set(output_files 
-			${GENERATED_SLICES_DIR}/Ice/${slice_name}.cpp 
-			${GENERATED_SLICES_DIR}/Ice/${slice_name}.h
-		)	
-		#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-		CompileSlice(slice2cpp
-			"${ICE_SLICE_PARAMS}"
-			"${ICE_SLICE_DIRS}"
-			${slice}
-			${GENERATED_SLICES_DIR}/Ice
-			"${output_files}"
-		)
-	endforeach()
-
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
-		DESTINATION include
-		FILES_MATCHING PATTERN "*.h"
+foreach(slice ${ICE_SLICES})
+	get_filename_component(slice_name ${slice} NAME_WE)
+	set(output_files 
+		${GENERATED_SLICES_DIR}/Ice/${slice_name}.cpp 
+		${GENERATED_SLICES_DIR}/Ice/${slice_name}.h
+	)	
+	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
+	CompileSlice(slice2cpp
+		"${ICE_SLICE_PARAMS}"
+		"${ICE_SLICE_DIRS}"
+		${slice}
+		${GENERATED_SLICES_DIR}/Ice
+		"${output_files}"
 	)
-	
-	add_library(ice)
+endforeach()
 
-	set_property(TARGET ice PROPERTY CXX_STANDARD 98)
+install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice 
+	DESTINATION ${GENERATED_H_INSTALL_DIR}
+	FILES_MATCHING PATTERN "*.h"
+)
 
-	target_sources(ice 
+if(NOT BUILD_ICE_UWP)
+	if(BUILD_ICE_CPP98)
+		set(ICE_TARGET ice)
+		add_library(${ICE_TARGET})
+		set_target_properties(${ICE_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 98
+		)
+	elseif(BUILD_ICE_CPP11)
+		set(ICE_TARGET ice++11)
+		add_library(${ICE_TARGET})
+		set_target_properties(${ICE_TARGET} 
+			PROPERTIES
+				OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+				CXX_STANDARD 11
+		)
+	endif()
+
+	target_sources(${ICE_TARGET} 
 		PRIVATE 
 			${ICE_SOURCES}
 			${GENERATED_ICE_SOURCES}
@@ -369,14 +385,14 @@ if(NOT WINDOWS_STORE)
 	)
 
 	if(LINUX)
-		target_sources(ice
+		target_sources(${ICE_TARGET}
 			PRIVATE
 				SystemdJournalI.cpp
 				SystemdJournalI.h
 		)
 	endif()
 
-	target_include_directories(ice
+	target_include_directories(${ICE_TARGET}
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
@@ -384,13 +400,13 @@ if(NOT WINDOWS_STORE)
 			${BZIP2_INCLUDE_DIR}
 	)
 
-	target_link_libraries(ice
+	target_link_libraries(${ICE_TARGET}
 		PRIVATE
 			$<TARGET_OBJECTS:iceutil>
 			BZip2::BZip2
 	)
 
-	target_compile_definitions(ice 
+	target_compile_definitions(${ICE_TARGET} 
 		PRIVATE 
 			${ICE_COMPILE_DEFS}
 			"ICE_API_EXPORTS"
@@ -427,13 +443,13 @@ if(NOT WINDOWS_STORE)
 				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
 		)
 
-		target_compile_options(ice 
+		target_compile_options(${ICE_TARGET} 
 			PRIVATE 
 				"/wd4996" 
 				${ICE_MSVC_COMPILE_OPTIONS} 
 		)
 
-		target_link_libraries(ice
+		target_link_libraries(${ICE_TARGET}
 			PRIVATE
 				advapi32.lib
 				ws2_32.lib
@@ -443,16 +459,16 @@ if(NOT WINDOWS_STORE)
 				Shlwapi.lib
 		)
 
-		target_sources(ice
+		target_sources(${ICE_TARGET}
 			PRIVATE
 				EventLoggerMsg.mc
 				Ice.rc
 				${GENERATED_ICE_RESOURCES}
 		)
 
-		target_compile_definitions(ice
+		target_compile_definitions(${ICE_TARGET}
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		add_custom_command(
@@ -465,65 +481,143 @@ if(NOT WINDOWS_STORE)
 		)
 	endif()
 
-	set_target_properties(ice 
-		PROPERTIES
-			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+	install(TARGETS ${ICE_TARGET} 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
+else()
+	add_library(iceuwp++11 STATIC)
 
-	install(TARGETS ice 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
-	)
+	set_property(TARGET iceuwp++11 PROPERTY CXX_STANDARD 11)
 
-	add_library(ice++11)
-
-	set_property(TARGET ice++11 PROPERTY CXX_STANDARD 11)
-
-	target_sources(ice++11 
+	target_sources(iceuwp++11 
 		PRIVATE 
-			${ICE_SOURCES}
+			Acceptor.cpp
+			ACM.cpp
+			AsyncResult.cpp
+			ArgVector.cpp
+			Base64.cpp
+			BatchRequestQueue.cpp
+			Buffer.cpp
+			CollocatedRequestHandler.cpp
+			CommunicatorI.cpp
+			Cond.cpp
+			ConnectionFactory.cpp
+			ConnectionI.cpp
+			ConnectionRequestHandler.cpp
+			Connector.cpp
+			ConnectRequestHandler.cpp
+			CountDownLatch.cpp
+			DefaultsAndOverrides.cpp
+			DispatchInterceptor.cpp
+			EndpointFactory.cpp
+			EndpointFactoryManager.cpp
+			EndpointI.cpp
+			EventHandler.cpp
+			Exception.cpp
+			FactoryTable.cpp
+			FactoryTableInit.cpp
+			GCObject.cpp
+			HttpParser.cpp
+			ImplicitContextI.cpp
+			Incoming.cpp
+			IncomingAsync.cpp
+			Initialize.cpp
+			InputStream.cpp
+			Instance.cpp
+			InstrumentationI.cpp
+			IPEndpointI.cpp
+			LocalObject.cpp
+			LocatorInfo.cpp
+			LoggerAdminI.cpp
+			LoggerI.cpp
+			LoggerUtil.cpp
+			MetricsAdminI.cpp
+			MetricsObserverI.cpp
+			Network.cpp
+			NetworkProxy.cpp
+			Object.cpp
+			ObjectAdapterFactory.cpp
+			ObjectAdapterI.cpp
+			ObserverHelper.cpp
+			OpaqueEndpointI.cpp
+			OutgoingAsync.cpp
+			OutputStream.cpp
+			PluginManagerI.cpp
+			PropertiesAdminI.cpp
+			PropertiesI.cpp
+			PropertyNames.cpp
+			Protocol.cpp
+			ProtocolInstance.cpp
+			ProtocolPluginFacade.cpp
+			Proxy.cpp
+			ProxyFactory.cpp
+			Reference.cpp
+			ReferenceFactory.cpp
+			RegisterPluginsInit.cpp
+			RequestHandler.cpp
+			RequestHandlerFactory.cpp
+			Selector.cpp
+			ServantManager.cpp
+			SHA1.cpp
+			SliceChecksums.cpp
+			SlicedData.cpp
+			StreamSocket.cpp
+			StringConverterPlugin.cpp
+			Thread.cpp
+			ThreadPool.cpp
+			Timer.cpp
+			TraceLevels.cpp
+			TraceUtil.cpp
+			Transceiver.cpp
+			UdpConnector.cpp
+			UdpEndpointI.cpp
+			UdpTransceiver.cpp
+			TcpAcceptor.cpp
+			TcpConnector.cpp
+			TcpEndpointI.cpp
+			TcpTransceiver.cpp
+			Value.cpp
+			ValueFactoryManagerI.cpp
+			WSAcceptor.cpp
+			WSConnector.cpp
+			WSEndpoint.cpp
+			WSTransceiver.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/ConvertUTF.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/FileUtil.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/InputUtil.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/MutexProtocol.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/Options.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/OutputUtil.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/Random.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/RecMutex.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/Shared.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/StringConverter.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/ConsoleUtil.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/StringUtil.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/ThreadException.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/Time.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/Unicode.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/UtilException.cpp
+			${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/UUID.cpp
 			${GENERATED_ICE_SOURCES}
 			${GENERATED_ICE_HEADERS}
 	)
 
-	if(LINUX)
-		target_sources(ice++11
-			PRIVATE
-				SystemdJournalI.cpp
-				SystemdJournalI.h
-		)
-	endif()
-
-	target_include_directories(ice++11
+	target_include_directories(iceuwp++11
 		PRIVATE 
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src
-			${BZIP2_INCLUDE_DIR}
 	)
 
-	target_link_libraries(ice++11
-		PRIVATE
-			iceutil++11
-			BZip2::BZip2
-	)
-
-	target_compile_definitions(ice++11 
+	target_compile_definitions(iceuwp++11 
 		PRIVATE 
-			${ICE_CPP11_COMPILE_DEFS}
-			"ICE_API_EXPORTS"
+			${ICE_UWP_COMPILE_DEFS}
 	)
 
 	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files" 
-			FILES
-				Ice.rc
-		)
-
 		source_group("Resource Files/Generated"
 			FILES
 				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
@@ -547,53 +641,23 @@ if(NOT WINDOWS_STORE)
 				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
 		)
 
-		target_compile_options(ice++11 
+		target_compile_options(iceuwp++11 
 			PRIVATE 
 				"/wd4996" 
 				${ICE_MSVC_COMPILE_OPTIONS} 
-		)
-
-		target_link_libraries(ice++11
-			PRIVATE
-				advapi32.lib
-				ws2_32.lib
-				Iphlpapi.lib
-				rpcrt4.lib
-				DbgHelp.lib
-				Shlwapi.lib
-		)
-
-		target_sources(ice++11
-			PRIVATE
-				EventLoggerMsg.mc
-				Ice.rc
-				${GENERATED_ICE_RESOURCES}
-		)
-
-		target_compile_definitions(ice++11
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-
-		add_custom_command(
-			OUTPUT 
-				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc 
-				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
-			COMMAND ${CMAKE_MC_COMPILER} ${CMAKE_CURRENT_SOURCE_DIR}/EventLoggerMsg.mc
-			WORKING_DIRECTORY ${GENERATED_SLICES_DIR}/Ice
-			DEPENDS EventLoggerMsg.mc 
+				${ICE_UWP_COMPILE_OPTIONS}
 		)
 	endif()
 
-	set_target_properties(ice++11 
+	set_target_properties(iceuwp++11 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS ice++11 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	install(TARGETS iceuwp++11 
+		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
 	)
 endif()
