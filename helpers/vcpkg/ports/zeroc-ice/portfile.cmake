@@ -11,11 +11,32 @@ file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
-# TODO - handle features for "tests" projects
-vcpkg_configure_cmake(
-	SOURCE_PATH ${SOURCE_PATH}
-	PREFER_NINJA
-)
+if("cpp11" IN_LIST FEATURES)
+	vcpkg_configure_cmake(
+		SOURCE_PATH ${SOURCE_PATH}
+		PREFER_NINJA
+		OPTIONS
+			-DBUILD_ICE_CXX=ON
+			-DBUILD_ICE_CPP11=ON
+	)
+elseif("msvc-static-dyn-crt" IN_LIST FEATURES)
+	vcpkg_configure_cmake(
+		SOURCE_PATH ${SOURCE_PATH}
+		PREFER_NINJA
+		OPTIONS
+			-DBUILD_ICE_CXX=ON
+			-DBUILD_ICE_CPP98=ON
+			-DMSVC_STATIC_DYN_CRT=ON
+	)	
+else()
+	vcpkg_configure_cmake(
+		SOURCE_PATH ${SOURCE_PATH}
+		PREFER_NINJA
+		OPTIONS
+			-DBUILD_ICE_CXX=ON
+			-DBUILD_ICE_CPP98=ON
+	)
+endif()
 
 vcpkg_install_cmake()
 
