@@ -1,78 +1,76 @@
-if(NOT WINDOWS_STORE)
-	add_library(glacier2cryptpermissionsverifier)
+add_library(glacier2cryptpermissionsverifier)
 
-	set_property(TARGET glacier2cryptpermissionsverifier
-		PROPERTY
-			CXX_STANDARD 98
+set_property(TARGET glacier2cryptpermissionsverifier
+	PROPERTY
+		CXX_STANDARD 98
+)
+
+target_sources(glacier2cryptpermissionsverifier
+	PRIVATE
+		CryptPermissionsVerifierI.cpp
+)
+
+target_include_directories(glacier2cryptpermissionsverifier
+	PRIVATE 
+		${GENERATED_SLICES_DIR}
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src  
+)
+
+target_compile_definitions(glacier2cryptpermissionsverifier
+	PRIVATE
+		${ICE_COMPILE_DEFS}
+		"CRYPT_PERMISSIONS_VERIFIER_API_EXPORTS"
+)
+
+target_link_libraries(glacier2cryptpermissionsverifier
+	PRIVATE
+		glacier2
+		ice
+)
+
+if(MSVC)
+	source_group(
+		TREE ${CMAKE_CURRENT_SOURCE_DIR}
+		PREFIX "Resource Files"
+		FILES
+			CryptPermissionsVerifier.rc
 	)
 
-	target_sources(glacier2cryptpermissionsverifier
+	target_compile_options(glacier2cryptpermissionsverifier
 		PRIVATE
-			CryptPermissionsVerifierI.cpp
-	)
-
-	target_include_directories(glacier2cryptpermissionsverifier
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src  
+			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
 	target_compile_definitions(glacier2cryptpermissionsverifier
 		PRIVATE
-			${ICE_COMPILE_DEFS}
-			"CRYPT_PERMISSIONS_VERIFIER_API_EXPORTS"
+			${ICE_WIN32_COMPILE_DEFS}
 	)
 
 	target_link_libraries(glacier2cryptpermissionsverifier
 		PRIVATE
-			glacier2
-			ice
+			crypt32.lib
+			bcrypt.lib
 	)
 
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				CryptPermissionsVerifier.rc
-		)
-
-		target_compile_options(glacier2cryptpermissionsverifier
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(glacier2cryptpermissionsverifier
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-
-		target_link_libraries(glacier2cryptpermissionsverifier
-			PRIVATE
-				crypt32.lib
-				bcrypt.lib
-		)
-
-		set_property(TARGET glacier2cryptpermissionsverifier
-			PROPERTY
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-		)
-
-		target_sources(glacier2cryptpermissionsverifier
-			PRIVATE
-				CryptPermissionsVerifier.rc
-		)
-	endif()
-
-	set_target_properties(glacier2cryptpermissionsverifier 
-		PROPERTIES
-			OUTPUT_NAME Glacier2CryptPermissionsVerifier${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+	set_property(TARGET glacier2cryptpermissionsverifier
+		PROPERTY
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 	)
 
-	install(TARGETS glacier2cryptpermissionsverifier 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	target_sources(glacier2cryptpermissionsverifier
+		PRIVATE
+			CryptPermissionsVerifier.rc
 	)
 endif()
+
+set_target_properties(glacier2cryptpermissionsverifier 
+	PROPERTIES
+		OUTPUT_NAME Glacier2CryptPermissionsVerifier${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+)
+
+install(TARGETS glacier2cryptpermissionsverifier 
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib
+)

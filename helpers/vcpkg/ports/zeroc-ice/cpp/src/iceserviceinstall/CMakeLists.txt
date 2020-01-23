@@ -21,7 +21,7 @@ target_include_directories(iceserviceinstall
 target_compile_definitions(iceserviceinstall 
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
-		${ICE_MSVC_COMPILE_DEFS}
+		${ICE_WIN32_COMPILE_DEFS}
 )
 
 target_link_libraries(iceserviceinstall 

@@ -1,67 +1,65 @@
-if(NOT WINDOWS_STORE)
-	add_library(icedb)
+add_library(icedb)
 
-	set_property(TARGET icedb PROPERTY CXX_STANDARD 98)
+set_property(TARGET icedb PROPERTY CXX_STANDARD 98)
+
+target_sources(icedb
+	PRIVATE
+		IceDB.cpp
+		IceDB.h
+)
+
+target_include_directories(icedb
+	PRIVATE
+		${GENERATED_SLICES_DIR}
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
+		${LMDB_INCLUDE_DIR}
+)
+
+target_compile_definitions(icedb
+	PRIVATE 
+		${ICE_COMPILE_DEFS}
+		"ICE_DB_API_EXPORTS"
+)
+
+target_link_libraries(icedb
+	PRIVATE
+		ice
+		lmdb
+)
+
+if(MSVC)
+	source_group(
+		TREE ${CMAKE_CURRENT_SOURCE_DIR}
+		PREFIX "Resource Files"
+		FILES
+			IceDB.rc
+	)
 
 	target_sources(icedb
 		PRIVATE
-			IceDB.cpp
-			IceDB.h
+			IceDB.rc
 	)
 
-	target_include_directories(icedb
+	target_compile_options(icedb
 		PRIVATE
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src
-			${LMDB_INCLUDE_DIR}
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(icedb
-		PRIVATE 
-			${ICE_COMPILE_DEFS}
-			"ICE_DB_API_EXPORTS"
-	)
-
-	target_link_libraries(icedb
 		PRIVATE
-			ice
-			lmdb
-	)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceDB.rc
-		)
-
-		target_sources(icedb
-			PRIVATE
-				IceDB.rc
-		)
-
-		target_compile_options(icedb
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}
-		)
-
-		target_compile_definitions(icedb
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-	endif()
-
-	set_target_properties(icedb
-		PROPERTIES
-			OUTPUT_NAME IceDB${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
-
-	install(TARGETS icedb 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+			${ICE_WIN32_COMPILE_DEFS}
 	)
 endif()
+
+set_target_properties(icedb
+	PROPERTIES
+		OUTPUT_NAME IceDB${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+		LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+)
+
+install(TARGETS icedb 
+	RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+	LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+	ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
+)

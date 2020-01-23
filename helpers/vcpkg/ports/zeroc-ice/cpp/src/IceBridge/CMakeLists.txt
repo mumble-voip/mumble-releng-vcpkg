@@ -1,58 +1,56 @@
-if(NOT WINDOWS_STORE)
-	add_executable(icebridge)
+add_executable(icebridge)
 
-	set_property(TARGET icebridge PROPERTY CXX_STANDARD 98)
+set_property(TARGET icebridge PROPERTY CXX_STANDARD 98)
 
+target_sources(icebridge
+	PRIVATE
+		IceBridge.cpp
+)
+
+target_include_directories(icebridge
+	PRIVATE
+		${GENERATED_SLICES_DIR}
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
+)
+
+target_compile_definitions(icebridge
+	PRIVATE
+		${ICE_COMPILE_DEFS}
+)
+
+target_link_libraries(icebridge
+	PRIVATE
+		ice
+)
+
+if(MSVC)
+	source_group(
+		TREE ${CMAKE_CURRENT_SOURCE_DIR}
+		PREFIX "Resource Files"
+		FILES
+			IceBridge.rc
+	)
 	target_sources(icebridge
 		PRIVATE
-			IceBridge.cpp
+			IceBridge.rc
 	)
 
-	target_include_directories(icebridge
+	target_compile_options(icebridge
 		PRIVATE
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src
+			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	target_compile_definitions(icebridge
 		PRIVATE
-			${ICE_COMPILE_DEFS}
+			${ICE_WIN32_COMPILE_DEFS}
 	)
 
-	target_link_libraries(icebridge
-		PRIVATE
-			ice
+	set_property(TARGET icebridge 
+		PROPERTY 
+			LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
+				${ICE_MSVC_DLL_LINK_OPTIONS}"
 	)
-
-	if(MSVC)
-		source_group(
-			TREE ${CMAKE_CURRENT_SOURCE_DIR}
-			PREFIX "Resource Files"
-			FILES
-				IceBridge.rc
-		)
-		target_sources(icebridge
-			PRIVATE
-				IceBridge.rc
-		)
-
-		target_compile_options(icebridge
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}
-		)
-
-		target_compile_definitions(icebridge
-			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
-		)
-
-		set_property(TARGET icebridge 
-			PROPERTY 
-				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
-					${ICE_MSVC_DLL_LINK_OPTIONS}"
-		)
-	endif()
-
-	install(TARGETS icebridge DESTINATION bin)
 endif()
+
+install(TARGETS icebridge DESTINATION ${ICE_RUNTIME_INSTALL_DIR})

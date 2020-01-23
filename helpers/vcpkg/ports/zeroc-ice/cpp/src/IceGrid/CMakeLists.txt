@@ -1,4 +1,4 @@
-if(NOT WINDOWS_STORE)
+if(BUILD_ICE_CPP98)
 	if(NOT ${GENERATED_SLICES_DIR}/IceGrid)
 		file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid)
 	endif()
@@ -38,7 +38,7 @@ if(NOT WINDOWS_STORE)
 	endforeach()
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid 
-		DESTINATION include
+		DESTINATION ${GENERATED_H_INSTALL_DIR}
 		FILES_MATCHING PATTERN "*.h"
 	)
 
@@ -125,17 +125,17 @@ if(NOT WINDOWS_STORE)
 
 		target_compile_definitions(icegridadmin
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		set_property(TARGET icegridadmin 
 			PROPERTY 
-				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
 					${ICE_MSVC_DLL_LINK_OPTIONS}"
 		)
 	endif()
 
-	install(TARGETS icegridadmin DESTINATION bin)
+	install(TARGETS icegridadmin DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
 
 	add_executable(icegridnode)
 
@@ -254,12 +254,12 @@ if(NOT WINDOWS_STORE)
 
 		target_compile_definitions(icegridnode
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		set_property(TARGET icegridnode 
 			PROPERTY 
-				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
 					${ICE_MSVC_DLL_LINK_OPTIONS}"
 		)
 		
@@ -273,7 +273,7 @@ if(NOT WINDOWS_STORE)
 
 	endif()
 
-	install(TARGETS icegridnode DESTINATION bin)
+	install(TARGETS icegridnode DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
 
 	add_executable(icegridregistry)
 
@@ -386,12 +386,12 @@ if(NOT WINDOWS_STORE)
 
 		target_compile_definitions(icegridregistry
 			PRIVATE
-				${ICE_MSVC_COMPILE_DEFS}
+				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		set_property(TARGET icegridregistry 
 			PROPERTY 
-				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
 					${ICE_MSVC_DLL_LINK_OPTIONS}"
 		)
 
@@ -404,5 +404,5 @@ if(NOT WINDOWS_STORE)
 		)
 	endif()
 
-	install(TARGETS icegridregistry DESTINATION bin)
+	install(TARGETS icegridregistry DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
 endif()
