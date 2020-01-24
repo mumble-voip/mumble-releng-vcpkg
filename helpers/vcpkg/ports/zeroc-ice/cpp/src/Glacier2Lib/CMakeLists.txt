@@ -106,7 +106,7 @@ if(NOT BUILD_ICE_UWP)
 
 	if(BUILD_ICE_CPP98)
 		target_link_libraries(${GLACIER2_TARGET} PRIVATE ice)
-	elseif(BUILD_ICE_CPP98)
+	elseif(BUILD_ICE_CPP11)
 		target_link_libraries(${GLACIER2_TARGET} PRIVATE ice++11)
 	endif()
 
