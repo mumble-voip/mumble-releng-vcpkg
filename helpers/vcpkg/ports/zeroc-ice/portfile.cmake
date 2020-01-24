@@ -19,7 +19,7 @@ if("cpp11" IN_LIST FEATURES)
 			-DBUILD_ICE_CXX=ON
 			-DBUILD_ICE_CPP11=ON
 	)
-elseif("msvc-static-dyn-crt" IN_LIST FEATURES)
+elseif("msvc-static-dyn-crt" IN_LIST FEATURES AND MSVC)
 	vcpkg_configure_cmake(
 		SOURCE_PATH ${SOURCE_PATH}
 		PREFER_NINJA
