@@ -4,8 +4,8 @@ option(BUILD_ICE_CPP11 OFF)
 option(BUILD_ICE_UWP OFF)
 
 if(BUILD_ICE_UWP)
-	set(CMAKE_SYSTEM_NAME "WindowsStore")
-	set(CMAKE_SYSTEM_VERSION "10")
+	set(CMAKE_SYSTEM_NAME WindowsStore)
+	set(CMAKE_SYSTEM_VERSION 10)
 endif()
 
 if(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
@@ -90,7 +90,7 @@ set_source_files_properties(
 	PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
-if(NOT WINDOWS_STORE)
+if(NOT BUILD_ICE_UWP)
 	find_package(BZip2 REQUIRED)
 	find_package(EXPAT REQUIRED)
 	find_package(OpenSSL REQUIRED)
