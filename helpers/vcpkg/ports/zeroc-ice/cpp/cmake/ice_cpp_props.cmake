@@ -47,6 +47,14 @@ if(MSVC)
 			"_SBCS"
 			"_WIN32_WINNT=0x603"
 		)
+	elseif(WINDOWS_STORE)
+		set(ICE_UWP_COMPILE_DEFS
+			"WINAPI_FAMILY=2"
+			"_UNICODE"
+			"UNICODE"
+			"WIN32_LEAN_AND_MEAN"
+			${ICE_COMPILE_DEFS}
+		)
 	endif()
 
 	set(ICE_MSVC_COMPILE_OPTIONS
@@ -64,6 +72,14 @@ if(MSVC)
 		"/bigobj"
 	)
 
+	if(BUILD_ICE_UWP)
+		set(ICE_UWP_COMPILE_OPTIONS
+			${ICE_MSVC_COMPILE_OPTIONS}
+			"/wd4264"
+			"/wd4221"
+		)
+	endif()
+
 	if(MSVC_STATIC_DYN_CRT)
 		set(ICE_MSVC_COMPILE_OPTIONS ${ICE_MSVC_COMPILE_OPTIONS} "/MD$<$<CONFIG:Debug>:d>")
 	endif()
@@ -80,23 +96,7 @@ if(MSVC)
 		/NXCOMPAT 
 		/DYNAMICBASE 
 		/TLBID:1"
-	)
-	
-	if(BUILD_ICE_UWP)
-		set(ICE_UWP_COMPILE_DEFS
-			"WINAPI_FAMILY=2"
-			"_UNICODE"
-			"UNICODE"
-			"WIN32_LEAN_AND_MEAN"
-			${ICE_COMPILE_DEFS}
-		)
-
-		set(ICE_UWP_COMPILE_OPTIONS
-			"/wd4264"
-			"/wd4221"
-			${ICE_MSVC_COMPILE_OPTIONS}
-		)
-	endif()	
+	)	
 elseif(APPLE)
 	# TODO - add ICE_COMPILE_DEFS
 elseif(UNIX OR LINUX)
