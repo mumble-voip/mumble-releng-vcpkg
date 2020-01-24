@@ -400,11 +400,19 @@ if(NOT BUILD_ICE_UWP)
 			${BZIP2_INCLUDE_DIR}
 	)
 
-	target_link_libraries(${ICE_TARGET}
-		PRIVATE
-			$<TARGET_OBJECTS:iceutil>
-			BZip2::BZip2
-	)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICE_TARGET}
+			PRIVATE
+				$<TARGET_OBJECTS:iceutil>
+				BZip2::BZip2
+		)
+	elseif(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
+		target_link_libraries(${ICE_TARGET}
+			PRIVATE
+				$<TARGET_OBJECTS:iceutil++11>
+				BZip2::BZip2
+		)
+	endif()
 
 	target_compile_definitions(${ICE_TARGET} 
 		PRIVATE 
