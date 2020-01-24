@@ -56,6 +56,11 @@ if(MSVC)
 		PRIVATE
 			${ICE_MSVC_COMPILE_DEFS}
 	)
+
+	target_compile_options(slice2cpp
+		PRIVATE
+			${ICE_MSVC_COMPILE_OPTIONS}
+	)
 endif()
 
 install(TARGETS slice2cpp DESTINATION bin)
