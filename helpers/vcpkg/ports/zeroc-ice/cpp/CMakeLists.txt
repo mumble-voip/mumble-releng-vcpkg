@@ -18,44 +18,13 @@ if(BUILD_ICE_CPP_ALL)
 	set(BUILD_ICE_UWP ON)
 endif()
 
-# create include/generated folder for generated headers
-if(NOT ${PROJECT_BINARY_DIR}/generated)
-	file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/generated)
-endif()
+# generated headers install dir
+set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include)
 
 # set build directories
-if(BUILD_ICE_CPP98)
-	# install dirs
-	set(${ICE_RUNTIME_INSTALL_DIR} ${PROJECT_BINARY_DIR}/bin/cpp98)
-	set(${ICE_LIBRARY_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/cpp98)
-	set(${ICE_ARCHIVE_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/cpp98)
-
-	# generated sources build dir
-	set(GENERATED_SLICES_DIR ${PROJECT_BINARY_DIR}/generated/cpp98)
-
-	# generated headers install dir
-	set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include/cpp98)
-elseif(BUILD_ICE_CPP11)
-	set(${ICE_RUNTIME_INSTALL_DIR} ${PROJECT_BINARY_DIR}/bin/cpp11)
-	set(${ICE_LIBRARY_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/cpp11)
-	set(${ICE_ARCHIVE_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/cpp11)
-
-	# generated sources build dir
-	set(GENERATED_SLICES_DIR ${PROJECT_BINARY_DIR}/generated/cpp11)
-
-	# generated headers install dir
-	set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include/cpp11)
-elseif(BUILD_ICE_UWP)
-	set(${ICE_RUNTIME_INSTALL_DIR} ${PROJECT_BINARY_DIR}/bin/uwp)
-	set(${ICE_LIBRARY_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/uwp)
-	set(${ICE_ARCHIVE_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/uwp)
-
-	# generated sources build dir
-	set(GENERATED_SLICES_DIR ${PROJECT_BINARY_DIR}/generated/uwp)
-
-	# generated headers install dir
-	set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include/uwp)
-endif()
+set(${ICE_RUNTIME_INSTALL_DIR} ${PROJECT_BINARY_DIR}/bin/)
+set(${ICE_LIBRARY_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/)
+set(${ICE_ARCHIVE_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/)
 
 # Add dependencies for C++ related project generation
 if(XCODE)
