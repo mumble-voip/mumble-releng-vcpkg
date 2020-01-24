@@ -406,7 +406,7 @@ if(NOT BUILD_ICE_UWP)
 				$<TARGET_OBJECTS:iceutil>
 				BZip2::BZip2
 		)
-	elseif(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
+	elseif(BUILD_ICE_CPP11)
 		target_link_libraries(${ICE_TARGET}
 			PRIVATE
 				$<TARGET_OBJECTS:iceutil++11>
@@ -623,6 +623,7 @@ else()
 	target_compile_definitions(iceuwp++11 
 		PRIVATE 
 			${ICE_UWP_COMPILE_DEFS}
+			"ICE_BUILDING_ICE"
 	)
 
 	if(MSVC)
@@ -652,7 +653,6 @@ else()
 		target_compile_options(iceuwp++11 
 			PRIVATE 
 				"/wd4996" 
-				${ICE_MSVC_COMPILE_OPTIONS} 
 				${ICE_UWP_COMPILE_OPTIONS}
 		)
 	endif()
