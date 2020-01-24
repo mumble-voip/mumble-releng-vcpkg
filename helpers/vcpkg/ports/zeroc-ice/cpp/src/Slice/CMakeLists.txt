@@ -52,16 +52,15 @@ target_link_libraries(slice
 
 target_compile_definitions(slice 
 	PRIVATE  
-		${ICE_COMPILE_DEFS}
+		${STATIC_ICE_COMPILE_DEFS}
 		"ICE_BUILDING_SLICE_COMPILERS"
-		"ICE_API_EXPORTS"
 )
 
 if(MSVC)
 	target_compile_options(slice 
 		PRIVATE 
-			"/wd4250"
 			${ICE_MSVC_COMPILE_OPTIONS}
+			"/wd4250"
 	)
 
 	target_compile_definitions(slice
