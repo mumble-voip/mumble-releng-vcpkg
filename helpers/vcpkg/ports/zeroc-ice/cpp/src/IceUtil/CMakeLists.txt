@@ -53,11 +53,11 @@ target_compile_definitions(iceutil
 		"ICE_API_EXPORTS"
 )
 
-if(NOT BUILD_SHARED_LIBS)
+if(NOT BUILD_SHARED_LIBS OR BUILD_ICE_UWP)
 	target_compile_definitions(iceutil PRIVATE "ICE_STATIC_LIBS")
 endif()
 
-if(MSVC AND NOT WINDOWS_STORE)
+if(MSVC AND NOT BUILD_ICE_UWP)
 	target_compile_options(iceutil 
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
@@ -67,6 +67,8 @@ if(MSVC AND NOT WINDOWS_STORE)
 		PRIVATE
 			${ICE_WIN32_COMPILE_DEFS}
 	)
+elseif(BUILD_ICE_UWP)
+	target_compile_options(iceutil PRIVATE ${ICE_UWP_COMPILE_OPTIONS})
 endif()
 
 set_target_properties(iceutil 
@@ -76,7 +78,7 @@ set_target_properties(iceutil
 
 install(TARGETS iceutil DESTINATION ${ICE_ARCHIVE_INSTALL_DIR})
 
-if(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
+if(BUILD_ICE_CPP11)
 	add_library(iceutil++11 STATIC)
 
 	set_property(TARGET iceutil++11 PROPERTY CXX_STANDARD 11)
