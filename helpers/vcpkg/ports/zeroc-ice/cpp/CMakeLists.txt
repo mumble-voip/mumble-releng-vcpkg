@@ -3,9 +3,6 @@ option(BUILD_ICE_CPP98 ON) # build by default
 option(BUILD_ICE_CPP11 OFF)
 option(BUILD_ICE_UWP OFF)
 
-# set option for MSVC static lib, dynamic crt
-option(MSVC_STATIC_DYN_CRT OFF)
-
 if(BUILD_ICE_UWP)
 	set(CMAKE_SYSTEM_NAME "WindowsStore")
 	set(CMAKE_SYSTEM_VERSION "10")
@@ -15,7 +12,7 @@ if(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
 	set(BUILD_ICE_CPP98 OFF)
 endif()
 
-if(BUILD_ICE_ALL)
+if(BUILD_ICE_CPP_ALL)
 	set(BUILD_ICE_CPP98 ON)
 	set(BUILD_ICE_CPP11 ON)
 	set(BUILD_ICE_UWP ON)

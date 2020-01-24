@@ -80,10 +80,6 @@ if(MSVC)
 		)
 	endif()
 
-	if(MSVC_STATIC_DYN_CRT)
-		set(ICE_MSVC_COMPILE_OPTIONS ${ICE_MSVC_COMPILE_OPTIONS} "/MD$<$<CONFIG:Debug>:d>")
-	endif()
-
 	set(ICE_MSVC_APP_LINK_OPTIONS
 		"wsetargv.obj"
 	)
