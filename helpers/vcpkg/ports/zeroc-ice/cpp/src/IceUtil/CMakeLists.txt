@@ -1,6 +1,10 @@
 add_library(iceutil STATIC)
 
-set_property(TARGET iceutil PROPERTY CXX_STANDARD 98)
+set_target_properties(iceutil 
+	PROPERTIES 
+		CXX_STANDARD 98
+		LANGUAGE CXX
+)
 
 target_sources(iceutil 
 	PRIVATE
@@ -57,18 +61,11 @@ if(NOT BUILD_SHARED_LIBS OR BUILD_ICE_UWP)
 	target_compile_definitions(iceutil PRIVATE "ICE_STATIC_LIBS")
 endif()
 
-if(MSVC AND NOT BUILD_ICE_UWP)
+if(MSVC)
 	target_compile_options(iceutil 
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
-
-	target_compile_definitions(iceutil
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
-	)
-elseif(BUILD_ICE_UWP)
-	target_compile_options(iceutil PRIVATE ${ICE_UWP_COMPILE_OPTIONS})
 endif()
 
 set_target_properties(iceutil 
@@ -133,18 +130,11 @@ if(BUILD_ICE_CPP11)
 			"ICE_API_EXPORTS"
 	)
 
-	if(MSVC AND NOT BUILD_ICE_UWP)
+	if(MSVC)
 		target_compile_options(iceutil++11 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}
 		)
-
-		target_compile_definitions(iceutil++11
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
-		)
-	elseif(BUILD_ICE_UWP)
-		target_compile_options(iceutil++11 PRIVATE ${ICE_UWP_COMPILE_OPTIONS})
 	endif()
 
 	set_target_properties(iceutil++11 

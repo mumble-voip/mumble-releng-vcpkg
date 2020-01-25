@@ -1,6 +1,10 @@
 add_library(slice STATIC)
 
-set_property(TARGET slice PROPERTY CXX_STANDARD 98)
+set_target_properties(slice 
+	PROPERTIES 
+		CXX_STANDARD 98
+		LANGUAGE CXX
+)
 
 target_sources(slice
 	PRIVATE
@@ -61,11 +65,6 @@ if(MSVC)
 		PRIVATE 
 			${ICE_MSVC_COMPILE_OPTIONS}
 			"/wd4250"
-	)
-
-	target_compile_definitions(slice
-		PRIVATE
-			${ICE_MSVC_COMPILE_DEFS}
 	)
 endif()
 
