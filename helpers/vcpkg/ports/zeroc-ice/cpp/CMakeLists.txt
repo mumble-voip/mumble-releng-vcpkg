@@ -22,9 +22,9 @@ endif()
 set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include)
 
 # set build directories
-set(${ICE_RUNTIME_INSTALL_DIR} ${PROJECT_BINARY_DIR}/bin/)
-set(${ICE_LIBRARY_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/)
-set(${ICE_ARCHIVE_INSTALL_DIR} ${PROJECT_BINARY_DIR}/lib/)
+set(ICE_RUNTIME_INSTALL_DIR ${PROJECT_BINARY_DIR}/bin/)
+set(ICE_LIBRARY_INSTALL_DIR ${PROJECT_BINARY_DIR}/lib/)
+set(ICE_ARCHIVE_INSTALL_DIR ${PROJECT_BINARY_DIR}/lib/)
 
 # Add dependencies for C++ related project generation
 if(XCODE)
@@ -59,8 +59,9 @@ set_source_files_properties(
 	PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+find_package(BZip2 REQUIRED)
+
 if(NOT BUILD_ICE_UWP)
-	find_package(BZip2 REQUIRED)
 	find_package(EXPAT REQUIRED)
 	find_package(OpenSSL REQUIRED)
 	if(NOT BUILD_ICE_CPP11)
