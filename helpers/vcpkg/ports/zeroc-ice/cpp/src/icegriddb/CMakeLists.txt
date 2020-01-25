@@ -91,11 +91,6 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
-	target_compile_definitions(icegriddb
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
-	)
-
 	set_property(TARGET icegriddb PROPERTY ${ICE_MSVC_APP_LINK_OPTIONS})
 endif()
 

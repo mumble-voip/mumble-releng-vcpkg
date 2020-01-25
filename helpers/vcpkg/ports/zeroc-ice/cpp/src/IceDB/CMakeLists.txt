@@ -45,11 +45,6 @@ if(MSVC)
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
-
-	target_compile_definitions(icedb
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
-	)
 endif()
 
 set_target_properties(icedb

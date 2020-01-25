@@ -108,14 +108,9 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
-	target_compile_definitions(glacier2router
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
-	)
-
 	set_property(TARGET glacier2router 
 		PROPERTY 
-			LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} \
+			LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
 				${ICE_MSVC_DLL_LINK_OPTIONS}"
 	)
 endif()

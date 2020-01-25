@@ -43,11 +43,6 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS} 
 	)
 
-	target_compile_definitions(icepatch2calc
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS} 
-	)
-
 	set_property(TARGET icepatch2calc PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 endif()
 

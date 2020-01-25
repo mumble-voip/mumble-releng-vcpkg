@@ -36,7 +36,16 @@ if(MSVC)
 		FILES Slice2Cpp.rc
 	)
 
-	target_compile_options(slice2cpp PRIVATE "/wd4250")
+	target_sources(slice2cpp
+		PRIVATE
+			Slice2Cpp.rc
+	)
+
+	target_compile_options(slice2cpp 
+		PRIVATE 
+			${ICE_MSVC_COMPILE_OPTIONS}
+			"/wd4250"
+	)
 
 	set_property(TARGET slice2cpp PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 
@@ -45,21 +54,6 @@ if(MSVC)
 		advapi32.lib
 		DbgHelp.lib
 		Shlwapi.lib
-	)
-
-	target_sources(slice2cpp
-		PRIVATE
-			Slice2Cpp.rc
-	)
-
-	target_compile_definitions(slice2cpp
-		PRIVATE
-			${ICE_MSVC_COMPILE_DEFS}
-	)
-
-	target_compile_options(slice2cpp
-		PRIVATE
-			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 endif()
 

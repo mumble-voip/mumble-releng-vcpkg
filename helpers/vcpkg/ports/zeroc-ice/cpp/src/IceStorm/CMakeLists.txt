@@ -140,11 +140,6 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
-	target_compile_definitions(icestormadmin
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
-	)
-
 	set_property(TARGET icestormadmin 
 		PROPERTY 
 			LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
@@ -224,11 +219,6 @@ if(MSVC)
 	target_compile_options(icestormdb
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}   
-	)
-
-	target_compile_definitions(icestormdb
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
 	)
 
 	set_property(TARGET icestormdb 
@@ -336,11 +326,6 @@ if(MSVC)
 	target_compile_options(icestormservice
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}   
-	)
-
-	target_compile_definitions(icestormservice
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
 	)
 endif()
 

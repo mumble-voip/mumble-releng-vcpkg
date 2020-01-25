@@ -3,10 +3,6 @@ if(NOT BUILD_ICE_UWP)
 		file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceBox)
 	endif()
 
-	set(ICEBOXLIB_SLICES
-		${SLICE_DIR}/IceBox/IceBox.ice
-	)
-
 	set(GENERATED_ICEBOXLIB_HEADERS
 		${GENERATED_SLICES_DIR}/IceBox/IceBox.h
 	)
@@ -129,11 +125,6 @@ if(NOT BUILD_ICE_UWP)
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
 		)
-
-		target_compile_definitions(${ICEBOXLIB_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
-		)
 	endif()
 
 	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceBox 
@@ -214,11 +205,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${ICEBOX_TARGET}
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}
-		)
-
-		target_compile_definitions(${ICEBOX_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 

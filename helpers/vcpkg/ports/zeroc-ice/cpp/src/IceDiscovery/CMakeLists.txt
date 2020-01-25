@@ -2,10 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/IceDiscovery)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery)
 endif()
 
-set(ICEDISCOVERY_SLICES
-	${SLICE_DIR}/IceDiscovery/IceDiscovery.ice
-)
-
 set(GENERATED_ICEDISCOVERY_HEADERS
 	${GENERATED_SLICES_DIR}/IceDiscovery/IceDiscovery.h
 )
@@ -132,11 +128,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${ICEDISCOVERY_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(${ICEDISCOVERY_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 

@@ -42,11 +42,6 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 
-	target_compile_definitions(glacier2cryptpermissionsverifier
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
-	)
-
 	target_link_libraries(glacier2cryptpermissionsverifier
 		PRIVATE
 			crypt32.lib

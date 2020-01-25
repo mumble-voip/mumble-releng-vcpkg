@@ -123,11 +123,6 @@ if(BUILD_ICE_CPP98)
 				${ICE_MSVC_COMPILE_OPTIONS}
 		)
 
-		target_compile_definitions(icegridadmin
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
-		)
-
 		set_property(TARGET icegridadmin 
 			PROPERTY 
 				LINK_FLAGS "${ICE_MSVC_APP_LINK_OPTIONS} 
@@ -250,11 +245,6 @@ if(BUILD_ICE_CPP98)
 		target_compile_options(icegridnode
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}
-		)
-
-		target_compile_definitions(icegridnode
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		set_property(TARGET icegridnode 
@@ -382,11 +372,6 @@ if(BUILD_ICE_CPP98)
 		target_compile_options(icegridregistry
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}
-		)
-
-		target_compile_definitions(icegridregistry
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		set_property(TARGET icegridregistry 
