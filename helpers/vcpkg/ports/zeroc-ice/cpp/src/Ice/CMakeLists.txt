@@ -2,48 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/Ice)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Ice)
 endif()
 
-set(ICE_SLICES
-	${SLICE_DIR}/Ice/BuiltinSequences.ice
-	${SLICE_DIR}/Ice/Communicator.ice
-	${SLICE_DIR}/Ice/CommunicatorF.ice
-	${SLICE_DIR}/Ice/Connection.ice
-	${SLICE_DIR}/Ice/ConnectionF.ice
-	${SLICE_DIR}/Ice/Current.ice
-	${SLICE_DIR}/Ice/Endpoint.ice
-	${SLICE_DIR}/Ice/EndpointF.ice
-	${SLICE_DIR}/Ice/EndpointTypes.ice
-	${SLICE_DIR}/Ice/FacetMap.ice
-	${SLICE_DIR}/Ice/Identity.ice
-	${SLICE_DIR}/Ice/ImplicitContext.ice
-	${SLICE_DIR}/Ice/ImplicitContextF.ice
-	${SLICE_DIR}/Ice/Instrumentation.ice
-	${SLICE_DIR}/Ice/InstrumentationF.ice
-	${SLICE_DIR}/Ice/LocalException.ice
-	${SLICE_DIR}/Ice/Locator.ice
-	${SLICE_DIR}/Ice/LocatorF.ice
-	${SLICE_DIR}/Ice/Logger.ice
-	${SLICE_DIR}/Ice/LoggerF.ice
-	${SLICE_DIR}/Ice/Metrics.ice
-	${SLICE_DIR}/Ice/ObjectAdapter.ice
-	${SLICE_DIR}/Ice/ObjectAdapterF.ice
-	${SLICE_DIR}/Ice/ObjectFactory.ice
-	${SLICE_DIR}/Ice/Plugin.ice
-	${SLICE_DIR}/Ice/PluginF.ice
-	${SLICE_DIR}/Ice/Process.ice
-	${SLICE_DIR}/Ice/ProcessF.ice
-	${SLICE_DIR}/Ice/Properties.ice
-	${SLICE_DIR}/Ice/PropertiesAdmin.ice
-	${SLICE_DIR}/Ice/PropertiesF.ice
-	${SLICE_DIR}/Ice/RemoteLogger.ice
-	${SLICE_DIR}/Ice/Router.ice
-	${SLICE_DIR}/Ice/RouterF.ice
-	${SLICE_DIR}/Ice/ServantLocator.ice
-	${SLICE_DIR}/Ice/ServantLocatorF.ice
-	${SLICE_DIR}/Ice/SliceChecksumDict.ice
-	${SLICE_DIR}/Ice/ValueFactory.ice
-	${SLICE_DIR}/Ice/Version.ice
-)
-
 set(GENERATED_ICE_HEADERS
 	${GENERATED_SLICES_DIR}/Ice/BuiltinSequences.h
 	${GENERATED_SLICES_DIR}/Ice/Communicator.h
@@ -474,11 +432,6 @@ if(NOT BUILD_ICE_UWP)
 				${GENERATED_ICE_RESOURCES}
 		)
 
-		target_compile_definitions(${ICE_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
-		)
-
 		add_custom_command(
 			OUTPUT 
 				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc 
@@ -497,7 +450,11 @@ if(NOT BUILD_ICE_UWP)
 else()
 	add_library(iceuwp++11 STATIC)
 
-	set_property(TARGET iceuwp++11 PROPERTY CXX_STANDARD 11)
+	set_target_properties(iceuwp++11 
+		PROPERTIES
+			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			CXX_STANDARD 11
+	)
 
 	target_sources(iceuwp++11 
 		PRIVATE 
@@ -618,20 +575,16 @@ else()
 			${GENERATED_SLICES_DIR}
 			${PROJECT_SOURCE_DIR}/cpp/include
 			${PROJECT_SOURCE_DIR}/cpp/src
+			${BZIP2_INCLUDE_DIR}
 	)
 
 	target_compile_definitions(iceuwp++11 
 		PRIVATE 
-			${ICE_UWP_COMPILE_DEFS}
+			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_ICE"
 	)
 
 	if(MSVC)
-		source_group("Resource Files/Generated"
-			FILES
-				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.rc
-		)
-
 		source_group(
 			TREE ${SLICE_DIR}/Ice
 			PREFIX "Slice Files"
@@ -644,24 +597,12 @@ else()
 				${GENERATED_ICE_SOURCES}
 		)
 
-		source_group("Header Files/Generated"
-			FILES
-				${GENERATED_ICE_HEADERS}
-				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
-		)
-
 		target_compile_options(iceuwp++11 
 			PRIVATE 
 				"/wd4996" 
 				${ICE_UWP_COMPILE_OPTIONS}
 		)
 	endif()
-
-	set_target_properties(iceuwp++11 
-		PROPERTIES
-			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-	)
 
 	install(TARGETS iceuwp++11 
 		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}

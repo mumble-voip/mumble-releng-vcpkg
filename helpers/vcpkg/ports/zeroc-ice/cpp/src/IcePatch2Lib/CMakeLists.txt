@@ -2,11 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/IcePatch2)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IcePatch2)
 endif()
 
-set(ICEPATCH2_SLICES
-	${SLICE_DIR}/IcePatch2/FileInfo.ice
-	${SLICE_DIR}/IcePatch2/FileServer.ice
-)
-
 set(GENERATED_ICEPATCH2_HEADERS
 	${GENERATED_SLICES_DIR}/IcePatch2/FileInfo.h
 	${GENERATED_SLICES_DIR}/IcePatch2/FileServer.h
@@ -88,11 +83,6 @@ if(MSVC)
 	target_compile_options(icepatch2
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}   
-	)
-
-	target_compile_definitions(icepatch2
-		PRIVATE
-			${ICE_WIN32_COMPILE_DEFS}
 	)
 endif()
 

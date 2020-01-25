@@ -2,10 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/IceLocatorDiscovery)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceLocatorDiscovery)
 endif()
 
-set(ICELOCATORDISCOVERY_SLICES
-	${SLICE_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.ice
-)
-
 set(GENERATED_ICELOCATORDISCOVERY_HEADERS
 	${GENERATED_SLICES_DIR}/IceLocatorDiscovery/IceLocatorDiscovery.h
 )
@@ -134,11 +130,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${ICELOCATOR_DISCOVERY_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(${ICELOCATOR_DISCOVERY_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 

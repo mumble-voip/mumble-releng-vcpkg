@@ -2,16 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/Glacier2)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2)
 endif()
 
-set(GLACIER2_SLICES
-	${SLICE_DIR}/Glacier2/Metrics.ice
-	${SLICE_DIR}/Glacier2/PermissionsVerifier.ice
-	${SLICE_DIR}/Glacier2/PermissionsVerifierF.ice
-	${SLICE_DIR}/Glacier2/Router.ice
-	${SLICE_DIR}/Glacier2/RouterF.ice
-	${SLICE_DIR}/Glacier2/Session.ice
-	${SLICE_DIR}/Glacier2/SSLInfo.ice
-)
-
 set(GENERATED_GLACIER2_HEADERS
 	${GENERATED_SLICES_DIR}/Glacier2/Metrics.h
 	${GENERATED_SLICES_DIR}/Glacier2/PermissionsVerifier.h
@@ -147,11 +137,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${GLACIER2_TARGET}  
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(${GLACIER2_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 

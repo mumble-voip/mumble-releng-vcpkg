@@ -2,17 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/IceGrid)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid)
 endif()
 
-set(ICEGRID_SLICES
-	${SLICE_DIR}/IceGrid/Admin.ice
-	${SLICE_DIR}/IceGrid/Descriptor.ice
-	${SLICE_DIR}/IceGrid/Exception.ice
-	${SLICE_DIR}/IceGrid/FileParser.ice
-	${SLICE_DIR}/IceGrid/PluginFacade.ice
-	${SLICE_DIR}/IceGrid/Registry.ice
-	${SLICE_DIR}/IceGrid/Session.ice
-	${SLICE_DIR}/IceGrid/UserAccountMapper.ice
-)
-
 set(GENERATED_ICEGRID_HEADERS
 	${GENERATED_SLICES_DIR}/IceGrid/Admin.h
 	${GENERATED_SLICES_DIR}/IceGrid/Descriptor.h
@@ -164,11 +153,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${ICEGRID_TARGET}
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(${ICEGRID_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 

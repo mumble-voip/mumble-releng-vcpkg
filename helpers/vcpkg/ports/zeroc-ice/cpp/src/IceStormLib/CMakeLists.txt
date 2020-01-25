@@ -2,11 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/IceStorm)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm)
 endif()
 
-set(ICESTORM_SLICES
-	${SLICE_DIR}/IceStorm/IceStorm.ice
-	${SLICE_DIR}/IceStorm/Metrics.ice
-)
-
 set(GENERATED_ICESTORM_HEADERS
 	${GENERATED_SLICES_DIR}/IceStorm/IceStorm.h
 	${GENERATED_SLICES_DIR}/IceStorm/Metrics.h
@@ -124,11 +119,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${ICESTORMLIB_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(${ICESTORMLIB_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 	endif()
 

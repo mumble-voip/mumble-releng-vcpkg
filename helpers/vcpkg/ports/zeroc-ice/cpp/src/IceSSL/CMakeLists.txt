@@ -2,12 +2,6 @@ if(NOT ${GENERATED_SLICES_DIR}/IceSSL)
 	file(MAKE_DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL)
 endif()
 
-set(ICESSL_SLICES
-	${SLICE_DIR}/IceSSL/ConnectionInfo.ice
-	${SLICE_DIR}/IceSSL/ConnectionInfoF.ice
-	${SLICE_DIR}/IceSSL/EndpointInfo.ice
-)
-
 set(GENERATED_ICESSL_HEADERS
 	${GENERATED_SLICES_DIR}/IceSSL/ConnectionInfo.h
 	${GENERATED_SLICES_DIR}/IceSSL/ConnectionInfoF.h
@@ -162,11 +156,6 @@ if(NOT BUILD_ICE_UWP)
 		target_compile_options(${ICESSL_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_compile_definitions(${ICESSL_TARGET}
-			PRIVATE
-				${ICE_WIN32_COMPILE_DEFS}
 		)
 
 		target_link_libraries(${ICESSL_TARGET}
