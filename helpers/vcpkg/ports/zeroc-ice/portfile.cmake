@@ -19,6 +19,14 @@ if("cpp11" IN_LIST FEATURES)
 			-DBUILD_ICE_CXX=ON
 			-DBUILD_ICE_CPP11=ON
 	)
+elseif(${TARGET_TRIPLET} STREQUAL "x64-uwp")
+	vcpkg_configure_cmake(
+		SOURCE_PATH ${SOURCE_PATH}
+		PREFER_NINJA
+		OPTIONS
+			-DBUILD_ICE_CXX=ON
+			-DBUILD_ICE_UWP=ON
+	)
 else()
 	vcpkg_configure_cmake(
 		SOURCE_PATH ${SOURCE_PATH}
