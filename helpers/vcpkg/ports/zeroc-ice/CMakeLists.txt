@@ -16,7 +16,6 @@ set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 3)
 
 option(BUILD_ICE_TESTS OFF)
-option(BUILD_ICE_ALL OFF)
 option(BUILD_ICE_CXX OFF)
 option(BUILD_ICE_CS OFF)
 
