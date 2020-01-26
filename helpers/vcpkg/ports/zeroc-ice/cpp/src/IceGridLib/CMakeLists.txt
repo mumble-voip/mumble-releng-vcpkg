@@ -118,6 +118,7 @@ else()
 			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_ICEGRID"
 	)
+endif()
 
 if(BUILD_ICE_CPP98)
 	target_link_libraries(${ICEGRID_TARGET}
