@@ -5,6 +5,13 @@ if(NOT CMAKE_DEBUG_POSTFIX)
 	set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
+if(BUILD_ICE_UWP)
+	set(CMAKE_SYSTEM_NAME WindowsStore)
+	set(CMAKE_SYSTEM_VERSION 10)
+elseif(WINDOWS_STORE)
+	set(BUILD_ICE_UWP ON)
+endif()
+
 if(BUILD_ICE_CXX)
 	project(zeroc-ice CXX)
 	enable_language(CXX)

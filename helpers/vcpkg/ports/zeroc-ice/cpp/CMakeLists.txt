@@ -3,13 +3,6 @@ option(BUILD_ICE_CPP98 ON) # build by default
 option(BUILD_ICE_CPP11 OFF)
 option(BUILD_ICE_UWP OFF)
 
-if(BUILD_ICE_UWP)
-	set(CMAKE_SYSTEM_NAME WindowsStore)
-	set(CMAKE_SYSTEM_VERSION 10)
-elseif(WINDOWS_STORE)
-	set(BUILD_ICE_UWP ON)
-endif()
-
 if(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
 	set(BUILD_ICE_CPP98 OFF)
 endif()
