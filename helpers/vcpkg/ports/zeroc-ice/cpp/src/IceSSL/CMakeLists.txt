@@ -168,6 +168,8 @@ if(BUILD_ICE_CPP98)
 	target_link_libraries(${ICESSL_TARGET} PRIVATE ice)
 elseif(BUILD_ICE_CPP11)
 	target_link_libraries(${ICESSL_TARGET} PRIVATE ice++11)
+elseif(BUILD_ICE_UWP)
+	add_dependencies(${ICESSL_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)

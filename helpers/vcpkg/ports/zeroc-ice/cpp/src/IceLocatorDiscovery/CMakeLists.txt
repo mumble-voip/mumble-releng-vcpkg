@@ -99,6 +99,8 @@ elseif(BUILD_ICE_CPP11)
 		PRIVATE
 			ice++11
 	)
+elseif(BUILD_ICE_UWP)
+	add_dependencies(${ICELOCATOR_DISCOVERY_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)

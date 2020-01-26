@@ -132,6 +132,11 @@ elseif(BUILD_ICE_CPP11)
 			glacier2++11
 			ice++11
 	)
+elseif(BUILD_ICE_UWP)
+	add_dependencies(${ICEGRID_TARGET} 
+		glacier2uwp++11 
+		iceuwp++11
+	)
 endif()
 
 if(MSVC)

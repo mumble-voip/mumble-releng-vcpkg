@@ -120,6 +120,8 @@ if(BUILD_ICE_CPP98)
 	target_link_libraries(${GLACIER2_TARGET} PRIVATE ice)
 elseif(BUILD_ICE_CPP11)
 	target_link_libraries(${GLACIER2_TARGET} PRIVATE ice++11)
+elseif(BUILD_ICE_UWP)
+	add_dependencies(${GLACIER2_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)
