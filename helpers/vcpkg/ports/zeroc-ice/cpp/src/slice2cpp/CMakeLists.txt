@@ -1,3 +1,7 @@
+if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+	string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+endif()
+
 add_executable(slice2cpp)
 
 set_property(TARGET slice2cpp PROPERTY CXX_STANDARD 98)
@@ -54,7 +58,6 @@ if(MSVC)
 
 	target_compile_options(slice2cpp 
 		PRIVATE 
-			"/W4"
 			"/wd4121"
 			"/wd4250"
 			"/wd4251"

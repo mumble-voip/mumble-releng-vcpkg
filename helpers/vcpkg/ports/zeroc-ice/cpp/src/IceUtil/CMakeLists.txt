@@ -1,3 +1,7 @@
+if(CMAKE_CXX_FLAGS MATCHES "/W[0-4]")
+	string(REGEX REPLACE "/W[0-4]" "/W4" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+endif()
+
 add_library(iceutil STATIC)
 
 set_target_properties(iceutil 
@@ -79,7 +83,6 @@ endif()
 if(MSVC)
 	target_compile_options(iceutil
 		PRIVATE
-			"/W4"
 			"/wd4121"
 			"/wd4250"
 			"/wd4251"
