@@ -10,7 +10,7 @@
 
 function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
 	add_custom_command(OUTPUT ${output_file}
-		COMMAND ${slice2_bin} 
+		COMMAND $<TARGET_FILE:${slice2_bin}> 
 		ARGS ${slice_include_paths} ${ice_file} ${slice2bin_params}
 		BYPRODUCTS ${output_file}
 		WORKING_DIRECTORY ${output_dir}
