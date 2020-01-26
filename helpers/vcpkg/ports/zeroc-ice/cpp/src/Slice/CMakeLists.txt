@@ -61,8 +61,8 @@ target_link_libraries(slice
 target_compile_definitions(slice 
 	PRIVATE  
 		"ICE_BUILDING_SRC"
-		"ICE_STATIC_LIBS"
 		"ICE_BUILDING_SLICE_COMPILERS"
+		"ICE_STATIC_LIBS"
 )
 
 if(MSVC)

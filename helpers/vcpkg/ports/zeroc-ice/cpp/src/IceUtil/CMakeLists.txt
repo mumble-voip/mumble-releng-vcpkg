@@ -60,27 +60,27 @@ target_compile_definitions(iceutil
 		"ICE_BUILDING_SLICE_COMPILERS"
 )
 
-if(NOT BUILD_SHARED_LIBS OR BUILD_ICE_UWP)
+if(NOT BUILD_SHARED_LIBS)
 	target_compile_definitions(iceutil 
 		PRIVATE
 			"ICE_STATIC_LIBS"
-			"_CONSOLE" 
-			"WIN32_LEAN_AND_MEAN"
-			"_SBCS"
-			"_WIN32_WINNT=0x603"
 	)
 else()
 	target_compile_definitions(iceutil 
 		PRIVATE
 			"ICE_API_EXPORTS"
+	)
+endif()
+
+if(MSVC)
+	target_compile_definitions(iceutil
+		PRIVATE
 			"_CONSOLE" 
 			"WIN32_LEAN_AND_MEAN"
 			"_SBCS"
 			"_WIN32_WINNT=0x603"
 	)
-endif()
 
-if(MSVC)
 	target_compile_options(iceutil
 		PRIVATE
 			"/wd4121"

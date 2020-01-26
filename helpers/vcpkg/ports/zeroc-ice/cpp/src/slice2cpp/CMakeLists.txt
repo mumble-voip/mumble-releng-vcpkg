@@ -24,8 +24,8 @@ target_include_directories(slice2cpp
 target_compile_definitions(slice2cpp 
 	PRIVATE 
 		"ICE_BUILDING_SRC"
-		"ICE_STATIC_LIBS"
 		"ICE_BUILDING_SLICE_COMPILERS"
+		"ICE_STATIC_LIBS"
 )
 
 if(MSVC)
