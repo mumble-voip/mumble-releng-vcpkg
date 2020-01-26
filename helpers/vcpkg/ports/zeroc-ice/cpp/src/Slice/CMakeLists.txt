@@ -56,14 +56,34 @@ target_link_libraries(slice
 
 target_compile_definitions(slice 
 	PRIVATE  
-		${STATIC_ICE_COMPILE_DEFS}
+		"ICE_BUILDING_SRC"
+		"ICE_STATIC_LIBS"
 		"ICE_BUILDING_SLICE_COMPILERS"
 )
 
 if(MSVC)
+	target_compile_definitions(slice 
+		PRIVATE  
+			"_CONSOLE" 
+			"WIN32_LEAN_AND_MEAN"
+			"_SBCS"
+			"_WIN32_WINNT=0x603"
+	)
+
 	target_compile_options(slice 
 		PRIVATE 
-			${ICE_MSVC_COMPILE_OPTIONS}
+			"/W4"
+			"/wd4121"
+			"/wd4250"
+			"/wd4251"
+			"/wd4275"
+			"/wd4324"
+			"/wd4127"
+			"/wd4505"
+			"/wd4512"
+			"/wd4834"
+			"/MP"
+			"/bigobj"
 			"/wd4250"
 	)
 endif()

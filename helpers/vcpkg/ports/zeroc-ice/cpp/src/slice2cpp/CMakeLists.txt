@@ -19,9 +19,20 @@ target_include_directories(slice2cpp
 
 target_compile_definitions(slice2cpp 
 	PRIVATE 
-		${STATIC_ICE_COMPILE_DEFS}
+		"ICE_BUILDING_SRC"
+		"ICE_STATIC_LIBS"
 		"ICE_BUILDING_SLICE_COMPILERS"
 )
+
+if(MSVC)
+	target_compile_definitions(slice2cpp 
+		PRIVATE 
+			"_CONSOLE" 
+			"WIN32_LEAN_AND_MEAN"
+			"_SBCS"
+			"_WIN32_WINNT=0x603"
+	)
+endif()
 
 target_link_libraries(slice2cpp 
 	PRIVATE
@@ -43,11 +54,22 @@ if(MSVC)
 
 	target_compile_options(slice2cpp 
 		PRIVATE 
-			${ICE_MSVC_COMPILE_OPTIONS}
+			"/W4"
+			"/wd4121"
+			"/wd4250"
+			"/wd4251"
+			"/wd4275"
+			"/wd4324"
+			"/wd4127"
+			"/wd4505"
+			"/wd4512"
+			"/wd4834"
+			"/MP"
+			"/bigobj"
 			"/wd4250"
 	)
 
-	set_property(TARGET slice2cpp PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
+	set_property(TARGET slice2cpp PROPERTY LINK_FLAGS "wsetargv.obj")
 
 	target_link_libraries(slice2cpp PRIVATE
 		rpcrt4.lib
