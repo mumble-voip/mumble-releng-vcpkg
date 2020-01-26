@@ -14,112 +14,164 @@ set(GENERATED_ICESSL_SOURCES
 	${GENERATED_SLICES_DIR}/IceSSL/EndpointInfo.cpp
 )
 
-set(ICESSL_SOURCES
-	AcceptorI.cpp
-	CertificateI.cpp
-	ConnectorI.cpp
-	EndpointI.cpp
-	Instance.cpp
-	PluginI.cpp
-	RFC2253.cpp
-	SChannelCertificateI.cpp
-	SChannelEngine.cpp
-	SChannelPluginI.cpp
-	SChannelTransceiverI.cpp
-	SSLEngine.cpp
-	TrustManager.cpp
-	Util.cpp
-	AcceptorI.h
-	CertificateI.h
-	ConnectorI.h
-	EndpointI.h
-	Instance.h
-	InstanceF.h
-	PluginI.h
-	RFC2253.h
-	SChannelEngine.h
-	SChannelEngineF.h
-	SChannelTransceiverI.h
-	SSLEngine.h
-	SSLEngineF.h
-	TrustManager.h
-	TrustManagerF.h
-	Util.h
-	${ICESSL_SLICES}
+if(BUILD_ICE_UWP)
+	set(ICESSL_SOURCES
+		AcceptorI.cpp
+		CertificateI.cpp
+		ConnectorI.cpp
+		EndpointI.cpp
+		Instance.cpp
+		PluginI.cpp
+		RFC2253.cpp
+		SSLEngine.cpp
+		TrustManager.cpp
+		Util.cpp
+		UWPCertificateI.cpp
+		UWPEngine.cpp
+		UWPPluginI.cpp
+		UWPTransceiverI.cpp
+		AcceptorI.h
+		CertificateI.h
+		ConnectorI.h
+		EndpointI.h
+		Instance.h
+		InstanceF.h
+		PluginI.h
+		RFC2253.h
+		SSLEngine.h
+		SSLEngineF.h
+		TrustManager.h
+		TrustManagerF.h
+		Util.h
+		UWPEngine.h
+		UWPEngineF.h
+		UWPTransceiverI.h
+	)
+else()
+	set(ICESSL_SOURCES
+		AcceptorI.cpp
+		CertificateI.cpp
+		ConnectorI.cpp
+		EndpointI.cpp
+		Instance.cpp
+		PluginI.cpp
+		RFC2253.cpp
+		SChannelCertificateI.cpp
+		SChannelEngine.cpp
+		SChannelPluginI.cpp
+		SChannelTransceiverI.cpp
+		SSLEngine.cpp
+		TrustManager.cpp
+		Util.cpp
+		AcceptorI.h
+		CertificateI.h
+		ConnectorI.h
+		EndpointI.h
+		Instance.h
+		InstanceF.h
+		PluginI.h
+		RFC2253.h
+		SChannelEngine.h
+		SChannelEngineF.h
+		SChannelTransceiverI.h
+		SSLEngine.h
+		SSLEngineF.h
+		TrustManager.h
+		TrustManagerF.h
+		Util.h
+	)
+endif()
+
+list(APPEND ICESSL_SLICE_DIRS "-I${SLICE_DIR}")
+list(APPEND ICESSL_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceSSL")
+
+foreach(slice ${ICESSL_SLICES})
+	get_filename_component(slice_name ${slice} NAME_WE)
+	set(output_files 
+		${GENERATED_SLICES_DIR}/IceSSL/${slice_name}.cpp
+		${GENERATED_SLICES_DIR}/IceSSL/${slice_name}.h
+	)
+	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
+	CompileSlice(slice2cpp
+		"${ICESSL_SLICE_PARAMS}"
+		"${ICESSL_SLICE_DIRS}"
+		${slice}
+		${GENERATED_SLICES_DIR}/IceSSL
+		"${output_files}"
+	)
+endforeach()
+
+install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL 
+	DESTINATION ${GENERATED_H_INSTALL_DIR}
+	FILES_MATCHING PATTERN "*.h"
+)
+
+if(BUILD_ICE_CPP98)
+	set(ICESSL_TARGET icessl)
+	add_library(${ICESSL_TARGET})
+	set_target_properties(${ICESSL_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+			CXX_STANDARD 98
+	)
+elseif(BUILD_ICE_CPP11)
+	set(ICESSL_TARGET icessl++11)
+	add_library(${ICESSL_TARGET})
+	set_target_properties(${ICESSL_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+			CXX_STANDARD 11
+	)
+elseif(BUILD_ICE_UWP)
+	set(ICESSL_TARGET icessluwp++11)
+	add_library(${ICESSL_TARGET} STATIC)
+	set_target_properties(${ICESSL_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+			CXX_STANDARD 11
+	)
+endif()
+
+target_sources(${ICESSL_TARGET}
+	PRIVATE
+		${ICESSL_SOURCES}
+		${GENERATED_ICESSL_HEADERS}
+		${GENERATED_ICESSL_SOURCES}
+		${ICESSL_SLICES}
+)
+
+target_include_directories(${ICESSL_TARGET}
+	PRIVATE 
+		${GENERATED_SLICES_DIR}
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src 
 )
 
 if(NOT BUILD_ICE_UWP)
-	list(APPEND ICESSL_SLICE_DIRS "-I${SLICE_DIR}")
-	list(APPEND ICESSL_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceSSL")
-
-	foreach(slice ${ICESSL_SLICES})
-		get_filename_component(slice_name ${slice} NAME_WE)
-		set(output_files 
-			${GENERATED_SLICES_DIR}/IceSSL/${slice_name}.cpp
-			${GENERATED_SLICES_DIR}/IceSSL/${slice_name}.h
-		)
-		#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-		CompileSlice(slice2cpp
-			"${ICESSL_SLICE_PARAMS}"
-			"${ICESSL_SLICE_DIRS}"
-			${slice}
-			${GENERATED_SLICES_DIR}/IceSSL
-			"${output_files}"
-		)
-	endforeach()
-
-	install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL 
-		DESTINATION ${GENERATED_H_INSTALL_DIR}
-		FILES_MATCHING PATTERN "*.h"
-	)
-
-	if(BUILD_ICE_CPP98)
-		set(ICESSL_TARGET icessl)
-		add_library(${ICESSL_TARGET})
-		set_target_properties(${ICESSL_TARGET} 
-			PROPERTIES
-				OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-				CXX_STANDARD 98
-		)
-	elseif(BUILD_ICE_CPP11)
-		set(ICESSL_TARGET icessl++11)
-		add_library(${ICESSL_TARGET})
-		set_target_properties(${ICESSL_TARGET} 
-			PROPERTIES
-				OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-				CXX_STANDARD 11
-		)
-	endif()
-
-	target_sources(${ICESSL_TARGET}
-		PRIVATE
-			${ICESSL_SOURCES}
-			${GENERATED_ICESSL_HEADERS}
-			${GENERATED_ICESSL_SOURCES}
-	)
-
-	target_include_directories(${ICESSL_TARGET}
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src 
-	)
-
 	target_compile_definitions(${ICESSL_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICESSL_API_EXPORTS"
 	)
+else()
+	target_compile_definitions(${ICESSL_TARGET}
+	PRIVATE
+		${ICE_COMPILE_DEFS}
+		"ICE_BUILDING_ICESSL"
+	)
+endif()
 
-	if(BUILD_ICE_CPP98)
-		target_link_libraries(${ICESSL_TARGET} PRIVATE ice)
-	elseif(BUILD_ICE_CPP11)
-		target_link_libraries(${ICESSL_TARGET} PRIVATE ice++11)
-	endif()
+if(BUILD_ICE_CPP98)
+	target_link_libraries(${ICESSL_TARGET} PRIVATE ice)
+elseif(BUILD_ICE_CPP11)
+	target_link_libraries(${ICESSL_TARGET} PRIVATE ice++11)
+endif()
 
-	if(MSVC)
+if(MSVC)
+	if(NOT BUILD_ICE_UWP)
 		source_group(
 			TREE ${CMAKE_CURRENT_SOURCE_DIR}
 			PREFIX "Resource Files"
@@ -127,52 +179,54 @@ if(NOT BUILD_ICE_UWP)
 				IceSSL.rc
 		)
 
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceSSL
-			PREFIX "Header Files/Generated"
-			FILES
-				${GENERATED_ICESSL_HEADERS}
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceSSL
-			PREFIX "Source Files/Generated"
-			FILES
-				${GENERATED_ICESSL_SOURCES}
-		)
-
-		source_group(
-			TREE ${SLICE_DIR}/IceSSL
-			PREFIX "Slice Files"
-			FILES
-				${ICESSL_SLICES}
-		)
-
 		target_sources(${ICESSL_TARGET}
 			PRIVATE
 				IceSSL.rc
 		)
-
-		target_compile_options(${ICESSL_TARGET} 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
-
-		target_link_libraries(${ICESSL_TARGET}
-			PRIVATE
-				advapi32.lib
-				secur32.lib
-				crypt32.lib
-				ws2_32.lib
-		)
 	endif()
 
-	install(TARGETS ${ICESSL_TARGET} 
-		RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
-		LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
-		ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
+	source_group(
+		TREE ${GENERATED_SLICES_DIR}/IceSSL
+		PREFIX "Header Files/Generated"
+		FILES
+			${GENERATED_ICESSL_HEADERS}
 	)
 
+	source_group(
+		TREE ${GENERATED_SLICES_DIR}/IceSSL
+		PREFIX "Source Files/Generated"
+		FILES
+			${GENERATED_ICESSL_SOURCES}
+	)
+
+	source_group(
+		TREE ${SLICE_DIR}/IceSSL
+		PREFIX "Slice Files"
+		FILES
+			${ICESSL_SLICES}
+	)
+
+	target_compile_options(${ICESSL_TARGET} 
+		PRIVATE
+			${ICE_MSVC_COMPILE_OPTIONS}   
+	)
+
+	target_link_libraries(${ICESSL_TARGET}
+		PRIVATE
+			advapi32.lib
+			secur32.lib
+			crypt32.lib
+			ws2_32.lib
+	)
+endif()
+
+install(TARGETS ${ICESSL_TARGET} 
+	RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR}
+	LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
+	ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
+)
+
+if(NOT BUILD_ICE_UWP)
 	if(BUILD_ICE_CPP98)
 		set(ICESSL_OPENSSL_TARGET icesslopenssl)
 		add_library(${ICESSL_OPENSSL_TARGET})

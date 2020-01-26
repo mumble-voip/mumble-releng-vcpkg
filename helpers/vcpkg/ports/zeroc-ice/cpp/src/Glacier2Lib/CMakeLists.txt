@@ -25,14 +25,12 @@ set(GENERATED_GLACIER2_SOURCES
 if(BUILD_ICE_UWP)
 	set(GLACIER2_SOURCES
 		SessionHelper.cpp
-		${GLACIER2_SLICES}
 	)
 else()
 	set(GLACIER2_SOURCES
 		Application.cpp
 		NullPermissionsVerifier.cpp
 		SessionHelper.cpp
-		${GLACIER2_SLICES}
 	)
 endif()
 
@@ -94,6 +92,7 @@ target_sources(${GLACIER2_TARGET}
 		${GLACIER2_SOURCES}
 		${GENERATED_GLACIER2_HEADERS}
 		${GENERATED_GLACIER2_SOURCES}
+		${GLACIER2_SLICES}
 )
 
 target_include_directories(${GLACIER2_TARGET}

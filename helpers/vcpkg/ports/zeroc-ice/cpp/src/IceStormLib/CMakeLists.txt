@@ -36,53 +36,70 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm
 	FILES_MATCHING PATTERN "*.h"
 )
 
+if(BUILD_ICE_CPP98)
+	set(ICESTORMLIB_TARGET icestorm)
+	add_library(${ICESTORMLIB_TARGET})
+	set_target_properties(${ICESTORMLIB_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+			CXX_STANDARD 98
+	)
+elseif(BUILD_ICE_CPP11)
+	set(ICESTORMLIB_TARGET icestorm++11)
+	add_library(${ICESTORMLIB_TARGET})
+	set_target_properties(${ICESTORMLIB_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+			CXX_STANDARD 11
+	)
+elseif(BUILD_ICE_UWP)
+	set(ICESTORMLIB_TARGET icestormuwp++11)
+	add_library(${ICESTORMLIB_TARGET} STATIC)
+	set_target_properties(${ICESTORMLIB_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
+			CXX_STANDARD 11
+	)
+endif()
+
+target_sources(${ICESTORMLIB_TARGET}
+	PRIVATE
+		${GENERATED_ICESTORM_HEADERS}
+		${GENERATED_ICESTORM_SOURCES}
+)
+
+target_include_directories(${ICESTORMLIB_TARGET}
+	PRIVATE 
+		${GENERATED_SLICES_DIR}
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
+)
+
 if(NOT BUILD_ICE_UWP)
-	if(BUILD_ICE_CPP98)
-		set(ICESTORMLIB_TARGET icestorm)
-		add_library(${ICESTORMLIB_TARGET})
-		set_target_properties(${ICESTORMLIB_TARGET} 
-			PROPERTIES
-				OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-				CXX_STANDARD 98
-		)
-	elseif(BUILD_ICE_CPP11)
-		set(ICESTORMLIB_TARGET icestorm++11)
-		add_library(${ICESTORMLIB_TARGET})
-		set_target_properties(${ICESTORMLIB_TARGET} 
-			PROPERTIES
-				OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
-				CXX_STANDARD 11
-		)
-	endif()
-
-	target_sources(${ICESTORMLIB_TARGET}
-		PRIVATE
-			${GENERATED_ICESTORM_HEADERS}
-			${GENERATED_ICESTORM_SOURCES}
-	)
-
-	target_include_directories(${ICESTORMLIB_TARGET}
-		PRIVATE 
-			${GENERATED_SLICES_DIR}
-			${PROJECT_SOURCE_DIR}/cpp/include
-			${PROJECT_SOURCE_DIR}/cpp/src
-	)
-
 	target_compile_definitions(${ICESTORMLIB_TARGET}
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICESTORM_API_EXPORTS"
 	)
+else()
+	target_compile_definitions(${ICESTORMLIB_TARGET}
+		PRIVATE
+			${ICE_COMPILE_DEFS}
+			"ICE_BUILDING_ICE_STORM"
+	)
+endif()
 
-	if(BUILD_ICE_CPP98)
-		target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice)
-	elseif(BUILD_ICE_CPP11)
-		target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice++11)
-	endif()
+if(BUILD_ICE_CPP98)
+	target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice)
+elseif(BUILD_ICE_CPP11)
+	target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice++11)
+endif()
 
-	if(MSVC)
+if(MSVC)
+	if(NOT BUILD_ICE_UWP)
 		source_group(
 			TREE ${CMAKE_CURRENT_SOURCE_DIR}
 			PREFIX "Resource Files"
@@ -90,41 +107,41 @@ if(NOT BUILD_ICE_UWP)
 				IceStorm.rc
 		)
 
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceStorm
-			PREFIX "Header Files/Generated"
-			FILES
-				${GENERATED_ICESTORM_HEADERS}
-		)
-
-		source_group(
-			TREE ${GENERATED_SLICES_DIR}/IceStorm
-			PREFIX "Source Files/Generated"
-			FILES
-				${GENERATED_ICESTORM_SOURCES}
-		)
-
-		source_group(
-			TREE ${SLICE_DIR}/IceStorm
-			PREFIX "Slice Files"
-			FILES
-				${ICESTORM_SLICES}
-		)
-
 		target_sources(${ICESTORMLIB_TARGET}
 			PRIVATE
 				IceStorm.rc
 		)
-
-		target_compile_options(${ICESTORMLIB_TARGET} 
-			PRIVATE
-				${ICE_MSVC_COMPILE_OPTIONS}   
-		)
 	endif()
 
-	install(TARGETS ${ICESTORMLIB_TARGET} 
-		RUNTIME DESTINATION bin
-		LIBRARY DESTINATION lib
-		ARCHIVE DESTINATION lib
+	source_group(
+		TREE ${GENERATED_SLICES_DIR}/IceStorm
+		PREFIX "Header Files/Generated"
+		FILES
+			${GENERATED_ICESTORM_HEADERS}
+	)
+
+	source_group(
+		TREE ${GENERATED_SLICES_DIR}/IceStorm
+		PREFIX "Source Files/Generated"
+		FILES
+			${GENERATED_ICESTORM_SOURCES}
+	)
+
+	source_group(
+		TREE ${SLICE_DIR}/IceStorm
+		PREFIX "Slice Files"
+		FILES
+			${ICESTORM_SLICES}
+	)
+
+	target_compile_options(${ICESTORMLIB_TARGET} 
+		PRIVATE
+			${ICE_MSVC_COMPILE_OPTIONS}   
 	)
 endif()
+
+install(TARGETS ${ICESTORMLIB_TARGET} 
+	RUNTIME DESTINATION bin
+	LIBRARY DESTINATION lib
+	ARCHIVE DESTINATION lib
+)

@@ -203,8 +203,6 @@ if(BUILD_ICE_UWP)
 		${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/Unicode.cpp
 		${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/UtilException.cpp
 		${PROJECT_SOURCE_DIR}/cpp/src/IceUtil/UUID.cpp
-		${GENERATED_ICE_SOURCES}
-		${GENERATED_ICE_HEADERS}
 	)
 else()
 	set(ICE_SOURCES
@@ -401,7 +399,6 @@ else()
 		WSEndpoint.h
 		WSTransceiver.cpp
 		WSTransceiver.h
-		${ICE_SLICES}
 	)
 endif()
 
@@ -463,6 +460,7 @@ target_sources(${ICE_TARGET}
 		${ICE_SOURCES}
 		${GENERATED_ICE_SOURCES}
 		${GENERATED_ICE_HEADERS}
+		${ICE_SLICES}
 )
 
 if(LINUX)
