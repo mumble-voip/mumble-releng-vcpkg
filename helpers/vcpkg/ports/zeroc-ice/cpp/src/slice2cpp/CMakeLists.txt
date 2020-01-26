@@ -25,8 +25,14 @@ target_compile_definitions(slice2cpp
 	PRIVATE 
 		"ICE_BUILDING_SRC"
 		"ICE_BUILDING_SLICE_COMPILERS"
-		"ICE_STATIC_LIBS"
 )
+
+if(NOT BUILD_ICE_UWP)
+	target_compile_definitions(slice2cpp
+		PRIVATE
+			"ICE_STATIC_LIBS"
+	)
+endif()
 
 if(MSVC)
 	target_compile_definitions(slice2cpp 
