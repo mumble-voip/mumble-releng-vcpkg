@@ -7,8 +7,11 @@ endif()
 
 if(BUILD_ICE_CXX)
 	project(zeroc-ice CXX)
+	enable_language(CXX)
 elseif(BUILD_ICE_CS)
 	project(zeroc-ice CSharp)
+	enable_language(CSharp)
+	enable_language(CXX)
 endif()
 
 set(zeroc-ice_VERSION_MAJOR 3)
@@ -43,12 +46,6 @@ set(GENERATED_SLICES_DIR ${PROJECT_BINARY_DIR}/generated)
 
 # add project wide slices
 include(cmake/Slices.cmake)
-
-if(BUILD_ICE_CXX)
-	enable_language(CXX)
-elseif(BUILD_ICE_CS)
-	enable_language(CSharp)
-endif()
 
 # do a compiler language check
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
