@@ -6,6 +6,8 @@ option(BUILD_ICE_UWP OFF)
 if(BUILD_ICE_UWP)
 	set(CMAKE_SYSTEM_NAME WindowsStore)
 	set(CMAKE_SYSTEM_VERSION 10)
+elseif(WINDOWS_STORE)
+	set(BUILD_ICE_UWP ON)
 endif()
 
 if(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
@@ -36,6 +38,7 @@ include(cmake/ice_cpp_props.cmake)
 
 if(MSVC)
 	include(cmake/mc_compiler.cmake)
+	include(cmake/ice_msvc_props.cmake)
 endif()
 
 set(zeroc-ice_DOXYGEN_FILES
