@@ -158,9 +158,9 @@ if(NOT BUILD_ICE_UWP)
 	)
 else()
 	target_compile_definitions(${ICESSL_TARGET}
-	PRIVATE
-		${ICE_COMPILE_DEFS}
-		"ICE_BUILDING_ICESSL"
+		PRIVATE
+			${ICE_COMPILE_DEFS}
+			"ICE_BUILDING_ICESSL"
 	)
 endif()
 
