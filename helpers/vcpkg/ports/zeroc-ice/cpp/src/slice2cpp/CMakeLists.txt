@@ -25,17 +25,10 @@ target_compile_definitions(slice2cpp
 	PRIVATE 
 		"ICE_BUILDING_SRC"
 		"ICE_BUILDING_SLICE_COMPILERS"
-		"ICE_STATIC_LIBS"
 )
 
-if(MSVC)
-	target_compile_definitions(slice2cpp 
-		PRIVATE 
-			"_CONSOLE" 
-			"WIN32_LEAN_AND_MEAN"
-			"_SBCS"
-			"_WIN32_WINNT=0x603"
-	)
+if(NOT BUILD_ICE_UWP)
+	target_compile_definitions(slice2cpp PRIVATE "ICE_STATIC_LIBS")
 endif()
 
 target_link_libraries(slice2cpp 
@@ -55,6 +48,19 @@ if(MSVC)
 		PRIVATE
 			Slice2Cpp.rc
 	)
+
+	target_compile_definitions(slice2cpp 
+		PRIVATE 
+			"_CONSOLE" 
+			"WIN32_LEAN_AND_MEAN"
+			"_SBCS"
+			"_WIN32_WINNT=0x603"
+	)
+
+	if(BUILD_ICE_UWP)
+		target_compile_definitions(slice2cpp PRIVATE "WINAPI_FAMILY=100")
+		target_compile_options(slice2cpp PRIVATE "/WX")
+	endif()
 
 	target_compile_options(slice2cpp 
 		PRIVATE 

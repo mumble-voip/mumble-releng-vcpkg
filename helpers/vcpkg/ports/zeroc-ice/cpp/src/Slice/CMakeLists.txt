@@ -62,8 +62,11 @@ target_compile_definitions(slice
 	PRIVATE  
 		"ICE_BUILDING_SRC"
 		"ICE_BUILDING_SLICE_COMPILERS"
-		"ICE_STATIC_LIBS"
 )
+
+if(NOT BUILD_ICE_UWP)
+	target_compile_definitions(slice PRIVATE "ICE_STATIC_LIBS")
+endif()
 
 if(MSVC)
 	target_compile_definitions(slice 
@@ -73,6 +76,11 @@ if(MSVC)
 			"_SBCS"
 			"_WIN32_WINNT=0x603"
 	)
+	
+	if(BUILD_ICE_UWP)
+		target_compile_definitions(slice PRIVATE "WINAPI_FAMILY=100")
+		target_compile_options(slice PRIVATE "/WX")
+	endif()
 
 	target_compile_options(slice 
 		PRIVATE 
@@ -86,6 +94,7 @@ if(MSVC)
 			"/wd4505"
 			"/wd4512"
 			"/wd4834"
+			"/wd4098"
 			"/MP"
 			"/bigobj"
 			"/wd4250"

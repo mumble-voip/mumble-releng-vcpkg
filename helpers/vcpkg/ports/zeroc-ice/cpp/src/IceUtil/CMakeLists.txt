@@ -80,6 +80,11 @@ if(MSVC)
 			"_SBCS"
 			"_WIN32_WINNT=0x603"
 	)
+	
+	if(BUILD_ICE_UWP)
+		target_compile_definitions(iceutil PRIVATE "WINAPI_FAMILY=100")
+		target_compile_options(iceutil PRIVATE "/WX")
+	endif()
 
 	target_compile_options(iceutil
 		PRIVATE
