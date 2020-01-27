@@ -476,17 +476,25 @@ target_include_directories(${ICE_TARGET}
 		${BZIP2_INCLUDE_DIR}
 )
 
-if(BUILD_ICE_CPP98)
+if(MSVC)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICE_TARGET}
+			PRIVATE
+				$<TARGET_OBJECTS:iceutil>
+				BZip2::BZip2
+		)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICE_TARGET}
+			PRIVATE
+				$<TARGET_OBJECTS:iceutil++11>
+				BZip2::BZip2
+		)
+	endif()
+else()
 	target_link_libraries(${ICE_TARGET}
 		PRIVATE
-			$<TARGET_OBJECTS:iceutil>
-			BZip2::BZip2
-	)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${ICE_TARGET}
-		PRIVATE
-			$<TARGET_OBJECTS:iceutil++11>
-			BZip2::BZip2
+			iceutil
+			Bzip2::Bzip2
 	)
 endif()
 
