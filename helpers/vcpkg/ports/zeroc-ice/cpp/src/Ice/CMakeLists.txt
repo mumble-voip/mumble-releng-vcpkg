@@ -490,29 +490,7 @@ if(MSVC)
 				BZip2::BZip2
 		)
 	endif()
-else()
-	target_link_libraries(${ICE_TARGET}
-		PRIVATE
-			iceutil
-			Bzip2::Bzip2
-	)
-endif()
 
-if(NOT BUILD_ICE_UWP)
-	target_compile_definitions(${ICE_TARGET} 
-		PRIVATE 
-			${ICE_COMPILE_DEFS}
-			"ICE_API_EXPORTS"
-	)
-else()
-	target_compile_definitions(${ICE_TARGET} 
-		PRIVATE 
-			${ICE_COMPILE_DEFS}
-			"ICE_BUILDING_ICE"
-	)
-endif()
-
-if(MSVC)
 	if(NOT BUILD_ICE_UWP)
 		source_group(
 			TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -582,6 +560,26 @@ if(MSVC)
 		PRIVATE 
 			"/wd4996" 
 			${ICE_MSVC_COMPILE_OPTIONS} 
+	)
+else()
+	target_link_libraries(${ICE_TARGET}
+		PRIVATE
+			iceutil
+			Bzip2::Bzip2
+	)
+endif()
+
+if(NOT BUILD_ICE_UWP)
+	target_compile_definitions(${ICE_TARGET} 
+		PRIVATE 
+			${ICE_COMPILE_DEFS}
+			"ICE_API_EXPORTS"
+	)
+else()
+	target_compile_definitions(${ICE_TARGET} 
+		PRIVATE 
+			${ICE_COMPILE_DEFS}
+			"ICE_BUILDING_ICE"
 	)
 endif()
 
