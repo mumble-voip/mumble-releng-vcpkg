@@ -432,7 +432,6 @@ if(BUILD_ICE_CPP98)
 	set_target_properties(${ICE_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 			CXX_STANDARD 98
 	)
 elseif(BUILD_ICE_CPP11)
@@ -441,7 +440,6 @@ elseif(BUILD_ICE_CPP11)
 	set_target_properties(${ICE_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 			CXX_STANDARD 11
 	)
 elseif(BUILD_ICE_UWP)
@@ -450,7 +448,6 @@ elseif(BUILD_ICE_UWP)
 	set_target_properties(${ICE_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 			CXX_STANDARD 11
 	)
 endif()
@@ -526,6 +523,8 @@ if(MSVC)
 				${GENERATED_ICE_HEADERS}
 				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
 		)
+
+		set_property(TARGET ${ICE_TARGET} PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 
 		target_sources(${ICE_TARGET}
 			PRIVATE

@@ -47,7 +47,6 @@ if(NOT BUILD_ICE_UWP)
 		set_target_properties(${ICEBOXLIB_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 				CXX_STANDARD 98
 		)
 	elseif(BUILD_ICE_CPP11)
@@ -56,7 +55,6 @@ if(NOT BUILD_ICE_UWP)
 		set_target_properties(${ICEBOXLIB_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-				LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 				CXX_STANDARD 11
 		)
 	endif()
@@ -121,6 +119,8 @@ if(NOT BUILD_ICE_UWP)
 				IceBox.rc
 		)
 
+		set_property(TARGET ${ICEBOXLIB_TARGET} PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+
 		target_compile_options(${ICEBOXLIB_TARGET} 
 			PRIVATE
 				${ICE_MSVC_COMPILE_OPTIONS}   
@@ -144,7 +144,6 @@ if(NOT BUILD_ICE_UWP)
 		set_target_properties(${ICEBOX_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-				LINK_FLAGS "${ICE_MSVC_DLL_LINK_OPTIONS} ${ICE_MSVC_APP_LINK_OPTIONS}"
 				CXX_STANDARD 98
 		)
 	elseif(BUILD_ICE_CPP11)
@@ -153,7 +152,6 @@ if(NOT BUILD_ICE_UWP)
 		set_target_properties(${ICEBOX_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-				LINK_FLAGS "${ICE_MSVC_DLL_LINK_OPTIONS} ${ICE_MSVC_APP_LINK_OPTIONS}"
 				CXX_STANDARD 11
 		)
 	endif()
@@ -200,6 +198,13 @@ if(NOT BUILD_ICE_UWP)
 		target_sources(${ICEBOX_TARGET}
 			PRIVATE
 				IceBoxExe.rc
+		)
+
+		set_property(TARGET ${ICEBOX_TARGET} 
+			PROPERTY
+				LINK_FLAGS 
+					"${ICE_MSVC_DLL_LINK_OPTIONS} 
+					${ICE_MSVC_APP_LINK_OPTIONS}"
 		)
 
 		target_compile_options(${ICEBOX_TARGET}

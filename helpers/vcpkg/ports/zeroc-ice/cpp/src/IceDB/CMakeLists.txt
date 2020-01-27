@@ -41,6 +41,8 @@ if(MSVC)
 			IceDB.rc
 	)
 
+	set_property(TARGET icedb PROPERTY LINK_FLAGS LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+
 	target_compile_options(icedb
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
@@ -50,7 +52,6 @@ endif()
 set_target_properties(icedb
 	PROPERTIES
 		OUTPUT_NAME IceDB${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-		LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 )
 
 install(TARGETS icedb 

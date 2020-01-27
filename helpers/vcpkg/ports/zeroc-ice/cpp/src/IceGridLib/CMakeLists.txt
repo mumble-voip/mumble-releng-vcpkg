@@ -60,7 +60,6 @@ if(BUILD_ICE_CPP98)
 	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 			CXX_STANDARD 98
 	)
 elseif(BUILD_ICE_CPP11)
@@ -69,7 +68,6 @@ elseif(BUILD_ICE_CPP11)
 	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 			CXX_STANDARD 11
 	)
 elseif(BUILD_ICE_UWP)
@@ -78,7 +76,6 @@ elseif(BUILD_ICE_UWP)
 	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
-			LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 			CXX_STANDARD 11
 	)
 endif()
@@ -174,6 +171,8 @@ if(MSVC)
 		FILES
 			${ICEGRID_SLICES}
 	)
+
+	set_property(TARGET ${ICEGRID_TARGET} PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 
 	target_compile_options(${ICEGRID_TARGET}
 		PRIVATE

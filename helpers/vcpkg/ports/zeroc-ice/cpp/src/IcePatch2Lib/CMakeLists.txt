@@ -80,6 +80,8 @@ if(MSVC)
 			IcePatch2.rc
 	)
 
+	set_property(TARGET icepatch2 PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+
 	target_compile_options(icepatch2
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}   
@@ -108,7 +110,6 @@ endforeach()
 set_target_properties(icepatch2
 	PROPERTIES
 		OUTPUT_NAME IcePatch2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-		LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 )
 
 install(DIRECTORY ${GENERATED_SLICES_DIR}/IcePatch2 

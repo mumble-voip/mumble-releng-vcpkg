@@ -39,6 +39,8 @@ if(MSVC)
 			IceXML.rc
 	)
 
+	set_property(TARGET icexml PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+
 	target_compile_options(icexml
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
@@ -48,7 +50,6 @@ endif()
 set_target_properties(icexml 
 	PROPERTIES
 		OUTPUT_NAME IceXML${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
-		LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS}
 )
 
 install(TARGETS icexml 
