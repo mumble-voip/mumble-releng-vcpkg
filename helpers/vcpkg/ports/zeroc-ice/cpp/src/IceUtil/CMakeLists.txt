@@ -31,21 +31,13 @@ target_sources(iceutil
 )
 
 # handle win specific UTF limitations
-if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100" OR APPLE)
+if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100" OR LINUX)
 	target_sources(iceutil
 		PRIVATE
 			ConvertUTF.cpp
 			ConvertUTF.h
 			Unicode.cpp	
 			Unicode.h	
-	)
-endif()
-
-if(LINUX)
-	target_sources(iceutil
-		PRIVATE
-			Unicode.cpp	
-			Unicode.h
 	)
 endif()
 
