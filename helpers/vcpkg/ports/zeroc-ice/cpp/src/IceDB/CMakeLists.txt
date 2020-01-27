@@ -41,7 +41,7 @@ if(MSVC)
 			IceDB.rc
 	)
 
-	set_property(TARGET icedb PROPERTY LINK_FLAGS LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+	set_property(TARGET icedb PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 
 	target_compile_options(icedb
 		PRIVATE
