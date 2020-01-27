@@ -64,8 +64,12 @@ set_target_properties(glacier2cryptpermissionsverifier
 		OUTPUT_NAME Glacier2CryptPermissionsVerifier${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
-install(TARGETS glacier2cryptpermissionsverifier 
-	RUNTIME DESTINATION bin
-	LIBRARY DESTINATION lib
-	ARCHIVE DESTINATION lib
-)
+if(BUILD_SHARED_LIBS)
+	install(TARGETS glacier2cryptpermissionsverifier 
+		DESTINATION bin
+	)
+else()
+	install(TARGETS glacier2cryptpermissionsverifier 
+		DESTINATION lib
+	)
+endif()

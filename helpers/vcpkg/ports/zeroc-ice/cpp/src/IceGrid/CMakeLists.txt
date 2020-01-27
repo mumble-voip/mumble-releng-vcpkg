@@ -130,7 +130,7 @@ if(BUILD_ICE_CPP98)
 		)
 	endif()
 
-	install(TARGETS icegridadmin DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+	install(TARGETS icegridadmin DESTINATION bin)
 
 	add_executable(icegridnode)
 
@@ -263,7 +263,7 @@ if(BUILD_ICE_CPP98)
 
 	endif()
 
-	install(TARGETS icegridnode DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+	install(TARGETS icegridnode DESTINATION bin)
 
 	add_executable(icegridregistry)
 
@@ -389,5 +389,5 @@ if(BUILD_ICE_CPP98)
 		)
 	endif()
 
-	install(TARGETS icegridregistry DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+	install(TARGETS icegridregistry DESTINATION bin)
 endif()

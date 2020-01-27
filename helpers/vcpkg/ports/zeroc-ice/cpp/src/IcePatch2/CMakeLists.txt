@@ -46,7 +46,7 @@ if(MSVC)
 	set_property(TARGET icepatch2calc PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 endif()
 
-install(TARGETS icepatch2calc DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+install(TARGETS icepatch2calc DESTINATION bin)
 
 add_executable(icepatch2client)
 
@@ -101,7 +101,7 @@ if(MSVC)
 	set_property(TARGET icepatch2client PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 endif()
 
-install(TARGETS icepatch2client DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+install(TARGETS icepatch2client DESTINATION bin)
 
 add_executable(icepatch2server)
 
@@ -157,4 +157,4 @@ if(MSVC)
 	set_property(TARGET icepatch2server PROPERTY LINK_FLAGS ${ICE_MSVC_APP_LINK_OPTIONS})
 endif()
 
-install(TARGETS icepatch2server DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+install(TARGETS icepatch2server DESTINATION bin)

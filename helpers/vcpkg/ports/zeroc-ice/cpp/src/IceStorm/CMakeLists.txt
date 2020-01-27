@@ -147,7 +147,7 @@ if(MSVC)
 	)
 endif()
 
-install(TARGETS icestormadmin DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+install(TARGETS icestormadmin DESTINATION bin)
 
 add_executable(icestormdb)
 
@@ -228,7 +228,7 @@ if(MSVC)
 	)		
 endif()
 
-install(TARGETS icestormdb DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+install(TARGETS icestormdb DESTINATION bin)
 
 add_library(icestormservice)
 
@@ -336,8 +336,8 @@ set_target_properties(icestormservice
 		OUTPUT_NAME IceStormService${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
-install(TARGETS icestormservice 
-	RUNTIME DESTINATION ${ICE_RUNTIME_INSTALL_DIR} 
-	LIBRARY DESTINATION ${ICE_LIBRARY_INSTALL_DIR}
-	ARCHIVE DESTINATION ${ICE_ARCHIVE_INSTALL_DIR}
-)
+if(BUILD_SHARED_LIBS)
+	install(TARGETS icestormservice DESTINATION bin)
+else()
+	install(TARGETS icestormservice DESTINATION lib)
+endif()

@@ -48,4 +48,4 @@ if(MSVC)
 	)
 endif()
 
-install(TARGETS icebridge DESTINATION ${ICE_RUNTIME_INSTALL_DIR})
+install(TARGETS icebridge DESTINATION bin)

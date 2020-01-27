@@ -99,7 +99,7 @@ set_target_properties(iceutil
 		OUTPUT_NAME IceUtil
 )
 
-install(TARGETS iceutil DESTINATION ${ICE_ARCHIVE_INSTALL_DIR})
+install(TARGETS iceutil DESTINATION lib)
 
 if(BUILD_ICE_CPP11)
 	add_library(iceutil++11 STATIC)
@@ -168,5 +168,5 @@ if(BUILD_ICE_CPP11)
 			OUTPUT_NAME IceUtil
 	)
 
-	install(TARGETS iceutil++11 DESTINATION ${ICE_ARCHIVE_INSTALL_DIR})
+	install(TARGETS iceutil++11 DESTINATION lib)
 endif()

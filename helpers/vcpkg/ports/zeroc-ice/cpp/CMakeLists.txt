@@ -16,11 +16,6 @@ endif()
 # generated headers install dir
 set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include)
 
-# set build directories
-set(ICE_RUNTIME_INSTALL_DIR ${PROJECT_BINARY_DIR}/bin/)
-set(ICE_LIBRARY_INSTALL_DIR ${PROJECT_BINARY_DIR}/lib/)
-set(ICE_ARCHIVE_INSTALL_DIR ${PROJECT_BINARY_DIR}/lib/)
-
 # Add dependencies for C++ related project generation
 if(XCODE)
 	set(zeroc-ice_CONFIG_FILES config/Make.xcodesdk.rules)
