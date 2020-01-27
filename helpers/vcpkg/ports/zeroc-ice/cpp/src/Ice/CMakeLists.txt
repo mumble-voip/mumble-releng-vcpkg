@@ -565,7 +565,7 @@ else()
 	target_link_libraries(${ICE_TARGET}
 		PRIVATE
 			iceutil
-			Bzip2::Bzip2
+			BZip2::BZip2
 	)
 endif()
 
