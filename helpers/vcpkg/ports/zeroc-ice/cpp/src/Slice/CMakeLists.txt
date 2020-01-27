@@ -8,6 +8,7 @@ set_target_properties(slice
 	PROPERTIES 
 		CXX_STANDARD 98
 		LANGUAGE CXX
+		OUTPUT_NAME Slice
 )
 
 target_sources(slice
@@ -100,10 +101,5 @@ if(MSVC)
 			"/wd4250"
 	)
 endif()
-
-set_target_properties(slice 
-	PROPERTIES
-		OUTPUT_NAME Slice
-)
 
 install(TARGETS slice DESTINATION lib)
