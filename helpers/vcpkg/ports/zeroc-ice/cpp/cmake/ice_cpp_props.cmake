@@ -22,9 +22,3 @@ if(NOT BUILD_SHARED_LIBS)
 endif()
 
 list(APPEND COMPILE_SLICES_CPP_PARAMETERS "--include-dir")
-	
-if(APPLE)
-	# TODO - add ICE_COMPILE_DEFS
-elseif(UNIX OR LINUX)
-	# TODO - ICE_COMPILE_DEFS
-endif()
