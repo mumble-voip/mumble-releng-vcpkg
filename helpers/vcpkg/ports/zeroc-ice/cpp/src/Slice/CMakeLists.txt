@@ -11,6 +11,8 @@ set_target_properties(slice
 		OUTPUT_NAME Slice
 )
 
+find_library(MCPP_LIB NAMES mcpp)
+
 target_sources(slice
 	PRIVATE
 		Checksum.cpp
@@ -57,6 +59,7 @@ target_include_directories(slice
 target_link_libraries(slice
 	PRIVATE
 		iceutil
+		${MCPP_LIB}
 )
 
 target_compile_definitions(slice 
