@@ -143,7 +143,7 @@ if(NOT BUILD_ICE_UWP)
 		add_executable(${ICEBOX_TARGET})
 		set_target_properties(${ICEBOX_TARGET} 
 			PROPERTIES
-				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				OUTPUT_NAME icebox
 				CXX_STANDARD 98
 		)
 	elseif(BUILD_ICE_CPP11)
@@ -151,7 +151,7 @@ if(NOT BUILD_ICE_UWP)
 		add_executable(${ICEBOX_TARGET})
 		set_target_properties(${ICEBOX_TARGET} 
 			PROPERTIES
-				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+				OUTPUT_NAME icebox
 				CXX_STANDARD 11
 		)
 	endif()
