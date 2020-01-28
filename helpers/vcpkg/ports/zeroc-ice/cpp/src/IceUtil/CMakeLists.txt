@@ -44,6 +44,7 @@ endif()
 target_include_directories(iceutil 
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
 )
 
 target_compile_definitions(iceutil
