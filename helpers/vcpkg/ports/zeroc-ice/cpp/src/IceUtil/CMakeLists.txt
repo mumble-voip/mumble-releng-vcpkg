@@ -31,7 +31,7 @@ target_sources(iceutil
 )
 
 # handle win specific UTF limitations
-if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100" OR LINUX)
+if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100")
 	target_sources(iceutil
 		PRIVATE
 			ConvertUTF.cpp
