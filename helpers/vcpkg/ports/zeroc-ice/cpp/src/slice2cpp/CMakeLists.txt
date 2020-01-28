@@ -34,7 +34,8 @@ endif()
 target_link_libraries(slice2cpp 
 	PRIVATE
 		${MCPP_LIB}
-		slice  
+		Threads::Threads
+		slice 
 )
 
 if(MSVC)
