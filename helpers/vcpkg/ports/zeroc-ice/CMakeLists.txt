@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.7.2)
 
+option(BUILD_ICE_TESTS OFF)
+option(BUILD_ICE_CXX OFF)
+option(BUILD_ICE_CS OFF)
+option(BUILD_ICE_UWP OFF)
+
 # handle debug lib naming based on shipped project naming
 if(NOT CMAKE_DEBUG_POSTFIX)
 	set(CMAKE_DEBUG_POSTFIX d)
@@ -20,10 +25,6 @@ endif()
 set(zeroc-ice_VERSION_MAJOR 3)
 set(zeroc-ice_VERSION_MINOR 7)
 set(zeroc-ice_VERSION_PATCH 3)
-
-option(BUILD_ICE_TESTS OFF)
-option(BUILD_ICE_CXX OFF)
-option(BUILD_ICE_CS OFF)
 
 if(CMAKE_CONFIGURATION_TYPES)
 	if(BUILD_ICE_TESTS)

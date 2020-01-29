@@ -1,7 +1,6 @@
 # set build types
 option(BUILD_ICE_CPP98 ON) # build by default
 option(BUILD_ICE_CPP11 OFF)
-option(BUILD_ICE_UWP OFF)
 
 if(BUILD_ICE_CPP11 OR BUILD_ICE_UWP)
 	set(BUILD_ICE_CPP98 OFF)
