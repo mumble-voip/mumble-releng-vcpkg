@@ -116,6 +116,8 @@ if(BUILD_ICE_CPP98)
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			CXX_STANDARD 98
 	)
+
+	target_link_libraries(${ICESSL_TARGET} PRIVATE ice)
 elseif(BUILD_ICE_CPP11)
 	set(ICESSL_TARGET icessl++11)
 
@@ -126,6 +128,8 @@ elseif(BUILD_ICE_CPP11)
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	target_link_libraries(${ICESSL_TARGET} PRIVATE ice++11)
 elseif(BUILD_ICE_UWP)
 	set(ICESSL_TARGET icessluwp++11)
 
@@ -136,6 +140,8 @@ elseif(BUILD_ICE_UWP)
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	add_dependencies(${ICESSL_TARGET} iceuwp++11)
 endif()
 
 target_sources(${ICESSL_TARGET}
@@ -165,14 +171,6 @@ else()
 			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_ICESSL"
 	)
-endif()
-
-if(BUILD_ICE_CPP98)
-	target_link_libraries(${ICESSL_TARGET} PRIVATE ice)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${ICESSL_TARGET} PRIVATE ice++11)
-elseif(BUILD_ICE_UWP)
-	add_dependencies(${ICESSL_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)

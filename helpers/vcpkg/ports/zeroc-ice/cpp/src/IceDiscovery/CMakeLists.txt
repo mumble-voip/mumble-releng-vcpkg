@@ -53,6 +53,8 @@ if(BUILD_ICE_CPP98)
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			CXX_STANDARD 98
 	)
+
+	target_link_libraries(${ICEDISCOVERY_TARGET} PRIVATE ice)
 elseif(BUILD_ICE_CPP11)
 	set(ICEDISCOVERY_TARGET icediscovery++11)
 
@@ -63,6 +65,8 @@ elseif(BUILD_ICE_CPP11)
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	target_link_libraries(${ICEDISCOVERY_TARGET} PRIVATE ice++11)
 elseif(BUILD_ICE_UWP)
 	set(ICEDISCOVERY_TARGET icediscoveryuwp++11)
 
@@ -73,6 +77,8 @@ elseif(BUILD_ICE_UWP)
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	add_dependencies(${ICEDISCOVERY_TARGET} iceuwp++11)
 endif()
 
 target_sources(${ICEDISCOVERY_TARGET}
@@ -101,14 +107,6 @@ else()
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 	)
-endif()
-
-if(BUILD_ICE_CPP98)
-	target_link_libraries(${ICEDISCOVERY_TARGET} PRIVATE ice)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${ICEDISCOVERY_TARGET} PRIVATE ice++11)
-elseif(BUILD_ICE_UWP)
-	add_dependencies(${ICEDISCOVERY_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)

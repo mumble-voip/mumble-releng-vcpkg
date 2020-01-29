@@ -46,6 +46,8 @@ if(BUILD_ICE_CPP98)
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			CXX_STANDARD 98
 	)
+
+	target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice)
 elseif(BUILD_ICE_CPP11)
 	set(ICESTORMLIB_TARGET icestorm++11)
 
@@ -56,6 +58,8 @@ elseif(BUILD_ICE_CPP11)
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice++11)
 elseif(BUILD_ICE_UWP)
 	set(ICESTORMLIB_TARGET icestormuwp++11)
 
@@ -66,6 +70,8 @@ elseif(BUILD_ICE_UWP)
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	add_dependencies(${ICESTORMLIB_TARGET} iceuwp++11)
 endif()
 
 target_sources(${ICESTORMLIB_TARGET}
@@ -93,14 +99,6 @@ else()
 			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_ICE_STORM"
 	)
-endif()
-
-if(BUILD_ICE_CPP98)
-	target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${ICESTORMLIB_TARGET} PRIVATE ice++11)
-elseif(BUILD_ICE_UWP)
-	add_dependencies(${ICESTORMLIB_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)

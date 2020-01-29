@@ -49,6 +49,11 @@ if(BUILD_ICE_CPP98)
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			CXX_STANDARD 98
 	)
+
+	target_link_libraries(${ICELOCATOR_DISCOVERY_TARGET}
+		PRIVATE
+			ice
+	)
 elseif(BUILD_ICE_CPP11)
 	set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscovery++11)
 
@@ -58,6 +63,11 @@ elseif(BUILD_ICE_CPP11)
 		PROPERTIES
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
+	)
+
+	target_link_libraries(${ICELOCATOR_DISCOVERY_TARGET}
+		PRIVATE
+			ice++11
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscoveryuwp++11)
@@ -69,6 +79,8 @@ elseif(BUILD_ICE_UWP)
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	add_dependencies(${ICELOCATOR_DISCOVERY_TARGET} iceuwp++11)
 endif()
 
 target_sources(${ICELOCATOR_DISCOVERY_TARGET}
@@ -91,20 +103,6 @@ target_compile_definitions(${ICELOCATOR_DISCOVERY_TARGET}
 		${ICE_COMPILE_DEFS}
 		"ICE_LOCATOR_DISCOVERY_API_EXPORTS"
 )
-
-if(BUILD_ICE_CPP98)
-	target_link_libraries(${ICELOCATOR_DISCOVERY_TARGET}
-		PRIVATE
-			ice
-	)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${ICELOCATOR_DISCOVERY_TARGET}
-		PRIVATE
-			ice++11
-	)
-elseif(BUILD_ICE_UWP)
-	add_dependencies(${ICELOCATOR_DISCOVERY_TARGET} iceuwp++11)
-endif()
 
 if(MSVC)
 	if(NOT BUILD_ICE_UWP)

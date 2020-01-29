@@ -64,6 +64,12 @@ if(BUILD_ICE_CPP98)
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			CXX_STANDARD 98
 	)
+
+	target_link_libraries(${ICEGRID_TARGET}
+		PRIVATE
+			glacier2
+			ice
+	)
 elseif(BUILD_ICE_CPP11)
 	set(ICEGRID_TARGET icegrid++11)
 
@@ -74,6 +80,12 @@ elseif(BUILD_ICE_CPP11)
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	target_link_libraries(${ICEGRID_TARGET}
+		PRIVATE
+			glacier2++11
+			ice++11
+	)
 elseif(BUILD_ICE_UWP)
 	set(ICEGRID_TARGET icegriduwp++11)
 
@@ -83,6 +95,11 @@ elseif(BUILD_ICE_UWP)
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
+	)
+
+	add_dependencies(${ICEGRID_TARGET} 
+		glacier2uwp++11 
+		iceuwp++11
 	)
 endif()
 
@@ -120,25 +137,6 @@ else()
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_ICEGRID"
-	)
-endif()
-
-if(BUILD_ICE_CPP98)
-	target_link_libraries(${ICEGRID_TARGET}
-		PRIVATE
-			glacier2
-			ice
-	)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${ICEGRID_TARGET}
-		PRIVATE
-			glacier2++11
-			ice++11
-	)
-elseif(BUILD_ICE_UWP)
-	add_dependencies(${ICEGRID_TARGET} 
-		glacier2uwp++11 
-		iceuwp++11
 	)
 endif()
 
