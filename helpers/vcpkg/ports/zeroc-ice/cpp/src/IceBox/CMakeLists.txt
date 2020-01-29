@@ -43,20 +43,28 @@ if(NOT BUILD_ICE_UWP)
 
 	if(BUILD_ICE_CPP98)
 		set(ICEBOXLIB_TARGET iceboxlib)
+
 		add_library(${ICEBOXLIB_TARGET})
+
 		set_target_properties(${ICEBOXLIB_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 				CXX_STANDARD 98
 		)
+
+		target_link_libraries(${ICEBOXLIB_TARGET} PRIVATE ice)
 	elseif(BUILD_ICE_CPP11)
 		set(ICEBOXLIB_TARGET iceboxlib++11)
+
 		add_library(${ICEBOXLIB_TARGET})
+
 		set_target_properties(${ICEBOXLIB_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceBox${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 				CXX_STANDARD 11
 		)
+
+		target_link_libraries(${ICEBOXLIB_TARGET} PRIVATE ice++11)
 	endif()
 
 	target_sources(${ICEBOXLIB_TARGET}
@@ -78,12 +86,6 @@ if(NOT BUILD_ICE_UWP)
 			${ICE_COMPILE_DEFS}
 			"ICEBOX_API_EXPORTS"
 	)
-
-	if(BUILD_ICE_CPP98)
-		target_link_libraries(${ICEBOXLIB_TARGET} PRIVATE ice)
-	elseif(BUILD_ICE_CPP11)
-		target_link_libraries(${ICEBOXLIB_TARGET} PRIVATE ice++11)
-	endif()
 
 	if(MSVC)
 		source_group(
@@ -140,19 +142,35 @@ if(NOT BUILD_ICE_UWP)
 
 	if(BUILD_ICE_CPP98)
 		set(ICEBOX_TARGET icebox)
+
 		add_executable(${ICEBOX_TARGET})
+
 		set_target_properties(${ICEBOX_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME icebox
 				CXX_STANDARD 98
 		)
+
+		target_link_libraries(${ICEBOX_TARGET}
+			PRIVATE
+				iceboxlib
+				ice
+		)
 	elseif(BUILD_ICE_CPP11)
 		set(ICEBOX_TARGET icebox++11)
+
 		add_executable(${ICEBOX_TARGET})
+
 		set_target_properties(${ICEBOX_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME icebox
 				CXX_STANDARD 11
+		)
+
+		target_link_libraries(${ICEBOX_TARGET}
+			PRIVATE
+				iceboxlib++11
+				ice++11
 		)
 	endif()
 
@@ -172,20 +190,6 @@ if(NOT BUILD_ICE_UWP)
 		PRIVATE
 			${ICE_COMPILE_DEFS}
 	)
-
-	if(BUILD_ICE_CPP98)
-		target_link_libraries(${ICEBOX_TARGET}
-			PRIVATE
-				iceboxlib
-				ice
-		)
-	elseif(BUILD_ICE_CPP11)
-		target_link_libraries(${ICEBOX_TARGET}
-			PRIVATE
-				iceboxlib++11
-				ice++11
-		)
-	endif()	
 
 	if(MSVC)
 		source_group(
@@ -214,4 +218,59 @@ if(NOT BUILD_ICE_UWP)
 	endif()
 
 	install(TARGETS ${ICEBOX_TARGET} DESTINATION bin)
+
+	if(BUILD_ICE_CPP98)
+		add_executable(iceboxadmin)
+
+		target_sources(iceboxadmin
+			PRIVATE
+				Admin.cpp
+		)
+
+		target_include_directories(iceboxadmin
+			PRIVATE
+				${GENERATED_SLICES_DIR}
+				${PROJECT_SOURCE_DIR}/cpp/include
+				${PROJECT_SOURCE_DIR}/cpp/src
+		)
+
+		target_compile_definitions(iceboxadmin
+			PRIVATE
+				${ICE_COMPILE_DEFS}
+		)
+
+		target_link_libraries(iceboxadmin 
+			PRIVATE 
+				iceboxlib
+				ice
+		)
+
+		if(MSVC)
+			source_group(
+				TREE ${CMAKE_CURRENT_SOURCE_DIR}
+				PREFIX "Resource Files"
+				FILES
+					IceBoxAdmin.rc
+			)
+
+			target_sources(iceboxadmin
+				PRIVATE
+					IceBoxAdmin.rc
+			)
+
+			set_property(TARGET iceboxadmin 
+				PROPERTY
+					LINK_FLAGS 
+						"${ICE_MSVC_DLL_LINK_OPTIONS} 
+						${ICE_MSVC_APP_LINK_OPTIONS}"
+			)
+
+			target_compile_options(iceboxadmin
+				PRIVATE
+					${ICE_MSVC_COMPILE_OPTIONS}
+			)
+		endif()
+
+		install(TARGETS iceboxadmin DESTINATION bin)
+	endif()
 endif()
