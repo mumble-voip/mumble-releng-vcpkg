@@ -138,17 +138,10 @@ if(BUILD_ICE_CPP11)
 		)
 	endif()
 
-	if(LINUX)
-		target_sources(iceutil++11
-			PRIVATE
-				Unicode.cpp	
-				Unicode.h
-		)
-	endif()
-
 	target_include_directories(iceutil++11 
 		PRIVATE
 			${PROJECT_SOURCE_DIR}/cpp/include
+			${PROJECT_SOURCE_DIR}/cpp/src
 	)
 
 	target_compile_definitions(iceutil++11 
