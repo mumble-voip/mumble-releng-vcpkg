@@ -6,8 +6,8 @@ add_library(iceutil STATIC)
 
 set_target_properties(iceutil 
 	PROPERTIES 
-		CXX_STANDARD 98
 		LANGUAGE CXX
+		CXX_STANDARD 98
 )
 
 target_sources(iceutil 
@@ -95,17 +95,17 @@ if(MSVC)
 	)
 endif()
 
-set_target_properties(iceutil 
-	PROPERTIES
-		OUTPUT_NAME IceUtil
-)
-
 install(TARGETS iceutil DESTINATION lib)
 
 if(BUILD_ICE_CPP11)
 	add_library(iceutil++11 STATIC)
-
-	set_property(TARGET iceutil++11 PROPERTY CXX_STANDARD 11)
+	
+	set_target_properties(iceutil++11 
+		PROPERTIES
+			LANGUAGE CXX
+			CXX_STANDARD 11
+			OUTPUT_NAME iceutil
+	)
 
 	target_sources(iceutil++11 
 		PRIVATE
@@ -163,11 +163,6 @@ if(BUILD_ICE_CPP11)
 				${ICE_MSVC_COMPILE_OPTIONS}
 		)
 	endif()
-
-	set_target_properties(iceutil++11 
-		PROPERTIES
-			OUTPUT_NAME IceUtil
-	)
 
 	install(TARGETS iceutil++11 DESTINATION lib)
 endif()

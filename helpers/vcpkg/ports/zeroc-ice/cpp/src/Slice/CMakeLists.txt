@@ -6,9 +6,8 @@ add_library(slice STATIC)
 
 set_target_properties(slice 
 	PROPERTIES 
-		CXX_STANDARD 98
 		LANGUAGE CXX
-		OUTPUT_NAME Slice
+		CXX_STANDARD 98
 )
 
 find_library(MCPP_LIB NAMES mcpp)
