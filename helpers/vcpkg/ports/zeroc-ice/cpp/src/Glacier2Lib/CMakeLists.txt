@@ -60,28 +60,40 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/Glacier2
 
 if(BUILD_ICE_CPP98)
 	set(GLACIER2_TARGET glacier2)
+
 	add_library(${GLACIER2_TARGET})
+
 	set_target_properties(${GLACIER2_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 			CXX_STANDARD 98
 	)
+
+	target_link_libraries(${GLACIER2_TARGET} PRIVATE ice)
 elseif(BUILD_ICE_CPP11)
 	set(GLACIER2_TARGET glacier2++11)
+
 	add_library(${GLACIER2_TARGET})
+
 	set_target_properties(${GLACIER2_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	target_link_libraries(${GLACIER2_TARGET} PRIVATE ice++11)
 elseif(BUILD_ICE_UWP)
 	set(GLACIER2_TARGET glacier2uwp++11)
+
 	add_library(${GLACIER2_TARGET} STATIC)
+	
 	set_target_properties(${GLACIER2_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
 	)
+
+	add_dependencies(${GLACIER2_TARGET} iceuwp++11)
 endif()
 
 target_sources(${GLACIER2_TARGET}
@@ -111,14 +123,6 @@ else()
 			${ICE_COMPILE_DEFS}
 			"ICE_BUILDING_GLACIER2"
 	)
-endif()
-
-if(BUILD_ICE_CPP98)
-	target_link_libraries(${GLACIER2_TARGET} PRIVATE ice)
-elseif(BUILD_ICE_CPP11)
-	target_link_libraries(${GLACIER2_TARGET} PRIVATE ice++11)
-elseif(BUILD_ICE_UWP)
-	add_dependencies(${GLACIER2_TARGET} iceuwp++11)
 endif()
 
 if(MSVC)
