@@ -19,7 +19,8 @@ mumble_deps='qt5-base,
             libogg, 
             libflac, 
             sndfile, 
-            libmariadb, 
+            libmariadb,
+            zlib, 
             zeroc-ice'
 
 case "$OSTYPE" in
