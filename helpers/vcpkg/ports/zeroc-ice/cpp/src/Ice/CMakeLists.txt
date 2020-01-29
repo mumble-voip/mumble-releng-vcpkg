@@ -428,7 +428,9 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/Ice
 
 if(BUILD_ICE_CPP98)
 	set(ICE_TARGET ice)
+
 	add_library(${ICE_TARGET})
+
 	set_target_properties(${ICE_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
@@ -436,7 +438,9 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(ICE_TARGET ice++11)
+
 	add_library(${ICE_TARGET})
+
 	set_target_properties(${ICE_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -444,7 +448,9 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICE_TARGET iceuwp++11)
+
 	add_library(${ICE_TARGET} STATIC)
+
 	set_target_properties(${ICE_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11

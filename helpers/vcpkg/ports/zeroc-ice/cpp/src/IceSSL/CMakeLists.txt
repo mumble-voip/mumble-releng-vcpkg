@@ -108,7 +108,9 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceSSL
 
 if(BUILD_ICE_CPP98)
 	set(ICESSL_TARGET icessl)
+
 	add_library(${ICESSL_TARGET})
+
 	set_target_properties(${ICESSL_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
@@ -116,7 +118,9 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(ICESSL_TARGET icessl++11)
+
 	add_library(${ICESSL_TARGET})
+
 	set_target_properties(${ICESSL_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -124,7 +128,9 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICESSL_TARGET icessluwp++11)
+
 	add_library(${ICESSL_TARGET} STATIC)
+	
 	set_target_properties(${ICESSL_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -230,7 +236,9 @@ endif()
 if(NOT BUILD_ICE_UWP)
 	if(BUILD_ICE_CPP98)
 		set(ICESSL_OPENSSL_TARGET icesslopenssl)
+
 		add_library(${ICESSL_OPENSSL_TARGET})
+
 		set_target_properties(${ICESSL_OPENSSL_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceSSLOpenSSL
@@ -238,7 +246,9 @@ if(NOT BUILD_ICE_UWP)
 		)
 	elseif(BUILD_ICE_CPP11)
 		set(ICESSL_OPENSSL_TARGET icesslopenssl++11)
+
 		add_library(${ICESSL_OPENSSL_TARGET})
+
 		set_target_properties(${ICESSL_OPENSSL_TARGET} 
 			PROPERTIES
 				OUTPUT_NAME IceSSLOpenSSL++11

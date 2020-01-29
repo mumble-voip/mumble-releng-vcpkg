@@ -56,7 +56,9 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceGrid
 
 if(BUILD_ICE_CPP98)
 	set(ICEGRID_TARGET icegrid)
+
 	add_library(${ICEGRID_TARGET})
+
 	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
@@ -64,7 +66,9 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(ICEGRID_TARGET icegrid++11)
+
 	add_library(${ICEGRID_TARGET})
+
 	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -72,7 +76,9 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICEGRID_TARGET icegriduwp++11)
+
 	add_library(${ICEGRID_TARGET} STATIC)
+	
 	set_target_properties(${ICEGRID_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11

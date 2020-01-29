@@ -38,7 +38,9 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceStorm
 
 if(BUILD_ICE_CPP98)
 	set(ICESTORMLIB_TARGET icestorm)
+
 	add_library(${ICESTORMLIB_TARGET})
+
 	set_target_properties(${ICESTORMLIB_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
@@ -46,7 +48,9 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(ICESTORMLIB_TARGET icestorm++11)
+
 	add_library(${ICESTORMLIB_TARGET})
+
 	set_target_properties(${ICESTORMLIB_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -54,7 +58,9 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICESTORMLIB_TARGET icestormuwp++11)
+
 	add_library(${ICESTORMLIB_TARGET} STATIC)
+	
 	set_target_properties(${ICESTORMLIB_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceStorm${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11

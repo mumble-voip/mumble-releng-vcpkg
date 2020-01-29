@@ -45,7 +45,9 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceDiscovery
 
 if(BUILD_ICE_CPP98)
 	set(ICEDISCOVERY_TARGET icediscovery)
+
 	add_library(${ICEDISCOVERY_TARGET})
+
 	set_target_properties(${ICEDISCOVERY_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
@@ -53,7 +55,9 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(ICEDISCOVERY_TARGET icediscovery++11)
+
 	add_library(${ICEDISCOVERY_TARGET})
+
 	set_target_properties(${ICEDISCOVERY_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -61,7 +65,9 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICEDISCOVERY_TARGET icediscoveryuwp++11)
+
 	add_library(${ICEDISCOVERY_TARGET} STATIC)
+	
 	set_target_properties(${ICEDISCOVERY_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11

@@ -41,7 +41,9 @@ install(DIRECTORY ${GENERATED_SLICES_DIR}/IceLocatorDiscovery
 
 if(BUILD_ICE_CPP98)
 	set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscovery)
+
 	add_library(${ICELOCATOR_DISCOVERY_TARGET})
+
 	set_target_properties(${ICELOCATOR_DISCOVERY_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
@@ -49,7 +51,9 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscovery++11)
+
 	add_library(${ICELOCATOR_DISCOVERY_TARGET})
+
 	set_target_properties(${ICELOCATOR_DISCOVERY_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
@@ -57,7 +61,9 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(ICELOCATOR_DISCOVERY_TARGET icelocatordiscoveryuwp++11)
+
 	add_library(${ICELOCATOR_DISCOVERY_TARGET} STATIC)
+	
 	set_target_properties(${ICELOCATOR_DISCOVERY_TARGET} 
 		PROPERTIES
 			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
