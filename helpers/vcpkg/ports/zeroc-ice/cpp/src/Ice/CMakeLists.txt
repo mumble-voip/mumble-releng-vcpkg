@@ -244,7 +244,6 @@ else()
 		DefaultsAndOverrides.h
 		DefaultsAndOverridesF.h
 		DispatchInterceptor.cpp
-		DLLMain.cpp
 		DynamicLibrary.cpp
 		EndpointFactory.cpp
 		EndpointFactory.h
@@ -466,12 +465,14 @@ target_sources(${ICE_TARGET}
 		${ICE_SLICES}
 )
 
-if(LINUX)
+if(UNIX)
 	target_sources(${ICE_TARGET}
 		PRIVATE
 			SystemdJournalI.cpp
 			SystemdJournalI.h
 	)
+
+	target_link_libraries(${ICE_TARGET} PRIVATE ${CMAKE_DL_LIBS})
 endif()
 
 target_include_directories(${ICE_TARGET}
@@ -520,6 +521,7 @@ if(MSVC)
 
 		target_sources(${ICE_TARGET}
 			PRIVATE
+				DLLMain.cpp
 				EventLoggerMsg.mc
 				Ice.rc
 				${GENERATED_ICE_RESOURCES}
@@ -567,12 +569,20 @@ if(MSVC)
 			"/wd4996" 
 			${ICE_MSVC_COMPILE_OPTIONS} 
 	)
-else()
-	target_link_libraries(${ICE_TARGET}
-		PRIVATE
-			iceutil
-			BZip2::BZip2
-	)
+elseif(UNIX)
+	if(BUILD_ICE_CPP98)
+		target_link_libraries(${ICE_TARGET}
+			PRIVATE
+				iceutil
+				BZip2::BZip2
+		)
+	elseif(BUILD_ICE_CPP11)
+		target_link_libraries(${ICE_TARGET}
+			PRIVATE
+				iceutil++11
+				BZip2::BZip2
+		)
+	endif()
 endif()
 
 if(NOT BUILD_ICE_UWP)

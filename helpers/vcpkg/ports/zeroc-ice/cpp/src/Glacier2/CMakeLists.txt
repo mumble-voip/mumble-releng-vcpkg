@@ -69,6 +69,11 @@ target_link_libraries(glacier2router
 		ice
 )
 
+if(UNIX)
+	target_include_directories(glacier2router PRIVATE ${OPENSSL_INCLUDE_DIR})
+	target_link_libraries(glacier2router PRIVATE icesslopenssl)
+endif()
+
 if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}

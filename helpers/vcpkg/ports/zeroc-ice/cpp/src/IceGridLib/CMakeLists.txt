@@ -111,7 +111,7 @@ target_sources(${ICEGRID_TARGET}
 		${ICEGRID_SLICES}
 )
 
-if(LINUX OR APPLE)
+if(APPLE)
 	target_sources(${ICEGRID_TARGET}
 		PRIVATE
 			Grammar.y

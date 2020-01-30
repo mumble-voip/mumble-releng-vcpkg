@@ -84,6 +84,10 @@ if(BUILD_ICE_CPP98)
 			icelocatordiscovery
 	)
 
+	if(UNIX)
+		target_link_libraries(icegridadmin PRIVATE icesslopenssl)
+	endif()
+
 	if(MSVC)
 		source_group(
 			TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -214,6 +218,10 @@ if(BUILD_ICE_CPP98)
 			lmdb
 	)
 
+	if(UNIX)
+		target_link_libraries(icegridnode PRIVATE icesslopenssl)
+	endif()
+
 	if(MSVC)
 		source_group(
 			TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -340,6 +348,10 @@ if(BUILD_ICE_CPP98)
 			icedb
 			lmdb
 	)
+
+	if(UNIX)
+		target_link_libraries(icegridregistry PRIVATE icesslopenssl)
+	endif()
 
 	if(MSVC)
 		source_group(

@@ -33,7 +33,7 @@ target_sources(iceutil
 )
 
 # handle win specific UTF limitations
-if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100")
+if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100" OR UNIX)
 	target_sources(iceutil
 		PRIVATE
 			ConvertUTF.cpp
@@ -54,6 +54,8 @@ target_compile_definitions(iceutil
 		"ICE_BUILDING_SRC"
 		"ICE_BUILDING_SLICE_COMPILERS"
 )
+
+target_link_libraries(iceutil PRIVATE Threads::Threads)
 
 if(NOT BUILD_SHARED_LIBS)
 	target_compile_definitions(iceutil 
@@ -106,7 +108,7 @@ if(BUILD_ICE_CPP11)
 		PROPERTIES
 			LANGUAGE CXX
 			CXX_STANDARD 11
-			OUTPUT_NAME iceutil
+			OUTPUT_NAME iceutil++11
 	)
 
 	target_sources(iceutil++11 
@@ -130,7 +132,7 @@ if(BUILD_ICE_CPP11)
 	)
 
 	# handle win specific UTF limitations
-	if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100" OR APPLE)
+	if(CMAKE_VS_PLATFORM_TOOLSET_VERSION MATCHES "v100" OR UNIX)
 		target_sources(iceutil++11
 			PRIVATE
 				ConvertUTF.cpp
@@ -151,6 +153,8 @@ if(BUILD_ICE_CPP11)
 			${ICE_COMPILE_DEFS}
 			"ICE_API_EXPORTS"
 	)
+
+	target_link_libraries(iceutil++11 PRIVATE Threads::Threads)
 
 	if(MSVC)
 		target_compile_options(iceutil++11 

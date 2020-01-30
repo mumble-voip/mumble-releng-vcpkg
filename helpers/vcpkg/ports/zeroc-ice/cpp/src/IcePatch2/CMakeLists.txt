@@ -25,6 +25,10 @@ target_link_libraries(icepatch2calc
 		ice
 )
 
+if(UNIX)
+	target_link_libraries(icepatch2calc PRIVATE icesslopenssl)
+endif()
+
 if(MSVC)
 	source_group(
 		TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -74,6 +78,10 @@ target_link_libraries(icepatch2client
 		icepatch2
 		ice
 )
+
+if(UNIX)
+	target_link_libraries(icepatch2client PRIVATE icesslopenssl)
+endif()
 
 if(MSVC)
 	source_group(
@@ -130,6 +138,10 @@ target_link_libraries(icepatch2server
 		icepatch2
 		ice
 )
+
+if(UNIX)
+	target_link_libraries(icepatch2server PRIVATE icesslopenssl)
+endif()
 
 if(MSVC)
 	source_group(

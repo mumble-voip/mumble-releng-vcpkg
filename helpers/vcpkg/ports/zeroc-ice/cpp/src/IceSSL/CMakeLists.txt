@@ -56,10 +56,6 @@ else()
 		Instance.cpp
 		PluginI.cpp
 		RFC2253.cpp
-		SChannelCertificateI.cpp
-		SChannelEngine.cpp
-		SChannelPluginI.cpp
-		SChannelTransceiverI.cpp
 		SSLEngine.cpp
 		TrustManager.cpp
 		Util.cpp
@@ -71,9 +67,6 @@ else()
 		InstanceF.h
 		PluginI.h
 		RFC2253.h
-		SChannelEngine.h
-		SChannelEngineF.h
-		SChannelTransceiverI.h
 		SSLEngine.h
 		SSLEngineF.h
 		TrustManager.h
@@ -173,6 +166,20 @@ else()
 	)
 endif()
 
+if(APPLE)
+	target_sources(${ICESSL_TARGET}
+		PRIVATE
+			SecureTransportCertificateI.cpp
+			SecureTransportEngine.cpp
+			SecureTransportEngine.h
+			SecureTransportEngineF.h
+			SecureTransportEngineTransceiverI.cpp
+			SecureTransportTransceiverI.h
+			SecureTransportUtil.cpp
+			SecureTransportUtil.h
+	)
+endif()
+
 if(MSVC)
 	if(NOT BUILD_ICE_UWP)
 		source_group(
@@ -184,6 +191,13 @@ if(MSVC)
 
 		target_sources(${ICESSL_TARGET}
 			PRIVATE
+				SChannelCertificateI.cpp
+				SChannelEngine.cpp
+				SChannelPluginI.cpp
+				SChannelTransceiverI.cpp
+				SChannelEngine.h
+				SChannelEngineF.h
+				SChannelTransceiverI.h
 				IceSSL.rc
 		)
 	endif()
