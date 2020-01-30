@@ -14,6 +14,27 @@ Click Start, search for Git Bash and run it. cd to the git repository directory 
 
 ## GNU/Linux and MacOSX
 
-From a terminal cd to the git repository, set execute permission, and run the following command:
+Additional `dev` packages will need to be installed for some components in vcpkg on GNU/Linux:
+
+`libxi(X11)`
+`libgl1-mesa`
+`libglu1-mesa`
+`mesa-common`
+`libxrandr`
+`libxxf86vm`
+
+vcpkg will also require installation of:
+
+`python3`
+`python2`
+`python`
+
+Most GNU/Linux distros should have these or equivalent packages.
+
+The following is required for MacOSX:
+
+`Xquartz`
+
+From a terminal cd to the cloned `mumble-releng-experimental` git repository, set execute permission, and run the following command:
 
 `./get-mumble_deps.sh`
