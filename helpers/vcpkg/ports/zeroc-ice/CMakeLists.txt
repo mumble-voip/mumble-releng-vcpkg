@@ -86,6 +86,7 @@ if("${languages}" MATCHES "CXX")
 	else()
 		execute_process(COMMAND ${CMAKE_COMMAND} --build 
 			${CMAKE_BINARY_DIR}/icebuilder-prefix/src
+			--target install
 		)
 	endif()
 
