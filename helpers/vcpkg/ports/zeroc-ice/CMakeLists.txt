@@ -68,7 +68,7 @@ get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
-	execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_GENERATOR}
+	execute_process(COMMAND ${CMAKE_COMMAND} 
 		${CMAKE_SOURCE_DIR}/icebuilder
 		-DBUILD_ICEBUILDER_CXX=ON
 		-DICE_SOURCES_ROOT=${CMAKE_SOURCE_DIR}
