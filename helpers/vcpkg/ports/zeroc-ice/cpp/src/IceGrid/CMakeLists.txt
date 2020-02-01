@@ -27,9 +27,8 @@ if(BUILD_ICE_CPP98)
 			${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.cpp
 			${GENERATED_SLICES_DIR}/IceGrid/${slice_name}.h
 		)
-		#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-		CompileSlice(slice2cpp
-			"${ICEGRID_SLICE_PARAMS}"
+		#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
+		CompileSlice("${ICEGRID_SLICE_PARAMS}"
 			"${ICEGRID_SLICE_DIRS}"
 			${slice}
 			${GENERATED_SLICES_DIR}/IceGrid

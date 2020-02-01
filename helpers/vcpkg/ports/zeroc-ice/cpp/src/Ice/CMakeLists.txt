@@ -410,9 +410,8 @@ foreach(slice ${ICE_SLICES})
 		${GENERATED_SLICES_DIR}/Ice/${slice_name}.cpp 
 		${GENERATED_SLICES_DIR}/Ice/${slice_name}.h
 	)	
-	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-	CompileSlice(slice2cpp
-		"${ICE_SLICE_PARAMS}"
+	#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
+	CompileSlice("${ICE_SLICE_PARAMS}"
 		"${ICE_SLICE_DIRS}"
 		${slice}
 		${GENERATED_SLICES_DIR}/Ice
@@ -484,19 +483,11 @@ target_include_directories(${ICE_TARGET}
 )
 
 if(MSVC)
-	if(BUILD_ICE_CPP98)
-		target_link_libraries(${ICE_TARGET}
-			PRIVATE
-				$<TARGET_OBJECTS:iceutil>
-				BZip2::BZip2
-		)
-	elseif(BUILD_ICE_CPP11)
-		target_link_libraries(${ICE_TARGET}
-			PRIVATE
-				$<TARGET_OBJECTS:iceutil++11>
-				BZip2::BZip2
-		)
-	endif()
+	target_link_libraries(${ICE_TARGET}
+		PRIVATE
+			$<TARGET_OBJECTS:iceutil>
+			BZip2::BZip2
+	)
 
 	if(NOT BUILD_ICE_UWP)
 		source_group(
@@ -570,19 +561,11 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS} 
 	)
 elseif(UNIX)
-	if(BUILD_ICE_CPP98)
-		target_link_libraries(${ICE_TARGET}
-			PRIVATE
-				iceutil
-				BZip2::BZip2
-		)
-	elseif(BUILD_ICE_CPP11)
-		target_link_libraries(${ICE_TARGET}
-			PRIVATE
-				iceutil++11
-				BZip2::BZip2
-		)
-	endif()
+	target_link_libraries(${ICE_TARGET}
+		PRIVATE
+			iceutil
+			BZip2::BZip2
+	)
 endif()
 
 if(NOT BUILD_ICE_UWP)

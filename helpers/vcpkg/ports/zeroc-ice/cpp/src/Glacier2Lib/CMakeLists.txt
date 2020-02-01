@@ -43,9 +43,8 @@ foreach(slice ${GLACIER2_SLICES})
 		${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.cpp 
 		${GENERATED_SLICES_DIR}/Glacier2/${slice_name}.h
 	)
-	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-	CompileSlice(slice2cpp
-		"${GLACIER2_SLICE_PARAMS}"
+	#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
+	CompileSlice("${GLACIER2_SLICE_PARAMS}"
 		"${GLACIER2_SLICE_DIRS}"
 		${slice}
 		${GENERATED_SLICES_DIR}/Glacier2

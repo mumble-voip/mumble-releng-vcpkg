@@ -51,9 +51,8 @@ foreach(slice ${ICESTORM_SLICES})
 		${GENERATED_SLICES_DIR}/IceStorm/${slice_name}.cpp
 		${GENERATED_SLICES_DIR}/IceStorm/${slice_name}.h
 	)
-	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-	CompileSlice(slice2cpp
-		"${ICESTORM_SLICE_PARAMS}"
+	#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
+	CompileSlice("${ICESTORM_SLICE_PARAMS}"
 		"${ICESTORM_SLICE_DIRS}"
 		${slice}
 		${GENERATED_SLICES_DIR}/IceStorm

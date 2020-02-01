@@ -97,9 +97,8 @@ foreach(slice ${ICEPATCH2_SLICES})
 		${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.cpp
 		${GENERATED_SLICES_DIR}/IcePatch2/${slice_name}.h
 	)
-	#function(CompileSlice slice2_bin slice2bin_params slice_include_paths ice_file output_dir output_file)
-	CompileSlice(slice2cpp
-		"${ICEPATCH2_SLICE_PARAMS}"
+	#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
+	CompileSlice("${ICEPATCH2_SLICE_PARAMS}"
 		"${ICEPATCH2_SLICE_DIRS}"
 		${slice}
 		${GENERATED_SLICES_DIR}/IcePatch2
