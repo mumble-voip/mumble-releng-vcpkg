@@ -10,10 +10,6 @@ if(NOT CMAKE_DEBUG_POSTFIX)
 	set(CMAKE_DEBUG_POSTFIX d)
 endif()
 
-if(WINDOWS_STORE)
-	set(BUILD_ICE_UWP ON)
-endif()
-
 if(BUILD_ICE_CXX)
 	project(zeroc-ice CXX)
 	enable_language(CXX)
@@ -32,6 +28,10 @@ if(CMAKE_CONFIGURATION_TYPES)
 	else()
 		set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "" FORCE)
 	endif()
+endif()
+
+if(WINDOWS_STORE)
+	set(BUILD_ICE_UWP ON)
 endif()
 
 # create root path for .ice files
