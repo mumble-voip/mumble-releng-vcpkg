@@ -26,7 +26,6 @@ else()
 		PREFER_NINJA
 		OPTIONS
 			-DBUILD_ICE_CXX=ON
-			-DBUILD_ICE_CPP98=ON
 	)
 endif()
 
