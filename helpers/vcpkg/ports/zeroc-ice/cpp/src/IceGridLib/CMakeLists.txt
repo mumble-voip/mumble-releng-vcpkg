@@ -94,6 +94,7 @@ elseif(BUILD_ICE_UWP)
 		PROPERTIES
 			OUTPUT_NAME IceGrid${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
+			LINK_FLAGS ${ICE_UWP_LINK_OPTIONS}
 	)
 
 	add_dependencies(${ICEGRID_TARGET} 
