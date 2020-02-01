@@ -15,11 +15,6 @@ endif()
 # generated headers install dir
 set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include)
 
-# Add dependencies for C++ related project generation
-if(XCODE)
-	set(zeroc-ice_CONFIG_FILES config/Make.xcodesdk.rules)
-endif()
-
 # add project wide c++ properties
 include(cmake/ice_cpp_props.cmake)
 
