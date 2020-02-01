@@ -131,6 +131,7 @@ elseif(BUILD_ICE_UWP)
 		PROPERTIES
 			OUTPUT_NAME IceSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
+			LINK_FLAGS ${ICE_UWP_LINK_OPTIONS}
 	)
 
 	add_dependencies(${ICESSL_TARGET} iceuwp++11)
@@ -199,6 +200,14 @@ if(MSVC)
 				SChannelTransceiverI.h
 				IceSSL.rc
 		)
+
+		target_link_libraries(${ICESSL_TARGET}
+			PRIVATE
+				advapi32.lib
+				secur32.lib
+				crypt32.lib
+				ws2_32.lib
+		)
 	endif()
 
 	source_group(
@@ -227,14 +236,6 @@ if(MSVC)
 	target_compile_options(${ICESSL_TARGET} 
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}   
-	)
-
-	target_link_libraries(${ICESSL_TARGET}
-		PRIVATE
-			advapi32.lib
-			secur32.lib
-			crypt32.lib
-			ws2_32.lib
 	)
 endif()
 

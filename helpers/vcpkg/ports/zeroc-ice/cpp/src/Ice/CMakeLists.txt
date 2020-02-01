@@ -453,6 +453,7 @@ elseif(BUILD_ICE_UWP)
 		PROPERTIES
 			OUTPUT_NAME Ice${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 			CXX_STANDARD 11
+			LINK_FLAGS ${ICE_UWP_LINK_OPTIONS}
 	)
 endif()
 
@@ -483,12 +484,6 @@ target_include_directories(${ICE_TARGET}
 )
 
 if(MSVC)
-	target_link_libraries(${ICE_TARGET}
-		PRIVATE
-			$<TARGET_OBJECTS:iceutil>
-			BZip2::BZip2
-	)
-
 	if(NOT BUILD_ICE_UWP)
 		source_group(
 			TREE ${CMAKE_CURRENT_SOURCE_DIR}
@@ -520,6 +515,8 @@ if(MSVC)
 		
 		target_link_libraries(${ICE_TARGET}
 			PRIVATE
+				$<TARGET_OBJECTS:iceutil>
+				BZip2::BZip2
 				advapi32.lib
 				ws2_32.lib
 				Iphlpapi.lib
