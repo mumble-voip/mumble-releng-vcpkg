@@ -72,6 +72,8 @@ endif()
 
 if(NOT BUILD_ICE_UWP)
 	target_link_libraries(iceutil PRIVATE Threads::Threads)
+else()
+	set_property(TARGET iceutil PROPERTY ${ICE_UWP_LINK_OPTIONS})
 endif()
 
 if(MSVC)
