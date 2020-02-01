@@ -50,9 +50,9 @@ set_source_files_properties(
 )
 
 find_program(SLICE2_BIN slice2cpp HINTS ${PROJECT_BINARY_DIR}/icebuilder/bin)
-find_package(BZip2 REQUIRED)
 
 if(NOT BUILD_ICE_UWP)
+	find_package(BZip2 REQUIRED)
 	find_package(EXPAT REQUIRED)
 	find_package(OpenSSL REQUIRED)
 	find_package(Threads REQUIRED)
