@@ -49,6 +49,7 @@ set_source_files_properties(
 	PROPERTIES HEADER_FILE_ONLY TRUE
 )
 
+find_program(SLICE2_BIN slice2cpp HINTS ${PROJECT_BINARY_DIR}/icebuilder/bin)
 find_package(BZip2 REQUIRED)
 
 if(NOT BUILD_ICE_UWP)
@@ -61,8 +62,6 @@ if(NOT BUILD_ICE_UWP)
 endif()
 
 add_subdirectory(src/IceUtil)
-add_subdirectory(src/Slice)
-add_subdirectory(src/slice2cpp)
 add_subdirectory(src/Ice)
 add_subdirectory(src/Glacier2Lib)
 add_subdirectory(src/IceBox)
