@@ -34,9 +34,6 @@ if(CMAKE_CONFIGURATION_TYPES)
 	endif()
 endif()
 
-# add function to handle slice compiles (icebuilder)
-include(cmake/CompileSlice.cmake)
-
 # create root path for .ice files
 set(SLICE_DIR ${CMAKE_SOURCE_DIR}/slice)
 
@@ -51,17 +48,49 @@ set(GENERATED_SLICES_DIR ${PROJECT_BINARY_DIR}/generated)
 # add project wide slices
 include(cmake/Slices.cmake)
 
+# add function to handle slice compiles (icebuilder)
+include(cmake/CompileSlice.cmake)
+
+# add icebuilder external project
+include(ExternalProject)
+
+find_library(MCPP_LIB_PATH NAMES mcpp)
+
+ExternalProject_Add(icebuilder
+	DOWNLOAD_COMMAND ""
+	CONFIGURE_COMMAND ""
+	BUILD_COMMAND ""	
+	INSTALL_COMMAND ""
+)
+
 # do a compiler language check
 get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
+	execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_GENERATOR}
+		${CMAKE_SOURCE_DIR}/icebuilder
+		-DBUILD_ICEBUILDER_CXX=ON
+		-DICE_SOURCES_ROOT=${CMAKE_SOURCE_DIR}
+		-DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/icebuilder
+		-DMCPP_LIB=${MCPP_LIB_PATH}
+		WORKING_DIRECTORY 
+			${CMAKE_BINARY_DIR}/icebuilder-prefix/src
+	)
+
+	if(MSVC)
+		execute_process(COMMAND ${CMAKE_COMMAND} --build 
+			${CMAKE_BINARY_DIR}/icebuilder-prefix/src
+			--config Release --target INSTALL
+		)
+	else()
+		execute_process(COMMAND ${CMAKE_COMMAND} --build 
+			${CMAKE_BINARY_DIR}/icebuilder-prefix/src
+		)
+	endif()
+
 	add_subdirectory(cpp)
 elseif ("${languages}" MATCHES "CSharp")
-	enable_language(CXX)
-	add_subdirectory(cpp/src/IceUtil)
-	add_subdirectory(cpp/src/Slice)
-	add_subdirectory(cpp/src/slice2cs)
 	add_subdirectory(csharp)
 elseif("${languages" MATCHES "Java")
 	add_subdirectory(java)
