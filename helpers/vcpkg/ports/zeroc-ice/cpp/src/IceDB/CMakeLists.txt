@@ -54,4 +54,8 @@ set_target_properties(icedb
 		OUTPUT_NAME IceDB${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 )
 
-install(TARGETS icedb DESTINATION lib)
+if(BUILD_SHARED_LIBS)
+	install(TARGETS icedb DESTINATION bin)
+else()
+	install(TARGETS icedb DESTINATION lib)
+endif()
