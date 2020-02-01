@@ -52,9 +52,6 @@ if [ ! -d "~/vcpkg" ]
 			    then
 			        echo "Triplet type is not defined! Aborting..."
 			else
-                # ./vcpkg install qt5-base qt5-svg qt5-tools grpc boost-atomic \
-                #     boost-function boost-optional boost-system boost-thread libvorbis \
-                #     boost-accumulators libogg libflac sndfile libmariadb zeroc-ice --triplet $triplet
                 for dep in ${mumble_deps//,/ }
                 do
                     ./vcpkg install $dep:$triplet
@@ -64,5 +61,8 @@ if [ ! -d "~/vcpkg" ]
         echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
     fi
 else
-    echo "vcpkg repository exists! Use vcpkg binary to manage the repository. Aborting..."
+    for dep in ${mumble_deps//,/ }
+    do
+        ./vcpkg install $dep:$triplet
+    done
 fi
