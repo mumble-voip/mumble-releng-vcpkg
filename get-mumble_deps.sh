@@ -49,14 +49,14 @@ if [ ! -d "~/vcpkg" ]
                     ./vcpkg integrate install;;
             esac
             if [ -z "$triplet" ]
-			    then
-			        echo "Triplet type is not defined! Aborting..."
-			else
+                then
+                echo "Triplet type is not defined! Aborting..."
+            else
                 for dep in ${mumble_deps//,/ }
                 do
                     ./vcpkg install $dep:$triplet
                 done
-			fi
+            fi
     else
         echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
     fi
