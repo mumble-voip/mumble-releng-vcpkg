@@ -38,3 +38,9 @@ The following is required for MacOSX:
 From a terminal cd to the cloned `mumble-releng-experimental` git repository, set execute permission, and run the following command:
 
 `./get-mumble_deps.sh`
+
+## Define Ice_HOME
+
+In order for the FindIce module to work properly, `Ice_HOME` must be defined when running the configure step of CMake for the Mumble sources like so:
+
+`cmake -G <preferred_generator> -DIce_HOME=~/vcpkg/installed/x64-windows-static-md -DVCPKG_TARGET_TRIPLET=x64-windows-static-md ...`
