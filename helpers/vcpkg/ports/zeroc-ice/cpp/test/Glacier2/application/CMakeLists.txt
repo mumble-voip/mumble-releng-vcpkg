@@ -1,5 +1,5 @@
-set(GENERATED_GLACIER2_CLIENT_HEADERS ${GENERATED_SLICES_DIR}/Glacier2/Callback.h)
-set(GENERATED_GLACIER2_CLIENT_SOURCES ${GENERATED_SLICES_DIR}/Glacier2/Callback.cpp)
+set(GENERATED_APPLICATION_HEADERS ${GENERATED_SLICES_DIR}/Glacier2/Callback.h)
+set(GENERATED_APPLICATION_SOURCES ${GENERATED_SLICES_DIR}/Glacier2/Callback.cpp)
 
 if(BUILD_ICE_CPP98)
 	set(CLIENT_DEPS 
@@ -45,17 +45,17 @@ CompileSlice("${ICE_SLICE_PARAMS}"
 	"${output_files}"
 )
 
-add_executable(client)
+add_executable(glacier2appclient)
 
-target_sources(client 
+target_sources(glacier2appclient 
 	PRIVATE 
 		Client.cpp
 		Callback.ice
-		${GENERATED_GLACIER2_CLIENT_HEADERS}
-		${GENERATED_GLACIER2_CLIENT_SOURCES}
+		${GENERATED_APPLICATION_HEADERS}
+		${GENERATED_APPLICATION_SOURCES}
 )
 
-target_include_directories(client
+target_include_directories(glacier2appclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
@@ -64,7 +64,7 @@ target_include_directories(client
 		${GENERATED_SLICES_DIR}
 )
 
-target_link_libraries(client PRIVATE ${CLIENT_DEPS})
+target_link_libraries(glacier2appclient PRIVATE ${CLIENT_DEPS})
 
 if(MSVC)
 	source_group("Slice Files"
@@ -74,27 +74,27 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_GLACIER2_CLIENT_SOURCES}
+			${GENERATED_APPLICATION_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_GLACIER2_CLIENT_HEADERS}
+			${GENERATED_APPLICATION_HEADERS}
 	)
 
-	target_compile_options(client
+	target_compile_options(glacier2appclient
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET client PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET glacier2appclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET client PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET glacier2appclient PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS client DESTINATION tests/bin)
+install(TARGETS glacier2appclient DESTINATION tests/bin)
 
 if(BUILD_ICE_CPP98)
 	set(SERVER_DEPS 
@@ -125,17 +125,17 @@ elseif(BUILD_ICE_UWP)
 	)
 endif()
 
-add_executable(server)
+add_executable(glacier2appserver)
 
-target_sources(server 
+target_sources(glacier2appserver 
 	PRIVATE 
 		Server.cpp
 		Callback.ice
-		${GENERATED_GLACIER2_CLIENT_HEADERS}
-		${GENERATED_GLACIER2_CLIENT_SOURCES}
+		${GENERATED_APPLICATION_HEADERS}
+		${GENERATED_APPLICATION_SOURCES}
 )
 
-target_include_directories(server
+target_include_directories(glacier2appserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
@@ -144,7 +144,7 @@ target_include_directories(server
 		${GENERATED_SLICES_DIR}
 )
 
-target_link_libraries(server PRIVATE ${SERVER_DEPS})
+target_link_libraries(glacier2appserver PRIVATE ${SERVER_DEPS})
 
 if(MSVC)
 	source_group("Slice Files"
@@ -154,24 +154,24 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_GLACIER2_CLIENT_SOURCES}
+			${GENERATED_APPLICATION_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_GLACIER2_CLIENT_HEADERS}
+			${GENERATED_APPLICATION_HEADERS}
 	)
 
-	target_compile_options(server
+	target_compile_options(glacier2appserver
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET server PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET glacier2appserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET server PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET glacier2appserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS server DESTINATION tools/bin)
+install(TARGETS glacier2appserver DESTINATION tools/bin)
