@@ -66,6 +66,8 @@ target_include_directories(glacier2appclient
 
 target_link_libraries(glacier2appclient PRIVATE ${CLIENT_DEPS})
 
+target_compile_definitions(glacier2appclient PRIVATE ${ICE_COMPILE_DEFS})
+
 if(MSVC)
 	source_group("Slice Files"
 		FILES
@@ -145,6 +147,8 @@ target_include_directories(glacier2appserver
 )
 
 target_link_libraries(glacier2appserver PRIVATE ${SERVER_DEPS})
+
+target_compile_definitions(glacier2appserver PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	source_group("Slice Files"

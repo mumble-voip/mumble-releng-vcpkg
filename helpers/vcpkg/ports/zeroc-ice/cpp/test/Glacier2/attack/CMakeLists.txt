@@ -68,6 +68,8 @@ target_include_directories(glacier2attackclient
 
 target_link_libraries(glacier2attackclient PRIVATE ${CLIENT_DEPS})
 
+target_compile_definitions(glacier2attackclient PRIVATE ${ICE_COMPILE_DEFS})
+
 if(MSVC)
 	source_group("Slice Files"
 		FILES
@@ -149,6 +151,8 @@ target_include_directories(glacier2attackserver
 )
 
 target_link_libraries(glacier2attackserver PRIVATE ${SERVER_DEPS})
+
+target_compile_definitions(glacier2attackserver PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	source_group("Slice Files"
