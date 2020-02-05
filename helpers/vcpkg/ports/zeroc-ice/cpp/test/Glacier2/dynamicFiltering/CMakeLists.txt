@@ -1,5 +1,9 @@
-set(GENERATED_DYNFILTERING_HEADERS ${GENERATED_SLICES_DIR}/Glacier2/Test.h)
-set(GENERATED_DYNFILTERING_SOURCES ${GENERATED_SLICES_DIR}/Glacier2/Test.cpp)
+if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
+endif()
+
+set(GENERATED_DYNFILTERING_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.h)
+set(GENERATED_DYNFILTERING_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.cpp)
 
 if(BUILD_ICE_CPP98)
 	set(CLIENT_DEPS 
@@ -34,14 +38,14 @@ list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
 
 set(output_files 
-	${GENERATED_SLICES_DIR}/Glacier2/Test.cpp 
-	${GENERATED_SLICES_DIR}/Glacier2/Test.h
+	${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.cpp 
+	${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.h
 )	
 #function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
 CompileSlice("${ICE_SLICE_PARAMS}"
 	"${ICE_SLICE_DIRS}"
 	${CMAKE_CURRENT_SOURCE_DIR}/Test.ice
-	${GENERATED_SLICES_DIR}/Glacier2
+	${CMAKE_CURRENT_BINARY_DIR}/Glacier2
 	"${output_files}"
 )
 
@@ -61,7 +65,8 @@ target_include_directories(glacier2dynfilterclient
 		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${GENERATED_SLICES_DIR}/Glacier2
+		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
+		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
 
@@ -147,7 +152,8 @@ target_include_directories(glacier2dynfilterserver
 		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${GENERATED_SLICES_DIR}/Glacier2
+		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
+		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
 
