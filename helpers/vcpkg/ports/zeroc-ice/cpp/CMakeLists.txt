@@ -81,3 +81,7 @@ if(BUILD_ICE_CPP98)
 		add_subdirectory(src/iceserviceinstall)
 	endif()
 endif()
+
+if(BUILD_ICE_TESTS)
+	add_subdirectory(test)
+endif()
