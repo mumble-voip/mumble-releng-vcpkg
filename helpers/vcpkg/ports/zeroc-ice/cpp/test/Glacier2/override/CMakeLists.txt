@@ -2,8 +2,8 @@ if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
 endif()
 
-set(GENERATED_APPLICATION_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Callback.h)
-set(GENERATED_APPLICATION_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Callback.cpp)
+set(GENERATED_OVERRIDE_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Callback.h)
+set(GENERATED_OVERRIDE_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Callback.cpp)
 
 if(BUILD_ICE_CPP98)
 	set(CLIENT_DEPS 
@@ -56,8 +56,8 @@ target_sources(glacier2overrideclient
 		Client.cpp
 		CallbackI.cpp
 		Callback.ice
-		${GENERATED_APPLICATION_HEADERS}
-		${GENERATED_APPLICATION_SOURCES}
+		${GENERATED_OVERRIDE_HEADERS}
+		${GENERATED_OVERRIDE_SOURCES}
 )
 
 target_include_directories(glacier2overrideclient
@@ -83,12 +83,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_APPLICATION_SOURCES}
+			${GENERATED_OVERRIDE_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_APPLICATION_HEADERS}
+			${GENERATED_OVERRIDE_HEADERS}
 	)
 
 	target_compile_options(glacier2overrideclient
@@ -141,8 +141,8 @@ target_sources(glacier2overrideserver
 		Server.cpp
 		CallbackI.cpp
 		Callback.ice
-		${GENERATED_APPLICATION_HEADERS}
-		${GENERATED_APPLICATION_SOURCES}
+		${GENERATED_OVERRIDE_HEADERS}
+		${GENERATED_OVERRIDE_SOURCES}
 )
 
 target_include_directories(glacier2overrideserver
@@ -168,12 +168,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_APPLICATION_SOURCES}
+			${GENERATED_OVERRIDE_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_APPLICATION_HEADERS}
+			${GENERATED_OVERRIDE_HEADERS}
 	)
 
 	target_compile_options(glacier2overrideserver
