@@ -55,7 +55,6 @@ target_sources(glacier2overrideclient
 	PRIVATE 
 		Client.cpp
 		CallbackI.cpp
-		Callback.ice
 		${GENERATED_OVERRIDE_HEADERS}
 		${GENERATED_OVERRIDE_SOURCES}
 )
@@ -114,7 +113,6 @@ target_sources(glacier2overrideserver
 	PRIVATE 
 		Server.cpp
 		CallbackI.cpp
-		Callback.ice
 		${GENERATED_OVERRIDE_HEADERS}
 		${GENERATED_OVERRIDE_SOURCES}
 )

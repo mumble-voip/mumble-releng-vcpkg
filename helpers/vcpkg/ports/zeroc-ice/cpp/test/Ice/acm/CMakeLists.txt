@@ -43,7 +43,6 @@ target_sources(iceacmclient
 	PRIVATE
 		AllTests.cpp
 		Client.cpp
-		Test.ice
 		${GENERATED_ACM_HEADERS}
 		${GENERATED_ACM_SOURCES}
 )
@@ -102,7 +101,6 @@ target_sources(iceacmserver
 	PRIVATE
 		Server.cpp
 		TestI.cpp
-		Test.ice
 		${GENERATED_ACM_HEADERS}
 		${GENERATED_ACM_SOURCES}
 )

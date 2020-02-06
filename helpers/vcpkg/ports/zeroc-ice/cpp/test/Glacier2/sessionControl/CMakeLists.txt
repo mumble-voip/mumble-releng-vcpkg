@@ -54,7 +54,6 @@ add_executable(glacier2sessionctrlclient)
 target_sources(glacier2sessionctrlclient 
 	PRIVATE 
 		Client.cpp
-		Session.ice
 		${GENERATED_SESSIONCTRL_HEADERS}
 		${GENERATED_SESSIONCTRL_SOURCES}
 )
@@ -113,7 +112,6 @@ target_sources(glacier2sessionctrlserver
 	PRIVATE 
 		Server.cpp
 		SessionI.cpp
-		Session.ice
 		${GENERATED_SESSIONCTRL_HEADERS}
 		${GENERATED_SESSIONCTRL_SOURCES}
 )

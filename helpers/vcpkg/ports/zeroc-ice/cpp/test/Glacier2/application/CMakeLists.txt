@@ -54,7 +54,6 @@ add_executable(glacier2appclient)
 target_sources(glacier2appclient 
 	PRIVATE 
 		Client.cpp
-		Callback.ice
 		${GENERATED_APPLICATION_HEADERS}
 		${GENERATED_APPLICATION_SOURCES}
 )
@@ -110,7 +109,6 @@ add_executable(glacier2appserver)
 target_sources(glacier2appserver 
 	PRIVATE 
 		Server.cpp
-		Callback.ice
 		${GENERATED_APPLICATION_HEADERS}
 		${GENERATED_APPLICATION_SOURCES}
 )

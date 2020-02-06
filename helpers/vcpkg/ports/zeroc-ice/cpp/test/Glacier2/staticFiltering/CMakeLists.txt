@@ -55,7 +55,6 @@ target_sources(glacier2staticfilterclient
 	PRIVATE 
 		Client.cpp
 		BackendI.cpp
-		Backend.ice
 		${GENERATED_STATICFILTER_HEADERS}
 		${GENERATED_STATICFILTER_SOURCES}
 )
@@ -115,7 +114,6 @@ target_sources(glacier2staticfilterserver
 	PRIVATE 
 		Server.cpp
 		BackendI.cpp
-		Backend.ice
 		${GENERATED_STATICFILTER_HEADERS}
 		${GENERATED_STATICFILTER_SOURCES}
 )

@@ -55,7 +55,6 @@ target_sources(glacier2attackclient
 	PRIVATE 
 		Client.cpp
 		BackendI.cpp
-		Backend.ice
 		${GENERATED_ATTACK_HEADERS}
 		${GENERATED_ATTACK_SOURCES}
 )
@@ -114,7 +113,6 @@ target_sources(glacier2attackserver
 	PRIVATE 
 		Server.cpp
 		BackendI.cpp
-		Backend.ice
 		${GENERATED_ATTACK_HEADERS}
 		${GENERATED_ATTACK_SOURCES}
 )

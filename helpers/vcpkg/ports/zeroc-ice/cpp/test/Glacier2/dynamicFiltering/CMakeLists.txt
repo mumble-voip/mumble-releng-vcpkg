@@ -54,7 +54,6 @@ add_executable(glacier2dynfilterclient)
 target_sources(glacier2dynfilterclient 
 	PRIVATE 
 		Client.cpp
-		Test.ice
 		${GENERATED_DYNFILTERING_HEADERS}
 		${GENERATED_DYNFILTERING_SOURCES}
 )
@@ -115,7 +114,6 @@ target_sources(glacier2dynfilterserver
 		Server.cpp
 		SessionI.cpp
 		TestControllerI.cpp
-		Test.ice
 		${GENERATED_DYNFILTERING_HEADERS}
 		${GENERATED_DYNFILTERING_SOURCES}
 )

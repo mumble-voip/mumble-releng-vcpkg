@@ -54,7 +54,6 @@ add_executable(glacier2sessionhlprclient)
 target_sources(glacier2sessionhlprclient 
 	PRIVATE 
 		Client.cpp
-		Callback.ice
 		${GENERATED_SESSIONHLPR_HEADERS}
 		${GENERATED_SESSIONHLPR_SOURCES}
 )
@@ -112,7 +111,6 @@ add_executable(glacier2sessionhlprserver)
 target_sources(glacier2sessionhlprserver 
 	PRIVATE 
 		Server.cpp
-		Callback.ice
 		${GENERATED_SESSIONHLPR_HEADERS}
 		${GENERATED_SESSIONHLPR_SOURCES}
 )

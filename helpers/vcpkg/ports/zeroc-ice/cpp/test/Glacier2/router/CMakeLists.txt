@@ -55,7 +55,6 @@ target_sources(glacier2routerclient
 	PRIVATE 
 		Client.cpp
 		CallbackI.cpp
-		Callback.ice
 		${GENERATED_ROUTER_HEADERS}
 		${GENERATED_ROUTER_SOURCES}
 )
@@ -114,7 +113,6 @@ target_sources(glacier2routerserver
 	PRIVATE 
 		Server.cpp
 		CallbackI.cpp
-		Callback.ice
 		${GENERATED_ROUTER_HEADERS}
 		${GENERATED_ROUTER_SOURCES}
 )
