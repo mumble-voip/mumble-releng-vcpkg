@@ -62,7 +62,6 @@ target_sources(glacier2dynfilterclient
 target_include_directories(glacier2dynfilterclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -149,7 +148,6 @@ target_sources(glacier2dynfilterserver
 target_include_directories(glacier2dynfilterserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2

@@ -62,8 +62,8 @@ target_sources(glacier2appclient
 target_include_directories(glacier2appclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
+		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
@@ -144,8 +144,8 @@ target_sources(glacier2appserver
 target_include_directories(glacier2appserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
+		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )

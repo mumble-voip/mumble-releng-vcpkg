@@ -27,7 +27,6 @@ target_sources(${TESTCOMMON_TARGET} PRIVATE TestHelper.cpp)
 target_include_directories(${TESTCOMMON_TARGET}
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${GENERATED_SLICES_DIR}
 )

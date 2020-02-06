@@ -63,7 +63,6 @@ target_sources(glacier2overrideclient
 target_include_directories(glacier2overrideclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -148,7 +147,6 @@ target_sources(glacier2overrideserver
 target_include_directories(glacier2overrideserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -189,4 +187,3 @@ if(MSVC)
 endif()
 
 install(TARGETS glacier2overrideserver DESTINATION tools/bin)
-

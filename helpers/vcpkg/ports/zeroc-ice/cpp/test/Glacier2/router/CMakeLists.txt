@@ -63,7 +63,6 @@ target_sources(glacier2routerclient
 target_include_directories(glacier2routerclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -148,7 +147,6 @@ target_sources(glacier2routerserver
 target_include_directories(glacier2routerserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -189,5 +187,3 @@ if(MSVC)
 endif()
 
 install(TARGETS glacier2routerserver DESTINATION tools/bin)
-
-

@@ -63,7 +63,6 @@ target_sources(glacier2attackclient
 target_include_directories(glacier2attackclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -148,7 +147,6 @@ target_sources(glacier2attackserver
 target_include_directories(glacier2attackserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
-		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
@@ -189,4 +187,3 @@ if(MSVC)
 endif()
 
 install(TARGETS glacier2attackserver DESTINATION tools/bin)
-
