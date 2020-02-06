@@ -1,0 +1,107 @@
+if(BUILD_ICE_CPP98)
+	set(CLIENT_DEPS 
+		glacier2 
+		ice
+		icediscovery
+		icelocatordiscovery
+		icessl
+		testcommon
+	)
+elseif(BUILD_ICE_CPP11)
+	set(CLIENT_DEPS 
+		glacier2++11 
+		ice++11
+		icediscovery++11
+		icelocatordiscovery++11
+		icessl++11
+		testcommon++11
+	)
+elseif(BUILD_ICE_UWP)
+	set(CLIENT_DEPS 
+		glacier2uwp++11 
+		iceuwp++11
+		icediscoveryuwp++11
+		icelocatordiscoveryuwp++11
+		icessluwp++11
+		testcommonuwp++11
+	)
+endif()
+
+add_executable(glacier2sslclient)
+
+target_sources(glacier2sslclient PRIVATE Client.cpp)
+
+target_include_directories(glacier2sslclient
+	PRIVATE
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/test/include
+		${GENERATED_SLICES_DIR}
+)
+
+target_link_libraries(glacier2sslclient PRIVATE ${CLIENT_DEPS})
+
+target_compile_definitions(glacier2sslclient PRIVATE ${ICE_COMPILE_DEFS})
+
+if(MSVC)
+	if(NOT BUILD_ICE_UWP)
+		set_property(TARGET glacier2sslclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+	else()
+		set_property(TARGET glacier2sslclient PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+	endif()
+endif()
+
+install(TARGETS glacier2sslclient DESTINATION tests/bin)
+
+if(BUILD_ICE_CPP98)
+	set(SERVER_DEPS 
+		glacier2
+		ice
+		icediscovery
+		icelocatordiscovery
+		icessl
+		testcommon
+	)
+elseif(BUILD_ICE_CPP11)
+	set(SERVER_DEPS 
+		glacier2++11
+		ice++11
+		icediscovery++11
+		icelocatordiscovery++11
+		icessl++11
+		testcommon++11
+	)
+elseif(BUILD_ICE_UWP)
+	set(SERVER_DEPS 
+		glacier2uwp++11
+		iceuwp++11
+		icediscoveryuwp++11
+		icelocatordiscoveryuwp++11
+		icessluwp++11
+		testcommonuwp++11
+	)
+endif()
+
+add_executable(glacier2sslserver)
+
+target_sources(glacier2sslserver PRIVATE Server.cpp)
+
+target_include_directories(glacier2sslserver
+	PRIVATE
+		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/test/include
+		${GENERATED_SLICES_DIR}
+)
+
+target_link_libraries(glacier2sslserver PRIVATE ${SERVER_DEPS})
+
+target_compile_definitions(glacier2sslserver PRIVATE ${ICE_COMPILE_DEFS})
+
+if(MSVC)
+	if(NOT BUILD_ICE_UWP)
+		set_property(TARGET glacier2sslserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+	else()
+		set_property(TARGET glacier2sslserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+	endif()
+endif()
+
+install(TARGETS glacier2sslserver DESTINATION tools/bin)
