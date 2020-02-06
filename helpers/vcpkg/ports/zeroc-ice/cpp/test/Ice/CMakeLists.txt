@@ -1,1 +1,2 @@
 add_subdirectory(acm)
+add_subdirectory(adapterDeactivation)
