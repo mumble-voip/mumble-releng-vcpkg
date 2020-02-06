@@ -6,7 +6,7 @@ set(GENERATED_SESSIONCTRL_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Session.h
 set(GENERATED_SESSIONCTRL_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Session.cpp)
 
 if(BUILD_ICE_CPP98)
-	set(CLIENT_DEPS 
+	set(SESSIONCTRL_DEPS 
 		glacier2 
 		ice
 		icediscovery
@@ -15,7 +15,7 @@ if(BUILD_ICE_CPP98)
 		testcommon
 	)
 elseif(BUILD_ICE_CPP11)
-	set(CLIENT_DEPS 
+	set(SESSIONCTRL_DEPS 
 		glacier2++11 
 		ice++11
 		icediscovery++11
@@ -24,7 +24,7 @@ elseif(BUILD_ICE_CPP11)
 		testcommon++11
 	)
 elseif(BUILD_ICE_UWP)
-	set(CLIENT_DEPS 
+	set(SESSIONCTRL_DEPS 
 		glacier2uwp++11 
 		iceuwp++11
 		icediscoveryuwp++11
@@ -69,7 +69,11 @@ target_include_directories(glacier2sessionctrlclient
 		${GENERATED_SLICES_DIR}
 )
 
-target_link_libraries(glacier2sessionctrlclient PRIVATE ${CLIENT_DEPS})
+if(BUILD_ICE_UWP)
+	add_dependencies(glacier2sessionctrlclient ${SESSIONCTRL_DEPS})
+else()
+	target_link_libraries(glacier2sessionctrlclient PRIVATE ${SESSIONCTRL_DEPS})
+endif()
 
 target_compile_definitions(glacier2sessionctrlclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -103,35 +107,6 @@ endif()
 
 install(TARGETS glacier2sessionctrlclient DESTINATION tests/bin)
 
-if(BUILD_ICE_CPP98)
-	set(SERVER_DEPS 
-		glacier2
-		ice
-		icediscovery
-		icelocatordiscovery
-		icessl
-		testcommon
-	)
-elseif(BUILD_ICE_CPP11)
-	set(SERVER_DEPS 
-		glacier2++11
-		ice++11
-		icediscovery++11
-		icelocatordiscovery++11
-		icessl++11
-		testcommon++11
-	)
-elseif(BUILD_ICE_UWP)
-	set(SERVER_DEPS 
-		glacier2uwp++11
-		iceuwp++11
-		icediscoveryuwp++11
-		icelocatordiscoveryuwp++11
-		icessluwp++11
-		testcommonuwp++11
-	)
-endif()
-
 add_executable(glacier2sessionctrlserver)
 
 target_sources(glacier2sessionctrlserver 
@@ -153,7 +128,11 @@ target_include_directories(glacier2sessionctrlserver
 		${GENERATED_SLICES_DIR}
 )
 
-target_link_libraries(glacier2sessionctrlserver PRIVATE ${SERVER_DEPS})
+if(BUILD_ICE_UWP)
+	add_dependencies(glacier2sessionctrlserver ${SESSIONCTRL_DEPS})
+else()
+	target_link_libraries(glacier2sessionctrlserver PRIVATE ${SESSIONCTRL_DEPS})
+endif()
 
 target_compile_definitions(glacier2sessionctrlserver PRIVATE ${ICE_COMPILE_DEFS})
 

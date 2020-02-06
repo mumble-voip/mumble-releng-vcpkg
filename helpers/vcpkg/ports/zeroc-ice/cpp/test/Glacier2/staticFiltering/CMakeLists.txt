@@ -6,7 +6,7 @@ set(GENERATED_STATICFILTER_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Backend.
 set(GENERATED_STATICFILTER_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Backend.cpp)
 
 if(BUILD_ICE_CPP98)
-	set(CLIENT_DEPS 
+	set(STATICFILTER_DEPS 
 		glacier2 
 		ice
 		icediscovery
@@ -15,7 +15,7 @@ if(BUILD_ICE_CPP98)
 		testcommon
 	)
 elseif(BUILD_ICE_CPP11)
-	set(CLIENT_DEPS 
+	set(STATICFILTER_DEPS 
 		glacier2++11 
 		ice++11
 		icediscovery++11
@@ -24,7 +24,7 @@ elseif(BUILD_ICE_CPP11)
 		testcommon++11
 	)
 elseif(BUILD_ICE_UWP)
-	set(CLIENT_DEPS 
+	set(STATICFILTER_DEPS 
 		glacier2uwp++11 
 		iceuwp++11
 		icediscoveryuwp++11
@@ -70,7 +70,12 @@ target_include_directories(glacier2staticfilterclient
 		${GENERATED_SLICES_DIR}
 )
 
-target_link_libraries(glacier2staticfilterclient PRIVATE ${CLIENT_DEPS})
+if(BUILD_ICE_UWP)
+	add_dependencies(glacier2staticfilterclient ${STATICFILTER_DEPS})
+else()
+	target_link_libraries(glacier2staticfilterclient PRIVATE ${STATICFILTER_DEPS})
+endif()
+
 
 target_compile_definitions(glacier2staticfilterclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -104,35 +109,6 @@ endif()
 
 install(TARGETS glacier2staticfilterclient DESTINATION tests/bin)
 
-if(BUILD_ICE_CPP98)
-	set(SERVER_DEPS 
-		glacier2
-		ice
-		icediscovery
-		icelocatordiscovery
-		icessl
-		testcommon
-	)
-elseif(BUILD_ICE_CPP11)
-	set(SERVER_DEPS 
-		glacier2++11
-		ice++11
-		icediscovery++11
-		icelocatordiscovery++11
-		icessl++11
-		testcommon++11
-	)
-elseif(BUILD_ICE_UWP)
-	set(SERVER_DEPS 
-		glacier2uwp++11
-		iceuwp++11
-		icediscoveryuwp++11
-		icelocatordiscoveryuwp++11
-		icessluwp++11
-		testcommonuwp++11
-	)
-endif()
-
 add_executable(glacier2staticfilterserver)
 
 target_sources(glacier2staticfilterserver 
@@ -154,7 +130,11 @@ target_include_directories(glacier2staticfilterserver
 		${GENERATED_SLICES_DIR}
 )
 
-target_link_libraries(glacier2staticfilterserver PRIVATE ${SERVER_DEPS})
+if(BUILD_ICE_UWP)
+	add_dependencies(glacier2staticfilterserver ${STATICFILTER_DEPS})
+else()
+	target_link_libraries(glacier2staticfilterserver PRIVATE ${STATICFILTER_DEPS})
+endif()
 
 target_compile_definitions(glacier2staticfilterserver PRIVATE ${ICE_COMPILE_DEFS})
 
