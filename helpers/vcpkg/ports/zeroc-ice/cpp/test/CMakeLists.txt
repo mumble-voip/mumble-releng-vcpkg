@@ -1,6 +1,6 @@
 add_subdirectory(Common)
 add_subdirectory(Glacier2)
-# add_subdirectory(Ice)
+add_subdirectory(Ice)
 # add_subdirectory(IceBox)
 # add_subdirectory(IceBridge)
 # add_subdirectory(IceDiscovery)
