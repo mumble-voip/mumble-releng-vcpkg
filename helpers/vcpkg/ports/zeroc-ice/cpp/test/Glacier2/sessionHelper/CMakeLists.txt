@@ -68,8 +68,15 @@ target_include_directories(glacier2sessionhlprclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2sessionhlprclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2sessionhlprclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2sessionhlprclient ${SESSIONHLPR_DEPS})
+	set_property(TARGET glacier2sessionhlprclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2sessionhlprclient PRIVATE ${SESSIONHLPR_DEPS})
 endif()
@@ -125,8 +132,15 @@ target_include_directories(glacier2sessionhlprserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2sessionhlprserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2sessionhlprserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2sessionhlprserver ${SESSIONHLPR_DEPS})
+	set_property(TARGET glacier2sessionhlprserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2sessionhlprserver PRIVATE ${SESSIONHLPR_DEPS})
 endif()

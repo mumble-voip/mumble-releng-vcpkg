@@ -57,8 +57,15 @@ target_include_directories(icefacetsclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icefacetsclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icefacetsclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icefacetsclient ${FACETS_DEPS})
+	set_property(TARGET icefacetsclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icefacetsclient PRIVATE ${FACETS_DEPS})
 endif()
@@ -116,8 +123,15 @@ target_include_directories(icefacetscollocated
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icefacetscollocated PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icefacetscollocated PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icefacetscollocated ${FACETS_DEPS})
+	set_property(TARGET icefacetscollocated PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icefacetscollocated PRIVATE ${FACETS_DEPS})
 endif()
@@ -174,8 +188,15 @@ target_include_directories(icefacetsserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icefacetsserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icefacetsserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icefacetsserver ${FACETS_DEPS})
+	set_property(TARGET icefacetsserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icefacetsserver PRIVATE ${FACETS_DEPS})
 endif()

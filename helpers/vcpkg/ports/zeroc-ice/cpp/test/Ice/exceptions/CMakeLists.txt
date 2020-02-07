@@ -65,8 +65,15 @@ target_include_directories(iceexceptionsclient
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceexceptionsclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceexceptionsclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceexceptionsclient ${EXCEPTIONS_DEPS})
+	set_property(TARGET iceexceptionsclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceexceptionsclient PRIVATE ${EXCEPTIONS_DEPS})
 endif()
@@ -124,8 +131,15 @@ target_include_directories(icecexceptionscollocated
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icecexceptionscollocated PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icecexceptionscollocated PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icecexceptionscollocated ${EXCEPTIONS_DEPS})
+	set_property(TARGET icecexceptionscollocated PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icecexceptionscollocated PRIVATE ${EXCEPTIONS_DEPS})
 endif()
@@ -182,8 +196,15 @@ target_include_directories(iceexceptionsserver
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceexceptionsserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceexceptionsserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceexceptionsserver ${EXCEPTIONS_DEPS})
+	set_property(TARGET iceexceptionsserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceexceptionsserver PRIVATE ${EXCEPTIONS_DEPS})
 endif()
@@ -240,8 +261,15 @@ target_include_directories(icecexceptionsserveramd
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icecexceptionsserveramd PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icecexceptionsserveramd PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icecexceptionsserveramd ${EXCEPTIONS_DEPS})
+	set_property(TARGET icecexceptionsserveramd PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icecexceptionsserveramd PRIVATE ${EXCEPTIONS_DEPS})
 endif()

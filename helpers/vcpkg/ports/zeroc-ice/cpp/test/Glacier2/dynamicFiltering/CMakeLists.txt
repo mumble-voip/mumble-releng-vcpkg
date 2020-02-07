@@ -2,8 +2,8 @@ if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
 endif()
 
-set(GENERATED_DYNFILTERING_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.h)
-set(GENERATED_DYNFILTERING_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.cpp)
+set(GENERATED_DYNFILTER_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.h)
+set(GENERATED_DYNFILTER_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Test.cpp)
 
 if(BUILD_ICE_CPP98)
 	set(DYNFILTER_DEPS 
@@ -54,8 +54,8 @@ add_executable(glacier2dynfilterclient)
 target_sources(glacier2dynfilterclient 
 	PRIVATE 
 		Client.cpp
-		${GENERATED_DYNFILTERING_HEADERS}
-		${GENERATED_DYNFILTERING_SOURCES}
+		${GENERATED_DYNFILTER_HEADERS}
+		${GENERATED_DYNFILTER_SOURCES}
 )
 
 target_include_directories(glacier2dynfilterclient
@@ -68,8 +68,15 @@ target_include_directories(glacier2dynfilterclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2dynfilterclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2dynfilterclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2dynfilterclient ${DYNFILTER_DEPS})
+	set_property(TARGET glacier2dynfilterclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2dynfilterclient PRIVATE ${DYNFILTER_DEPS})
 endif()
@@ -84,12 +91,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_DYNFILTERING_SOURCES}
+			${GENERATED_DYNFILTER_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_DYNFILTERING_HEADERS}
+			${GENERATED_DYNFILTER_HEADERS}
 	)
 
 	target_compile_options(glacier2dynfilterclient
@@ -114,8 +121,8 @@ target_sources(glacier2dynfilterserver
 		Server.cpp
 		SessionI.cpp
 		TestControllerI.cpp
-		${GENERATED_DYNFILTERING_HEADERS}
-		${GENERATED_DYNFILTERING_SOURCES}
+		${GENERATED_DYNFILTER_HEADERS}
+		${GENERATED_DYNFILTER_SOURCES}
 )
 
 target_include_directories(glacier2dynfilterserver
@@ -128,8 +135,15 @@ target_include_directories(glacier2dynfilterserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2dynfilterserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2dynfilterserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2dynfilterserver ${DYNFILTER_DEPS})
+	set_property(TARGET glacier2dynfilterserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2dynfilterserver PRIVATE ${DYNFILTER_DEPS})
 endif()
@@ -144,12 +158,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_DYNFILTERING_SOURCES}
+			${GENERATED_DYNFILTER_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_DYNFILTERING_HEADERS}
+			${GENERATED_DYNFILTER_HEADERS}
 	)
 
 	target_compile_options(glacier2dynfilterserver

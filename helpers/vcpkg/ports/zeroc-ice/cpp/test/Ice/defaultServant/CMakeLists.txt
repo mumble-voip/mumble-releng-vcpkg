@@ -58,8 +58,15 @@ target_include_directories(icedefservantclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icedefservantclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icedefservantclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icedefservantclient ${DEFSERVANT_DEPS})
+	set_property(TARGET icedefservantclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icedefservantclient PRIVATE ${DEFSERVANT_DEPS})
 endif()

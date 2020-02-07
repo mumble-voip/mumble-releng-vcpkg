@@ -69,8 +69,15 @@ target_include_directories(glacier2overrideclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2overrideclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2overrideclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2overrideclient ${OVERRIDE_DEPS})
+	set_property(TARGET glacier2overrideclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2overrideclient PRIVATE ${OVERRIDE_DEPS})
 endif()
@@ -127,8 +134,15 @@ target_include_directories(glacier2overrideserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2overrideserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2overrideserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2overrideserver ${OVERRIDE_DEPS})
+	set_property(TARGET glacier2overrideserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2overrideserver PRIVATE ${OVERRIDE_DEPS})
 endif()

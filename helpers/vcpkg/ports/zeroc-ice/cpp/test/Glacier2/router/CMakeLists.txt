@@ -69,8 +69,15 @@ target_include_directories(glacier2routerclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2routerclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2routerclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2routerclient ${ROUTER_DEPS})
+	set_property(TARGET glacier2routerclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2routerclient PRIVATE ${ROUTER_DEPS})
 endif()
@@ -127,8 +134,15 @@ target_include_directories(glacier2routerserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2routerserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2routerserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2routerserver ${ROUTER_DEPS})
+	set_property(TARGET glacier2routerserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2routerserver PRIVATE ${ROUTER_DEPS})
 endif()

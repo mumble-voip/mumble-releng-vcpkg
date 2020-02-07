@@ -57,8 +57,15 @@ target_include_directories(iceacmclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceacmclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceacmclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceacmclient ${ACM_DEPS})
+	set_property(TARGET iceacmclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceacmclient PRIVATE ${ACM_DEPS})
 endif()
@@ -115,8 +122,15 @@ target_include_directories(iceacmserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceacmserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceacmserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceacmserver ${ACM_DEPS})
+	set_property(TARGET iceacmserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceacmserver PRIVATE ${ACM_DEPS})
 endif()

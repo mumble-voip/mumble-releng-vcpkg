@@ -57,8 +57,15 @@ target_include_directories(iceamiclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceamiclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceamiclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceamiclient ${AMI_DEPS})
+	set_property(TARGET iceamiclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceamiclient PRIVATE ${AMI_DEPS})
 endif()
@@ -116,8 +123,15 @@ target_include_directories(iceamicollocated
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceamicollocated PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceamicollocated PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceamicollocated ${AMI_DEPS})
+	set_property(TARGET iceamicollocated PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceamicollocated PRIVATE ${AMI_DEPS})
 endif()
@@ -174,8 +188,15 @@ target_include_directories(iceamiserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceamiserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceamiserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceamiserver ${AMI_DEPS})
+	set_property(TARGET iceamiserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceamiserver PRIVATE ${AMI_DEPS})
 endif()

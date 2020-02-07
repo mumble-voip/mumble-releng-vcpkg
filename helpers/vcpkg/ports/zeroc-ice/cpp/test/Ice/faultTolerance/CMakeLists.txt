@@ -57,8 +57,15 @@ target_include_directories(iceflttoleranceclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceflttoleranceclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceflttoleranceclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceflttoleranceclient ${FLTTOLERANCE_DEPS})
+	set_property(TARGET iceflttoleranceclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceflttoleranceclient PRIVATE ${FLTTOLERANCE_DEPS})
 endif()
@@ -115,8 +122,15 @@ target_include_directories(iceflttoleranceserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceflttoleranceserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceflttoleranceserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceflttoleranceserver ${FLTTOLERANCE_DEPS})
+	set_property(TARGET iceflttoleranceserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceflttoleranceserver PRIVATE ${FLTTOLERANCE_DEPS})
 endif()

@@ -69,8 +69,15 @@ target_include_directories(glacier2attackclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2attackclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2attackclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2attackclient ${ATTACK_DEPS})
+	set_property(TARGET glacier2attackclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2attackclient PRIVATE ${ATTACK_DEPS})
 endif()
@@ -127,8 +134,15 @@ target_include_directories(glacier2attackserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2attackserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2attackserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2attackserver ${ATTACK_DEPS})
+	set_property(TARGET glacier2attackserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2attackserver PRIVATE ${ATTACK_DEPS})
 endif()

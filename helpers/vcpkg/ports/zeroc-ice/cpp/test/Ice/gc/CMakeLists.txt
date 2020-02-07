@@ -56,8 +56,15 @@ target_include_directories(icegcclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icegcclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icegcclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icegcclient ${GC_DEPS})
+	set_property(TARGET icegcclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icegcclient PRIVATE ${GC_DEPS})
 endif()

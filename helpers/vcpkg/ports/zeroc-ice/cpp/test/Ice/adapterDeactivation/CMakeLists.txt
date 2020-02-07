@@ -2,8 +2,8 @@ if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Ice)
 	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Ice)
 endif()
 
-set(GENERATED_ADAPTERDEAC_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h)
-set(GENERATED_ADAPTERDEAC_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp)
+set(GENERATED_ADAPTERDEACT_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h)
+set(GENERATED_ADAPTERDEACT_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp)
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
@@ -21,17 +21,17 @@ CompileSlice("${ICE_SLICE_PARAMS}"
 )
 
 if(BUILD_ICE_CPP98)
-	set(ADAPTERDEAC_DEPS 
+	set(ADAPTERDEACT_DEPS 
 		ice
 		testcommon
 	)
 elseif(BUILD_ICE_CPP11)
-	set(ADAPTERDEAC_DEPS 
+	set(ADAPTERDEACT_DEPS 
 		ice++11
 		testcommon++11
 	)
 elseif(BUILD_ICE_UWP)
-	set(ADAPTERDEAC_DEPS 
+	set(ADAPTERDEACT_DEPS 
 		iceuwp++11
 		testcommonuwp++11
 	)
@@ -43,8 +43,8 @@ target_sources(iceadapterdeactclient
 	PRIVATE
 		AllTests.cpp
 		Client.cpp
-		${GENERATED_ADAPTERDEAC_HEADERS}
-		${GENERATED_ADAPTERDEAC_SOURCES}
+		${GENERATED_ADAPTERDEACT_HEADERS}
+		${GENERATED_ADAPTERDEACT_SOURCES}
 )
 
 target_include_directories(iceadapterdeactclient
@@ -57,10 +57,17 @@ target_include_directories(iceadapterdeactclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceadapterdeactclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceadapterdeactclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
-	add_dependencies(iceadapterdeactclient ${ADAPTERDEAC_DEPS})
+	add_dependencies(iceadapterdeactclient ${ADAPTERDEACT_DEPS})
+	set_property(TARGET iceadapterdeactclient PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(iceadapterdeactclient PRIVATE ${ADAPTERDEAC_DEPS})
+	target_link_libraries(iceadapterdeactclient PRIVATE ${ADAPTERDEACT_DEPS})
 endif()
 
 target_compile_definitions(iceadapterdeactclient PRIVATE ${ICE_COMPILE_DEFS})
@@ -73,12 +80,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_ADAPTERDEAC_SOURCES}
+			${GENERATED_ADAPTERDEACT_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_ADAPTERDEAC_HEADERS}
+			${GENERATED_ADAPTERDEACT_HEADERS}
 	)
 
 	target_compile_options(iceadapterdeactclient
@@ -102,8 +109,8 @@ target_sources(iceadapterdeactcollocated
 		AllTests.cpp
 		Collocated.cpp
 		ServantLocatorI.cpp
-		${GENERATED_ADAPTERDEAC_HEADERS}
-		${GENERATED_ADAPTERDEAC_SOURCES}
+		${GENERATED_ADAPTERDEACT_HEADERS}
+		${GENERATED_ADAPTERDEACT_SOURCES}
 )
 
 target_include_directories(iceadapterdeactcollocated
@@ -117,9 +124,9 @@ target_include_directories(iceadapterdeactcollocated
 )
 
 if(BUILD_ICE_UWP)
-	add_dependencies(iceadapterdeactcollocated ${ADAPTERDEAC_DEPS})
+	add_dependencies(iceadapterdeactcollocated ${ADAPTERDEACT_DEPS})
 else()
-	target_link_libraries(iceadapterdeactcollocated PRIVATE ${ADAPTERDEAC_DEPS})
+	target_link_libraries(iceadapterdeactcollocated PRIVATE ${ADAPTERDEACT_DEPS})
 endif()
 
 target_compile_definitions(iceadapterdeactcollocated PRIVATE ${ICE_COMPILE_DEFS})
@@ -132,12 +139,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_ADAPTERDEAC_SOURCES}
+			${GENERATED_ADAPTERDEACT_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_ADAPTERDEAC_HEADERS}
+			${GENERATED_ADAPTERDEACT_HEADERS}
 	)
 
 	target_compile_options(iceadapterdeactcollocated
@@ -161,8 +168,8 @@ target_sources(iceadapterdeactserver
 		Server.cpp
 		ServantLocatorI.cpp
 		TestI.cpp
-		${GENERATED_ADAPTERDEAC_HEADERS}
-		${GENERATED_ADAPTERDEAC_SOURCES}
+		${GENERATED_ADAPTERDEACT_HEADERS}
+		${GENERATED_ADAPTERDEACT_SOURCES}
 )
 
 target_include_directories(iceadapterdeactserver
@@ -175,10 +182,17 @@ target_include_directories(iceadapterdeactserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceadapterdeactserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceadapterdeactserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
-	add_dependencies(iceadapterdeactserver ${ADAPTERDEAC_DEPS})
+	add_dependencies(iceadapterdeactserver ${ADAPTERDEACT_DEPS})
+	set_property(TARGET iceadapterdeactserver PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(iceadapterdeactserver PRIVATE ${ADAPTERDEAC_DEPS})
+	target_link_libraries(iceadapterdeactserver PRIVATE ${ADAPTERDEACT_DEPS})
 endif()
 
 target_compile_definitions(iceadapterdeactserver PRIVATE ${ICE_COMPILE_DEFS})
@@ -191,12 +205,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_ADAPTERDEAC_SOURCES}
+			${GENERATED_ADAPTERDEACT_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_ADAPTERDEAC_HEADERS}
+			${GENERATED_ADAPTERDEACT_HEADERS}
 	)
 
 	target_compile_options(iceadapterdeactserver

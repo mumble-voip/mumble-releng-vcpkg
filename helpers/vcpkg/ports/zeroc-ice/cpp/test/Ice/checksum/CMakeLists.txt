@@ -66,8 +66,15 @@ target_include_directories(icechecksumclient
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icechecksumclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icechecksumclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icechecksumclient ${CHECKSUM_DEPS})
+	set_property(TARGET icechecksumclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icechecksumclient PRIVATE ${CHECKSUM_DEPS})
 endif()
@@ -125,8 +132,15 @@ target_include_directories(icechecksumserver
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icechecksumserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icechecksumserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icechecksumserver ${CHECKSUM_DEPS})
+	set_property(TARGET icechecksumserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icechecksumserver PRIVATE ${CHECKSUM_DEPS})
 endif()

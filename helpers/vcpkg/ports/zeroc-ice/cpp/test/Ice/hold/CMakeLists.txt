@@ -57,8 +57,15 @@ target_include_directories(iceholdclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceholdclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceholdclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceholdclient ${HOLD_DEPS})
+	set_property(TARGET iceholdclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceholdclient PRIVATE ${HOLD_DEPS})
 endif()
@@ -115,8 +122,15 @@ target_include_directories(iceholdserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceholdserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceholdserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
-	add_dependencies(iceholdserver ${ADMIN_DEPS})
+	add_dependencies(iceholdserver ${HOLD_DEPS})
+	set_property(TARGET iceholdserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceholdserver PRIVATE ${ADMIN_DEPS})
 endif()

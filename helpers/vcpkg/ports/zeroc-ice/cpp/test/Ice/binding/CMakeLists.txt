@@ -57,8 +57,15 @@ target_include_directories(icebindingclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icebindingclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icebindingclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icebindingclient ${BINDING_DEPS})
+	set_property(TARGET icebindingclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icebindingclient PRIVATE ${BINDING_DEPS})
 endif()
@@ -115,8 +122,15 @@ target_include_directories(icebindingserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icebindingserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icebindingserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icebindingserver ${BINDING_DEPS})
+	set_property(TARGET icebindingserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icebindingserver PRIVATE ${BINDING_DEPS})
 endif()

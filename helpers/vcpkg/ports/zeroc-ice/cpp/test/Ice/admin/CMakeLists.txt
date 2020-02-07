@@ -57,8 +57,15 @@ target_include_directories(iceadminclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceadminclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceadminclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceadminclient ${ADMIN_DEPS})
+	set_property(TARGET iceadminclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceadminclient PRIVATE ${ADMIN_DEPS})
 endif()
@@ -115,8 +122,15 @@ target_include_directories(iceadminserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceadminserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceadminserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceadminserver ${ADMIN_DEPS})
+	set_property(TARGET iceadminserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceadminserver PRIVATE ${ADMIN_DEPS})
 endif()

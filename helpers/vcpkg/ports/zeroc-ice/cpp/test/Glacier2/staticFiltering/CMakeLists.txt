@@ -11,7 +11,7 @@ if(BUILD_ICE_CPP98)
 		ice
 		icediscovery
 		icelocatordiscovery
-		icessl
+		icestaticfilter
 		testcommon
 	)
 elseif(BUILD_ICE_CPP11)
@@ -20,7 +20,7 @@ elseif(BUILD_ICE_CPP11)
 		ice++11
 		icediscovery++11
 		icelocatordiscovery++11
-		icessl++11
+		icestaticfilter++11
 		testcommon++11
 	)
 elseif(BUILD_ICE_UWP)
@@ -29,7 +29,7 @@ elseif(BUILD_ICE_UWP)
 		iceuwp++11
 		icediscoveryuwp++11
 		icelocatordiscoveryuwp++11
-		icessluwp++11
+		icestaticfilteruwp++11
 		testcommonuwp++11
 	)
 endif()
@@ -69,8 +69,15 @@ target_include_directories(glacier2staticfilterclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2staticfilterclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2staticfilterclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2staticfilterclient ${STATICFILTER_DEPS})
+	set_property(TARGET glacier2staticfilterclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2staticfilterclient PRIVATE ${STATICFILTER_DEPS})
 endif()
@@ -128,8 +135,15 @@ target_include_directories(glacier2staticfilterserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2staticfilterserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2staticfilterserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2staticfilterserver ${STATICFILTER_DEPS})
+	set_property(TARGET glacier2staticfilterserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2staticfilterserver PRIVATE ${STATICFILTER_DEPS})
 endif()

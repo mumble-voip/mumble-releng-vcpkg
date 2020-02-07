@@ -69,8 +69,15 @@ target_include_directories(icecustomclient
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icecustomclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icecustomclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icecustomclient ${CUSTOM_DEPS})
+	set_property(TARGET icecustomclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icecustomclient PRIVATE ${CUSTOM_DEPS})
 endif()
@@ -132,8 +139,15 @@ target_include_directories(iceccustomcollocated
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET iceccustomcollocated PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET iceccustomcollocated PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(iceccustomcollocated ${CUSTOM_DEPS})
+	set_property(TARGET iceccustomcollocated PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceccustomcollocated PRIVATE ${CUSTOM_DEPS})
 endif()
@@ -196,8 +210,15 @@ target_include_directories(icecustomserver
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icecustomserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icecustomserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icecustomserver ${CUSTOM_DEPS})
+	set_property(TARGET icecustomserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icecustomserver PRIVATE ${CUSTOM_DEPS})
 endif()
@@ -237,9 +258,9 @@ endif()
 
 install(TARGETS icecustomserver DESTINATION tests/bin)
 
-add_executable(iceccustomserveramd)
+add_executable(icecustomserveramd)
 
-target_sources(iceccustomserveramd
+target_sources(icecustomserveramd
 	PRIVATE
 		MyByteSeq.cpp
 		ServerAMD.cpp
@@ -250,7 +271,7 @@ target_sources(iceccustomserveramd
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/WstringAMD.cpp
 )
 
-target_include_directories(iceccustomserveramd
+target_include_directories(icecustomserveramd
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
@@ -260,13 +281,20 @@ target_include_directories(iceccustomserveramd
 		${CMAKE_CURRENT_BINARY_DIR}
 )
 
-if(BUILD_ICE_UWP)
-	add_dependencies(iceccustomserveramd ${CUSTOM_DEPS})
-else()
-	target_link_libraries(iceccustomserveramd PRIVATE ${CUSTOM_DEPS})
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icecustomserveramd PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icecustomserveramd PROPERTY CXX_STANDARD 11)
 endif()
 
-target_compile_definitions(iceccustomserveramd PRIVATE ${ICE_COMPILE_DEFS})
+if(BUILD_ICE_UWP)
+	add_dependencies(icecustomserveramd ${CUSTOM_DEPS})
+	set_property(TARGET icecustomserveramd PROPERTY CXX_STANDARD 11)
+else()
+	target_link_libraries(icecustomserveramd PRIVATE ${CUSTOM_DEPS})
+endif()
+
+target_compile_definitions(icecustomserveramd PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	source_group("Slice Files"
@@ -287,16 +315,16 @@ if(MSVC)
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/WstringAMD.h
 	)
 
-	target_compile_options(iceccustomserveramd
+	target_compile_options(icecustomserveramd
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET iceccustomserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET icecustomserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET iceccustomserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET icecustomserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS iceccustomserveramd DESTINATION tests/bin)
+install(TARGETS icecustomserveramd DESTINATION tests/bin)

@@ -58,8 +58,15 @@ target_include_directories(icedispatcherclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icedispatcherclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icedispatcherclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icedispatcherclient ${DISPATCHER_DEPS})
+	set_property(TARGET icedispatcherclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icedispatcherclient PRIVATE ${DISPATCHER_DEPS})
 endif()
@@ -118,8 +125,15 @@ target_include_directories(icedispatchercollocated
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icedispatchercollocated PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icedispatchercollocated PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icedispatchercollocated ${DISPATCHER_DEPS})
+	set_property(TARGET icedispatchercollocated PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icedispatchercollocated PRIVATE ${DISPATCHER_DEPS})
 endif()
@@ -177,8 +191,15 @@ target_include_directories(icedispatcherserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET icedispatcherserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET icedispatcherserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(icedispatcherserver ${DISPATCHER_DEPS})
+	set_property(TARGET icedispatcherserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icedispatcherserver PRIVATE ${DISPATCHER_DEPS})
 endif()

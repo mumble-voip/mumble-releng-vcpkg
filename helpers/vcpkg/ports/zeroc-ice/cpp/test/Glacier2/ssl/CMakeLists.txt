@@ -38,8 +38,15 @@ target_include_directories(glacier2sslclient
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2sslclient PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2sslclient PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2sslclient ${SSL_DEPS})
+	set_property(TARGET glacier2sslclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2sslclient PRIVATE ${SSL_DEPS})
 endif()
@@ -67,8 +74,15 @@ target_include_directories(glacier2sslserver
 		${GENERATED_SLICES_DIR}
 )
 
+if(BUILD_ICE_CPP98)
+	set_property(TARGET glacier2sslserver PROPERTY CXX_STANDARD 98)
+elseif(BUILD_ICE_CPP11)
+	set_property(TARGET glacier2sslserver PROPERTY CXX_STANDARD 11)
+endif()
+
 if(BUILD_ICE_UWP)
 	add_dependencies(glacier2sslserver ${SSL_DEPS})
+	set_property(TARGET glacier2sslserver PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(glacier2sslserver PRIVATE ${SSL_DEPS})
 endif()
