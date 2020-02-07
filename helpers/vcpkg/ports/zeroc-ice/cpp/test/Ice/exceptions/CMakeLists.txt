@@ -246,7 +246,11 @@ else()
 	target_link_libraries(icecexceptionsserveramd PRIVATE ${EXCEPTIONS_DEPS})
 endif()
 
-target_compile_definitions(icecexceptionsserveramd PRIVATE ${ICE_COMPILE_DEFS})
+target_compile_definitions(icecexceptionsserveramd 
+	PRIVATE 
+		${ICE_COMPILE_DEFS}
+		"ICE_AMD_TEST"
+)
 
 if(MSVC)
 	source_group("Slice Files"

@@ -266,7 +266,11 @@ else()
 	target_link_libraries(iceccustomserveramd PRIVATE ${CUSTOM_DEPS})
 endif()
 
-target_compile_definitions(iceccustomserveramd PRIVATE ${ICE_COMPILE_DEFS})
+target_compile_definitions(iceccustomserveramd 
+	PRIVATE 
+		${ICE_COMPILE_DEFS}
+		"ICE_AMD_TEST"
+)
 
 if(MSVC)
 	source_group("Slice Files"
