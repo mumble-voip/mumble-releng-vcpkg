@@ -95,7 +95,7 @@ endif()
 
 install(TARGETS icebackgroundclient DESTINATION tests/bin)
 
-add_executable(icebackgroundtesttransport)
+add_library(icebackgroundtesttransport)
 
 target_sources(icebackgroundtesttransport
 	PRIVATE
@@ -155,7 +155,12 @@ if(MSVC)
 	endif()
 endif()
 
-install(TARGETS icebackgroundtesttransport DESTINATION tests/bin)
+
+if(BUILD_SHARED_LIBS)
+	install(TARGETS icebackgroundtesttransport DESTINATION test/bin)
+else()
+	install(TARGETS icebackgroundtesttransport DESTINATION test/lib)
+endif()
 
 add_executable(icebackgroundserver)
 
