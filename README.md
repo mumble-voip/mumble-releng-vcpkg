@@ -37,6 +37,8 @@ The following is required for MacOSX:
 
 `Xquartz`
 
+vcpkg recommends using `gcc` which can be installed using homebrew.
+
 From a terminal cd to the cloned `mumble-releng-experimental` git repository, set execute permission, and run the following command:
 
 `./get-mumble_deps.sh`
