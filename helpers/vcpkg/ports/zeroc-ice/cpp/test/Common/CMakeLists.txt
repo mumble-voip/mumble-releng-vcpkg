@@ -19,7 +19,7 @@ elseif(BUILD_ICE_CPP11)
 elseif(BUILD_ICE_UWP)
 	set(TESTCOMMON_TARGET testcommonuwp++11)
 	set(TESTCOMMON_DEPS icessluwp++11 iceuwp++11)
-	add_library(${TESTCOMMON_TARGET})
+	add_library(${TESTCOMMON_TARGET} STATIC)
 endif()
 
 target_sources(${TESTCOMMON_TARGET} PRIVATE TestHelper.cpp)

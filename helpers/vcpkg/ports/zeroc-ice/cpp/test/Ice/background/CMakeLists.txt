@@ -102,7 +102,11 @@ endif()
 
 install(TARGETS icebackgroundclient DESTINATION tests/bin)
 
-add_library(icebackgroundtesttransport)
+if(BUILD_ICE_UWP)
+	add_library(icebackgroundtesttransport STATIC)
+else()
+	add_library(icebackgroundtesttransport)
+endif()
 
 target_sources(icebackgroundtesttransport
 	PRIVATE
