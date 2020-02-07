@@ -77,6 +77,7 @@ target_compile_definitions(icechecksumclient PRIVATE ${ICE_COMPILE_DEFS})
 if(MSVC)
 	source_group("Slice Files"
 		FILES
+			ClientTypes.ice
 			Test.ice
 	)
 
@@ -135,6 +136,7 @@ target_compile_definitions(icechecksumserver PRIVATE ${ICE_COMPILE_DEFS})
 if(MSVC)
 	source_group("Slice Files"
 		FILES
+			ServerTypes.ice
 			Test.ice
 	)
 
