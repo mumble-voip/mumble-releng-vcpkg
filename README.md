@@ -6,7 +6,7 @@ get-mumble_deps.sh is currently a "proof of concept" designed to deliver vcpkg a
 
 ## Windows
 
-So far, this has been tested with MSVC which can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads). Make sure to select the C++ build tools (or Development, respectively) and that the "C++ MFC for latest v14[X] build tools" is also checked.
+So far, this has been tested with MSVC which can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads). Make sure to select the C++ build tools (or Development, respectively) and that the "C++ MFC for latest v14[X] build tools" is also checked. vcpkg also requires the English Language pack which is found in the Language packs section of the Visual Studio Installer.
 
 The dependency download and build script requires [Git for Windows](https://git-scm.com/download/win). During install, make sure the option to set Environment Variables is ticked. It is also suggested to add the Git install directory (i.e. %ProgramFiles%\Git) to User Path (or System Path if a multi-user PC) if using cmd or PowerShell to run the script. 
 
