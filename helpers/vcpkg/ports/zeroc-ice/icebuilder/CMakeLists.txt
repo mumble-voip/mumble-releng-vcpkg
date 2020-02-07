@@ -147,14 +147,6 @@ target_sources(slice
 		${ICE_SOURCES_ROOT}/cpp/src/Slice/Util.h
 )
 
-if(APPLE)
-	target_sources(slice
-		PRIVATE
-			Grammar.y
-			Scanner.l
-	)
-endif()
-
 target_include_directories(slice 
 	PRIVATE 
 		${ICE_SOURCES_ROOT}/cpp/include

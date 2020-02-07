@@ -111,14 +111,6 @@ target_sources(${ICEGRID_TARGET}
 		${ICEGRID_SLICES}
 )
 
-if(APPLE)
-	target_sources(${ICEGRID_TARGET}
-		PRIVATE
-			Grammar.y
-			Scanner.l
-	)
-endif()
-
 target_include_directories(${ICEGRID_TARGET}
 	PRIVATE 
 		${GENERATED_SLICES_DIR}
