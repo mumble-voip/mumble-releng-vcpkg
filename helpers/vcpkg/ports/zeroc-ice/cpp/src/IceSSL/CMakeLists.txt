@@ -137,6 +137,11 @@ elseif(BUILD_ICE_UWP)
 	add_dependencies(${ICESSL_TARGET} iceuwp++11)
 endif()
 
+if(APPLE)
+	find_library(LIB_COREFOUNDATION "CoreFoundation")
+	target_link_libraries(${ICESSL_TARGET} PRIVATE ${LIB_COREFOUNDATION})
+endif()
+
 target_sources(${ICESSL_TARGET}
 	PRIVATE
 		${ICESSL_SOURCES}
@@ -173,7 +178,7 @@ if(APPLE)
 			SecureTransportEngine.cpp
 			SecureTransportEngine.h
 			SecureTransportEngineF.h
-			SecureTransportEngineTransceiverI.cpp
+			SecureTransportTransceiverI.cpp
 			SecureTransportTransceiverI.h
 			SecureTransportUtil.cpp
 			SecureTransportUtil.h
