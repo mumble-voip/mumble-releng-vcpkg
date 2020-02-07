@@ -57,14 +57,14 @@ target_include_directories(icehashclient
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET icehashlient PROPERTY CXX_STANDARD 98)
+	set_property(TARGET icehashclient PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET icehashlient PROPERTY CXX_STANDARD 11)
+	set_property(TARGET icehashclient PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(icehashlient ${HASH_DEPS})
-	set_property(TARGET icehashlient PROPERTY CXX_STANDARD 11)
+	add_dependencies(icehashclient ${HASH_DEPS})
+	set_property(TARGET icehashclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(icehashclient PRIVATE ${HASH_DEPS})
 endif()
