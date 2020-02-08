@@ -38,9 +38,9 @@ elseif(BUILD_ICE_UWP)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_library(interceptortest STATIC)
+	add_library(iceinterceptortest STATIC)
 else()
-	add_library(interceptortest)
+	add_library(iceinterceptortest)
 endif()
 
 target_sources(iceinterceptortest
@@ -121,6 +121,7 @@ target_sources(iceinterceptorclient
 
 if(BUILD_ICE_UWP)
 	target_sources(iceinterceptorclient PRIVATE TestI.cpp)
+endif()
 
 target_include_directories(iceinterceptorclient
 	PRIVATE
@@ -133,14 +134,14 @@ target_include_directories(iceinterceptorclient
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET iceinterceptorlient PROPERTY CXX_STANDARD 98)
+	set_property(TARGET iceinterceptorclient PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET iceinterceptorlient PROPERTY CXX_STANDARD 11)
+	set_property(TARGET iceinterceptorclient PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(iceinterceptorlient ${INTERCEPTOR_DEPS} interceptortest)
-	set_property(TARGET iceinterceptorlient PROPERTY CXX_STANDARD 11)
+	add_dependencies(iceinterceptorclient ${INTERCEPTOR_DEPS} interceptortest)
+	set_property(TARGET iceinterceptorclient PROPERTY CXX_STANDARD 11)
 else()
 	target_link_libraries(iceinterceptorclient PRIVATE ${INTERCEPTOR_DEPS} interceptortest)
 endif()
