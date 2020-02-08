@@ -486,11 +486,13 @@ target_include_directories(${ICE_TARGET}
 		${BZIP2_INCLUDE_DIR}
 )
 
-target_link_libraries(${ICE_TARGET}
-	PRIVATE
-		iceutil
-		BZip2::BZip2
-)
+if(NOT BUILD_ICE_UWP)
+	target_link_libraries(${ICE_TARGET}
+		PRIVATE
+			iceutil
+			BZip2::BZip2
+	)
+endif()
 
 if(MSVC)
 	if(NOT BUILD_ICE_UWP)
