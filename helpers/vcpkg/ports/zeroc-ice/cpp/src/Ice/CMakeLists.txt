@@ -472,7 +472,12 @@ if(UNIX)
 			SystemdJournalI.h
 	)
 
-	target_link_libraries(${ICE_TARGET} PRIVATE ${CMAKE_DL_LIBS})
+	target_link_libraries(${ICE_TARGET} 
+		PRIVATE 
+			${CMAKE_DL_LIBS}
+			iceutil
+			BZip2::BZip2
+	)
 endif()
 
 target_include_directories(${ICE_TARGET}
@@ -556,12 +561,6 @@ if(MSVC)
 		PRIVATE 
 			"/wd4996" 
 			${ICE_MSVC_COMPILE_OPTIONS} 
-	)
-elseif(UNIX)
-	target_link_libraries(${ICE_TARGET}
-		PRIVATE
-			iceutil
-			BZip2::BZip2
 	)
 endif()
 
