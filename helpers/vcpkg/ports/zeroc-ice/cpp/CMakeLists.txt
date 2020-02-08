@@ -19,7 +19,9 @@ set(GENERATED_H_INSTALL_DIR ${PROJECT_BINARY_DIR}/include)
 include(cmake/ice_cpp_props.cmake)
 
 if(MSVC)
-	include(cmake/mc_compiler.cmake)
+	if(NOT BUILD_ICE_UWP)
+		include(cmake/mc_compiler.cmake)
+	endif()
 	include(cmake/ice_msvc_props.cmake)
 endif()
 
