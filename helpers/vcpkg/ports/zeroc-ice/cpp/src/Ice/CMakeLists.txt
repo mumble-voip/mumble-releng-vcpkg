@@ -475,8 +475,6 @@ if(UNIX)
 	target_link_libraries(${ICE_TARGET} 
 		PRIVATE 
 			${CMAKE_DL_LIBS}
-			iceutil
-			BZip2::BZip2
 	)
 endif()
 
@@ -486,6 +484,12 @@ target_include_directories(${ICE_TARGET}
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/src
 		${BZIP2_INCLUDE_DIR}
+)
+
+target_link_libraries(${ICE_TARGET}
+	PRIVATE
+		iceutil
+		BZip2::BZip2
 )
 
 if(MSVC)
@@ -508,7 +512,13 @@ if(MSVC)
 				${GENERATED_SLICES_DIR}/Ice/EventLoggerMsg.h
 		)
 
-		set_property(TARGET ${ICE_TARGET} PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_target_properties(${ICE_TARGET} 
+			PROPERTIES  
+				LINK_FLAGS_DEBUG
+					"${ICE_MSVC_DLL_LINK_OPTIONS} /WHOLEARCHIVE:iceutild.lib"
+				LINK_FLAGS_RELEASE
+					"${ICE_MSVC_DLL_LINK_OPTIONS} /WHOLEARCHIVE:iceutil.lib"
+		)
 
 		target_sources(${ICE_TARGET}
 			PRIVATE
@@ -520,8 +530,6 @@ if(MSVC)
 		
 		target_link_libraries(${ICE_TARGET}
 			PRIVATE
-				$<TARGET_OBJECTS:iceutil>
-				BZip2::BZip2
 				advapi32.lib
 				ws2_32.lib
 				Iphlpapi.lib
