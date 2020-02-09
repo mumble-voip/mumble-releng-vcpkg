@@ -258,7 +258,7 @@ if(NOT BUILD_ICE_UWP)
 
 		set_target_properties(${ICESSL_OPENSSL_TARGET} 
 			PROPERTIES
-				OUTPUT_NAME IceSSLOpenSSL
+				OUTPUT_NAME IceSSLOpenSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 				CXX_STANDARD 98
 		)
 	elseif(BUILD_ICE_CPP11)
@@ -268,7 +268,7 @@ if(NOT BUILD_ICE_UWP)
 
 		set_target_properties(${ICESSL_OPENSSL_TARGET} 
 			PROPERTIES
-				OUTPUT_NAME IceSSLOpenSSL++11
+				OUTPUT_NAME IceSSLOpenSSL${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 				CXX_STANDARD 11
 		)
 	endif()
