@@ -109,6 +109,7 @@ target_sources(iceadapterdeactcollocated
 		AllTests.cpp
 		Collocated.cpp
 		ServantLocatorI.cpp
+		TestI.cpp
 		${GENERATED_ADAPTERDEACT_HEADERS}
 		${GENERATED_ADAPTERDEACT_SOURCES}
 )
