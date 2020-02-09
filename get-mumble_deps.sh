@@ -33,25 +33,33 @@ esac
 if [ ! -d "~/vcpkg" ]
     then 
         git clone https://github.com/Microsoft/vcpkg.git ~/vcpkg
+
     if [ "$(ls -A ~/vcpkg)" ] 
         then
             # vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
             cp -R helpers/vcpkg/ports/* ~/vcpkg/ports/
+
             # copy custom triplet files
             cp helpers/vcpkg/triplets/community/* ~/vcpkg/triplets/community
-            cd ~/vcpkg
-            case "$OSTYPE" in
-                msys* ) ./bootstrap-vcpkg.bat -disableMetrics
-                        ./vcpkg integrate install
-                        # install dns-sd provider
-                        ./vcpkg install mdnsresponder:$triplet;;
-                * ) bash bootstrap-vcpkg.sh -disableMetrics
-                    ./vcpkg integrate install;;
-            esac
+
+            if [ ! -d "~/vcpkg/vcpkg" ]
+                then
+                    cd ~/vcpkg
+                    case "$OSTYPE" in
+                        msys* ) ./bootstrap-vcpkg.bat -disableMetrics
+                                ./vcpkg integrate install
+                                # install dns-sd provider
+                                ./vcpkg install mdnsresponder:$triplet;;
+                        * ) bash bootstrap-vcpkg.sh -disableMetrics
+                            ./vcpkg integrate install;;
+                    esac
+            fi
+
             if [ -z "$triplet" ]
                 then
                 echo "Triplet type is not defined! Aborting..."
             else
+                cd ~/vcpkg
                 for dep in ${mumble_deps//,/ }
                 do
                     ./vcpkg install $dep:$triplet
@@ -60,9 +68,4 @@ if [ ! -d "~/vcpkg" ]
     else
         echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
     fi
-else
-    for dep in ${mumble_deps//,/ }
-    do
-        ./vcpkg install $dep:$triplet
-    done
 fi
