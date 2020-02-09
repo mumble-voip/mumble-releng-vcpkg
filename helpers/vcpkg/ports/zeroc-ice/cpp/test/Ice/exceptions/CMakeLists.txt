@@ -110,9 +110,9 @@ endif()
 
 install(TARGETS iceexceptionsclient DESTINATION tests/bin)
 
-add_executable(icecexceptionscollocated)
+add_executable(iceexceptionscollocated)
 
-target_sources(icecexceptionscollocated
+target_sources(iceexceptionscollocated
 	PRIVATE
 		AllTests.cpp
 		Collocated.cpp
@@ -121,7 +121,7 @@ target_sources(icecexceptionscollocated
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
 )
 
-target_include_directories(icecexceptionscollocated
+target_include_directories(iceexceptionscollocated
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
@@ -132,19 +132,19 @@ target_include_directories(icecexceptionscollocated
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET icecexceptionscollocated PROPERTY CXX_STANDARD 98)
+	set_property(TARGET iceexceptionscollocated PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET icecexceptionscollocated PROPERTY CXX_STANDARD 11)
+	set_property(TARGET iceexceptionscollocated PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(icecexceptionscollocated ${EXCEPTIONS_DEPS})
-	set_property(TARGET icecexceptionscollocated PROPERTY CXX_STANDARD 11)
+	add_dependencies(iceexceptionscollocated ${EXCEPTIONS_DEPS})
+	set_property(TARGET iceexceptionscollocated PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(icecexceptionscollocated PRIVATE ${EXCEPTIONS_DEPS})
+	target_link_libraries(iceexceptionscollocated PRIVATE ${EXCEPTIONS_DEPS})
 endif()
 
-target_compile_definitions(icecexceptionscollocated PRIVATE ${ICE_COMPILE_DEFS})
+target_compile_definitions(iceexceptionscollocated PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	source_group("Slice Files"
@@ -162,19 +162,19 @@ if(MSVC)
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h
 	)
 
-	target_compile_options(icecexceptionscollocated
+	target_compile_options(iceexceptionscollocated
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icecexceptionscollocated PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET iceexceptionscollocated PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET icecexceptionscollocated PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET iceexceptionscollocated PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS icecexceptionscollocated DESTINATION tests/bin)
+install(TARGETS iceexceptionscollocated DESTINATION tests/bin)
 
 add_executable(iceexceptionsserver)
 
@@ -241,9 +241,9 @@ endif()
 
 install(TARGETS iceexceptionsserver DESTINATION tests/bin)
 
-add_executable(icecexceptionsserveramd)
+add_executable(iceexceptionsserveramd)
 
-target_sources(icecexceptionsserveramd
+target_sources(iceexceptionsserveramd
 	PRIVATE
 		ExceptionsI.cpp
 		ServerAMD.cpp
@@ -251,7 +251,7 @@ target_sources(icecexceptionsserveramd
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.cpp
 )
 
-target_include_directories(icecexceptionsserveramd
+target_include_directories(iceexceptionsserveramd
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
@@ -262,19 +262,19 @@ target_include_directories(icecexceptionsserveramd
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET icecexceptionsserveramd PROPERTY CXX_STANDARD 98)
+	set_property(TARGET iceexceptionsserveramd PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET icecexceptionsserveramd PROPERTY CXX_STANDARD 11)
+	set_property(TARGET iceexceptionsserveramd PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(icecexceptionsserveramd ${EXCEPTIONS_DEPS})
-	set_property(TARGET icecexceptionsserveramd PROPERTY CXX_STANDARD 11)
+	add_dependencies(iceexceptionsserveramd ${EXCEPTIONS_DEPS})
+	set_property(TARGET iceexceptionsserveramd PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(icecexceptionsserveramd PRIVATE ${EXCEPTIONS_DEPS})
+	target_link_libraries(iceexceptionsserveramd PRIVATE ${EXCEPTIONS_DEPS})
 endif()
 
-target_compile_definitions(icecexceptionsserveramd 
+target_compile_definitions(iceexceptionsserveramd 
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
 		"ICE_AMD_TEST"
@@ -296,16 +296,16 @@ if(MSVC)
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.h
 	)
 
-	target_compile_options(icecexceptionsserveramd
+	target_compile_options(iceexceptionsserveramd
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icecexceptionsserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET iceexceptionsserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET icecexceptionsserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET iceexceptionsserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS icecexceptionsserveramd DESTINATION tests/bin)
+install(TARGETS iceexceptionsserveramd DESTINATION tests/bin)

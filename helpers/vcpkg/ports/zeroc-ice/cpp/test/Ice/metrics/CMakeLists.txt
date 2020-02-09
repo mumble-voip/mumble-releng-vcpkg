@@ -106,9 +106,9 @@ endif()
 
 install(TARGETS icemetricsclient DESTINATION tests/bin)
 
-add_executable(icecmetricscollocated)
+add_executable(icemetricscollocated)
 
-target_sources(icecmetricscollocated
+target_sources(icemetricscollocated
 	PRIVATE
 		AllTests.cpp
 		Collocated.cpp
@@ -116,7 +116,7 @@ target_sources(icecmetricscollocated
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
 )
 
-target_include_directories(icecmetricscollocated
+target_include_directories(icemetricscollocated
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
@@ -127,19 +127,19 @@ target_include_directories(icecmetricscollocated
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET icecmetricscollocated PROPERTY CXX_STANDARD 98)
+	set_property(TARGET icemetricscollocated PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET icecmetricscollocated PROPERTY CXX_STANDARD 11)
+	set_property(TARGET icemetricscollocated PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(icecmetricscollocated ${METRICS_DEPS})
-	set_property(TARGET icecmetricscollocated PROPERTY CXX_STANDARD 11)
+	add_dependencies(icemetricscollocated ${METRICS_DEPS})
+	set_property(TARGET icemetricscollocated PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(icecmetricscollocated PRIVATE ${METRICS_DEPS})
+	target_link_libraries(icemetricscollocated PRIVATE ${METRICS_DEPS})
 endif()
 
-target_compile_definitions(icecmetricscollocated PRIVATE ${ICE_COMPILE_DEFS})
+target_compile_definitions(icemetricscollocated PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	source_group("Slice Files"
@@ -157,19 +157,19 @@ if(MSVC)
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h
 	)
 
-	target_compile_options(icecmetricscollocated
+	target_compile_options(icemetricscollocated
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icecmetricscollocated PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET icemetricscollocated PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET icecmetricscollocated PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET icemetricscollocated PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS icecmetricscollocated DESTINATION tests/bin)
+install(TARGETS icemetricscollocated DESTINATION tests/bin)
 
 add_executable(icemetricsserver)
 
@@ -235,16 +235,16 @@ endif()
 
 install(TARGETS icemetricsserver DESTINATION tests/bin)
 
-add_executable(icecmetricsserveramd)
+add_executable(icemetricsserveramd)
 
-target_sources(icecmetricsserveramd
+target_sources(icemetricsserveramd
 	PRIVATE
 		ServerAMD.cpp
 		TestAMDI.cpp
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.cpp
 )
 
-target_include_directories(icecmetricsserveramd
+target_include_directories(icemetricsserveramd
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
@@ -255,19 +255,19 @@ target_include_directories(icecmetricsserveramd
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET icecmetricsserveramd PROPERTY CXX_STANDARD 98)
+	set_property(TARGET icemetricsserveramd PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET icecmetricsserveramd PROPERTY CXX_STANDARD 11)
+	set_property(TARGET icemetricsserveramd PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(icecmetricsserveramd ${METRICS_DEPS})
-	set_property(TARGET icecmetricsserveramd PROPERTY CXX_STANDARD 11)
+	add_dependencies(icemetricsserveramd ${METRICS_DEPS})
+	set_property(TARGET icemetricsserveramd PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(icecmetricsserveramd PRIVATE ${METRICS_DEPS})
+	target_link_libraries(icemetricsserveramd PRIVATE ${METRICS_DEPS})
 endif()
 
-target_compile_definitions(icecmetricsserveramd 
+target_compile_definitions(icemetricsserveramd 
 	PRIVATE 
 		${ICE_COMPILE_DEFS}
 		"ICE_AMD_TEST"
@@ -289,16 +289,16 @@ if(MSVC)
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.h
 	)
 
-	target_compile_options(icecmetricsserveramd
+	target_compile_options(icemetricsserveramd
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icecmetricsserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET icemetricsserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET icecmetricsserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET icemetricsserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS icecmetricsserveramd DESTINATION tests/bin)
+install(TARGETS icemetricsserveramd DESTINATION tests/bin)

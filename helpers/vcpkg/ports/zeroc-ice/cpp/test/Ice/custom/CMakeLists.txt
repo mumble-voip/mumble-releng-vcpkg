@@ -114,9 +114,9 @@ endif()
 
 install(TARGETS icecustomclient DESTINATION tests/bin)
 
-add_executable(iceccustomcollocated)
+add_executable(icecustomcollocated)
 
-target_sources(iceccustomcollocated
+target_sources(icecustomcollocated
 	PRIVATE
 		AllTests.cpp
 		Collocated.cpp
@@ -128,7 +128,7 @@ target_sources(iceccustomcollocated
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/Wstring.cpp
 )
 
-target_include_directories(iceccustomcollocated
+target_include_directories(icecustomcollocated
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
@@ -139,19 +139,19 @@ target_include_directories(iceccustomcollocated
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET iceccustomcollocated PROPERTY CXX_STANDARD 98)
+	set_property(TARGET icecustomcollocated PROPERTY CXX_STANDARD 98)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET iceccustomcollocated PROPERTY CXX_STANDARD 11)
+	set_property(TARGET icecustomcollocated PROPERTY CXX_STANDARD 11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(iceccustomcollocated ${CUSTOM_DEPS})
-	set_property(TARGET iceccustomcollocated PROPERTY CXX_STANDARD 11)
+	add_dependencies(icecustomcollocated ${CUSTOM_DEPS})
+	set_property(TARGET icecustomcollocated PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(iceccustomcollocated PRIVATE ${CUSTOM_DEPS})
+	target_link_libraries(icecustomcollocated PRIVATE ${CUSTOM_DEPS})
 endif()
 
-target_compile_definitions(iceccustomcollocated PRIVATE ${ICE_COMPILE_DEFS})
+target_compile_definitions(icecustomcollocated PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	source_group("Slice Files"
@@ -172,19 +172,19 @@ if(MSVC)
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/Wstring.h
 	)
 
-	target_compile_options(iceccustomcollocated
+	target_compile_options(icecustomcollocated
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
 	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET iceccustomcollocated PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+		set_property(TARGET icecustomcollocated PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 	else()
-		set_property(TARGET iceccustomcollocated PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
+		set_property(TARGET icecustomcollocated PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
 	endif()
 endif()
 
-install(TARGETS iceccustomcollocated DESTINATION tests/bin)
+install(TARGETS icecustomcollocated DESTINATION tests/bin)
 
 add_executable(icecustomserver)
 
