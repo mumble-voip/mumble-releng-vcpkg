@@ -19,6 +19,7 @@ add_subdirectory(interceptor)
 add_subdirectory(invoke)
 add_subdirectory(location)
 add_subdirectory(metrics)
+add_subdirectory(networkProxy)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
