@@ -23,16 +23,19 @@ CompileSlice("${ICE_SLICE_PARAMS}"
 if(BUILD_ICE_CPP98)
 	set(INFO_DEPS 
 		ice
+		icessl
 		testcommon
 	)
 elseif(BUILD_ICE_CPP11)
 	set(INFO_DEPS 
 		ice++11
+		icessl++11
 		testcommon++11
 	)
 elseif(BUILD_ICE_UWP)
 	set(INFO_DEPS 
 		iceuwp++11
+		icessluwp++11
 		testcommonuwp++11
 	)
 endif()
