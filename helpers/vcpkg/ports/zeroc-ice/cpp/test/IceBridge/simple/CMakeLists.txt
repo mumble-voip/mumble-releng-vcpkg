@@ -1,22 +1,22 @@
-if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Ice)
-	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Ice)
+if(NOT ${CMAKE_CURRENT_BINARY_DIR}/IceBridge)
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/IceBridge)
 endif()
 
-set(GENERATED_SIMPLE_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h)
-set(GENERATED_SIMPLE_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp)
+set(GENERATED_SIMPLE_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/IceBridge/Test.h)
+set(GENERATED_SIMPLE_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/IceBridge/Test.cpp)
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
+list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "IceBridge")
 
 set(output_files 
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp 
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h
+	${CMAKE_CURRENT_BINARY_DIR}/IceBridge/Test.cpp 
+	${CMAKE_CURRENT_BINARY_DIR}/IceBridge/Test.h
 )	
 #function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
 CompileSlice("${ICE_SLICE_PARAMS}"
 	"${ICE_SLICE_DIRS}"
 	${CMAKE_CURRENT_SOURCE_DIR}/Test.ice
-	${CMAKE_CURRENT_BINARY_DIR}/Ice
+	${CMAKE_CURRENT_BINARY_DIR}/IceBridge
 	"${output_files}"
 )
 
@@ -47,7 +47,7 @@ target_include_directories(icebridgesimpleclient
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Ice
+		${CMAKE_CURRENT_BINARY_DIR}/IceBridge
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
@@ -103,7 +103,7 @@ target_include_directories(icebridgesimpleserver
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Ice
+		${CMAKE_CURRENT_BINARY_DIR}/IceBridge
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
