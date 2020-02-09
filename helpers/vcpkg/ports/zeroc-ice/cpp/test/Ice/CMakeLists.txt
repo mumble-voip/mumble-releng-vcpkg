@@ -32,6 +32,7 @@ add_subdirectory(slicing/exceptions)
 add_subdirectory(slicing/objects)
 add_subdirectory(stream)
 add_subdirectory(stringConverter)
+add_subdirectory(timeout)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
