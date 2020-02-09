@@ -45,6 +45,7 @@ target_sources(icebackgroundclient
 target_include_directories(icebackgroundclient
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
@@ -88,12 +89,25 @@ endif()
 
 install(TARGETS icebackgroundclient DESTINATION tests/bin)
 
-add_library(icebackgroundtesttransport)
+if(BUILD_ICE_CPP98)
+	add_library(icebackgroundtesttransport)
+	set_property(TARGET icebackgroundtesttransport
+		PROPERTY
+			OUTPUT_NAME testtransport${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+	)
+elseif(BUILD_ICE_CPP11)
+	add_library(icebackgroundtesttransport++11)
+	set_property(TARGET icebackgroundtesttransport++11
+		PROPERTY
+			OUTPUT_NAME testtransport${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+	)
+endif()
 
 target_sources(icebackgroundtesttransport
 	PRIVATE
 		Acceptor.cpp
 		Configuration.cpp
+		Connector.cpp
 		EndpointFactory.cpp
 		EndpointI.cpp
 		PluginI.cpp
@@ -105,6 +119,7 @@ target_sources(icebackgroundtesttransport
 target_include_directories(icebackgroundtesttransport
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
@@ -166,6 +181,7 @@ target_sources(icebackgroundserver
 target_include_directories(icebackgroundserver
 	PRIVATE
 		${PROJECT_SOURCE_DIR}/cpp/include
+		${PROJECT_SOURCE_DIR}/cpp/src
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
