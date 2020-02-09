@@ -18,6 +18,7 @@ add_subdirectory(inheritance)
 add_subdirectory(interceptor)
 add_subdirectory(invoke)
 add_subdirectory(location)
+add_subdirectory(metrics)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
