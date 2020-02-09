@@ -108,8 +108,8 @@ target_sources(iceholdserver
 	PRIVATE
 		Server.cpp
 		TestI.cpp
-		${GENERATED_ADMIN_HEADERS}
-		${GENERATED_ADMIN_SOURCES}
+		${GENERATED_HOLD_HEADERS}
+		${GENERATED_HOLD_SOURCES}
 )
 
 target_include_directories(iceholdserver
@@ -132,7 +132,7 @@ if(BUILD_ICE_UWP)
 	add_dependencies(iceholdserver ${HOLD_DEPS})
 	set_property(TARGET iceholdserver PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(iceholdserver PRIVATE ${ADMIN_DEPS})
+	target_link_libraries(iceholdserver PRIVATE ${HOLD_DEPS})
 endif()
 
 target_compile_definitions(iceholdserver PRIVATE ${ICE_COMPILE_DEFS})
@@ -145,12 +145,12 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${GENERATED_ADMIN_SOURCES}
+			${GENERATED_HOLD_SOURCES}
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${GENERATED_ADMIN_HEADERS}
+			${GENERATED_HOLD_HEADERS}
 	)
 
 	target_compile_options(iceholdserver
