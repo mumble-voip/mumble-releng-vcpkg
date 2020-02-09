@@ -18,8 +18,10 @@ endif()
 foreach(slice ${IMPL_SLICES})
 	get_filename_component(slice_name ${slice} NAME_WE)
 	set(output_files 
-		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}.cpp 
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}I.cpp 
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}.h
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}I.h
 	)	
 	#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
 	CompileSlice("${ICE_SLICE_PARAMS}"
