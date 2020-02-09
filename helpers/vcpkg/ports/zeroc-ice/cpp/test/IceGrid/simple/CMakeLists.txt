@@ -33,7 +33,7 @@ elseif(BUILD_ICE_CPP11)
 		ice++11
 		glacier2++11
 		icegrid++11
-		icelocatordiscover++11
+		icelocatordiscovery++11
 		testcommon++11
 	)
 endif()
