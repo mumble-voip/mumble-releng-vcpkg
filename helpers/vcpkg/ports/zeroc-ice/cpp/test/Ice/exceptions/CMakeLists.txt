@@ -62,7 +62,7 @@ target_include_directories(iceexceptionsclient
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -128,7 +128,7 @@ target_include_directories(icecexceptionscollocated
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -193,7 +193,7 @@ target_include_directories(iceexceptionsserver
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -258,7 +258,7 @@ target_include_directories(icecexceptionsserveramd
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
