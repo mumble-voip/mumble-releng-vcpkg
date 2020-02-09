@@ -140,10 +140,10 @@ elseif(BUILD_ICE_CPP11)
 endif()
 
 if(BUILD_ICE_UWP)
-	add_dependencies(iceinterceptorclient ${INTERCEPTOR_DEPS} interceptortest)
+	add_dependencies(iceinterceptorclient ${INTERCEPTOR_DEPS} iceinterceptortest)
 	set_property(TARGET iceinterceptorclient PROPERTY CXX_STANDARD 11)
 else()
-	target_link_libraries(iceinterceptorclient PRIVATE ${INTERCEPTOR_DEPS} interceptortest)
+	target_link_libraries(iceinterceptorclient PRIVATE ${INTERCEPTOR_DEPS} iceinterceptortest)
 endif()
 
 target_compile_definitions(iceinterceptorclient PRIVATE ${ICE_COMPILE_DEFS})
