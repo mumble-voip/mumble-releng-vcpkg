@@ -23,15 +23,6 @@ elseif(BUILD_ICE_CPP11)
 		icessl++11
 		testcommon++11
 	)
-elseif(BUILD_ICE_UWP)
-	set(SESSIONHLPR_DEPS 
-		glacier2uwp++11 
-		iceuwp++11
-		icediscoveryuwp++11
-		icelocatordiscoveryuwp++11
-		icessluwp++11
-		testcommonuwp++11
-	)
 endif()
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
@@ -74,12 +65,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET glacier2sessionhlprclient PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(glacier2sessionhlprclient ${SESSIONHLPR_DEPS})
-	set_property(TARGET glacier2sessionhlprclient PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(glacier2sessionhlprclient PRIVATE ${SESSIONHLPR_DEPS})
-endif()
+target_link_libraries(glacier2sessionhlprclient PRIVATE ${SESSIONHLPR_DEPS})
 
 target_compile_definitions(glacier2sessionhlprclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -138,12 +124,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET glacier2sessionhlprserver PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(glacier2sessionhlprserver ${SESSIONHLPR_DEPS})
-	set_property(TARGET glacier2sessionhlprserver PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(glacier2sessionhlprserver PRIVATE ${SESSIONHLPR_DEPS})
-endif()
+target_link_libraries(glacier2sessionhlprserver PRIVATE ${SESSIONHLPR_DEPS})
 
 target_compile_definitions(glacier2sessionhlprserver PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -168,11 +149,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET glacier2sessionhlprserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET glacier2sessionhlprserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET glacier2sessionhlprserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS glacier2sessionhlprserver DESTINATION tools/bin)

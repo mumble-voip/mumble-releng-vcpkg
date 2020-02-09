@@ -1,5 +1,4 @@
 add_subdirectory(Common)
-add_subdirectory(Glacier2)
 add_subdirectory(Ice)
 # add_subdirectory(IceBox)
 # add_subdirectory(IceBridge)
@@ -16,4 +15,6 @@ endif()
 
 if(BUILD_ICE_UWP)
 	add_subdirectory(uwp/controller)
+else()
+	add_subdirectory(Glacier2)
 endif()

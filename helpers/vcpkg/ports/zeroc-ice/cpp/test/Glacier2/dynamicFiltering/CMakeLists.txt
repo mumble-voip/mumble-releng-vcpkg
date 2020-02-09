@@ -23,15 +23,6 @@ elseif(BUILD_ICE_CPP11)
 		icessl++11
 		testcommon++11
 	)
-elseif(BUILD_ICE_UWP)
-	set(DYNFILTER_DEPS 
-		glacier2uwp++11 
-		iceuwp++11
-		icediscoveryuwp++11
-		icelocatordiscoveryuwp++11
-		icessluwp++11
-		testcommonuwp++11
-	)
 endif()
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
@@ -74,12 +65,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET glacier2dynfilterclient PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(glacier2dynfilterclient ${DYNFILTER_DEPS})
-	set_property(TARGET glacier2dynfilterclient PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(glacier2dynfilterclient PRIVATE ${DYNFILTER_DEPS})
-endif()
+target_link_libraries(glacier2dynfilterclient PRIVATE ${DYNFILTER_DEPS})
 
 target_compile_definitions(glacier2dynfilterclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -104,11 +90,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET glacier2dynfilterclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET glacier2dynfilterclient PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET glacier2dynfilterclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS glacier2dynfilterclient DESTINATION tests/bin)
@@ -141,12 +123,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET glacier2dynfilterserver PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(glacier2dynfilterserver ${DYNFILTER_DEPS})
-	set_property(TARGET glacier2dynfilterserver PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(glacier2dynfilterserver PRIVATE ${DYNFILTER_DEPS})
-endif()
+target_link_libraries(glacier2dynfilterserver PRIVATE ${DYNFILTER_DEPS})
 
 target_compile_definitions(glacier2dynfilterserver PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -171,11 +148,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET glacier2dynfilterserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET glacier2dynfilterserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET glacier2dynfilterserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS glacier2dynfilterserver DESTINATION tools/bin)

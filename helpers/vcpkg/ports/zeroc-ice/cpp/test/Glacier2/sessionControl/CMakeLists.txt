@@ -23,15 +23,6 @@ elseif(BUILD_ICE_CPP11)
 		icessl++11
 		testcommon++11
 	)
-elseif(BUILD_ICE_UWP)
-	set(SESSIONCTRL_DEPS 
-		glacier2uwp++11 
-		iceuwp++11
-		icediscoveryuwp++11
-		icelocatordiscoveryuwp++11
-		icessluwp++11
-		testcommonuwp++11
-	)
 endif()
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
@@ -74,12 +65,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET glacier2sessionctrlclient PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(glacier2sessionctrlclient ${SESSIONCTRL_DEPS})
-	set_property(TARGET glacier2sessionctrlclient PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(glacier2sessionctrlclient PRIVATE ${SESSIONCTRL_DEPS})
-endif()
+target_link_libraries(glacier2sessionctrlclient PRIVATE ${SESSIONCTRL_DEPS})
 
 target_compile_definitions(glacier2sessionctrlclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -104,11 +90,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET glacier2sessionctrlclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET glacier2sessionctrlclient PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET glacier2sessionctrlclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS glacier2sessionctrlclient DESTINATION tests/bin)
@@ -139,12 +121,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET glacier2sessionctrlserver PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(glacier2sessionctrlserver ${SESSIONCTRL_DEPS})
-	set_property(TARGET glacier2sessionctrlserver PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(glacier2sessionctrlserver PRIVATE ${SESSIONCTRL_DEPS})
-endif()
+target_link_libraries(glacier2sessionctrlserver PRIVATE ${SESSIONCTRL_DEPS})
 
 target_compile_definitions(glacier2sessionctrlserver PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -169,11 +146,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET glacier2sessionctrlserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET glacier2sessionctrlserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET glacier2sessionctrlserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS glacier2sessionctrlserver DESTINATION tools/bin)
