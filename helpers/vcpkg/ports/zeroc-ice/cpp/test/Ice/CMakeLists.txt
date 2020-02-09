@@ -18,11 +18,11 @@ add_subdirectory(interceptor)
 add_subdirectory(invoke)
 
 if(NOT BUILD_SHARED_LIBS)
-	add_subdirectory(background)
 	add_subdirectory(hold)
 endif()
 
 if(NOT BUILD_ICE_UWP)
+	add_subdirectory(background)
 	add_subdirectory(echo)
 	add_subdirectory(faultTolerance)
 	add_subdirectory(gc)
