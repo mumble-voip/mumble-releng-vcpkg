@@ -38,8 +38,6 @@ target_sources(icebackgroundclient
 	PRIVATE
 		AllTests.cpp
 		Client.cpp
-		${GENERATED_BACKGROUND_HEADERS}
-		${GENERATED_BACKGROUND_SOURCES}
 )
 
 target_include_directories(icebackgroundclient
@@ -59,26 +57,15 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET icebackgroundclient PROPERTY CXX_STANDARD 11)
 endif()
 
-target_link_libraries(icebackgroundclient PRIVATE ${BACKGROUND_DEPS})
+target_link_libraries(icebackgroundclient 
+	PRIVATE 
+		${BACKGROUND_DEPS}
+		icebackgroundtesttransport
+)
 
 target_compile_definitions(icebackgroundclient PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
-	source_group("Slice Files"
-		FILES
-			Test.ice
-	)
-
-	source_group("Source Files/Generated"
-		FILES
-			${GENERATED_BACKGROUND_SOURCES}
-	)
-
-	source_group("Header Files/Generated"
-		FILES
-			${GENERATED_BACKGROUND_HEADERS}
-	)
-
 	target_compile_options(icebackgroundclient
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
@@ -174,8 +161,6 @@ target_sources(icebackgroundserver
 	PRIVATE
 		Server.cpp
 		TestI.cpp
-		${GENERATED_BACKGROUND_HEADERS}
-		${GENERATED_BACKGROUND_SOURCES}
 )
 
 target_include_directories(icebackgroundserver
@@ -195,26 +180,15 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET icebackgroundserver PROPERTY CXX_STANDARD 11)
 endif()
 
-target_link_libraries(icebackgroundserver PRIVATE ${BACKGROUND_DEPS})
+target_link_libraries(icebackgroundserver 
+	PRIVATE 
+		${BACKGROUND_DEPS}
+		icebackgroundtesttransport
+)
 
 target_compile_definitions(icebackgroundserver PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
-	source_group("Slice Files"
-		FILES
-			Test.ice
-	)
-
-	source_group("Source Files/Generated"
-		FILES
-			${GENERATED_BACKGROUND_SOURCES}
-	)
-
-	source_group("Header Files/Generated"
-		FILES
-			${GENERATED_BACKGROUND_HEADERS}
-	)
-
 	target_compile_options(icebackgroundserver
 		PRIVATE
 			${ICE_MSVC_COMPILE_OPTIONS}
