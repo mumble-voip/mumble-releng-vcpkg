@@ -1,6 +1,6 @@
 add_subdirectory(Common)
 add_subdirectory(Ice)
-# add_subdirectory(IceSSL)
+add_subdirectory(IceSSL/configuration)
 # add_subdirectory(IceStorm)
 # add_subdirectory(IceUtil)
 # add_subdirectory(Slice)
