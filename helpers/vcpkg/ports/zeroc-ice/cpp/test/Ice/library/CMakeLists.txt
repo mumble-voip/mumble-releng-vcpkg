@@ -150,6 +150,7 @@ target_compile_definitions(icelibraryconsumer PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	set_property(TARGET icelibraryconsumer PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+endif()
 
 if(BUILD_SHARED_LIBS)
 	install(TARGETS icelibraryconsumer DESTINATION test/bin)
@@ -161,13 +162,13 @@ if(BUILD_ICE_CPP98)
 	add_library(icelibraryalltests)
 	set_property(TARGET icelibraryalltests
 		PROPERTY
-			OUTPUT_NAME consumer${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
+			OUTPUT_NAME alltests${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}
 	)
 elseif(BUILD_ICE_CPP11)
 	add_library(icelibraryalltests++11)
 	set_property(TARGET icelibraryalltests++11
 		PROPERTY
-			OUTPUT_NAME consumer${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME alltests${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
 	)
 endif()
 
@@ -204,6 +205,7 @@ target_compile_definitions(icelibraryalltests PRIVATE ${ICE_COMPILE_DEFS})
 
 if(MSVC)
 	set_property(TARGET icelibraryalltests PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
+endif()
 
 if(BUILD_SHARED_LIBS)
 	install(TARGETS icelibraryalltests DESTINATION test/bin)
@@ -237,7 +239,7 @@ endif()
 
 target_link_libraries(icelibraryclient 
 	PRIVATE 
-		${BACKGROUND_DEPS}
+		${LIBRARY_DEPS}
 		icelibraryalltests
 )
 
