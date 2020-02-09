@@ -9,9 +9,6 @@ set(CUSTOM_SLICES
 	${CMAKE_CURRENT_SOURCE_DIR}/WstringAMD.ice
 )
 
-set(GENERATED_CUSTOM_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h)
-set(GENERATED_CUSTOM_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp)
-
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
 list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
 
@@ -66,7 +63,7 @@ target_include_directories(icecustomclient
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -125,6 +122,8 @@ target_sources(iceccustomcollocated
 		Collocated.cpp
 		MyByteSeq.cpp
 		StringConverterI.cpp
+		TestI.cpp
+		WstringI.cpp
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/Wstring.cpp
 )
@@ -136,7 +135,7 @@ target_include_directories(iceccustomcollocated
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -207,7 +206,7 @@ target_include_directories(icecustomserver
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -267,7 +266,7 @@ target_sources(icecustomserveramd
 		StringConverterI.cpp
 		TestAMDI.cpp
 		WstringAMDI.cpp
-		${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.cpp
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/WstringAMD.cpp
 )
 
@@ -278,7 +277,7 @@ target_include_directories(icecustomserveramd
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -305,13 +304,13 @@ if(MSVC)
 
 	source_group("Source Files/Generated"
 		FILES
-			${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
+			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.cpp
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/WstringAMD.cpp
 	)
 
 	source_group("Header Files/Generated"
 		FILES
-			${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h
+			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.h
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/WstringAMD.h
 	)
 
