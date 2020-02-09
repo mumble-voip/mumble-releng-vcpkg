@@ -1,9 +1,9 @@
-if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
-	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Glacier2)
+if(NOT ${CMAKE_CURRENT_BINARY_DIR}/SessionControl)
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/SessionControl)
 endif()
 
-set(GENERATED_SESSIONCTRL_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Session.h)
-set(GENERATED_SESSIONCTRL_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Session.cpp)
+set(GENERATED_SESSIONCTRL_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/SessionControl/Session.h)
+set(GENERATED_SESSIONCTRL_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/SessionControl/Session.cpp)
 
 if(BUILD_ICE_CPP98)
 	set(SESSIONCTRL_DEPS 
@@ -26,17 +26,17 @@ elseif(BUILD_ICE_CPP11)
 endif()
 
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Glacier2")
+list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "SessionControl")
 
 set(output_files 
-	${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Session.cpp 
-	${CMAKE_CURRENT_BINARY_DIR}/Glacier2/Session.h
+	${CMAKE_CURRENT_BINARY_DIR}/SessionControl/Session.cpp 
+	${CMAKE_CURRENT_BINARY_DIR}/SessionControl/Session.h
 )	
 #function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
 CompileSlice("${ICE_SLICE_PARAMS}"
 	"${ICE_SLICE_DIRS}"
 	${CMAKE_CURRENT_SOURCE_DIR}/Session.ice
-	${CMAKE_CURRENT_BINARY_DIR}/Glacier2
+	${CMAKE_CURRENT_BINARY_DIR}/SessionControl
 	"${output_files}"
 )
 
@@ -54,7 +54,7 @@ target_include_directories(glacier2sessionctrlclient
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
+		${CMAKE_CURRENT_BINARY_DIR}/SessionControl
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
@@ -110,7 +110,7 @@ target_include_directories(glacier2sessionctrlserver
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Glacier2
+		${CMAKE_CURRENT_BINARY_DIR}/SessionControl
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
