@@ -25,6 +25,7 @@ add_subdirectory(operations)
 add_subdirectory(optional)
 add_subdirectory(proxy)
 add_subdirectory(retry)
+add_subdirectory(scope)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
