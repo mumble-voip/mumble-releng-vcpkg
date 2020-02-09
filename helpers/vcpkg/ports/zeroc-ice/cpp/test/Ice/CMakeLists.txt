@@ -20,6 +20,8 @@ add_subdirectory(invoke)
 add_subdirectory(location)
 add_subdirectory(metrics)
 add_subdirectory(networkProxy)
+add_subdirectory(objects)
+add_subdirectory(operations)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
