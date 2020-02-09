@@ -30,11 +30,6 @@ elseif(BUILD_ICE_CPP11)
 		ice++11
 		testcommon++11
 	)
-elseif(BUILD_ICE_UWP)
-	set(BACKGROUND_DEPS 
-		iceuwp++11
-		testcommonuwp++11
-	)
 endif()
 
 add_executable(icebackgroundclient)
@@ -63,12 +58,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET icebackgroundclient PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(icebackgroundclient ${BACKGROUND_DEPS})
-	set_property(TARGET icebackgroundclient PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(icebackgroundclient PRIVATE ${BACKGROUND_DEPS})
-endif()
+target_link_libraries(icebackgroundclient PRIVATE ${BACKGROUND_DEPS})
 
 target_compile_definitions(icebackgroundclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -93,20 +83,12 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icebackgroundclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET icebackgroundclient PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET icebackgroundclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS icebackgroundclient DESTINATION tests/bin)
 
-if(BUILD_ICE_UWP)
-	add_library(icebackgroundtesttransport STATIC)
-else()
-	add_library(icebackgroundtesttransport)
-endif()
+add_library(icebackgroundtesttransport)
 
 target_sources(icebackgroundtesttransport
 	PRIVATE
@@ -136,12 +118,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET icebackgroundtesttransport PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(icebackgroundtesttransport ${BACKGROUND_DEPS})
-	set_property(TARGET icebackgroundtesttransport PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(icebackgroundtesttransport PRIVATE ${BACKGROUND_DEPS})
-endif()
+target_link_libraries(icebackgroundtesttransport PRIVATE ${BACKGROUND_DEPS})
 
 target_compile_definitions(icebackgroundtesttransport PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -166,11 +143,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icebackgroundtesttransport PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET icebackgroundtesttransport PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET icebackgroundtesttransport PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 
@@ -206,12 +179,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET icebackgroundserver PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(icebackgroundserver ${BACKGROUND_DEPS})
-	set_property(TARGET icebackgroundserver PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(icebackgroundserver PRIVATE ${BACKGROUND_DEPS})
-endif()
+target_link_libraries(icebackgroundserver PRIVATE ${BACKGROUND_DEPS})
 
 target_compile_definitions(icebackgroundserver PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -236,11 +204,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET icebackgroundserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET icebackgroundserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET icebackgroundserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS icebackgroundserver DESTINATION tests/bin)

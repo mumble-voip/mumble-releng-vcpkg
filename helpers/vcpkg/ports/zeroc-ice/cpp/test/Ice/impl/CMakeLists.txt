@@ -38,11 +38,6 @@ elseif(BUILD_ICE_CPP11)
 		ice++11
 		testcommon++11
 	)
-elseif(BUILD_ICE_UWP)
-	set(IMPL_DEPS 
-		iceuwp++11
-		testcommonuwp++11
-	)
 endif()
 
 add_executable(iceimplserver)
@@ -69,12 +64,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET iceimplserver PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(iceimplserver ${IMPL_DEPS})
-	set_property(TARGET iceimplserver PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(iceimplserver PRIVATE ${IMPL_DEPS})
-endif()
+target_link_libraries(iceimplserver PRIVATE ${IMPL_DEPS})
 
 target_compile_definitions(iceimplserver 
 	PRIVATE 
@@ -104,11 +94,7 @@ if(MSVC)
 			"/wd4503"
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET iceimplserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET iceimplserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET iceimplserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS iceimplserver DESTINATION tests/bin)
@@ -137,12 +123,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET iceimplserveramd PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(iceimplserveramd ${IMPL_DEPS})
-	set_property(TARGET iceimplserveramd PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(iceimplserveramd PRIVATE ${IMPL_DEPS})
-endif()
+target_link_libraries(iceimplserveramd PRIVATE ${IMPL_DEPS})
 
 target_compile_definitions(iceimplserveramd 
 	PRIVATE 
@@ -172,11 +153,7 @@ if(MSVC)
 			"/wd4503"
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET iceimplserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET iceimplserveramd PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET iceimplserveramd PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS iceimplserveramd DESTINATION tests/bin)

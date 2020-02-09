@@ -30,11 +30,6 @@ elseif(BUILD_ICE_CPP11)
 		ice++11
 		testcommon++11
 	)
-elseif(BUILD_ICE_UWP)
-	set(FLTTOLERANCE_DEPS 
-		iceuwp++11
-		testcommonuwp++11
-	)
 endif()
 
 add_executable(iceflttoleranceclient)
@@ -63,12 +58,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET iceflttoleranceclient PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(iceflttoleranceclient ${FLTTOLERANCE_DEPS})
-	set_property(TARGET iceflttoleranceclient PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(iceflttoleranceclient PRIVATE ${FLTTOLERANCE_DEPS})
-endif()
+target_link_libraries(iceflttoleranceclient PRIVATE ${FLTTOLERANCE_DEPS})
 
 target_compile_definitions(iceflttoleranceclient PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -93,11 +83,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET iceflttoleranceclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET iceflttoleranceclient PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET iceflttoleranceclient PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS iceflttoleranceclient DESTINATION tests/bin)
@@ -128,12 +114,7 @@ elseif(BUILD_ICE_CPP11)
 	set_property(TARGET iceflttoleranceserver PROPERTY CXX_STANDARD 11)
 endif()
 
-if(BUILD_ICE_UWP)
-	add_dependencies(iceflttoleranceserver ${FLTTOLERANCE_DEPS})
-	set_property(TARGET iceflttoleranceserver PROPERTY CXX_STANDARD 11)
-else()
-	target_link_libraries(iceflttoleranceserver PRIVATE ${FLTTOLERANCE_DEPS})
-endif()
+target_link_libraries(iceflttoleranceserver PRIVATE ${FLTTOLERANCE_DEPS})
 
 target_compile_definitions(iceflttoleranceserver PRIVATE ${ICE_COMPILE_DEFS})
 
@@ -158,11 +139,7 @@ if(MSVC)
 			${ICE_MSVC_COMPILE_OPTIONS}
 	)
 
-	if(NOT BUILD_ICE_UWP)
-		set_property(TARGET iceflttoleranceserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
-	else()
-		set_property(TARGET iceflttoleranceserver PROPERTY LINK_FLAGS ${ICE_UWP_LINK_OPTIONS})
-	endif()
+	set_property(TARGET iceflttoleranceserver PROPERTY LINK_FLAGS ${ICE_MSVC_DLL_LINK_OPTIONS})
 endif()
 
 install(TARGETS iceflttoleranceserver DESTINATION tests/bin)
