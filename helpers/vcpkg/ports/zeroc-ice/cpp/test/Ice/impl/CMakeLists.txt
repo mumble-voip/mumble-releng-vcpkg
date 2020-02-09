@@ -7,11 +7,13 @@ set(IMPL_SLICES
 	${CMAKE_CURRENT_SOURCE_DIR}/TestAMD.ice
 )
 
-set(GENERATED_IMPL_HEADERS ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h)
-set(GENERATED_IMPL_SOURCES ${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp)
-
 list(APPEND ICE_SLICE_DIRS "-I${SLICE_DIR}")
-list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice" "--impl-c++${CXX_STANDARD}")
+
+if(BUILD_ICE_CPP98)
+	list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice" "--impl-c++98")
+elseif(BUILD_ICE_CPP11)
+	list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice" "--impl-c++11")
+endif()
 
 foreach(slice ${IMPL_SLICES})
 	get_filename_component(slice_name ${slice} NAME_WE)
@@ -46,6 +48,7 @@ target_sources(iceimplserver
 	PRIVATE
 		Server.cpp
 		${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/TestI.cpp
 )
 
 target_include_directories(iceimplserver
@@ -55,7 +58,7 @@ target_include_directories(iceimplserver
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -80,11 +83,13 @@ if(MSVC)
 	source_group("Source Files/Generated"
 		FILES
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
+			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestI.cpp
 	)
 
 	source_group("Header Files/Generated"
 		FILES
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h
+			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestI.h
 	)
 
 	target_compile_options(iceimplserver
@@ -104,7 +109,8 @@ add_executable(iceimplserveramd)
 target_sources(iceimplserveramd
 	PRIVATE
 		ServerAMD.cpp
-		${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.cpp
+		${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMDI.cpp
 )
 
 target_include_directories(iceimplserveramd
@@ -114,7 +120,7 @@ target_include_directories(iceimplserveramd
 		${CMAKE_CURRENT_SOURCE_DIR}
 		${CMAKE_CURRENT_BINARY_DIR}/Ice
 		${CMAKE_CURRENT_BINARY_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}
+		${GENERATED_SLICES_DIR}
 )
 
 if(BUILD_ICE_CPP98)
@@ -139,11 +145,13 @@ if(MSVC)
 	source_group("Source Files/Generated"
 		FILES
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.cpp
+			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMDI.cpp
 	)
 
 	source_group("Header Files/Generated"
 		FILES
 			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMD.h
+			${CMAKE_CURRENT_BINARY_DIR}/Ice/TestAMDI.h
 	)
 
 	target_compile_options(iceimplserveramd
