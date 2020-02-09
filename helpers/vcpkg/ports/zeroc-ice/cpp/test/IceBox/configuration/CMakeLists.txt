@@ -120,9 +120,17 @@ target_include_directories(iceboxconfigurationtestservice
 )
 
 if(BUILD_ICE_CPP98)
-	set_property(TARGET iceboxconfigurationtestservice PROPERTY CXX_STANDARD 98)
+	set_target_properties(iceboxconfigurationtestservice 
+		PROPERTIES 
+			CXX_STANDARD 98
+			OUTPUT_NAME testservice
+	)
 elseif(BUILD_ICE_CPP11)
-	set_property(TARGET iceboxconfigurationtestservice PROPERTY CXX_STANDARD 11)
+	set_target_properties(iceboxconfigurationtestservice 
+		PROPERTY 
+			CXX_STANDARD 11
+			OUTPUT_NAME testservice++11
+	)
 endif()
 
 target_link_libraries(iceboxconfigurationtestservice PRIVATE ${SERVICE_DEPS})
