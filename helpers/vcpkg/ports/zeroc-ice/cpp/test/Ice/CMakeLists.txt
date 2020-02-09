@@ -28,6 +28,8 @@ add_subdirectory(retry)
 add_subdirectory(scope)
 add_subdirectory(servantLocator)
 add_subdirectory(services)
+add_subdirectory(slicing/exceptions)
+add_subdirectory(slicing/objects)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
