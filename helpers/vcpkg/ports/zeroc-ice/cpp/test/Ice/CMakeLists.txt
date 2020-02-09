@@ -27,6 +27,7 @@ add_subdirectory(proxy)
 add_subdirectory(retry)
 add_subdirectory(scope)
 add_subdirectory(servantLocator)
+add_subdirectory(services)
 
 if(NOT BUILD_ICE_UWP)
 	add_subdirectory(background)
