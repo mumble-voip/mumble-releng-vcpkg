@@ -1,6 +1,6 @@
 if(BUILD_ICE_CPP98)
 	set(TESTCOMMON_TARGET testcommon)
-	set(TESTCOMMON_DEPS icessl ice)
+	set(TESTCOMMON_DEPS ice)
 	add_library(${TESTCOMMON_TARGET})
 	set_target_properties(${TESTCOMMON_TARGET} 
 		PROPERTIES
@@ -9,7 +9,7 @@ if(BUILD_ICE_CPP98)
 	)
 elseif(BUILD_ICE_CPP11)
 	set(TESTCOMMON_TARGET testcommon++11)
-	set(TESTCOMMON_DEPS icessl++11 ice++11)
+	set(TESTCOMMON_DEPS ice++11)
 	add_library(${TESTCOMMON_TARGET})
 	set_target_properties(${TESTCOMMON_TARGET} 
 		PROPERTIES
@@ -18,8 +18,13 @@ elseif(BUILD_ICE_CPP11)
 	)
 elseif(BUILD_ICE_UWP)
 	set(TESTCOMMON_TARGET testcommonuwp++11)
-	set(TESTCOMMON_DEPS icessluwp++11 iceuwp++11)
+	set(TESTCOMMON_DEPS iceuwp++11)
 	add_library(${TESTCOMMON_TARGET} STATIC)
+	set_target_properties(${TESTCOMMON_TARGET} 
+		PROPERTIES
+			OUTPUT_NAME testcommonuwp${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			CXX_STANDARD 11
+	)
 endif()
 
 target_sources(${TESTCOMMON_TARGET} PRIVATE TestHelper.cpp)
