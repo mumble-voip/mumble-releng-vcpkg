@@ -80,6 +80,7 @@ if(BUILD_ICE_CPP98)
 	add_subdirectory(src/IcePatch2Lib)
 	add_subdirectory(src/IceStorm)
 	add_subdirectory(src/Slice)
+	
 	if(MSVC)
 		add_subdirectory(src/iceserviceinstall)
 	endif()
