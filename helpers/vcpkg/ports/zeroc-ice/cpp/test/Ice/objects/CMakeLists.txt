@@ -1,5 +1,5 @@
-if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Ice)
-	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Ice)
+if(NOT ${CMAKE_CURRENT_BINARY_DIR}/Objects)
+	file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/Objects)
 endif()
 
 set(OBJECTS_SLICES
@@ -10,33 +10,33 @@ set(OBJECTS_SLICES
 )
 
 set(GENERATED_OBJECTS_HEADERS 
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Derived.h
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/DerivedEx.h
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Forward.h
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.h
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/Derived.h
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/DerivedEx.h
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/Forward.h
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/Test.h
 )
 
 set(GENERATED_OBJECTS_SOURCES 
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Derived.cpp
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/DerivedEx.cpp
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Forward.h
-	${CMAKE_CURRENT_BINARY_DIR}/Ice/Test.cpp
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/Derived.cpp
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/DerivedEx.cpp
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/Forward.h
+	${CMAKE_CURRENT_BINARY_DIR}/Objects/Test.cpp
 )
 
 list(APPEND ICE_SLICE_DIRS "-I${CMAKE_CURRENT_SOURCE_DIR}")
-list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Ice")
+list(APPEND ICE_SLICE_PARAMS ${COMPILE_SLICES_CPP_PARAMETERS} "Objects")
 
 foreach(slice ${OBJECTS_SLICES})
 	get_filename_component(slice_name ${slice} NAME_WE)
 	set(output_files 
-		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}.cpp 
-		${CMAKE_CURRENT_BINARY_DIR}/Ice/${slice_name}.h
+		${CMAKE_CURRENT_BINARY_DIR}/Objects/${slice_name}.cpp 
+		${CMAKE_CURRENT_BINARY_DIR}/Objects/${slice_name}.h
 	)	
 	#function(CompileSlice slice2bin_params slice_include_paths ice_file output_dir output_file)
 	CompileSlice("${ICE_SLICE_PARAMS}"
 		"${ICE_SLICE_DIRS}"
 		${slice}
-		${CMAKE_CURRENT_BINARY_DIR}/Ice
+		${CMAKE_CURRENT_BINARY_DIR}/Objects
 		"${output_files}"
 	)
 endforeach()
@@ -74,7 +74,7 @@ target_include_directories(iceobjectsclient
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Ice
+		${CMAKE_CURRENT_BINARY_DIR}/Objects
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
@@ -97,6 +97,9 @@ target_compile_definitions(iceobjectsclient PRIVATE ${ICE_COMPILE_DEFS})
 if(MSVC)
 	source_group("Slice Files"
 		FILES
+			Derived.ice
+			DerivedEx.ice
+			Forward.ice
 			Test.ice
 	)
 
@@ -143,7 +146,7 @@ target_include_directories(iceobjectscollocated
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Ice
+		${CMAKE_CURRENT_BINARY_DIR}/Objects
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
@@ -159,6 +162,9 @@ target_compile_definitions(iceobjectscollocated PRIVATE ${ICE_COMPILE_DEFS})
 if(MSVC)
 	source_group("Slice Files"
 		FILES
+			Derived.ice
+			DerivedEx.ice
+			Forward.ice
 			Test.ice
 	)
 
@@ -202,7 +208,7 @@ target_include_directories(iceobjectsserver
 		${PROJECT_SOURCE_DIR}/cpp/include
 		${PROJECT_SOURCE_DIR}/cpp/test/include
 		${CMAKE_CURRENT_SOURCE_DIR}
-		${CMAKE_CURRENT_BINARY_DIR}/Ice
+		${CMAKE_CURRENT_BINARY_DIR}/Objects
 		${CMAKE_CURRENT_BINARY_DIR}
 		${GENERATED_SLICES_DIR}
 )
@@ -225,6 +231,9 @@ target_compile_definitions(iceobjectsserver PRIVATE ${ICE_COMPILE_DEFS})
 if(MSVC)
 	source_group("Slice Files"
 		FILES
+			Derived.ice
+			DerivedEx.ice
+			Forward.ice
 			Test.ice
 	)
 
