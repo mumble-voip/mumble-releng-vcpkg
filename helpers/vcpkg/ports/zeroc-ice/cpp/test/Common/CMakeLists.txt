@@ -42,7 +42,11 @@ target_compile_definitions(${TESTCOMMON_TARGET}
 		"TEST_API_EXPORTS"
 )
 
-target_link_libraries(${TESTCOMMON_TARGET} PRIVATE ${TESTCOMMON_DEPS})
+if(NOT BUILD_ICE_UWP)
+	target_link_libraries(${TESTCOMMON_TARGET} PRIVATE ${TESTCOMMON_DEPS})
+else()
+	add_dependencies(${TESTCOMMON_TARGET} ${TESTCOMMON_DEPS})
+endif()
 
 if(MSVC)
 	if(BUILD_SHARED_LIBS AND NOT BUILD_ICE_UWP)
