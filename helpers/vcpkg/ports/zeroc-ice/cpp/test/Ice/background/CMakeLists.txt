@@ -86,7 +86,7 @@ elseif(BUILD_ICE_CPP11)
 	add_library(icebackgroundtesttransport++11)
 	set_property(TARGET icebackgroundtesttransport++11
 		PROPERTY
-			OUTPUT_NAME testtransport${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME testtransport${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}uwp++11
 	)
 endif()
 
