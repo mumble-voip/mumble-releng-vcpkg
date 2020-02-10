@@ -20,5 +20,5 @@ endif()
 
 if(BUILD_ICE_CPP98)
 	add_subdirectory(IceUtil)
-	#add_subdirectory(Slice)
+	add_subdirectory(Slice)
 endif()
