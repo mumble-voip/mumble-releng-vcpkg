@@ -88,7 +88,7 @@ elseif(BUILD_ICE_UWP)
 	
 	set_target_properties(${GLACIER2_TARGET} 
 		PROPERTIES
-			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME Glacier2${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}uwp++11
 			CXX_STANDARD 11
 			LINK_FLAGS ${ICE_UWP_LINK_OPTIONS}
 	)

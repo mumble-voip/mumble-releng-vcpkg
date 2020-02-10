@@ -75,7 +75,7 @@ elseif(BUILD_ICE_UWP)
 	
 	set_target_properties(${ICELOCATOR_DISCOVERY_TARGET} 
 		PROPERTIES
-			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME IceLocatorDiscovery${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}uwp++11
 			CXX_STANDARD 11
 			LINK_FLAGS ${ICE_UWP_LINK_OPTIONS}
 	)

@@ -22,7 +22,7 @@ elseif(BUILD_ICE_UWP)
 	add_library(${TESTCOMMON_TARGET} STATIC)
 	set_target_properties(${TESTCOMMON_TARGET} 
 		PROPERTIES
-			OUTPUT_NAME testcommonuwp${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}++11
+			OUTPUT_NAME testcommon${zeroc-ice_VERSION_MAJOR}${zeroc-ice_VERSION_MINOR}uwp++11
 			CXX_STANDARD 11
 	)
 endif()
