@@ -1,1 +1,2 @@
 add_subdirectory(federation)
+add_subdirectory(federation2)
