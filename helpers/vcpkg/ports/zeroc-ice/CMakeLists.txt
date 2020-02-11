@@ -69,6 +69,7 @@ get_property(languages GLOBAL PROPERTY ENABLED_LANGUAGES)
 # check language type, add subdirectories
 if("${languages}" MATCHES "CXX")
 	execute_process(COMMAND ${CMAKE_COMMAND} 
+		-G ${CMAKE_GENERATOR}
 		${CMAKE_SOURCE_DIR}/icebuilder
 		-DBUILD_ICEBUILDER_CXX=ON
 		-DICE_SOURCES_ROOT=${CMAKE_SOURCE_DIR}
@@ -78,7 +79,7 @@ if("${languages}" MATCHES "CXX")
 			${CMAKE_BINARY_DIR}/icebuilder-prefix/src
 	)
 
-	if(MSVC)
+	if(CMAKE_GENERATOR MATCHES "Visual Studio")
 		execute_process(COMMAND ${CMAKE_COMMAND} --build 
 			${CMAKE_BINARY_DIR}/icebuilder-prefix/src
 			--config Release --target INSTALL
