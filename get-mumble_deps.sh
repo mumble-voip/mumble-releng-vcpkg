@@ -42,9 +42,6 @@ if [ -d ~/vcpkg ]
                 # vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
                 cp -R helpers/vcpkg/ports/* ~/vcpkg/ports/
 
-                # copy custom triplet files
-                cp helpers/vcpkg/triplets/community/* ~/vcpkg/triplets/community
-                
                 cd ~/vcpkg
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
