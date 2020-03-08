@@ -1,16 +1,15 @@
 vcpkg_from_github(
 	OUT_SOURCE_PATH SOURCE_PATH
-	REPO zeroc-ice/ice
-	REF v3.7.3
-	SHA512 ef43bb28b4a20dcca5078ca2b0ad81269a435317761fc00b4d4bdf85bcdf4dddbf3b3ee6729477bd0957ea519a3705416883ba404386a05914a2c010cb785e27
-	HEAD_REF master
+	REPO ZeroAbility/ice
+	REF 75b8b33b2e9908fb2701a84cdb3f9e4d56b448f0
+	SHA512 c04392a06ec3e932ff4911c5d64ded9574365355dbb9984fe8f6ea05c0c3f6a9e8c8b430cbcb0ddeb55cd80800ccf3b0ea1ec2be17a4833c67788d4652061b8a
 )
 
-# sideload cmake requirements for C++, hopefully to be removed pending PR to zeroc
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/icebuilder DESTINATION ${SOURCE_PATH})
-file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
+# # sideload cmake requirements for C++, hopefully to be removed pending PR to zeroc
+# file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
+# file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
+# file(COPY ${CMAKE_CURRENT_LIST_DIR}/icebuilder DESTINATION ${SOURCE_PATH})
+# file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
 if("cpp11" IN_LIST FEATURES)
 	vcpkg_configure_cmake(
@@ -26,7 +25,6 @@ else()
 		PREFER_NINJA
 		OPTIONS
 			-DBUILD_ICE_CXX=ON
-			-DBUILD_ICE_CPP98=ON
 	)
 endif()
 
