@@ -15,6 +15,7 @@ mumble_deps='qt5-base,
             boost-optional, 
             boost-system, 
             boost-thread, 
+            opus,
             libvorbis, 
             libogg, 
             libflac, 
@@ -24,8 +25,10 @@ mumble_deps='qt5-base,
             zeroc-ice'
 
 case "$OSTYPE" in
-    msys* ) triplet='x64-windows-static-md';;
-    linux-gnu* ) triplet='x64-linux';;
+    msys* ) triplet='x64-windows-static-md'
+        xcompile_triplet='x86-windows-static-md';;
+    linux-gnu* ) triplet='x64-linux'
+        xcompile_triplet='x86-linux';;
     darwin* ) triplet='x64-osx';;
     * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
@@ -61,6 +64,17 @@ if [ -d ~/vcpkg ]
             for dep in ${mumble_deps//,/ }
             do
                 ./vcpkg install $dep:$triplet
+            done
+
+            boost_xcompile='boost-accumulators, 
+                boost-atomic, 
+                boost-function, 
+                boost-optional, 
+                boost-system, 
+                boost-thread'
+            for dep in ${boost_xcompile//,/ }
+            do
+                ./vcpkg install $dep:$xcompile_triplet
             done
         fi
 else
