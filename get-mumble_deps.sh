@@ -27,8 +27,7 @@ mumble_deps='qt5-base,
 case "$OSTYPE" in
     msys* ) triplet='x64-windows-static-md'
         xcompile_triplet='x86-windows-static-md';;
-    linux-gnu* ) triplet='x64-linux'
-        xcompile_triplet='x86-linux';;
+    linux-gnu* ) triplet='x64-linux';;
     darwin* ) triplet='x64-osx';;
     * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
@@ -66,16 +65,19 @@ if [ -d ~/vcpkg ]
                 ./vcpkg install $dep:$triplet
             done
 
-            boost_xcompile='boost-accumulators, 
-                boost-atomic, 
-                boost-function, 
-                boost-optional, 
-                boost-system, 
-                boost-thread'
-            for dep in ${boost_xcompile//,/ }
-            do
-                ./vcpkg install $dep:$xcompile_triplet
-            done
+            case "$OSTYPE" in
+                msys* )
+                    boost_xcompile='boost-accumulators, 
+                        boost-atomic, 
+                        boost-function, 
+                        boost-optional, 
+                        boost-system, 
+                        boost-thread'
+                    for dep in ${boost_xcompile//,/ }
+                    do
+                        ./vcpkg install $dep:$xcompile_triplet
+                    done;;
+            esac
         fi
 else
     echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
