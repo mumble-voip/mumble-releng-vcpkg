@@ -34,16 +34,13 @@ esac
 
 if [ ! -d ~/vcpkg ] 
     then 
-        git clone https://github.com/Microsoft/vcpkg.git ~/vcpkg
+        git clone https://github.com/mumble-voip/vcpkg.git ~/vcpkg
 fi
 
 if [ -d ~/vcpkg ] 
     then
         if [ ! -x ~/vcpkg/vcpkg ]
             then
-                # vcpkg does not have a port for zeroc ice or mcpp, copy homegrown ports 
-                cp -R helpers/vcpkg/ports/* ~/vcpkg/ports/
-
                 cd ~/vcpkg
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
