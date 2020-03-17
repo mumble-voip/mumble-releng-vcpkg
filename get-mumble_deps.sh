@@ -74,7 +74,8 @@ if [ -d ~/vcpkg ]
                     for dep in ${boost_xcompile//,/ }
                     do
                         ./vcpkg install $dep:$xcompile_triplet
-                    done;;
+                    done
+                ;;
             esac
         fi
 else
