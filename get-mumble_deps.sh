@@ -25,6 +25,8 @@ mumble_deps='qt5-base,
             zlib, 
             zeroc-ice'
 
+# Determine vcpkg triplet from OS https://github.com/Microsoft/vcpkg/blob/master/docs/users/triplets.md
+# Available triplets can be printed with `vcpkg help triplet`
 case "$OSTYPE" in
     msys* ) triplet='x64-windows-static-md'
         xcompile_triplet='x86-windows-static-md';;
