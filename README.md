@@ -48,3 +48,9 @@ From a terminal cd to the cloned `mumble-releng-experimental` git repository, se
 In order for the FindIce module to work properly, `Ice_HOME` must be defined when running the configure step of CMake for the Mumble sources like so:
 
 `cmake -G <preferred_generator> -DIce_HOME=~/vcpkg/installed/x64-windows-static-md -DVCPKG_TARGET_TRIPLET=x64-windows-static-md ...`
+
+## Building Mumble
+
+Mumble (server and client) are built with CMake.
+
+The Mumble project has not been migrated to CMake yet ([ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)).[1] The WIP branch is available at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
