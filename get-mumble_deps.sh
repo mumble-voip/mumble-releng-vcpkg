@@ -47,9 +47,11 @@ if [ -d ~/vcpkg ]
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
                             ./vcpkg integrate install
                             # install dns-sd provider
-                            ./vcpkg install mdnsresponder:$triplet;;
+                            ./vcpkg install mdnsresponder:$triplet
+                            ;;
                     * ) bash bootstrap-vcpkg.sh -disableMetrics
-                        ./vcpkg integrate install;;
+                        ./vcpkg integrate install
+                        ;;
                 esac
         fi
 
