@@ -5,6 +5,8 @@
 # can be found in the LICENSE file in the source tree or at
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
+VCPKGDIR=~/vcpkg
+
 mumble_deps='qt5-base, 
             qt5-svg, 
             qt5-tools, 
@@ -35,16 +37,16 @@ case "$OSTYPE" in
     * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
 
-if [ ! -d ~/vcpkg ] 
+if [ ! -d $VCPKGDIR ] 
     then 
-        git clone https://github.com/mumble-voip/vcpkg.git ~/vcpkg
+        git clone https://github.com/mumble-voip/vcpkg.git $VCPKGDIR
 fi
 
-if [ -d ~/vcpkg ] 
+if [ -d $VCPKGDIR ] 
     then
-        if [ ! -x ~/vcpkg/vcpkg ]
+        if [ ! -x $VCPKGDIR/vcpkg ]
             then
-                cd ~/vcpkg
+                cd $VCPKGDIR
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
                             ./vcpkg integrate install
@@ -61,7 +63,7 @@ if [ -d ~/vcpkg ]
             then
             echo "Triplet type is not defined! Aborting..."
         else
-            cd ~/vcpkg
+            cd $VCPKGDIR
             for dep in ${mumble_deps//,/ }
             do
                 ./vcpkg install $dep:$triplet
