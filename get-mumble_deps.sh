@@ -5,6 +5,13 @@
 # can be found in the LICENSE file in the source tree or at
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
+# On failed command (error code) exit the whole script
+set -e
+# Treat using unset variables as errors
+set -u
+# For piped commands on command failure fail entire pipe instead of only the last command being significant
+set -o pipefail
+
 VCPKGDIR=~/vcpkg
 
 mumble_deps='qt5-base, 
