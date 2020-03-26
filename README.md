@@ -75,3 +75,15 @@ In order for the FindIce module to work properly, `Ice_HOME` must be defined whe
 cd mumble
  ~/vcpkg/downloads/tools/cmake-3.14.0-windows/cmake-3.14.0-win32-x86/bin/cmake . -G <preferred_generator> -DIce_HOME=~/vcpkg/installed/x64-windows-static-md -DVCPKG_TARGET_TRIPLET=x64-windows-static-md -DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake
  ```
+
+## Technical Details
+
+We use vcpkg to manage dependencies; to download, compile them and to include them in our own project build.
+
+We use CMake as our build system and to include the dependencies. vcpkg uses and encourages CMake, and CMake is well established in the C++ project space.
+
+### Forks of zeroc-ice and vcpkg for Ice 3.7 CMake
+
+ZeroC Ice 3.7 is not a CMake project. We implemented it as a CMake project so we can integrate it in our CMake project. However, ZeroC does not want to integrate it into upstream 3.7. They are still undecided if they want to use CMake for future versions or a different build system.
+
+As a result we have to [fork the zeroc-ice project](https://github.com/mumble-voip/ice) to integrate our CMake project of it. We also [fork vcpkg](https://github.com/mumble-voip/vcpkg) to integrate this zeroc-ice fork with vcpkg.
