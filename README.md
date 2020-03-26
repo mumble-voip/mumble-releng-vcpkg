@@ -71,10 +71,7 @@ In order for the FindIce module to work properly, `Ice_HOME` must be defined whe
 
 `cmake -G <preferred_generator> -DIce_HOME=~/vcpkg/installed/x64-windows-static-md -DVCPKG_TARGET_TRIPLET=x64-windows-static-md ...`
 
-```bash
-cd mumble
- ~/vcpkg/downloads/tools/cmake-3.14.0-windows/cmake-3.14.0-win32-x86/bin/cmake . -G <preferred_generator> -DIce_HOME=~/vcpkg/installed/x64-windows-static-md -DVCPKG_TARGET_TRIPLET=x64-windows-static-md -DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake
- ```
+
 
 ## Technical Details
 
