@@ -83,7 +83,7 @@ The other settings `CMAKE_TOOLCHAIN_FILE` and `VCPKG_TARGET_TRIPLET` are necessa
 
 Other configure options include:
 
-* `-DBUILD_TESTING=[ON | OFF]` - Enable/Disable test builds
+* `-DBUILD_TESTING=[ON | OFF]` - Build tests
 * `-DCMAKE_BUILD_TYPE=[Debug | Release]` - Specify the build type multi-config (msbuild, etc...)
 * `-Dclient=[ON | OFF]` - Build the client
 * `-Dserver=[ON | OFF]` - Build the server
