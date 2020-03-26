@@ -94,7 +94,7 @@ Other configure options include:
 * `-Dice=[ON | OFF]` - Build with Ice
 * `-Djackaudio=[ON | OFF]` - Build with jack
 
-To configure the project to build the client and server on Windows from the command line you could do the following:
+To configure the project to build the client and server on Windows from the command line you could do the following from a x64 Native Developer Command Prompt:
 
 ```
 cmake -G "NMake Makefiles" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-Dsymbols=ON" "-Djackaudio=OFF" "-Dgrpc=OFF" "-DBUILD_TESTING=OFF"
