@@ -59,6 +59,8 @@ From a terminal cd to the cloned `mumble-releng-experimental` git repository, se
 
 `./get-mumble_deps.sh`
 
+This will clone `vcpkg` and install the dependencies in the user's home directory. For Windows builds, if the vcpkg needs to be cloned elsewhere, make sure the path will allow for the maximum character limit for file paths in pre Windows 10 systems.
+
 ## Building Mumble
 
 Now that the depdenencies have been prepared with CMake and vcpkg you can build the Mumble project with them.
@@ -67,11 +69,54 @@ Mumble (server and client) are built with CMake.
 
 The Mumble project has not been migrated to CMake yet ([ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)).[1] The WIP branch is available at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
 
+### Configure step
+
+It is necessary to download at least version 3.15 of [CMake](https://cmake.org/download/), or install version 3.15 via package manager (yum, apt, etc...) if available, in order to use the Mumble CMake project. For best results in command line builds, create a directory called `build` in the `mumble` repository dir and change to that directory before calling `cmake` for the configure step.
+
 In order for the FindIce module to work properly, `Ice_HOME` must be defined when running the configure step of CMake for the Mumble sources like so:
 
-`cmake -G <preferred_generator> -DIce_HOME=~/vcpkg/installed/x64-windows-static-md -DVCPKG_TARGET_TRIPLET=x64-windows-static-md ...`
+```
+cmake -G <preferred_generator> "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md"
+```
 
+The other settings `CMAKE_TOOLCHAIN_FILE` and `VCPKG_TARGET_TRIPLET` are necessary to tell the build system where to look for the downloaded dependencies. `<vcpkg_root>` specifies where the the repository was installed to.
 
+Other configure options include:
+
+* `-DBUILD_TESTING=[ON | OFF]` - Enable/Disable test builds
+* `-DCMAKE_BUILD_TYPE=[Debug | Release]` - Specify the build type multi-config (msbuild, etc...)
+* `-Dclient=[ON | OFF]` - Build the client
+* `-Dserver=[ON | OFF]` - Build the server
+* `-Doverlay=[ON | OFF]` - Build the overlay
+* `-Dstatic=[ON | OFF]` - Build as static
+* `-Dsymbols=[ON | OFF]` - Build symbols
+* `-Dgrpc=[ON | OFF]` - Build with gRPC
+* `-Dice=[ON | OFF]` - Build with Ice
+* `-Djackaudio=[ON | OFF]` - Build with jack
+
+To configure the project to build the client and server on Windows from the command line you could do the following:
+
+```
+cmake -G "NMake Makefiles" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-Dsymbols=ON" "-Djackaudio=OFF" "-Dgrpc=OFF" "-DBUILD_TESTING=OFF"
+```
+
+### Build step
+
+Once the project has completed configuration without errors, simply call this command:
+
+```
+cmake --build .
+```
+
+It is also possible to just call the build tool directly based on the generator that was used. Given the above configure step, you could just call:
+
+```
+nmake
+```
+
+## Configure and Build using an IDE with CMake support
+
+IDE's such as Qt Creator, Visual Studio and VS Code (Code OSS) are capable of handling the configure and build step as part of the normal operation of the IDE. The options listed above are "Configure Arguments" and would need to be added for the project or workspace settings in the IDE when the source folder is opened as a CMake project.
 
 ## Technical Details
 
