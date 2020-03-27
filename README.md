@@ -81,7 +81,7 @@ cmake -G <preferred_generator> "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buil
 
 The other settings `CMAKE_TOOLCHAIN_FILE` and `VCPKG_TARGET_TRIPLET` are necessary to tell the build system where to look for the downloaded dependencies. `<vcpkg_root>` specifies where the repository was installed to.
 
-Other configure options include:
+Additional Mumble project build configuration can be passed with `-D` defines. See the respective CMakeLists.txt files of the projects. For example:
 
 * `-DBUILD_TESTING=[ON | OFF]` - Build tests
 * `-DCMAKE_BUILD_TYPE=[Debug | Release]` - Specify the build type multi-config (msbuild, etc...)
