@@ -79,7 +79,7 @@ In order for the FindIce module to work properly, `Ice_HOME` must be defined whe
 cmake -G <preferred_generator> "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md"
 ```
 
-The other settings `CMAKE_TOOLCHAIN_FILE` and `VCPKG_TARGET_TRIPLET` are necessary to tell the build system where to look for the downloaded dependencies. `<vcpkg_root>` specifies where the the repository was installed to.
+The other settings `CMAKE_TOOLCHAIN_FILE` and `VCPKG_TARGET_TRIPLET` are necessary to tell the build system where to look for the downloaded dependencies. `<vcpkg_root>` specifies where the repository was installed to.
 
 Other configure options include:
 
