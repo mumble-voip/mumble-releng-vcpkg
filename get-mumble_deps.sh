@@ -12,7 +12,7 @@ set -u
 # For piped commands on command failure fail entire pipe instead of only the last command being significant
 set -o pipefail
 
-VCPKGDIR=~/vcpkg
+VCPKGDIR=~/mumble-vcpkg
 
 mumble_deps='qt5-base, 
             qt5-svg, 
