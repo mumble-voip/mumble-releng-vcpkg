@@ -56,13 +56,9 @@ if [ -d $VCPKGDIR ]
                 cd $VCPKGDIR
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
-                            ./vcpkg integrate install
-                            # install dns-sd provider
-                            ./vcpkg install mdnsresponder:$triplet
-                            ;;
+                            ./vcpkg integrate install;;
                     * ) bash bootstrap-vcpkg.sh -disableMetrics
-                        ./vcpkg integrate install
-                        ;;
+                        ./vcpkg integrate install;;
                 esac
         fi
 
@@ -78,6 +74,8 @@ if [ -d $VCPKGDIR ]
 
             case "$OSTYPE" in
                 msys* )
+                    # install dns-sd provider
+                    ./vcpkg install mdnsresponder:$triplet
                     boost_xcompile='boost-accumulators, 
                         boost-atomic, 
                         boost-function, 
