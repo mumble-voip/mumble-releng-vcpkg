@@ -6,19 +6,18 @@
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
 # Helper function to check if a certain parameter has been passed to the script
-# Taken from https://stackoverflow.com/a/56431189/3907364
-has_param() {
-    local term="$1"
+has_option() {
+    local desiredOption="$1"
     shift
-    for arg; do
-        if [[ $arg == "$term" ]]; then
+    for currentOption in "$@"; do
+        if [[ $currentOption == "$desiredOption" ]]; then
             return 0
         fi
     done
     return 1
 }
 
-if ! has_param '--auto' "$@"; then
+if ! has_option '--auto' "$@"; then
 	# Make sure the command-prompt stays open if an error is encountered so that the user can read
 	# the error message before the console closes.
 	# If you run call this script as part of some automation, you'll want to pass --auto
