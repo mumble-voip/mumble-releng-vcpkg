@@ -5,6 +5,26 @@
 # can be found in the LICENSE file in the source tree or at
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
+# Helper function to check if a certain parameter has been passed to the script
+has_option() {
+    local desiredOption="$1"
+    shift
+    for currentOption in "$@"; do
+        if [[ $currentOption == "$desiredOption" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+if ! has_option '--auto' "$@"; then
+	# Make sure the command-prompt stays open if an error is encountered so that the user can read
+	# the error message before the console closes.
+	# If you run call this script as part of some automation, you'll want to pass --auto
+	# to make sure you don't get stuck.
+	trap "printf '\n\n'; read -p 'ERROR encountered... Press Enter to exit'" ERR
+fi
+
 # On failed command (error code) exit the whole script
 set -e
 # Treat using unset variables as errors
