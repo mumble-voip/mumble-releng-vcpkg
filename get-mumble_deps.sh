@@ -5,9 +5,26 @@
 # can be found in the LICENSE file in the source tree or at
 # <http://mumble.info/mumble-releng-experimental/LICENSE>.
 
-# Make sure the command-prompt stays open if an error is encountered so that the user can read
-# the error message before the console closes.
-trap "printf '\n\n'; read -p 'ERROR encountered... Press Enter to exit'" ERR
+# Helper function to check if a certain parameter has been passed to the script
+# Taken from https://stackoverflow.com/a/56431189/3907364
+has_param() {
+    local term="$1"
+    shift
+    for arg; do
+        if [[ $arg == "$term" ]]; then
+            return 0
+        fi
+    done
+    return 1
+}
+
+if ! has_param '--auto' "$@"; then
+	# Make sure the command-prompt stays open if an error is encountered so that the user can read
+	# the error message before the console closes.
+	# If you run call this script as part of some automation, you'll want to pass --auto
+	# to make sure you don't get stuck.
+	trap "printf '\n\n'; read -p 'ERROR encountered... Press Enter to exit'" ERR
+fi
 
 # On failed command (error code) exit the whole script
 set -e
