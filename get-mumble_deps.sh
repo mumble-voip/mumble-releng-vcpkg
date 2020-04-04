@@ -102,7 +102,6 @@ if [ -d $VCPKGDIR ]
                         ./vcpkg install $dep:$xcompile_triplet --clean-after-build
                     done
             fi
-            cd $VCPKGDIR
             for dep in ${mumble_deps//,/ }
             do
                 ./vcpkg install $dep:$triplet --clean-after-build
