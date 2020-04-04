@@ -89,13 +89,13 @@ if [ -d $VCPKGDIR ]
             cd $VCPKGDIR
             for dep in ${mumble_deps//,/ }
             do
-                ./vcpkg install $dep:$triplet
+                ./vcpkg install $dep:$triplet --clean-after-build
             done
 
             case "$OSTYPE" in
                 msys* )
                     # install dns-sd provider
-                    ./vcpkg install mdnsresponder:$triplet
+                    ./vcpkg install mdnsresponder:$triplet --clean-after-build
                     boost_xcompile='boost-accumulators, 
                         boost-atomic, 
                         boost-function, 
@@ -104,7 +104,7 @@ if [ -d $VCPKGDIR ]
                         boost-thread'
                     for dep in ${boost_xcompile//,/ }
                     do
-                        ./vcpkg install $dep:$xcompile_triplet
+                        ./vcpkg install $dep:$xcompile_triplet --clean-after-build
                     done
                 ;;
             esac
