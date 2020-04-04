@@ -17,7 +17,7 @@ has_option() {
     return 1
 }
 
-if [! has_option '--auto' "$@"]; 
+if ! has_option '--auto' "$@"
     then
 	# Make sure the command-prompt stays open if an error is encountered so that the user can read
 	# the error message before the console closes.
@@ -72,9 +72,9 @@ fi
 
 if [ -d $VCPKGDIR ] 
     then
+        cd $VCPKGDIR
         if [ ! -x $VCPKGDIR/vcpkg ]
             then
-                cd $VCPKGDIR
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
                             ./vcpkg integrate install;;
@@ -87,16 +87,10 @@ if [ -d $VCPKGDIR ]
             then
             echo "Triplet type is not defined! Aborting..."
         else
-            cd $VCPKGDIR
-            for dep in ${mumble_deps//,/ }
-            do
-                ./vcpkg install $dep:$triplet --clean-after-build
-            done
-
-            case "$OSTYPE" in
-                msys* )
+            if [ $OSTYPE == msys ] 
+                then
                     # install dns-sd provider
-                    ./vcpkg install mdnsresponder:$triplet --clean-after-build
+                    ./vcpkg install mdnsresponder icu --triplet $triplet 
                     boost_xcompile='boost-accumulators, 
                         boost-atomic, 
                         boost-function, 
@@ -107,8 +101,12 @@ if [ -d $VCPKGDIR ]
                     do
                         ./vcpkg install $dep:$xcompile_triplet --clean-after-build
                     done
-                ;;
-            esac
+            fi
+            cd $VCPKGDIR
+            for dep in ${mumble_deps//,/ }
+            do
+                ./vcpkg install $dep:$triplet --clean-after-build
+            done
         fi
 else
     echo "Failed to retrieve the 'vcpkg' repository! Aborting..."
