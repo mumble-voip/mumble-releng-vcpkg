@@ -17,7 +17,8 @@ has_option() {
     return 1
 }
 
-if ! has_option '--auto' "$@"; then
+if [! has_option '--auto' "$@"]; 
+    then
 	# Make sure the command-prompt stays open if an error is encountered so that the user can read
 	# the error message before the console closes.
 	# If you run call this script as part of some automation, you'll want to pass --auto
