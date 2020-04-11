@@ -67,7 +67,7 @@ Now that the depdenencies have been prepared with CMake and vcpkg you can build 
 
 Mumble (server and client) are built with CMake.
 
-The Mumble project has not been migrated to CMake yet ([ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)).[1] The WIP branch is available at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
+The Mumble project has not been migrated to CMake yet (task and progress is tracked in [ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)). The work-in-progress branch is at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
 
 ### Configure step
 
