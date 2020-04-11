@@ -18,19 +18,43 @@ We intend to provide workflows for setting up partial environments, for example 
 * [ ] Migrate Mumble to CMake ([mumble#3996](https://github.com/mumble-voip/mumble/issues/3996), WIP branch [cmake](https://github.com/davidebeatrici/mumble/tree/cmake))
 * [x] Migrate ZeroC Ice project version 3.7 to CMake (upstream integration denied, forked to [mumble-voip/zeroc-ice](https://github.com/mumble-voip/ice), upstream upcoming undecided)
 
-## Preparing Mumble dependencies
+## Build environment setup
+
+After the depdenencies have been prepared with vcpkg and CMake you can build the Mumble project with them.
+
+The setup is slightly different between Windows and Linux-based systems.
 
 ### Windows
 
-So far, this has been tested with MSVC which can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads). Make sure to select the C++ build tools (or Development, respectively) and that the "C++ MFC for latest v14[X] build tools" is also checked. vcpkg also requires the English Language pack which is found in the Language packs section of the Visual Studio Installer.
+#### Git
 
-The dependency download and build script requires [Git for Windows](https://git-scm.com/download/win). During installation, make sure the option to set Environment Variables is ticked. It is also suggested to add the Git install directory (i.e. `%ProgramFiles%\Git`) to the User PATH (or System PATH if a multi-user PC) if using cmd or PowerShell to run the script.
+The dependency download and build script requires [Git for Windows](https://git-scm.com/download/win). During installation, make sure the option to set Environment Variables is ticked. It is also suggested to add the Git install directory (i.e. `%ProgramFiles%\Git`) to the User `PATH` (or System `PATH` if a multi-user PC) environment variable if using cmd or PowerShell to run the script.
 
-Click Start, search for Git Bash and run it. cd to the git repository directory and run the following command:
+#### CMake (Windows)
+
+Download and install the current version of [CMake](https://cmake.org/download/).
+
+If you want to use an existing installation make sure you use **version 3.15 or later**.
+
+#### MSVC
+
+MSVC (Microsoft Visual C++) is Microsoft’s C++ compiler toolchain. It can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads).
+
+Make sure to select the **C++ build tools** (or Development, respectively) and "**C++ MFC for latest v14[X] build tools**". vcpkg also requires the **English Language pack** which is found in the Language packs section of the Visual Studio Installer.
+
+#### Preparing build dependencies (Windows)
+
+Click Start, search for Git Bash and run it. Move into this projects directory with the `cd` comman. Run the following command:
 
 `./get-mumble_deps.sh`
 
 ### GNU/Linux and MacOSX
+
+#### CMake (Linux/Mac)
+
+Install CMake via your package manager (yum, apt, etc…). Make sure it is **version 3.15 or later**.
+
+#### Build dependencies
 
 Additional `dev` packages will need to be installed for some components in vcpkg on GNU/Linux:
 
@@ -55,6 +79,8 @@ The following is required for MacOSX:
 
 vcpkg recommends using `gcc` which can be installed using homebrew.
 
+#### Preparing build dependencies (Linux/Mac)
+
 From a terminal cd to the cloned `mumble-releng-experimental` git repository, set execute permission (`chmod u+x get-mumble_deps.sh`), and run the following command:
 
 `./get-mumble_deps.sh`
@@ -63,15 +89,17 @@ This will clone `vcpkg` and install the dependencies in the user's home director
 
 ## Building Mumble
 
-Now that the depdenencies have been prepared with CMake and vcpkg you can build the Mumble project with them.
-
 Mumble (server and client) are built with CMake.
 
-The Mumble project has not been migrated to CMake yet (task and progress is tracked in [ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)). The work-in-progress branch is at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
+We are still in the process of migrating the Mumble project to the CMake build toolset. The main branch has not been migrated yet (task and progress is tracked in [ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)). The work-in-progress branch that can be used and compiled is located at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
 
-### Configure step
+Clone the repository and check out the `cmake` branch.
 
-It is necessary to download at least version 3.15 of [CMake](https://cmake.org/download/), or install version 3.15 via package manager (yum, apt, etc...) if available, in order to use the Mumble CMake project. For best results in command line builds, create a directory called `build` in the `mumble` repository dir and change to that directory before calling `cmake` for the configure step.
+### Command Line
+
+#### Configure step
+
+For best results in command line builds, create a directory called `build` in the `mumble` repository dir and change to that directory before calling `cmake` for the configure step.
 
 In order for the FindIce module to work properly, `Ice_HOME` must be defined when running the configure step of CMake for the Mumble sources like so:
 
@@ -100,7 +128,7 @@ To configure the project to build the client and server on Windows from the comm
 cmake -G "NMake Makefiles" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-Dsymbols=ON" "-Djackaudio=OFF" "-Dgrpc=OFF" "-DBUILD_TESTING=OFF"
 ```
 
-### Build step
+#### Build step
 
 Once the project has completed configuration without errors, simply call this command:
 
@@ -114,7 +142,18 @@ It is also possible to just call the build tool directly based on the generator 
 nmake
 ```
 
-## Configure and Build using an IDE with CMake support
+### Visual Studio (IDE)
+
+If you installed the CMake toolset for Visual Studio in the Visual Studio installer you can use CMake within Visual Studio.
+
+* Start Visual Studio
+* Open the project folder (with the open folder option)
+* In the CMake Settings specify the CMake toolchain file
+  This file should be at `%USERPROFILE%/mumble-vcpkg/scripts/buildsystems/vcpkg.cmake` after using `get-mumble_deps.sh`.
+* As a CMake command argument add
+** `-DIce_HOME=%USERPROFILE%/mumble-vcpkg/installed/x64-windows-static-md`
+
+### Other IDEs with CMake support
 
 IDE's such as Qt Creator, Visual Studio and VS Code (Code OSS) are capable of handling the configure and build step as part of the normal operation of the IDE. The options listed above are "Configure Arguments" and would need to be added for the project or workspace settings in the IDE when the source folder is opened as a CMake project.
 
