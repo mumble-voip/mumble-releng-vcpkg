@@ -59,7 +59,8 @@ mumble_deps='qt5-base,
 # Available triplets can be printed with `vcpkg help triplet`
 case "$OSTYPE" in
     msys* ) triplet='x64-windows-static-md'
-        xcompile_triplet='x86-windows-static-md';;
+        xcompile_triplet='x86-windows-static-md'
+    ;;
     linux-gnu* ) triplet='x64-linux';;
     darwin* ) triplet='x64-osx';;
     * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
@@ -77,9 +78,11 @@ if [ -d $VCPKGDIR ]
             then
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
-                            ./vcpkg integrate install;;
+                            ./vcpkg integrate install
+                    ;;
                     * ) bash bootstrap-vcpkg.sh -disableMetrics
-                        ./vcpkg integrate install;;
+                        ./vcpkg integrate install
+                    ;;
                 esac
         fi
 
