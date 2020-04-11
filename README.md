@@ -18,9 +18,9 @@ We intend to provide workflows for setting up partial environments, for example 
 * [ ] Migrate Mumble to CMake ([mumble#3996](https://github.com/mumble-voip/mumble/issues/3996), WIP branch [cmake](https://github.com/davidebeatrici/mumble/tree/cmake))
 * [x] Migrate ZeroC Ice project version 3.7 to CMake (upstream integration denied, forked to [mumble-voip/zeroc-ice](https://github.com/mumble-voip/ice), upstream upcoming undecided)
 
-### Preparing Mumble dependencies
+## Preparing Mumble dependencies
 
-#### Windows
+### Windows
 
 So far, this has been tested with MSVC which can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads). Make sure to select the C++ build tools (or Development, respectively) and that the "C++ MFC for latest v14[X] build tools" is also checked. vcpkg also requires the English Language pack which is found in the Language packs section of the Visual Studio Installer.
 
@@ -30,7 +30,7 @@ Click Start, search for Git Bash and run it. cd to the git repository directory 
 
 `./get-mumble_deps.sh`
 
-#### GNU/Linux and MacOSX
+### GNU/Linux and MacOSX
 
 Additional `dev` packages will need to be installed for some components in vcpkg on GNU/Linux:
 
