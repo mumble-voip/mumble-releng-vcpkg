@@ -144,7 +144,7 @@ nmake
 
 ### Visual Studio (IDE)
 
-If you installed the CMake toolset for Visual Studio in the Visual Studio installer you can use CMake within Visual Studio.
+[Visual Studio supports CMake projects](https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=vs-2019) when you install the *C++ CMake tools for Windows* in the Visual Studio Installer.
 
 * Start Visual Studio
 * Open the project folder (with the open folder option)
