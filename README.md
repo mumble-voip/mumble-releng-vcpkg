@@ -44,7 +44,7 @@ Make sure to select the **C++ build tools** (or Development, respectively) and "
 
 #### Preparing build dependencies (Windows)
 
-Click Start, search for Git Bash and run it. Move into this projects directory with the `cd` comman. Run the following command:
+Click Start, search for Git Bash and run it. Move into this projects directory with the `cd` command. Run the following command:
 
 `./get-mumble_deps.sh`
 
@@ -121,6 +121,7 @@ Additional Mumble project build configuration can be passed with `-D` defines. S
 * `-Dgrpc=[ON | OFF]` - Build with gRPC
 * `-Dice=[ON | OFF]` - Build with Ice
 * `-Djackaudio=[ON | OFF]` - Build with jack
+* `-Dinstaller=[ON | OFF]` - Build installer
 
 To configure the project to build the client and server on Windows from the command line you could do the following from a x64 Native Developer Command Prompt:
 
@@ -140,6 +141,14 @@ It is also possible to just call the build tool directly based on the generator 
 
 ```
 nmake
+```
+
+#### Create an installer
+
+Currently, the installer creation has been tested on Windows. To create a simple installer run the following command from the build directory:
+
+```
+cpack -C Release
 ```
 
 ### Visual Studio (IDE)
