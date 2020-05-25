@@ -68,13 +68,15 @@ esac
 
 if [ ! -d "$VCPKGDIR" ] 
     then 
-        git clone https://github.com/mumble-voip/vcpkg.git "$VCPKGDIR"
+        git clone https://github.com/Microsoft/vcpkg.git $VCPKGDIR
 fi
 
 if [ -d "$VCPKGDIR" ] 
     then
-        cd "$VCPKGDIR"
-        if [ ! -x "$VCPKGDIR"/vcpkg ]
+        cp add-zeroc_ice-port.patch $VCPKGDIR
+        cd $VCPKGDIR
+        git am --signoff < add-zeroc_ice-port.patch
+        if [ ! -x $VCPKGDIR/vcpkg ]
             then
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
