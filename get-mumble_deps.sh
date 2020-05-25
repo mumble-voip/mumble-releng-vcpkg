@@ -66,15 +66,15 @@ case "$OSTYPE" in
     * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
 
-if [ ! -d $VCPKGDIR ] 
+if [ ! -d "$VCPKGDIR" ] 
     then 
-        git clone https://github.com/mumble-voip/vcpkg.git $VCPKGDIR
+        git clone https://github.com/mumble-voip/vcpkg.git "$VCPKGDIR"
 fi
 
-if [ -d $VCPKGDIR ] 
+if [ -d "$VCPKGDIR" ] 
     then
-        cd $VCPKGDIR
-        if [ ! -x $VCPKGDIR/vcpkg ]
+        cd "$VCPKGDIR"
+        if [ ! -x "$VCPKGDIR"/vcpkg ]
             then
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
