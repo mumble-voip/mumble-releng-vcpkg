@@ -96,16 +96,7 @@ if [ -d "$VCPKGDIR" ]
                 then
                     # install dns-sd provider
                     ./vcpkg install mdnsresponder icu --triplet $triplet 
-                    boost_xcompile='boost-accumulators, 
-                        boost-atomic, 
-                        boost-function, 
-                        boost-optional, 
-                        boost-system, 
-                        boost-thread'
-                    for dep in ${boost_xcompile//,/ }
-                    do
-                        ./vcpkg install $dep:$xcompile_triplet --clean-after-build
-                    done
+                    ./vcpkg install boost-optional:$xcompile_triplet --clean-after-build
             fi
             for dep in ${mumble_deps//,/ }
             do
