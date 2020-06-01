@@ -1,6 +1,4 @@
-﻿# mumble-releng-experimental
-
-WARNING: This is Experimental and is not ready for use yet. Initial development is on-going.
+﻿# mumble-releng-vcpkg
 
 The goal of this project is to prepare a compilation environment for Mumble.
 
