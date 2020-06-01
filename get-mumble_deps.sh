@@ -35,24 +35,24 @@ set -o pipefail
 
 VCPKGDIR=~/mumble-vcpkg
 
-mumble_deps='qt5-base, 
-            qt5-svg, 
-            qt5-tools, 
-            grpc, 
-            boost-accumulators, 
-            boost-atomic, 
-            boost-function, 
-            boost-optional, 
-            boost-system, 
-            boost-thread, 
+mumble_deps='qt5-base,
+            qt5-svg,
+            qt5-tools,
+            grpc,
+            boost-accumulators,
+            boost-atomic,
+            boost-function,
+            boost-optional,
+            boost-system,
+            boost-thread,
             opus,
             poco,
-            libvorbis, 
-            libogg, 
-            libflac, 
-            sndfile, 
+            libvorbis,
+            libogg,
+            libflac,
+            sndfile,
             libmariadb,
-            zlib, 
+            zlib,
             zeroc-ice'
 
 # Determine vcpkg triplet from OS https://github.com/Microsoft/vcpkg/blob/master/docs/users/triplets.md
@@ -66,12 +66,12 @@ case "$OSTYPE" in
     * ) echo "The OSTYPE is either not defined or unsupported. Aborting...";;
 esac
 
-if [ ! -d "$VCPKGDIR" ] 
+if [ ! -d "$VCPKGDIR" ]
     then 
         git clone https://github.com/Microsoft/vcpkg.git $VCPKGDIR
 fi
 
-if [ -d "$VCPKGDIR" ] 
+if [ -d "$VCPKGDIR" ]
     then
         cp add-zeroc_ice-port.patch $VCPKGDIR
         cd $VCPKGDIR
@@ -92,10 +92,10 @@ if [ -d "$VCPKGDIR" ]
             then
             echo "Triplet type is not defined! Aborting..."
         else
-            if [ $OSTYPE == msys ] 
+            if [ $OSTYPE == msys ]
                 then
                     # install dns-sd provider
-                    ./vcpkg install mdnsresponder icu --triplet $triplet 
+                    ./vcpkg install mdnsresponder icu --triplet $triplet
                     ./vcpkg install boost-optional:$xcompile_triplet --clean-after-build
             fi
             for dep in ${mumble_deps//,/ }
