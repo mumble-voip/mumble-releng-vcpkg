@@ -40,11 +40,6 @@ mumble_deps='qt5-base,
             qt5-tools,
             grpc,
             boost-accumulators,
-            boost-atomic,
-            boost-function,
-            boost-optional,
-            boost-system,
-            boost-thread,
             opus,
             poco,
             libvorbis,
@@ -73,9 +68,10 @@ fi
 
 if [ -d "$VCPKGDIR" ]
     then
-        cp add-zeroc_ice-port.patch $VCPKGDIR
+        # copy ZeroC Ice port files
+        cp -R helpers/vcpkg/ports/zeroc-ice $VCPKGDIR/ports
         cd $VCPKGDIR
-        git am --signoff < add-zeroc_ice-port.patch
+
         if [ ! -x $VCPKGDIR/vcpkg ]
             then
                 case "$OSTYPE" in
