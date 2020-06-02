@@ -1,15 +1,9 @@
 vcpkg_from_github(
 	OUT_SOURCE_PATH SOURCE_PATH
-	REPO ZeroAbility/ice
-	REF 75b8b33b2e9908fb2701a84cdb3f9e4d56b448f0
-	SHA512 c04392a06ec3e932ff4911c5d64ded9574365355dbb9984fe8f6ea05c0c3f6a9e8c8b430cbcb0ddeb55cd80800ccf3b0ea1ec2be17a4833c67788d4652061b8a
+	REPO mumble-voip/ice
+	REF 3.7
+	SHA512 12cebb53ad1a9271e7db8c12df5f2db9f8cbaec97b562596c4c592bd2449177b6927156100166b432b7e27b13f0d202155748691fd1e848eb6db815f16bcc57f
 )
-
-# # sideload cmake requirements for C++, hopefully to be removed pending PR to zeroc
-# file(COPY ${CMAKE_CURRENT_LIST_DIR}/cmake DESTINATION ${SOURCE_PATH})
-# file(COPY ${CMAKE_CURRENT_LIST_DIR}/cpp DESTINATION ${SOURCE_PATH})
-# file(COPY ${CMAKE_CURRENT_LIST_DIR}/icebuilder DESTINATION ${SOURCE_PATH})
-# file(COPY ${CMAKE_CURRENT_LIST_DIR}/CMakeLists.txt DESTINATION ${SOURCE_PATH})
 
 if("cpp11" IN_LIST FEATURES)
 	vcpkg_configure_cmake(
