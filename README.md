@@ -119,7 +119,7 @@ Additional Mumble project build configuration can be passed with `-D` defines. S
 * `-Dgrpc=[ON | OFF]` - Build with gRPC
 * `-Dice=[ON | OFF]` - Build with Ice
 * `-Djackaudio=[ON | OFF]` - Build with jack
-* `-Dinstaller=[ON | OFF]` - Build installer
+* `-Dpackaging=[ON | OFF]` - Build installer
 
 To configure the project to build the client and server on Windows from the command line you could do the following from a x64 Native Developer Command Prompt:
 
