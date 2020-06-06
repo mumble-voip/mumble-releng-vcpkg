@@ -157,8 +157,7 @@ cpack -C Release
 * Open the project folder (with the open folder option)
 * In the CMake Settings specify the CMake toolchain file
   This file should be at `%USERPROFILE%/mumble-vcpkg/scripts/buildsystems/vcpkg.cmake` after using `get-mumble_deps.sh`.
-* As a CMake command argument add
-** `-DIce_HOME=%USERPROFILE%/mumble-vcpkg/installed/x64-windows-static-md`
+* As CMake command argument add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md -DIce_HOME=%USERPROFILE%/mumble-vcpkg/installed/x64-windows-static-md`
 
 ### Other IDEs with CMake support
 
