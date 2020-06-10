@@ -96,57 +96,79 @@ Clone the repository and check out the `cmake` branch.
 
 ### Command Line
 
-#### Configure step
+1. Start a command line (On Windows a Developer Command Prompt for VS 2019)
+2. Clone WIP cmake repo <https://github.com/davidebeatrici/mumble.git> (repository [davidebeatrici/mumble](https://github.com/davidebeatrici/mumble/tree/cmake))
+3. Navigate into the folder
+4. Checkout WIP cmake branch `cmake`
+5. Create a directory named `build` and navigate into it (`mkdir build && cd build`)
+6. Run the cmake generator with relative target path `..`
+7. Run the cmake build with relative target path `..`
 
-For best results in command line builds, create a directory called `build` in the `mumble` repository dir and change to that directory before calling `cmake` for the configure step.
+CMake will generate a bunch of files so you should call it from a dedicated, empty directory. Typically one folder per build configuration type is used (debug vs release, static, build configuration options etc). In the list above we suggest `build`.
 
-In order for the FindIce module to work properly, `Ice_HOME` must be defined when running the configure step of CMake for the Mumble sources like so:
+#### CMake Generator
 
-```
-cmake -G <preferred_generator> "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md"
-```
+Important configuration options
 
-The other settings `CMAKE_TOOLCHAIN_FILE` and `VCPKG_TARGET_TRIPLET` are necessary to tell the build system where to look for the downloaded dependencies. `<vcpkg_root>` specifies where the repository was installed to.
+| Option | Value | Description |
+| --- | --- | --- |
+| `VCPKG_TARGET_TRIPLET` | `x64-windows-static-md` or `x64-linux` or `x64-osx` | The vcpkg triplet of your build and built dependencies |
+| `CMAKE_TOOLCHAIN_FILE` | `<vcpkg_root>/scripts/buildsystems/vcpkg.cmake` | |
+| `Ice_HOME` | `<vcpkg_root>/installed/x64-windows-static-md` | Required if you build with Ice (enabled by default) |
+| `static` | `ON` on Windows | Whether the build is a static build (otherwise dynamic) (environment default on Windows) |
 
-Additional Mumble project build configuration can be passed with `-D` defines. See the respective CMakeLists.txt files of the projects. For example:
+If `<vcpkg_root>` is a placeholder for your prepared build environment vcpkg setup, then
 
-* `-DBUILD_TESTING=[ON | OFF]` - Build tests
-* `-DCMAKE_BUILD_TYPE=[Debug | Release]` - Specify the build type multi-config (msbuild, etc...)
-* `-Dclient=[ON | OFF]` - Build the client
-* `-Dserver=[ON | OFF]` - Build the server
-* `-Doverlay=[ON | OFF]` - Build the overlay
-* `-Dstatic=[ON | OFF]` - Build as static
-* `-Dsymbols=[ON | OFF]` - Build symbols
-* `-Dgrpc=[ON | OFF]` - Build with gRPC
-* `-Dice=[ON | OFF]` - Build with Ice
-* `-Djackaudio=[ON | OFF]` - Build with jack
-* `-Dpackaging=[ON | OFF]` - Build installer
+for Linux the command may be
 
-To configure the project to build the client and server on Windows from the command line you could do the following from a x64 Native Developer Command Prompt:
-
-```
-cmake -G "NMake Makefiles" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-Dsymbols=ON" "-Djackaudio=OFF" "-Dgrpc=OFF" "-DBUILD_TESTING=OFF"
+```bash
+cmake -G "Ninja" "-DVCPKG_TARGET_TRIPLET=x64-linux" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
 ```
 
-#### Build step
+for Windows the command may be
 
-Once the project has completed configuration without errors, simply call this command:
-
-```
-cmake --build .
+```bash
+cmake -G "Ninja" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
 ```
 
-It is also possible to just call the build tool directly based on the generator that was used. Given the above configure step, you could just call:
+Additional Mumble project build configuration can be passed with `-D` defines. For the full list see the respective `CMakeLists.txt` files of the projects and subprojects. Some of the options include:
 
+| Option Define                          | Default | Description |
+| --- | --- | --- |
+| `-DCMAKE_BUILD_TYPE=[Debug | Release]` | Release | Specify the build type multi-config (msbuild, etc...) |
+| `-Dstatic=[ON | OFF]`                  | OFF | static linking of libraries (integrate) |
+| `-Dsymbols=[ON | OFF]`                 | OFF | Build symbols |
+| `-Dclient=[ON | OFF]`                  | ON | Build the client application |
+| `-Dserver=[ON | OFF]`                  | ON | Build the server application |
+| `-DBUILD_TESTING=[ON | OFF]`           | OFF | Build tests |
+| `-Dpackaging=[ON | OFF]`               | OFF | Build installer |
+| `-Doverlay=[ON | OFF]`                 | ON | Build the overlay feature |
+| `-Dice=[ON | OFF]`                     | ON | Build with Ice feature |
+| `-Dgrpc=[ON | OFF]`                    | OFF | Build with gRPC feature (experimental) |
+| `-Djackaudio=[ON | OFF]`               | OFF | Build with jack feature |
+| `-Dplugins=[ON | OFF]`                 | ON | Build positional audio plugins |
+
+To build only the server you could use
+
+```bash
+cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-Dsymbols=ON" "-Dclient=OFF"
 ```
-nmake
+
+#### CMake Build
+
+Once the project has completed configuration without errors, you can build it with
+
+```bash
+cmake --build ..
 ```
+
+Depending on the generator you used you can also use the generated make files (e.g. by calling `nmake` or `ninja` or `msbuild`).
 
 #### Create an installer
 
 Currently, the installer creation has been tested on Windows. To create a simple installer run the following command from the build directory:
 
-```
+```bash
 cpack -C Release
 ```
 
@@ -156,9 +178,14 @@ cpack -C Release
 
 * Start Visual Studio
 * Open the project folder (with the open folder option)
-* In the CMake Settings specify the CMake toolchain file
+* In the CMake configuration settings specify the CMake toolchain file
   This file should be at `%USERPROFILE%/mumble-vcpkg/scripts/buildsystems/vcpkg.cmake` after using `get-mumble_deps.sh`.
-* As CMake command argument add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md -DIce_HOME=%USERPROFILE%/mumble-vcpkg/installed/x64-windows-static-md`
+* As CMake command argument add `-DVCPKG_TARGET_TRIPLET=x64-windows-static-md -Dstatic=ON -DIce_HOME=%USERPROFILE%/mumble-vcpkg/installed/x64-windows-static-md`
+* Save and CMake should generate the build files, which will take a bit of time
+* Use the build all action to build the project
+* On success the built binaries will be placed in `out\build\<configuration-name>\`
+
+Note: Visual Studio may wrongfully identify the error `The system was unable to find the specified registry key or value.` despite the build succeeding. This is due to a VS script that outputs `ERROR` as text early on in the build process. The queried registry key is not required for the build to succeed. Check the text Output or for other errors instead and **ignore this specific error**.
 
 ### Other IDEs with CMake support
 
