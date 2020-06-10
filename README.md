@@ -15,6 +15,7 @@ We intend to provide workflows for setting up partial environments, for example 
 * [x] Initial script get-mumble_deps.sh
 * [ ] Migrate Mumble to CMake ([mumble#3996](https://github.com/mumble-voip/mumble/issues/3996), WIP branch [cmake](https://github.com/davidebeatrici/mumble/tree/cmake))
 * [x] Migrate ZeroC Ice project version 3.7 to CMake (upstream integration denied, forked to [mumble-voip/zeroc-ice](https://github.com/mumble-voip/ice), upstream upcoming undecided)
+* [x] Provide pre-built Windows environment as package
 
 ## Build environment setup
 
