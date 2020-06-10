@@ -18,7 +18,7 @@ We intend to provide workflows for setting up partial environments, for example 
 
 ## Build environment setup
 
-After the depdenencies have been prepared with vcpkg and CMake you can build the Mumble project with them.
+After the dependencies have been prepared with vcpkg and CMake you can build the Mumble project with them.
 
 The setup is slightly different between Windows and Linux-based systems.
 
