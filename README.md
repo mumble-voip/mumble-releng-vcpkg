@@ -25,15 +25,17 @@ The setup is slightly different between Windows and Linux-based systems.
 
 ### Windows
 
+You will need Git, Git Bash, CMake and MSVC.
+
+If you want to create an installer you will also need the [WiX Toolset](https://wixtoolset.org/).
+
 #### Git
 
 The dependency download and build script requires [Git for Windows](https://git-scm.com/download/win). During installation, make sure the option to set Environment Variables is ticked. It is also suggested to add the Git install directory (i.e. `%ProgramFiles%\Git`) to the User `PATH` (or System `PATH` if a multi-user PC) environment variable if using cmd or PowerShell to run the script.
 
 #### CMake (Windows)
 
-Download and install the current version of [CMake](https://cmake.org/download/).
-
-If you want to use an existing installation make sure you use **version 3.15 or later**.
+Download and install the current version of [CMake](https://cmake.org/download/). If you want to use an existing installation of CMake make sure you use **version 3.15 or later**.
 
 #### MSVC
 
@@ -166,11 +168,13 @@ Depending on the generator you used you can also use the generated make files (e
 
 #### Create an installer
 
-Currently, the installer creation has been tested on Windows. To create a simple installer run the following command from the build directory:
+Currently, the installer creation has been tested on Windows.
 
-```bash
-cpack -C Release
-```
+An installer can be created after CMake-generating with `-Dpackaging=ON` and building.
+
+To create a single-language installer (default English) run `cpack -C Release`.
+
+To create a multi-language installer run the script `scripts/Create-Win32InstallerMUI.ps1`.
 
 ### Visual Studio (IDE)
 
