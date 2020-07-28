@@ -33,12 +33,19 @@ file(INSTALL ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/include
 )
 
 if(EXISTS ${CURRENT_PACKAGES_DIR}/bin)
-	file(INSTALL ${CURRENT_PACKAGES_DIR}/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tools/Ice)
+    file(INSTALL ${CURRENT_PACKAGES_DIR}/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tools/Ice)
 endif()
 
 file(INSTALL ${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/icebuilder/bin/ DESTINATION ${CURRENT_PACKAGES_DIR}/tools/Ice)
 
 vcpkg_copy_tool_dependencies(${CURRENT_PACKAGES_DIR}/tools/Ice)
+
+if(UNIX)
+    vcpkg_execute_required_process(COMMAND chmod -R +x Ice
+        WORKING_DIRECTORY ${CURRENT_PACKAGES_DIR}/tools
+        LOGNAME ice-${TARGET_TRIPLET}-setexe
+    )
+endif()
 
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/bin ${CURRENT_PACKAGES_DIR}/debug/bin)
 
