@@ -82,7 +82,7 @@ vcpkg recommends using `gcc` which can be installed using homebrew.
 
 #### Preparing build dependencies (Linux/Mac)
 
-From a terminal cd to the cloned `mumble-releng-experimental` git repository, set execute permission (`chmod u+x get-mumble_deps.sh`), and run the following command:
+From a terminal cd to the cloned `mumble-releng-vcpkg` git repository, set execute permission (`chmod u+x get-mumble_deps.sh`), and run the following command:
 
 `./get-mumble_deps.sh`
 
