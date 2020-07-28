@@ -137,18 +137,18 @@ Additional Mumble project build configuration can be passed with `-D` defines. F
 
 | Option Define                          | Default | Description |
 | --- | --- | --- |
-| `-DCMAKE_BUILD_TYPE=[Debug | Release]` | Release | Specify the build type multi-config (msbuild, etc...) |
-| `-Dstatic=[ON | OFF]`                  | OFF | static linking of libraries (integrate) |
-| `-Dsymbols=[ON | OFF]`                 | OFF | Build symbols |
-| `-Dclient=[ON | OFF]`                  | ON | Build the client application |
-| `-Dserver=[ON | OFF]`                  | ON | Build the server application |
-| `-DBUILD_TESTING=[ON | OFF]`           | OFF | Build tests |
-| `-Dpackaging=[ON | OFF]`               | OFF | Build installer |
-| `-Doverlay=[ON | OFF]`                 | ON | Build the overlay feature |
-| `-Dice=[ON | OFF]`                     | ON | Build with Ice feature |
-| `-Dgrpc=[ON | OFF]`                    | OFF | Build with gRPC feature (experimental) |
-| `-Djackaudio=[ON | OFF]`               | OFF | Build with jack feature |
-| `-Dplugins=[ON | OFF]`                 | ON | Build positional audio plugins |
+| `-DCMAKE_BUILD_TYPE=` | Release | Specify the build type multi-config (msbuild, etc...) |
+| `-Dstatic=`                  | OFF | static linking of libraries (integrate) |
+| `-Dsymbols=`                 | OFF | Build symbols |
+| `-Dclient=`                  | ON | Build the client application |
+| `-Dserver=`                  | ON | Build the server application |
+| `-DBUILD_TESTING=`           | OFF | Build tests |
+| `-Dpackaging=`               | OFF | Build installer |
+| `-Doverlay=`                 | ON | Build the overlay feature |
+| `-Dice=`                     | ON | Build with Ice feature |
+| `-Dgrpc=`                    | OFF | Build with gRPC feature (experimental) |
+| `-Djackaudio=`               | OFF | Build with jack feature |
+| `-Dplugins=`                 | ON | Build positional audio plugins |
 
 To build only the server you could use
 
