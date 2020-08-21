@@ -2,13 +2,13 @@
 
 The goal of this project is to prepare a compilation environment for Mumble.
 
-Some dependencies are required for this tool to work.
+Some dependencies are required for this tool to work. The dependencies are delivered using `vcpkg` for Windows, MacOS, and Linux and the source and its requirements are found [here](https://github.com/Microsoft/vcpkg).
 
 The Mumble project dependencies (libraries being used) will for the most part be prepared (downloaded and compiled) by this tool.
 
 We intend to provide workflows for setting up partial environments, for example to only compile the Mumble server software without the client, or with specific functionality not included.
 
-`get-mumble_deps.sh` is currently a "proof of concept" designed to deliver vcpkg as a dependency framework for Mumble (client and server) and is likely to change. The long term goal is to automate dependency gathering for the client and server. As written, it should be capable of working on 64 bit Windows, GNU/Linux, and MacOSX. The vcpkg source and its requirements are found [here](https://github.com/Microsoft/vcpkg).
+The vcpkg source and its requirements are found [here](https://github.com/Microsoft/vcpkg).
 
 ## Roadmap
 
