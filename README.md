@@ -95,11 +95,7 @@ This will clone `vcpkg` and install the dependencies in the user's home director
 
 ## Building Mumble
 
-Mumble (server and client) are built with CMake.
-
-We are still in the process of migrating the Mumble project to the CMake build toolset. The main branch has not been migrated yet (task and progress is tracked in [ticket #3996](https://github.com/mumble-voip/mumble/issues/3996)). The work-in-progress branch that can be used and compiled is located at [github.com/davidebeatrici/mumble/tree/cmake](https://github.com/davidebeatrici/mumble/tree/cmake).
-
-Clone the repository and check out the `cmake` branch.
+Mumble (server and client) are built with CMake since version 1.4.0.
 
 ### Command Line
 
