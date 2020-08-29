@@ -46,6 +46,10 @@ Make sure to select the **C++ build tools** (or Development, respectively) and "
 
 #### Preparing build dependencies (Windows)
 
+Open a Powershell window as a regular user and issue the following command:
+
+`Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
+
 Move into this projects directory with the `cd` command. Run the following command:
 
 `./Get-MumbleDeps.ps1`
