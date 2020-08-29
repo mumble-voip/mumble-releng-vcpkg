@@ -16,7 +16,7 @@ The vcpkg source and its requirements are found [here](https://github.com/Micros
 * [x] Migrate Mumble to CMake ([mumble#3996](https://github.com/mumble-voip/mumble/issues/3996), WIP branch [cmake](https://github.com/davidebeatrici/mumble/tree/cmake))
 * [x] Migrate ZeroC Ice project version 3.7 to CMake (upstream integration denied, forked to [mumble-voip/zeroc-ice](https://github.com/mumble-voip/ice), upstream upcoming undecided)
 * [x] Provide pre-built Windows environment as package
-* [ ] Create batch script for Windows
+* [x] Create script for Windows
 
 ## Build environment setup
 
@@ -46,9 +46,9 @@ Make sure to select the **C++ build tools** (or Development, respectively) and "
 
 #### Preparing build dependencies (Windows)
 
-Click Start, search for Git Bash and run it. Move into this projects directory with the `cd` command. Run the following command:
+Move into this projects directory with the `cd` command. Run the following command:
 
-`./get-mumble_deps.sh`
+`./Get-MumbleDeps.ps1`
 
 ### GNU/Linux and MacOSX
 
