@@ -21,7 +21,7 @@ function vcpkg_install {
 	Param(
 		[string] $package,
 		[string] $targetTriplet,
-		[switch] $cleanAfterBuil = $false
+		[switch] $cleanAfterBuild = $false
 	)
 	
 	if ($cleanAfterBuild) {
@@ -82,8 +82,6 @@ try {
 			
 			vcpkg_install -package $dep -targetTriplet $triplet -cleanAfterBuild
 		}
-		
-		cd $currentDir
 	}
 } catch {
 	# rethrow
