@@ -16,6 +16,8 @@ After the dependencies have been prepared with vcpkg and CMake you can build the
 
 The setup is slightly different between Windows and Linux-based systems.
 
+Note that the entire build environment will require about 15-20GB of disk space. Moving the vcpkg-directory after it has been created and populated can also cause issue due to paths no longer being correct.
+
 ### Windows
 
 You will need Git, CMake and MSVC.
