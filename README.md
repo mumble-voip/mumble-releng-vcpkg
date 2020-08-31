@@ -18,7 +18,7 @@ The setup is slightly different between Windows and Linux-based systems.
 
 ### Windows
 
-You will need Git, Git Bash, CMake and MSVC.
+You will need Git, CMake and MSVC.
 
 If you want to create an installer you will also need the [WiX Toolset](https://wixtoolset.org/).
 
@@ -32,9 +32,9 @@ Download and install the current version of [CMake](https://cmake.org/download/)
 
 #### MSVC
 
-MSVC (Microsoft Visual C++) is Microsoft’s C++ compiler toolchain. It can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads).
+MSVC (Microsoft Visual C++) is Microsoft’s C++ compiler toolchain. It can be installed from Visual Studio Build Tools, or Visual Studio Community. Either can be downloaded [here](https://visualstudio.microsoft.com/downloads) (Any somewhat recent version should work).
 
-Make sure to select the **C++ build tools** (or Development, respectively) and "**C++ MFC for latest v14[X] build tools**". vcpkg also requires the **English Language pack** which is found in the Language packs section of the Visual Studio Installer.
+Make sure to select the **C++ build tools** (or Development, respectively) and "**C++ MFC for latest v14[X] build tools**" (just pick the latest version - e.g.`v142`). vcpkg also requires the **English Language pack** which is found in the Language packs section of the Visual Studio Installer.
 
 #### Preparing build dependencies (Windows)
 
@@ -46,11 +46,15 @@ Move into this projects directory with the `cd` command. Run the following comma
 
 `./Get-MumbleDeps.ps1`
 
+By default this will create a vcpkg directory in you user's directory (`C:\Users\<YourUserName>\mumble-vcpkg`). If you want this directory to be somewhere else, you have to modify `Get-MumbleDeps.ps1` and change the first lines accordingly.
+
 ### GNU/Linux and MacOSX
 
 #### CMake (Linux/Mac)
 
 Install CMake via your package manager (yum, apt, etc…). Make sure it is **version 3.15 or later**.
+
+If your package manager doesn't provide a recent enough cmake version and you're on Ubuntu (or any of its derivatives, e.g. Linux Mint, Kubuntu, etc.) you can install cmake via a PPA. To do so, follow the instructions [here](https://apt.kitware.com/).
 
 #### Build dependencies
 
@@ -83,7 +87,7 @@ From a terminal cd to the cloned `mumble-releng-vcpkg` git repository, set execu
 
 `./get-mumble_deps.sh`
 
-This will clone `vcpkg` and install the dependencies in the user's home directory. For Windows builds, if the vcpkg needs to be cloned elsewhere, make sure the path will allow for the maximum character limit for file paths in pre Windows 10 systems.
+This will clone `vcpkg` and install the dependencies in the user's home directory. If you want to change the path, you ahve to edit `get-mumble_deps.sh` accordingly.
 
 ## Building Mumble
 
@@ -91,15 +95,22 @@ Mumble (server and client) are built with CMake since version 1.4.0.
 
 ### Command Line
 
-1. Start a command line (On Windows a Developer Command Prompt for VS 2019)
-2. Clone WIP cmake repo <https://github.com/davidebeatrici/mumble.git> (repository [davidebeatrici/mumble](https://github.com/davidebeatrici/mumble/tree/cmake))
+1. Start a command line (on Windows see caveats listed below)
+2. Clone the Mumble repo <https://github.com/mumble-voip/mumble.git>
 3. Navigate into the folder
-4. Checkout WIP cmake branch `cmake`
 5. Create a directory named `build` and navigate into it (`mkdir build && cd build`)
-6. Run the cmake generator with relative target path `..`
-7. Run the cmake build with relative target path `..`
+6. Run the cmake generator with relative target path `..` (more on that further down)
+7. Run the cmake in build-mode: `cmake --build .` or invoke your buildsystem of choice directly (e.g. `make -j $(nproc)`)
 
-CMake will generate a bunch of files so you should call it from a dedicated, empty directory. Typically one folder per build configuration type is used (debug vs release, static, build configuration options etc). In the list above we suggest `build`.
+CMake will generate a bunch of files so you should call it from a dedicated, empty directory ("out-of-source build"). Typically one folder per build configuration type is used (debug vs release, static, build configuration options etc). In the list above we suggest `build`.
+
+#### Windows caveats
+
+On Windows you can't use the default command-prompt (as is) as it won't have the needed development tools in its PATH. Instead you have to use On Windows a "Developer Command Prompt". You can find it by searching in the start-menu. If you are on a 64bit system, then special care must be taken that you use a "x64" version of the Developer Prompt (often these are then called "x64 Native Tools Command Prompt"). The easiest way to get a hold of the correct command prompt is to search for "x64" and usually that is enough to bring the x64 developer prompt up.
+
+Note also that you **have** to sue the command prompt and **not** the Developer Powershell as the latter is always 32bit only.
+
+If you are on a 64bit system, then you'll know that you have opened the correct prompt, if it prints `Environment initialized for: 'x64'`.
 
 #### CMake Generator
 
@@ -112,25 +123,27 @@ Important configuration options
 | `Ice_HOME` | `<vcpkg_root>/installed/x64-windows-static-md` | Required if you build with Ice (enabled by default) |
 | `static` | `ON` on Windows | Whether the build is a static build (otherwise dynamic) (environment default on Windows) |
 
-If `<vcpkg_root>` is a placeholder for your prepared build environment vcpkg setup, then
+`<vcpkg_root>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the ge-dependency script).
 
-for Linux the command may be
-
-```bash
-cmake -G "Ninja" "-DVCPKG_TARGET_TRIPLET=x64-linux" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
-```
-
-for Windows the command may be
+For Linux the command may be (using the default generator `make`)
 
 ```bash
-cmake -G "Ninja" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
+cmake "-DVCPKG_TARGET_TRIPLET=x64-linux" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-linux" ..
 ```
 
-Additional Mumble project build configuration can be passed with `-D` defines. For the full list see the respective `CMakeLists.txt` files of the projects and subprojects. Some of the options include:
+For Windows the command may be
+
+```bash
+cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
+```
+
+Optionally you can use `-G "Ninja"` to use the [Ninja buildsystem](https://ninja-build.org/) (which probably has to be installed separately). Especially on Windows this is recommended as the default `NMake Makefiles` only compile using a single thread (which takes quite a while).
+
+Additional Mumble project build configuration can be passed with `-D` defines. For the full list see the ouotput of `cmake -LH ..` (this also includes a lot of options from Mumble's dependencies like Qt and Opus) or use `cmake-gui`.
 
 | Option Define                          | Default | Description |
 | --- | --- | --- |
-| `-DCMAKE_BUILD_TYPE=` | Release | Specify the build type multi-config (msbuild, etc...) |
+| `-DCMAKE_BUILD_TYPE=`        | Release | Specify the build type multi-config (msbuild, etc...) |
 | `-Dstatic=`                  | OFF | static linking of libraries (integrate) |
 | `-Dsymbols=`                 | OFF | Build symbols |
 | `-Dclient=`                  | ON | Build the client application |
@@ -142,6 +155,7 @@ Additional Mumble project build configuration can be passed with `-D` defines. F
 | `-Dgrpc=`                    | OFF | Build with gRPC feature (experimental) |
 | `-Djackaudio=`               | OFF | Build with jack feature |
 | `-Dplugins=`                 | ON | Build positional audio plugins |
+| `-Ddebug-dependency-search=` | OFF | Print extended information during the dependency search. Useful if some dependencies can't be found |
 
 To build only the server you could use
 
@@ -151,13 +165,13 @@ cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dsta
 
 #### CMake Build
 
-Once the project has completed configuration without errors, you can build it with
+Once the project has completed configuration without errors, you can build it from the `build` directory with
 
 ```bash
-cmake --build ..
+cmake --build .
 ```
 
-Depending on the generator you used you can also use the generated make files (e.g. by calling `nmake` or `ninja` or `msbuild`).
+Depending on the generator you used you can also use the generated make files (e.g. by calling `nmake`, `make`, `ninja` or `msbuild`).
 
 #### Create an installer
 
@@ -198,4 +212,19 @@ We use CMake as our build system and to include the dependencies. vcpkg uses and
 
 ZeroC Ice 3.7 is not a CMake project. We implemented it as a CMake project so we can integrate it in our CMake project. However, ZeroC does not want to integrate it into upstream 3.7. They are still undecided if they want to use CMake for future versions or a different build system.
 
-As a result we have to [fork the zeroc-ice project](https://github.com/mumble-voip/ice) to integrate our CMake project of it. We also [fork vcpkg](https://github.com/mumble-voip/vcpkg) to integrate this zeroc-ice fork with vcpkg.
+As a result we have to [fork the zeroc-ice project](https://github.com/mumble-voip/ice) to integrate our CMake project of it.
+
+
+## Troubleshooting
+
+### sndfile not found
+
+This is an error that is often encountered on 64bit Windows systems. The problem is usually that you have used the wrong developer command prompt and therefore cmake is trying to build a 32bit version of Mumble. As the `./Get-MumbleDeps.ps1` script automatically detects your system's architecture and only builds the 64bit version of the libraries (including `sndfile`). cmake then tries to locate a 32bit version of the library and fails.
+
+The solution is to use a x64 developer command prompt. You can see what kind of build cmake is performing at the top of the cmake output. For 64 bit it should say `Architecture: 64bit (x64)`.
+
+NOTE: If you initially have run cmake from the wrong prompt (32bit), then you'll have to delete all files in your `build` directory before running cmake again from the new prompt. Otherwise cmake will not check the architecture again and proceed with the cached 32bit variant.
+
+### CMake can't find library
+
+If cmake doesn't find a library and you don't really know why this might be, you can use `-Ddebug-dependency-search=ON` when running cmake in order to get a lot of debug information regarding the search for the needed dependencies. Chances are that this will shed some light on the topic.
