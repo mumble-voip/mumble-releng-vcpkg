@@ -230,3 +230,22 @@ NOTE: If you initially have run cmake from the wrong prompt (32bit), then you'll
 ### CMake can't find library
 
 If cmake doesn't find a library and you don't really know why this might be, you can use `-Ddebug-dependency-search=ON` when running cmake in order to get a lot of debug information regarding the search for the needed dependencies. Chances are that this will shed some light on the topic.
+
+### Unable to download from https://repo.msys2.org
+
+This can happen if you're using a system that doesn't support TLS 1.3 (which https://repo.msys2.org requires) such as Windows 7. In this case the only possible workaround is either to download the respective files manually using a brower that does support TLS 1.3 (e.g. Firefox) or to replace all occurences of `https://repo.msys2.org` in the vcpkg dir with `http://repo.msys2.org` and thereby forxing vcpkg to use the HTTP mirror instead. Note though that this is inherently unsafer than using HTTPS.
+
+A common error message for this scenario could be
+```
+-- Acquiring MSYS2...
+-- Downloading https://sourceforge.net/projects/msys2/files/Base/x86_64/msys2-base-x86_64-20190524.tar.xz/download...
+-- Downloading https://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz...
+-- Downloading https://repo.msys2.org/msys/x86_64/msys2-keyring-r21.b39fb11-1-any.pkg.tar.xz... Failed. Status: 35;"SSL connect error"
+CMake Error at scripts/cmake/vcpkg_download_distfile.cmake:173 (message):
+
+      Failed to download file.
+      If you use a proxy, please set the HTTPS_PROXY and HTTP_PROXY environment
+      variables to "https://user:password@your-proxy-ip-address:port/".
+      Otherwise, please submit an issue at https://github.com/Microsoft/vcpkg/issue
+```
+Ref: https://github.com/microsoft/vcpkg/issues/13217
