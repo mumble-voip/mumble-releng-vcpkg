@@ -10,14 +10,6 @@ We intend to provide workflows for setting up partial environments, for example 
 
 The vcpkg source and its requirements are found [here](https://github.com/Microsoft/vcpkg).
 
-## Roadmap
-
-* [x] Initial script get-mumble_deps.sh
-* [x] Migrate Mumble to CMake ([mumble#3996](https://github.com/mumble-voip/mumble/issues/3996), WIP branch [cmake](https://github.com/davidebeatrici/mumble/tree/cmake))
-* [x] Migrate ZeroC Ice project version 3.7 to CMake (upstream integration denied, forked to [mumble-voip/zeroc-ice](https://github.com/mumble-voip/ice), upstream upcoming undecided)
-* [x] Provide pre-built Windows environment as package
-* [x] Create script for Windows
-
 ## Build environment setup
 
 After the dependencies have been prepared with vcpkg and CMake you can build the Mumble project with them.
