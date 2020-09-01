@@ -1,19 +1,20 @@
 ﻿$profiledir = $Env:USERPROFILE 
 $vcpkgdir = $profiledir + "\mumble-vcpkg"
+
 $mumble_deps = "qt5-base",
-			   "qt5-svg",
-			   "qt5-tools",
-			   "grpc",
-			   "boost-accumulators",
-			   "opus",
-			   "poco",
-			   "libvorbis",
-			   "libogg",
-			   "libflac",
-			   "libsndfile",
-			   "libmariadb",
-			   "zlib",
-			   "zeroc-ice"
+               "qt5-svg",
+               "qt5-tools",
+               "grpc",
+               "boost-accumulators",
+               "opus",
+               "poco",
+               "libvorbis",
+               "libogg",
+               "libflac",
+               "libsndfile",
+               "libmariadb",
+               "zlib",
+               "zeroc-ice"
 
 $ErrorActionPreference = 'Stop'
 
