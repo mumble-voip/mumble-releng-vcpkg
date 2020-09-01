@@ -221,7 +221,7 @@ As a result we have to [fork the zeroc-ice project](https://github.com/mumble-vo
 
 ### sndfile not found
 
-This is an error that is often encountered on 64bit Windows systems. The problem is usually that you have used the wrong developer command prompt and therefore cmake is trying to build a 32bit version of Mumble. As the `./Get-MumbleDeps.ps1` script automatically detects your system's architecture and only builds the 64bit version of the libraries (including `sndfile`). cmake then tries to locate a 32bit version of the library and fails.
+This is an error that is often encountered on 64bit Windows systems. The problem is usually that you have used the wrong developer command prompt and therefore cmake is trying to build a 32bit version of Mumble. The `./Get-MumbleDeps.ps1` script automatically detects your system's architecture and only builds the 64bit version of the libraries (including `sndfile`). cmake then tries to locate a 32bit version of the library and fails as only the 64bit version is present.
 
 The solution is to use a x64 developer command prompt. You can see what kind of build cmake is performing at the top of the cmake output. For 64 bit it should say `Architecture: 64bit`.
 
