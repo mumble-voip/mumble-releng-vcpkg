@@ -8,8 +8,6 @@ The Mumble project dependencies (libraries being used) will for the most part be
 
 We intend to provide workflows for setting up partial environments, for example to only compile the Mumble server software without the client, or with specific functionality not included.
 
-The vcpkg source and its requirements are found [here](https://github.com/Microsoft/vcpkg).
-
 ## Build environment setup
 
 After the dependencies have been prepared with vcpkg and CMake you can build the Mumble project with them.
@@ -89,7 +87,7 @@ From a terminal cd to the cloned `mumble-releng-vcpkg` git repository, set execu
 
 `./get-mumble_deps.sh`
 
-This will clone `vcpkg` and install the dependencies in the user's home directory. If you want to change the path, you ahve to edit `get-mumble_deps.sh` accordingly.
+This will clone `vcpkg` and install the dependencies in the user's home directory. If you want to change the path, you have to edit `get-mumble_deps.sh` accordingly.
 
 ## Building Mumble
 
@@ -110,7 +108,7 @@ CMake will generate a bunch of files so you should call it from a dedicated, emp
 
 On Windows you can't use the default command-prompt (as is) as it won't have the needed development tools in its PATH. Instead you have to use On Windows a "Developer Command Prompt". You can find it by searching in the start-menu. If you are on a 64bit system, then special care must be taken that you use a "x64" version of the Developer Prompt (often these are then called "x64 Native Tools Command Prompt"). The easiest way to get a hold of the correct command prompt is to search for "x64" and usually that is enough to bring the x64 developer prompt up.
 
-Note also that you **have** to sue the command prompt and **not** the Developer Powershell as the latter is always 32bit only.
+Note also that you **have** to use the command prompt and **not** the Developer Powershell as the latter is always 32bit only.
 
 If you are on a 64bit system, then you'll know that you have opened the correct prompt, if it prints `Environment initialized for: 'x64'`.
 
@@ -125,7 +123,7 @@ Important configuration options
 | `Ice_HOME` | `<vcpkg_root>/installed/x64-windows-static-md` | Required if you build with Ice (enabled by default) |
 | `static` | `ON` on Windows | Whether the build is a static build (otherwise dynamic) (environment default on Windows) |
 
-`<vcpkg_root>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the ge-dependency script).
+`<vcpkg_root>` is a placeholder for your prepared build environment vcpkg setup (the path to the vcpkg directory created by the get-dependency script).
 
 For Linux the command may be (using the default generator `make`)
 
@@ -141,7 +139,7 @@ cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dsta
 
 Optionally you can use `-G "Ninja"` to use the [Ninja buildsystem](https://ninja-build.org/) (which probably has to be installed separately). Especially on Windows this is recommended as the default `NMake Makefiles` only compile using a single thread (which takes quite a while).
 
-Additional Mumble project build configuration can be passed with `-D` defines. For the full list see the ouotput of `cmake -LH ..` (this also includes a lot of options from Mumble's dependencies like Qt and Opus) or use `cmake-gui`.
+Additional Mumble project build configuration can be passed with `-D` defines. For the full list see the output of `cmake -LH ..` (this also includes a lot of options from Mumble's dependencies like Qt and Opus) or use `cmake-gui`.
 
 | Option Define                          | Default | Description |
 | --- | --- | --- |
