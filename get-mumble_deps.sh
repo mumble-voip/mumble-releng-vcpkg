@@ -76,10 +76,8 @@ if [ -d "$VCPKGDIR" ]
             then
                 case "$OSTYPE" in
                     msys* ) ./bootstrap-vcpkg.bat -disableMetrics
-                            ./vcpkg integrate install
                     ;;
                     * ) bash bootstrap-vcpkg.sh -disableMetrics
-                        ./vcpkg integrate install
                     ;;
                 esac
         fi

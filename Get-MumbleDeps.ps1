@@ -63,7 +63,6 @@ try {
 		if (-not (Test-Path -LiteralPath $vcpkgdir/vcpkg.exe)) {
 			Write-Host "Installing vcpkg..."
 			./bootstrap-vcpkg.bat -disableMetrics
-			./vcpkg.exe integrate install
 		}
 
 		vcpkg_install -package mdnsresponder -targetTriplet $triplet
