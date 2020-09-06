@@ -1,5 +1,5 @@
 ﻿$profiledir = $Env:USERPROFILE 
-$vcpkgdir = $profiledir + "\mumble-vcpkg"
+$vcpkgdir = $profiledir + "\vcpkg"
 
 $mumble_deps = "qt5-base",
                "qt5-svg",
