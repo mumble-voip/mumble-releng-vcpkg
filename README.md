@@ -134,7 +134,7 @@ cmake "-DVCPKG_TARGET_TRIPLET=x64-linux" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/sc
 For Windows the command may be
 
 ```bash
-cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DCMAKE_BUILD_TYPE=Release" ..
+cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
 ```
 
 Optionally you can use `-G "Ninja"` to use the [Ninja buildsystem](https://ninja-build.org/) (which probably has to be installed separately). Especially on Windows this is recommended as the default `NMake Makefiles` only compile using a single thread (which takes quite a while).
@@ -143,7 +143,6 @@ Additional Mumble project build configuration can be passed with `-D` defines. F
 
 | Option Define                          | Default | Description |
 | --- | --- | --- |
-| `-DCMAKE_BUILD_TYPE=`        | Release | Specify the build type multi-config (msbuild, etc...) |
 | `-Dstatic=`                  | OFF | static linking of libraries (integrate) |
 | `-Dsymbols=`                 | OFF | Build symbols |
 | `-Dclient=`                  | ON | Build the client application |
@@ -167,9 +166,17 @@ cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dsta
 
 Once the project has completed configuration without errors, you can build it from the `build` directory with
 
-```bash
+```
 cmake --build .
 ```
+
+Windows builds can be done from a Developer Command prompt like this:
+
+```
+cmake --build . --config <build_type>
+```
+
+`<build_type>` can be specified as `Debug` or `Release`.
 
 Depending on the generator you used you can also use the generated make files (e.g. by calling `nmake`, `make`, `ninja` or `msbuild`).
 
