@@ -134,7 +134,7 @@ cmake "-DVCPKG_TARGET_TRIPLET=x64-linux" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/sc
 For Windows the command may be
 
 ```bash
-cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" ..
+cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-DCMAKE_BUILD_TYPE=Release" ..
 ```
 
 Optionally you can use `-G "Ninja"` to use the [Ninja buildsystem](https://ninja-build.org/) (which probably has to be installed separately). Especially on Windows this is recommended as the default `NMake Makefiles` only compile using a single thread (which takes quite a while).
