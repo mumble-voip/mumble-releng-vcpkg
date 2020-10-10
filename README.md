@@ -159,7 +159,7 @@ Additional Mumble project build configuration can be passed with `-D` defines. F
 To build only the server you could use
 
 ```bash
-cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-Dsymbols=ON" "-Dclient=OFF"
+cmake -G "NMake Makefiles" "-DVCPKG_TARGET_TRIPLET=x64-windows-static-md" "-Dstatic=ON" "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake" "-DIce_HOME=<vcpkg_root>/installed/x64-windows-static-md" "-Dsymbols=ON" "-Dclient=OFF" "-DCMAKE_BUILD_TYPE=Release"
 ```
 
 #### CMake Build
