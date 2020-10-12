@@ -1,4 +1,10 @@
-﻿# mumble-releng-vcpkg
+﻿# Important
+ 
+ The build documentation (and all needed scripts & port files) is now located directly in the main repository. See https://github.com/mumble-voip/mumble/tree/master/docs/dev/build-instructions.
+ 
+ Therefore this repo is now considered **deprecated**!
+ 
+ # mumble-releng-vcpkg
 
 The goal of this project is to prepare a compilation environment for Mumble.
 
